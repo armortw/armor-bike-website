@@ -305,7 +305,46 @@
   }
 
   // ── Product detail page ────────────────────────────────────────────────────
+  // ── ProductDetail ──────────────────────────────────────────────────────────
+  const PdpIcon = {
+    truck: (p) => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', ...p },
+      React.createElement('path', { d: 'M1 3h12v11H1zM13 7h5l3 3.5V14h-8z' }), React.createElement('circle', { cx: 6, cy: 18, r: 1.8 }), React.createElement('circle', { cx: 17, cy: 18, r: 1.8 })),
+    shield: (p) => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', ...p },
+      React.createElement('path', { d: 'M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z' }), React.createElement('path', { d: 'M9 12l2 2 4-4' })),
+    lock: (p) => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', ...p },
+      React.createElement('rect', { x: 4, y: 11, width: 16, height: 10, rx: 2 }), React.createElement('path', { d: 'M8 11V7a4 4 0 0 1 8 0v4' })),
+    refresh: (p) => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', ...p },
+      React.createElement('path', { d: 'M21 12a9 9 0 1 1-3-6.7L21 8' }), React.createElement('path', { d: 'M21 3v5h-5' }))
+  };
+
+  const PDP_CSS = [
+    '@keyframes pdpRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}',
+    '.pdp .rise{animation:pdpRise .55s cubic-bezier(.2,.7,.2,1) both}',
+    '.pdp-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:52px;align-items:start}',
+    '.pdp-info{position:sticky;top:18px}',
+    '.pdp-stage{transition:box-shadow .3s}',
+    '.pdp-stage img{transition:transform .45s cubic-bezier(.2,.7,.2,1)}',
+    '.pdp-stage:hover img{transform:scale(1.045)}',
+    '.pdp-arrow{transition:transform .14s,background .15s,box-shadow .15s}',
+    '.pdp-arrow:hover{transform:translateY(-50%) scale(1.08);background:#fff;box-shadow:0 6px 18px rgba(22,24,29,.22)}',
+    '.pdp-arrow:active{transform:translateY(-50%) scale(.96)}',
+    '.pdp-thumb{transition:transform .15s,border-color .15s}',
+    '.pdp-thumb:hover{transform:translateY(-3px)}',
+    '.pdp-cta{transition:transform .12s,box-shadow .22s,background .2s}',
+    '.pdp-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,110,224,.34)}',
+    '.pdp-cta:active{transform:translateY(0)}',
+    '.pdp-step{transition:background .14s,color .14s}',
+    '.pdp-step:hover{background:#eef3f8;color:var(--brand-primary)}',
+    '.pdp-wish{transition:transform .12s,border-color .15s,color .15s,background .15s}',
+    '.pdp-wish:hover{transform:translateY(-1px);background:#fff5f8}',
+    '.pdp-trustitem{transition:transform .15s}.pdp-trustitem:hover{transform:translateY(-2px)}',
+    '.pdp button:focus-visible,.pdp a:focus-visible{outline:2px solid var(--brand-primary);outline-offset:3px}',
+    '@media(max-width:920px){.pdp-grid{grid-template-columns:1fr;gap:30px}.pdp-info{position:static}}',
+    '@media(max-width:560px){.pdp-trust{grid-template-columns:1fr 1fr!important}}'
+  ].join('');
+
   function ProductDetail({ product, onBack, isWishlisted, onToggleWishlist, onAddToCart }) {
+    const el = React.createElement;
     const imgs = getImages(product);
     const [idx, setIdx] = React.useState(0);
     const [qty, setQty] = React.useState(1);
@@ -313,51 +352,139 @@
 
     const handleAdd = () => { onAddToCart(product, qty); setAdded(true); setTimeout(() => setAdded(false), 2200); };
 
-    return React.createElement('main', { style: { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 28px 80px' } },
-      React.createElement('button', { onClick: onBack, style: { display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--brand-primary)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 'var(--text-md)', padding: '18px 0 16px' } }, '‹ Back to catalog'),
-      React.createElement('div', { style: { display: 'flex', gap: 60, alignItems: 'flex-start' } },
-        React.createElement('div', { style: { flex: '0 0 480px' } },
-          React.createElement('div', { style: { position: 'relative', background: 'var(--surface-media)', borderRadius: 12, aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 24 } },
+    const cur = product.currency || '€';
+    const fmt = (n) => n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const hasSale = !!product.oldPrice;
+    const saveAmt = hasSale ? parsePrice(product.oldPrice) - parsePrice(product.price) : 0;
+    const specParts = (product.spec || '').split(/[·,]/).map(s => s.trim()).filter(Boolean);
+
+    const trust = [
+      { icon: PdpIcon.truck, t: 'Fast dispatch', s: product.note || 'Ships in 24h' },
+      { icon: PdpIcon.shield, t: '2-year warranty', s: 'Manufacturer backed' },
+      { icon: PdpIcon.lock, t: 'Secure checkout', s: 'Encrypted payment' },
+      { icon: PdpIcon.refresh, t: '30-day returns', s: 'Hassle-free' }
+    ];
+
+    const specRows = [
+      ['Brand', product.manufacturer],
+      ['Model', product.name],
+      specParts[0] ? ['Model year / variant', specParts.join(' · ')] : null,
+      ['Availability', product.note ? product.note : 'In stock']
+    ].filter(Boolean);
+
+    return el('main', { className: 'pdp', style: { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 28px 90px' } },
+      el('style', null, PDP_CSS),
+
+      // Breadcrumb + back
+      el('div', { className: 'rise', style: { display: 'flex', alignItems: 'center', gap: 10, padding: '20px 0 18px', flexWrap: 'wrap' } },
+        el('button', { onClick: onBack, className: 'pdp-cta', style: { display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--surface-media)', border: 'none', cursor: 'pointer', color: 'var(--text-strong)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 13, padding: '8px 14px', borderRadius: 999 } }, '‹ Back'),
+        el('div', { style: { display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--text-muted)' } },
+          el('span', null, product.manufacturer),
+          el('span', { style: { color: 'var(--border-default)' } }, '/'),
+          el('span', { style: { color: 'var(--text-body)', fontWeight: 600 } }, product.name)
+        )
+      ),
+
+      // Main grid
+      el('div', { className: 'pdp-grid' },
+        // ── Gallery ──
+        el('div', { className: 'rise', style: { animationDelay: '.05s' } },
+          el('div', { className: 'pdp-stage', style: { position: 'relative', background: 'radial-gradient(120% 120% at 30% 20%, #ffffff 0%, var(--surface-media) 70%)', borderRadius: 20, aspectRatio: '4 / 3', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 36, boxShadow: '0 1px 0 rgba(22,24,29,.04), 0 22px 48px -28px rgba(0,110,224,.28)', border: '1px solid var(--border-subtle)' } },
+            product.badge && el('div', { style: { position: 'absolute', top: 18, left: 18, zIndex: 3, background: 'var(--text-sale)', color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, letterSpacing: '.02em', padding: '5px 12px', borderRadius: 999, boxShadow: '0 6px 16px -4px rgba(224,0,75,.5)' } }, product.badge),
             imgs[0]
-              ? React.createElement('img', { src: imgs[idx].url, alt: imgs[idx].alt || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', mixBlendMode: 'multiply' } })
-              : React.createElement('span', { style: { color: 'var(--gray-300)', fontFamily: 'var(--font-mono)' } }, 'No image'),
-            imgs.length > 1 && React.createElement('button', { onClick: () => setIdx(i => (i - 1 + imgs.length) % imgs.length), style: { position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 16, background: 'rgba(255,255,255,.95)', border: '1px solid var(--border-subtle)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, boxShadow: '0 2px 10px rgba(0,0,0,.12)', zIndex: 2 } }, '‹'),
-            imgs.length > 1 && React.createElement('button', { onClick: () => setIdx(i => (i + 1) % imgs.length), style: { position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: 16, background: 'rgba(255,255,255,.95)', border: '1px solid var(--border-subtle)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, boxShadow: '0 2px 10px rgba(0,0,0,.12)', zIndex: 2 } }, '›'),
-            imgs.length > 1 && React.createElement('div', { style: { position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', background: 'rgba(22,24,29,.60)', color: '#fff', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, padding: '4px 14px', borderRadius: 20 } }, (idx + 1) + ' / ' + imgs.length)
+              ? el('img', { src: imgs[idx].url, alt: imgs[idx].alt || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', mixBlendMode: 'multiply', willChange: 'transform' } })
+              : el('span', { style: { color: 'var(--gray-300)', fontFamily: 'var(--font-mono)' } }, 'No image'),
+            imgs.length > 1 && el('button', { 'aria-label': 'Previous image', className: 'pdp-arrow', onClick: () => setIdx(i => (i - 1 + imgs.length) % imgs.length), style: { position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 16, background: 'rgba(255,255,255,.92)', border: '1px solid var(--border-subtle)', cursor: 'pointer', width: 46, height: 46, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, color: 'var(--text-strong)', boxShadow: '0 2px 10px rgba(0,0,0,.10)', zIndex: 2 } }, '‹'),
+            imgs.length > 1 && el('button', { 'aria-label': 'Next image', className: 'pdp-arrow', onClick: () => setIdx(i => (i + 1) % imgs.length), style: { position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: 16, background: 'rgba(255,255,255,.92)', border: '1px solid var(--border-subtle)', cursor: 'pointer', width: 46, height: 46, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, color: 'var(--text-strong)', boxShadow: '0 2px 10px rgba(0,0,0,.10)', zIndex: 2 } }, '›'),
+            imgs.length > 1 && el('div', { style: { position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', background: 'rgba(22,24,29,.62)', color: '#fff', fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 700, padding: '4px 14px', borderRadius: 20, backdropFilter: 'blur(6px)' } }, (idx + 1) + ' / ' + imgs.length)
           ),
-          imgs.length > 1 && React.createElement('div', { style: { display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' } },
-            imgs.map((img, i) => React.createElement('button', { key: i, onClick: () => setIdx(i), style: { width: 72, height: 72, background: 'var(--surface-media)', border: '2px solid ' + (i === idx ? 'var(--brand-primary)' : 'transparent'), borderRadius: 8, overflow: 'hidden', cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'border-color .12s' } },
-              React.createElement('img', { src: img.url, alt: img.alt || '', style: { width: '100%', height: '100%', objectFit: 'contain' } })
+          imgs.length > 1 && el('div', { style: { display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' } },
+            imgs.map((img, i) => el('button', { key: i, 'aria-label': 'View image ' + (i + 1), className: 'pdp-thumb', onClick: () => setIdx(i), style: { width: 74, height: 74, background: 'var(--surface-media)', border: '2px solid ' + (i === idx ? 'var(--brand-primary)' : 'var(--border-subtle)'), borderRadius: 12, overflow: 'hidden', cursor: 'pointer', padding: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+              el('img', { src: img.url, alt: img.alt || '', style: { width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' } })
             ))
           )
         ),
-        React.createElement('div', { style: { flex: 1, paddingTop: 8 } },
-          product.badge && React.createElement('div', { style: { marginBottom: 10 } }, React.createElement(Badge, { variant: 'sale' }, product.badge)),
-          React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-strong)', marginBottom: 8 } }, product.manufacturer),
-          React.createElement('h1', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 26, color: 'var(--text-strong)', margin: '0 0 10px', lineHeight: 1.2 } }, product.name),
-          product.spec && React.createElement('div', { style: { fontSize: 15, color: 'var(--text-muted)', marginBottom: 22, lineHeight: 1.5 } }, product.spec),
-          React.createElement('div', { style: { display: 'flex', alignItems: 'baseline', gap: 14 } },
-            React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 38, color: product.oldPrice ? 'var(--text-sale)' : 'var(--text-strong)' } },
-              product.price, ' ', product.currency || '€', React.createElement('span', { style: { fontSize: 20 } }, '*')
-            ),
-            product.oldPrice && React.createElement('span', { style: { fontSize: 18, color: 'var(--text-muted)', textDecoration: 'line-through' } }, product.oldPrice, ' ', product.currency || '€')
+
+        // ── Info panel ──
+        el('div', { className: 'pdp-info rise', style: { animationDelay: '.12s', paddingTop: 2 } },
+          el('div', { style: { display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--brand-primary)', marginBottom: 10 } },
+            el('span', { style: { width: 22, height: 2, background: 'var(--brand-accent)', borderRadius: 2 } }), product.manufacturer
           ),
-          product.note && React.createElement('div', { style: { fontSize: 13, color: 'var(--text-sale)', fontWeight: 600, marginTop: 6 } }, product.note),
-          React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 12, marginTop: 28, marginBottom: 14 } },
-            React.createElement('div', { style: { display: 'flex', alignItems: 'center', border: '1px solid var(--border-default)', borderRadius: 8, overflow: 'hidden' } },
-              React.createElement('button', { onClick: () => setQty(q => Math.max(1, q - 1)), style: { width: 40, height: 46, background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: 20 } }, '−'),
-              React.createElement('span', { style: { width: 44, textAlign: 'center', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 } }, qty),
-              React.createElement('button', { onClick: () => setQty(q => q + 1), style: { width: 40, height: 46, background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: 20 } }, '+')
+          el('h1', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 32, lineHeight: 1.12, letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '0 0 12px' } }, product.name),
+          product.spec && el('div', { style: { fontSize: 15, color: 'var(--text-muted)', marginBottom: 22, lineHeight: 1.55 } }, product.spec),
+
+          // Price block
+          el('div', { style: { background: 'linear-gradient(180deg,#fbfdff,var(--surface-media))', border: '1px solid var(--border-subtle)', borderRadius: 16, padding: '18px 20px', marginBottom: 18 } },
+            el('div', { style: { display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' } },
+              el('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 40, lineHeight: 1, color: hasSale ? 'var(--text-sale)' : 'var(--text-strong)' } },
+                product.price, ' ', cur, el('span', { style: { fontSize: 20, verticalAlign: 'super' } }, '*')
+              ),
+              hasSale && el('span', { style: { fontSize: 18, color: 'var(--text-muted)', textDecoration: 'line-through' } }, product.oldPrice, ' ', cur),
+              hasSale && saveAmt > 0 && el('span', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 12, color: '#0a7d3d', background: '#e6f6ec', border: '1px solid #b7e6c8', padding: '4px 10px', borderRadius: 999 } }, 'Save ' + fmt(saveAmt) + ' ' + cur)
             ),
-            React.createElement('button', { onClick: handleAdd, style: { flex: 1, height: 46, background: added ? '#16a34a' : 'var(--brand-primary)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 8, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background .2s' } },
-              added ? React.createElement(Icon.check, { stroke: '#fff' }) : null,
+            el('div', { style: { fontSize: 12, color: 'var(--text-muted)', marginTop: 6 } }, '* incl. VAT, plus shipping')
+          ),
+
+          // Availability line
+          el('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 13, color: '#0a7d3d' } },
+            el('span', { style: { width: 9, height: 9, borderRadius: '50%', background: '#16a34a', boxShadow: '0 0 0 4px rgba(22,163,74,.15)' } }),
+            product.note || 'In stock — ready to ship'
+          ),
+
+          // Quantity + Add to cart
+          el('div', { style: { display: 'flex', alignItems: 'stretch', gap: 12, marginBottom: 12 } },
+            el('div', { style: { display: 'flex', alignItems: 'center', border: '1px solid var(--border-default)', borderRadius: 12, overflow: 'hidden', background: '#fff' } },
+              el('button', { 'aria-label': 'Decrease quantity', className: 'pdp-step', onClick: () => setQty(q => Math.max(1, q - 1)), style: { width: 42, height: 52, background: '#fff', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--text-body)' } }, '−'),
+              el('span', { style: { width: 44, textAlign: 'center', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 17 } }, qty),
+              el('button', { 'aria-label': 'Increase quantity', className: 'pdp-step', onClick: () => setQty(q => q + 1), style: { width: 42, height: 52, background: '#fff', border: 'none', cursor: 'pointer', fontSize: 20, color: 'var(--text-body)' } }, '+')
+            ),
+            el('button', { onClick: handleAdd, className: 'pdp-cta', style: { flex: 1, height: 52, background: added ? '#16a34a' : 'var(--brand-primary)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 15.5, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 8px 20px -6px rgba(0,110,224,.5)' } },
+              added ? el(Icon.check, { stroke: '#fff' }) : el(Icon.cart, { width: 20, height: 20 }),
               added ? '已加入購物車！' : '加入購物車'
             )
           ),
-          React.createElement('button', { onClick: () => onToggleWishlist(product), style: { width: '100%', height: 44, background: 'none', cursor: 'pointer', borderRadius: 8, border: '1px solid ' + (isWishlisted ? '#e0004b' : 'var(--border-default)'), color: isWishlisted ? '#e0004b' : 'var(--text-body)', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all .15s' } },
-            React.createElement('svg', { width: 16, height: 16, viewBox: '0 0 24 24', fill: isWishlisted ? '#e0004b' : 'none', stroke: isWishlisted ? '#e0004b' : 'currentColor', strokeWidth: 2 },
-              React.createElement('path', { d: 'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z' })),
+          el('button', { onClick: () => onToggleWishlist(product), className: 'pdp-wish', style: { width: '100%', height: 48, background: isWishlisted ? '#fff5f8' : '#fff', cursor: 'pointer', borderRadius: 12, border: '1px solid ' + (isWishlisted ? '#e0004b' : 'var(--border-default)'), color: isWishlisted ? '#e0004b' : 'var(--text-body)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 } },
+            el('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: isWishlisted ? '#e0004b' : 'none', stroke: isWishlisted ? '#e0004b' : 'currentColor', strokeWidth: 2 },
+              el('path', { d: 'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z' })),
             isWishlisted ? '已加入願望清單' : '加入願望清單'
+          ),
+
+          // Trust strip
+          el('div', { className: 'pdp-trust', style: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, marginTop: 22 } },
+            trust.map((it, i) => el('div', { key: i, className: 'pdp-trustitem', style: { background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 12, padding: '12px 10px', textAlign: 'center' } },
+              el('div', { style: { color: 'var(--brand-primary)', display: 'flex', justifyContent: 'center', marginBottom: 6 } }, el(it.icon, null)),
+              el('div', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 12, color: 'var(--text-strong)', lineHeight: 1.2 } }, it.t),
+              el('div', { style: { fontSize: 11, color: 'var(--text-muted)', marginTop: 2, lineHeight: 1.25 } }, it.s)
+            ))
+          )
+        )
+      ),
+
+      // ── Details + specifications ──
+      el('div', { className: 'rise', style: { animationDelay: '.18s', marginTop: 56, display: 'grid', gridTemplateColumns: 'minmax(0,1.05fr) minmax(0,.95fr)', gap: 52, alignItems: 'start' } },
+        el('div', { style: { gridColumn: '1 / -1', display: 'grid', gap: 4 } },
+          el('div', { style: { display: 'inline-flex', alignItems: 'center', gap: 10 } },
+            el('span', { style: { width: 28, height: 3, background: 'var(--brand-accent)', borderRadius: 3 } }),
+            el('h2', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 22, color: 'var(--text-strong)', margin: 0 } }, 'Product details')
+          )
+        ),
+        el('div', { style: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 52 } },
+          el('div', null,
+            el('h3', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 13, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '18px 0 10px' } }, 'Overview'),
+            el('p', { style: { fontSize: 15, lineHeight: 1.7, color: 'var(--text-body)', margin: 0 } },
+              'The ', el('strong', null, product.name), ' by ', el('strong', null, product.manufacturer), '.',
+              product.spec ? ' ' + product.spec + '.' : '',
+              ' Sourced through ARMOR BIKE’s professional supply chain and quality-checked before dispatch.'
+            )
+          ),
+          el('div', null,
+            el('h3', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 13, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--text-muted)', margin: '18px 0 10px' } }, 'Specifications'),
+            el('div', { style: { border: '1px solid var(--border-subtle)', borderRadius: 14, overflow: 'hidden' } },
+              specRows.map((row, i) => el('div', { key: i, style: { display: 'flex', justifyContent: 'space-between', gap: 16, padding: '11px 16px', background: i % 2 ? '#fff' : 'var(--surface-media)', fontSize: 14 } },
+                el('span', { style: { color: 'var(--text-muted)', fontWeight: 600, flexShrink: 0 } }, row[0]),
+                el('span', { style: { color: 'var(--text-strong)', fontWeight: 700, textAlign: 'right' } }, row[1])
+              ))
+            )
           )
         )
       )
