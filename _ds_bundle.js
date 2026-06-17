@@ -191,7 +191,7 @@ function ProductCard({
   spec,
   price,
   oldPrice = null,
-  currency = null,
+  currency = '€',
   image = null,
   badge = null,
   note = null,
@@ -552,20 +552,5 @@ function SearchInput({
 }
 Object.assign(__ds_scope, { SearchInput });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SearchInput.jsx", error: String((e && e.message) || e) }); }
-
-
-__ds_ns.Badge = __ds_scope.Badge;
-
-__ds_ns.ColorSwatch = __ds_scope.ColorSwatch;
-
-__ds_ns.FilterGroup = __ds_scope.FilterGroup;
-
-__ds_ns.ProductCard = __ds_scope.ProductCard;
-
-__ds_ns.Button = __ds_scope.Button;
-
-__ds_ns.Checkbox = __ds_scope.Checkbox;
-
-__ds_ns.SearchInput = __ds_scope.SearchInput;
 
 })();
