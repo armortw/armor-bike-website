@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 08:12 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 08:22 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -16,28 +16,7 @@
     brown: '#8b5e3c'
   };
   var categories = [];
-  var images = [
-  {
-    "id": 1,
-    "url": "https://placehold.co/1400x560/111827/ffffff?text=Armor+Website+Hero+1",
-    "alt": "Armor_Website_Hero-1"
-  },
-  {
-    "id": 2,
-    "url": "https://placehold.co/1400x560/0f3460/ffffff?text=Armor+Website+Hero+2",
-    "alt": "Armor_Website_Hero-2"
-  },
-  {
-    "id": 3,
-    "url": "https://placehold.co/1400x560/1a1a2e/ffffff?text=Armor+Website+Hero+3",
-    "alt": "Armor_Website_Hero-3"
-  },
-  {
-    "id": 4,
-    "url": "https://placehold.co/1400x560/16213e/ffffff?text=Armor+Website+Hero+4",
-    "alt": "Armor_Website_Hero-4"
-  }
-];
+  var images = [];
   var hero = [];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
