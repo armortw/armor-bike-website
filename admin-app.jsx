@@ -27,7 +27,7 @@
 
   function getInitialData() {
     const cms = loadCMS();
-    if (cms && cms.categories) return { hero: [], ...cms };
+    if (cms && cms.categories && cms.categories.length > 0) return { hero: [], ...cms };
     return { categories: JSON.parse(JSON.stringify(window.STORE.categories)), images: [], badges: [], hero: [] };
   }
 
@@ -1421,26 +1421,47 @@
         if (testRes.status === 404) throw new Error(`找不到 Repository：${repo}，請確認名稱格式為 owner/repo。`);
         if (!testRes.ok) throw new Error(`無法連接 GitHub (${testRes.status})`);
 
-        // 2. Commit store-data.js
+        // 2. Commit store-data.js — use generated only if admin has real CMS data
         step('正在提交 store-data.js…');
-        const storeData = generateStoreJS(data);
-        await commitFile('store-data.js', storeData, 'Deploy: update store data');
+        if (data.categories && data.categories.length > 0) {
+          await commitFile('store-data.js', generateStoreJS(data), 'Deploy: update store data');
+        } else {
+          try {
+            const r = await fetch('./store-data.js?' + Date.now());
+            if (r.ok) { await commitFile('store-data.js', await r.text(), 'Deploy: update store data'); }
+          } catch (_) {}
+        }
 
-        // 3. Commit store-app.jsx (if readable from current server)
+        // 3. Commit index.html (storefront entry)
+        try {
+          step('正在提交 index.html…');
+          const r = await fetch('./index.html?' + Date.now());
+          if (r.ok) { await commitFile('index.html', await r.text(), 'Deploy: update storefront index'); }
+        } catch (_) {}
+
+        // 4. Commit admin.html (admin entry)
+        try {
+          step('正在提交 admin.html…');
+          const r = await fetch('./admin.html?' + Date.now());
+          if (r.ok) { await commitFile('admin.html', await r.text(), 'Deploy: update admin entry'); }
+        } catch (_) {}
+
+        // 5. Commit store-app.jsx (if readable from current server)
         try {
           step('正在提交 store-app.jsx…');
           const r = await fetch('./store-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('store-app.jsx', await r.text(), 'Deploy: update store app'); }
         } catch (_) {}
 
-        // 4. Commit admin-app.jsx (if readable from current server)
+        // 6. Commit admin-app.jsx (if readable from current server)
         try {
           step('正在提交 admin-app.jsx…');
           const r = await fetch('./admin-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('admin-app.jsx', await r.text(), 'Deploy: update admin app'); }
         } catch (_) {}
 
-        setDeployUrl(siteUrl || `https://github.com/${repo}`);
+        const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : `https://github.com/${repo}`;
+        setDeployUrl(normalizedUrl.replace(/\/$/, ''));
         setPhase('done');
       } catch (err) {
         setErrMsg(err.message);
