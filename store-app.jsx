@@ -472,7 +472,7 @@
 
     return React.createElement('section', {
       'aria-label': 'Hero carousel',
-      style: { position: 'relative', overflow: 'hidden', background: '#05080d', userSelect: 'none', width: '100%', height: 'clamp(300px, 42vw, 560px)', transition: 'opacity 0.2s var(--ease-standard)' },
+      style: { position: 'relative', overflow: 'hidden', background: '#05080d', userSelect: 'none', width: '100%', height: 'clamp(200px, 30vw, 420px)', transition: 'opacity 0.2s var(--ease-standard)' },
       onMouseEnter: () => setPaused(true),
       onMouseLeave: () => setPaused(false)
     },
@@ -485,7 +485,9 @@
           inset: 0,
           opacity: i === active ? 1 : 0,
           transition: 'opacity 0.85s cubic-bezier(0.4,0,0.2,1)',
-          zIndex: i === active ? 1 : 0
+          zIndex: i === active ? 1 : 0,
+          padding: 'clamp(12px, 2.4vw, 32px)',
+          boxSizing: 'border-box'
         }
       },
         React.createElement('img', {
