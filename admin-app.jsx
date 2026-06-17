@@ -1432,28 +1432,42 @@
           } catch (_) {}
         }
 
-        // 3. Commit index.html (storefront entry)
+        // 3. Commit _ds_bundle.js (design system)
+        try {
+          step('正在提交 _ds_bundle.js…');
+          const r = await fetch('./_ds_bundle.js?' + Date.now());
+          if (r.ok) { await commitFile('_ds_bundle.js', await r.text(), 'Deploy: update design system bundle'); }
+        } catch (_) {}
+
+        // 4. Commit styles.css
+        try {
+          step('正在提交 styles.css…');
+          const r = await fetch('./styles.css?' + Date.now());
+          if (r.ok) { await commitFile('styles.css', await r.text(), 'Deploy: update styles'); }
+        } catch (_) {}
+
+        // 5. Commit index.html (storefront entry)
         try {
           step('正在提交 index.html…');
           const r = await fetch('./index.html?' + Date.now());
           if (r.ok) { await commitFile('index.html', await r.text(), 'Deploy: update storefront index'); }
         } catch (_) {}
 
-        // 4. Commit admin.html (admin entry)
+        // 6. Commit admin.html (admin entry)
         try {
           step('正在提交 admin.html…');
           const r = await fetch('./admin.html?' + Date.now());
           if (r.ok) { await commitFile('admin.html', await r.text(), 'Deploy: update admin entry'); }
         } catch (_) {}
 
-        // 5. Commit store-app.jsx (if readable from current server)
+        // 7. Commit store-app.jsx
         try {
           step('正在提交 store-app.jsx…');
           const r = await fetch('./store-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('store-app.jsx', await r.text(), 'Deploy: update store app'); }
         } catch (_) {}
 
-        // 6. Commit admin-app.jsx (if readable from current server)
+        // 8. Commit admin-app.jsx
         try {
           step('正在提交 admin-app.jsx…');
           const r = await fetch('./admin-app.jsx?' + Date.now());
