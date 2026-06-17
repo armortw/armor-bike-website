@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 09:51 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 10:21 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2407,14 +2407,14 @@
     "alt": "Pedal_rainbow_EDM"
   },
   {
-    "id": 1781689896911.1091,
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689864/lcucsvoho7hcufbqvsp7.png",
-    "alt": "Dropper Seat Post EDM"
-  },
-  {
     "id": 1781689899441.6396,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689883/zqy1m58qoxjhwehrbswn.png",
     "alt": "HUB"
+  },
+  {
+    "id": 1781689896911.1091,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689864/lcucsvoho7hcufbqvsp7.png",
+    "alt": "Dropper Seat Post EDM"
   },
   {
     "id": 1781689897937.1333,
@@ -2426,7 +2426,7 @@
   categories.forEach(function (c) { map[c.id] = c; });
   try {
     var _cms = localStorage.getItem('ARMOR_BIKE_CMS');
-    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero)) { hero = _d.hero; } } }
+    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }
   } catch (_e) {}
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
 })();
