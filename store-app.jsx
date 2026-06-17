@@ -472,7 +472,7 @@
 
     return React.createElement('section', {
       'aria-label': 'Hero carousel',
-      style: { position: 'relative', overflow: 'hidden', background: '#05080d', userSelect: 'none', aspectRatio: String(activeRatio), transition: 'opacity 0.2s var(--ease-standard)' },
+      style: { position: 'relative', overflow: 'hidden', background: '#05080d', userSelect: 'none', width: '100%', height: 'clamp(300px, 42vw, 560px)', transition: 'opacity 0.2s var(--ease-standard)' },
       onMouseEnter: () => setPaused(true),
       onMouseLeave: () => setPaused(false)
     },
