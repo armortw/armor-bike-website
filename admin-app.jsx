@@ -9,17 +9,12 @@
   const AUTH_KEY = 'ARMOR_BIKE_AUTH';
   const USERS_KEY = 'ARMOR_BIKE_USERS';
 
-  const DEFAULT_USERS = [
-    { id: 1, username: 'admin', password: 'admin123', role: 'admin', name: 'Administrator' },
-    { id: 2, username: 'editor', password: 'editor123', role: 'editor', name: 'Editor' },
-  ];
-
   // ── storage ──────────────────────────────────────────────────────────────
   const loadCMS = () => { try { const r = localStorage.getItem(CMS_KEY); return r ? JSON.parse(r) : null; } catch { return null; } };
   const saveCMS = (d) => localStorage.setItem(CMS_KEY, JSON.stringify(d));
   const loadAuth = () => { try { const r = localStorage.getItem(AUTH_KEY); return r ? JSON.parse(r) : null; } catch { return null; } };
   const saveAuth = (u) => u ? localStorage.setItem(AUTH_KEY, JSON.stringify(u)) : localStorage.removeItem(AUTH_KEY);
-  const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); return r ? JSON.parse(r) : DEFAULT_USERS; } catch { return DEFAULT_USERS; } };
+  const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); return r ? JSON.parse(r) : []; } catch { return []; } };
   const saveUsers = (u) => localStorage.setItem(USERS_KEY, JSON.stringify(u));
 
   const CLOUDINARY_KEY = 'ARMOR_BIKE_CDN';
@@ -94,16 +89,54 @@
     );
   }
 
+  // ── FirstTimeSetup ────────────────────────────────────────────────────────
+  function FirstTimeSetup({ onSetup }) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [err, setErr] = useState('');
+    const submit = (ev) => {
+      ev.preventDefault();
+      if (!username.trim()) return setErr('請輸入帳號');
+      if (password.length < 6) return setErr('密碼至少需要 6 個字元');
+      if (password !== confirm) return setErr('兩次密碼不一致');
+      const admin = { id: 1, username: username.trim(), password, role: 'admin', name: displayName.trim() || username.trim() };
+      saveUsers([admin]);
+      saveAuth(admin);
+      onSetup(admin);
+    };
+    return e('div', { style: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%)' } },
+      e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 420 } },
+        e('div', { style: { textAlign: 'center', marginBottom: 32 } },
+          e('img', { src: 'assets/logo-armorbike-on-light.svg', alt: 'ARMOR BIKE', style: { height: 38 } }),
+          e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, '建立管理員帳號'),
+          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '首次使用，請設定您的登入帳號與密碼')
+        ),
+        e('form', { onSubmit: submit },
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '顯示名稱'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: 'Administrator', autoFocus: true })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '帳號'), e(Input, { value: username, onChange: ev => setUsername(ev.target.value), placeholder: 'admin' })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '密碼（至少 6 位）'), e(Input, { type: 'password', value: password, onChange: ev => setPassword(ev.target.value), placeholder: '••••••••' })),
+          e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, '確認密碼'), e(Input, { type: 'password', value: confirm, onChange: ev => setConfirm(ev.target.value), placeholder: '••••••••' })),
+          err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
+          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, '建立帳號並登入')
+        )
+      )
+    );
+  }
+
   // ── Login ─────────────────────────────────────────────────────────────────
   function Login({ onLogin }) {
+    const [isFirstTime] = useState(() => !localStorage.getItem(USERS_KEY));
     const [u, setU] = useState('');
     const [p, setP] = useState('');
     const [err, setErr] = useState('');
+    if (isFirstTime) return e(FirstTimeSetup, { onSetup: onLogin });
     const submit = (ev) => {
       ev.preventDefault();
       const user = loadUsers().find(x => x.username === u && x.password === p);
       if (user) { saveAuth(user); onLogin(user); }
-      else setErr('Invalid username or password');
+      else setErr('帳號或密碼錯誤');
     };
     return e('div', { style: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%)' } },
       e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 400 } },
@@ -117,10 +150,6 @@
           e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, 'Password'), e(Input, { type: 'password', value: p, onChange: ev => setP(ev.target.value), placeholder: '••••••••' })),
           err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
           e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, 'Sign In')
-        ),
-        e('div', { style: { marginTop: 24, padding: '14px 16px', background: '#f8fafc', borderRadius: 10 } },
-          e('p', { style: { margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#64748b' } }, 'Demo accounts'),
-          e('p', { style: { margin: 0, fontSize: 12, color: '#94a3b8', fontFamily: 'monospace' } }, 'admin / admin123  ·  editor / editor123')
         )
       )
     );
@@ -1454,8 +1483,9 @@
           e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已提交到 GitHub！'),
           e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署，約 30 秒後上線。')
         ),
-        e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20 } },
-          e('a', { href: deployUrl, target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 查看網站'),
+        e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20, flexWrap: 'wrap' } },
+          e('a', { href: deployUrl, target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
+          e('a', { href: deployUrl ? deployUrl.replace(/\/?$/, '/admin.html') : '#', target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ 後台管理'),
           e('button', { onClick: onClose, style: S.btnGhost }, '關閉')
         )
       ),
