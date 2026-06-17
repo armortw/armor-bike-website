@@ -27,8 +27,19 @@
 
   function getInitialData() {
     const cms = loadCMS();
-    if (cms && cms.categories && cms.categories.length > 0) return { hero: [], ...cms };
-    return { categories: JSON.parse(JSON.stringify(window.STORE.categories)), images: [], badges: [], hero: [] };
+    const published = {
+      categories: JSON.parse(JSON.stringify(window.STORE.categories)),
+      images: JSON.parse(JSON.stringify(window.STORE.images || [])),
+      badges: [],
+      hero: JSON.parse(JSON.stringify(window.STORE.hero || []))
+    };
+    if (cms && cms.categories && cms.categories.length > 0) {
+      const merged = { ...published, ...cms };
+      if (!Array.isArray(cms.images) || !cms.images.length) merged.images = published.images;
+      if (!Array.isArray(cms.hero) || !cms.hero.length) merged.hero = published.hero;
+      return merged;
+    }
+    return published;
   }
 
   function generateStoreJS(data) {
@@ -46,7 +57,7 @@
       `  categories.forEach(function (c) { map[c.id] = c; });`,
       `  try {`,
       `    var _cms = localStorage.getItem('ARMOR_BIKE_CMS');`,
-      `    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero)) { hero = _d.hero; } } }`,
+      `    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }`,
       `  } catch (_e) {}`,
       `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };`,
       `})();`,
