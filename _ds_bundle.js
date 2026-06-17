@@ -553,4 +553,5 @@ function SearchInput({
 Object.assign(__ds_scope, { SearchInput });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SearchInput.jsx", error: String((e && e.message) || e) }); }
 
+Object.assign(__ds_ns, __ds_scope);
 })();
