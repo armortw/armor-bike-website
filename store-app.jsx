@@ -433,8 +433,12 @@
     const [active, setActive] = React.useState(0);
     const [paused, setPaused] = React.useState(false);
     const [progress, setProgress] = React.useState(0);
+    const [ratios, setRatios] = React.useState({});
     const INTERVAL = 5000;
     const count = heroImgs.length;
+    const activeImg = heroImgs[active] || heroImgs[0] || {};
+    const activeKey = activeImg.url || activeImg.id || active;
+    const activeRatio = ratios[activeKey] || 1.5;
 
     React.useEffect(() => {
       if (count <= 1 || paused) { setProgress(0); return; }
@@ -468,7 +472,7 @@
 
     return React.createElement('section', {
       'aria-label': 'Hero carousel',
-      style: { position: 'relative', overflow: 'hidden', background: '#000', userSelect: 'none' },
+      style: { position: 'relative', overflow: 'hidden', background: '#05080d', userSelect: 'none', aspectRatio: String(activeRatio), transition: 'opacity 0.2s var(--ease-standard)' },
       onMouseEnter: () => setPaused(true),
       onMouseLeave: () => setPaused(false)
     },
@@ -477,8 +481,8 @@
         key: img.id || i,
         'aria-hidden': i !== active,
         style: {
-          position: i === 0 ? 'relative' : 'absolute',
-          inset: i === 0 ? undefined : 0,
+          position: 'absolute',
+          inset: 0,
           opacity: i === active ? 1 : 0,
           transition: 'opacity 0.85s cubic-bezier(0.4,0,0.2,1)',
           zIndex: i === active ? 1 : 0
@@ -486,10 +490,14 @@
       },
         React.createElement('img', {
           src: img.url, alt: img.alt || '',
-          style: { width: '100%', aspectRatio: '5/2', objectFit: 'cover', display: 'block', height: i === 0 ? undefined : '100%' }
-        }),
-        React.createElement('div', {
-          style: { position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.04) 60%, rgba(0,0,0,0.46))' }
+          onLoad: ev => {
+            const el = ev.currentTarget;
+            if (!el.naturalWidth || !el.naturalHeight) return;
+            const key = img.url || img.id || i;
+            const ratio = el.naturalWidth / el.naturalHeight;
+            setRatios(prev => prev[key] === ratio ? prev : { ...prev, [key]: ratio });
+          },
+          style: { width: '100%', height: '100%', objectFit: 'contain', display: 'block' }
         })
       )),
 
