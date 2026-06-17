@@ -191,7 +191,7 @@ function ProductCard({
   spec,
   price,
   oldPrice = null,
-  currency = '??,
+  currency = null,
   image = null,
   badge = null,
   note = null,
