@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 09:08 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 09:16 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2374,8 +2374,54 @@
     ]
   }
 ];
-  var images = [];
-  var hero = [];
+  var images = [
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687658/uy1anfpownhqnf9jmnlz.png",
+    "alt": "Armor_Website_Hero-1",
+    "id": 1781687666079.2656,
+    "source": "cloudinary"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/l1ddr9newx8yr08r3p0f.png",
+    "alt": "Armor_Website_Hero-3",
+    "id": 1781687666079.1907,
+    "source": "cloudinary"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/gcly37dl66nvzt0nhp6v.png",
+    "alt": "Armor_Website_Hero-4",
+    "id": 1781687666079.3914,
+    "source": "cloudinary"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687663/ovgyzklcmfvbrxenbiy8.png",
+    "alt": "Armor_Website_Hero-2",
+    "id": 1781687666079.7935,
+    "source": "cloudinary"
+  }
+];
+  var hero = [
+  {
+    "id": 1781687766889.455,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687658/uy1anfpownhqnf9jmnlz.png",
+    "alt": "Armor_Website_Hero-1"
+  },
+  {
+    "id": 1781687783304.274,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687663/ovgyzklcmfvbrxenbiy8.png",
+    "alt": "Armor_Website_Hero-2"
+  },
+  {
+    "id": 1781687768297.6611,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/l1ddr9newx8yr08r3p0f.png",
+    "alt": "Armor_Website_Hero-3"
+  },
+  {
+    "id": 1781687782691.12,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/gcly37dl66nvzt0nhp6v.png",
+    "alt": "Armor_Website_Hero-4"
+  }
+];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   try {
