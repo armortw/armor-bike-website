@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 10:25 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 10:27 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2398,6 +2398,12 @@
     "alt": "HUB",
     "id": 1781689886134.6062,
     "source": "cloudinary"
+  },
+  {
+    "id": 1781692031296.2617,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
+    "alt": "CO25-8148",
+    "source": "cloudinary"
   }
 ];
   var hero = [
@@ -2405,6 +2411,11 @@
     "id": 1781689895414.5752,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689835/n2ddykxfj0qcvpha3xmi.png",
     "alt": "Pedal_rainbow_EDM"
+  },
+  {
+    "id": 1781692031296.3933,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
+    "alt": "CO25-8148"
   },
   {
     "id": 1781689899441.6396,
