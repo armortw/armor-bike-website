@@ -495,7 +495,7 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
 function SearchInput({
   value,
   onChange,
-  placeholder = 'Search for bikes, gear & clothing??,
+  placeholder = 'Search for bikes, gear & clothing...',
   size = 'md',
   style = {},
   ...rest
