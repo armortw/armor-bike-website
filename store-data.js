@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 09:41 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 09:51 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2376,50 +2376,50 @@
 ];
   var images = [
   {
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687658/uy1anfpownhqnf9jmnlz.png",
-    "alt": "Armor_Website_Hero-1",
-    "id": 1781687666079.2656,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689835/n2ddykxfj0qcvpha3xmi.png",
+    "alt": "Pedal_rainbow_EDM",
+    "id": 1781689838263.5366,
     "source": "cloudinary"
   },
   {
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/l1ddr9newx8yr08r3p0f.png",
-    "alt": "Armor_Website_Hero-3",
-    "id": 1781687666079.1907,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689864/lcucsvoho7hcufbqvsp7.png",
+    "alt": "Dropper Seat Post EDM",
+    "id": 1781689867120.0613,
     "source": "cloudinary"
   },
   {
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/gcly37dl66nvzt0nhp6v.png",
-    "alt": "Armor_Website_Hero-4",
-    "id": 1781687666079.3914,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689874/i714pfle7gjl3e9mvat5.png",
+    "alt": "LIGHT",
+    "id": 1781689876480.3552,
     "source": "cloudinary"
   },
   {
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687663/ovgyzklcmfvbrxenbiy8.png",
-    "alt": "Armor_Website_Hero-2",
-    "id": 1781687666079.7935,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689883/zqy1m58qoxjhwehrbswn.png",
+    "alt": "HUB",
+    "id": 1781689886134.6062,
     "source": "cloudinary"
   }
 ];
   var hero = [
   {
-    "id": 1781687766889.455,
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687658/uy1anfpownhqnf9jmnlz.png",
-    "alt": "Armor_Website_Hero-1"
+    "id": 1781689895414.5752,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689835/n2ddykxfj0qcvpha3xmi.png",
+    "alt": "Pedal_rainbow_EDM"
   },
   {
-    "id": 1781687783304.274,
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687663/ovgyzklcmfvbrxenbiy8.png",
-    "alt": "Armor_Website_Hero-2"
+    "id": 1781689896911.1091,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689864/lcucsvoho7hcufbqvsp7.png",
+    "alt": "Dropper Seat Post EDM"
   },
   {
-    "id": 1781687768297.6611,
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/l1ddr9newx8yr08r3p0f.png",
-    "alt": "Armor_Website_Hero-3"
+    "id": 1781689899441.6396,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689883/zqy1m58qoxjhwehrbswn.png",
+    "alt": "HUB"
   },
   {
-    "id": 1781687782691.12,
-    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781687659/gcly37dl66nvzt0nhp6v.png",
-    "alt": "Armor_Website_Hero-4"
+    "id": 1781689897937.1333,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689874/i714pfle7gjl3e9mvat5.png",
+    "alt": "LIGHT"
   }
 ];
   var map = {};
