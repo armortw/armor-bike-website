@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-17 10:29 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-17 10:32 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -18,7 +18,7 @@
   var categories = [
   {
     "id": "bikes",
-    "label": "Bikes",
+    "label": "Bikes vicky",
     "leaf": "Mountain Bikes",
     "crumb": [
       "Cycling",
@@ -321,7 +321,8 @@
         "price": "1.427,73",
         "badge": "Bestseller"
       }
-    ]
+    ],
+    "accent": false
   },
   {
     "id": "parts",
