@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Neutral ramp" subtitle="Cool-gray scale for text, surfaces & borders" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--surface-page); font-family: var(--font-sans); }
+  .ramp { display: flex; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .step { flex: 1; height: 92px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; font-size: 11px; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--gray-0);color:#16181d">0</div>
+    <div class="step" style="background:var(--gray-25);color:#16181d">25</div>
+    <div class="step" style="background:var(--gray-50);color:#16181d">50</div>
+    <div class="step" style="background:var(--gray-100);color:#16181d">100</div>
+    <div class="step" style="background:var(--gray-200);color:#16181d">200</div>
+    <div class="step" style="background:var(--gray-300);color:#16181d">300</div>
+    <div class="step" style="background:var(--gray-400);color:#fff">400</div>
+    <div class="step" style="background:var(--gray-500);color:#fff">500</div>
+    <div class="step" style="background:var(--gray-600);color:#fff">600</div>
+    <div class="step" style="background:var(--gray-700);color:#fff">700</div>
+    <div class="step" style="background:var(--gray-800);color:#fff">800</div>
+    <div class="step" style="background:var(--gray-900);color:#fff">900</div>
+  </div>
+</body>
+</html>

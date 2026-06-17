@@ -1,0 +1,8 @@
+/* ============================================================
+   ARMOR BIKE — Fonts
+   The live site uses a proprietary humanist/grotesque sans.
+   SUBSTITUTION: closest free matches from Google Fonts —
+   Archivo (display/heads) + Hanken Grotesk (UI/body).
+   Replace with the licensed ARMOR BIKE webfonts when available.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');

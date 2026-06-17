@@ -1,0 +1,54 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Form components" subtitle="Button, Checkbox & SearchInput" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); font-family: var(--font-sans); }
+  .col { display: flex; flex-direction: column; gap: 20px; max-width: 560px; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .lbl { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script>
+    const { Button, Checkbox, SearchInput } = window.BIKE24DesignSystem_2233bc;
+    const h = React.createElement;
+    function Demo() {
+      const [q, setQ] = React.useState('');
+      const [c1, setC1] = React.useState(true);
+      const [c2, setC2] = React.useState(false);
+      return h('div', { className: 'col' },
+        h('div', null,
+          h('div', { className: 'lbl' }, 'SearchInput'),
+          h(SearchInput, { value: q, onChange: e => setQ(e.target.value) }),
+        ),
+        h('div', null,
+          h('div', { className: 'lbl' }, 'Button'),
+          h('div', { className: 'row' },
+            h(Button, { variant: 'primary' }, 'Add to cart'),
+            h(Button, { variant: 'accent' }, 'Apply filter'),
+            h(Button, { variant: 'sale' }, 'Shop sale'),
+            h(Button, { variant: 'secondary' }, 'Compare'),
+            h(Button, { variant: 'ghost' }, 'Details'),
+          ),
+        ),
+        h('div', null,
+          h('div', { className: 'lbl' }, 'Checkbox'),
+          h('div', { className: 'col', style: { gap: 10 } },
+            h(Checkbox, { checked: c1, onChange: setC1, label: 'In stock', count: 75 }),
+            h(Checkbox, { checked: c2, onChange: setC2, label: 'On sale', count: 24 }),
+            h(Checkbox, { checked: false, onChange: () => {}, label: 'Pre-order', count: 3, disabled: true }),
+          ),
+        ),
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+  </script>
+</body>
+</html>

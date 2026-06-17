@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Brand colors" subtitle="Blue, yellow & sale magenta — sampled from the storefront" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--surface-page); font-family: var(--font-sans); }
+  .row { display: flex; gap: 14px; }
+  .sw { flex: 1; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .chip { height: 78px; display: flex; align-items: flex-end; padding: 8px; }
+  .meta { padding: 8px 10px; }
+  .name { font-weight: var(--fw-bold); font-size: var(--text-sm); color: var(--text-strong); }
+  .hex { font-size: var(--text-xs); color: var(--text-muted); font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--blue-500)"></div><div class="meta"><div class="name">Brand Blue</div><div class="hex">#006EE0 · --blue-500</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--yellow-500)"></div><div class="meta"><div class="name">Brand Yellow</div><div class="hex">#FFD105 · --yellow-500</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--sale-500)"></div><div class="meta"><div class="name">Sale</div><div class="hex">#E0004B · --sale-500</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--green-500)"></div><div class="meta"><div class="name">In&nbsp;Stock</div><div class="hex">#1A8A4F · --green-500</div></div></div>
+  </div>
+</body>
+</html>

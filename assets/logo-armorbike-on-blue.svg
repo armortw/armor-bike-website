@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="208" height="40" viewBox="0 0 208 40" fill="none" role="img" aria-label="ARMOR BIKE">
+  <rect x="0" y="2" width="36" height="36" rx="8" fill="#ffffff"></rect>
+  <circle cx="12.5" cy="25" r="5.2" stroke="#006ee0" stroke-width="2.4" fill="none"></circle>
+  <circle cx="25.5" cy="25" r="5.2" stroke="#006ee0" stroke-width="2.4" fill="none"></circle>
+  <path d="M12.5 25 L18 16 L25.5 25 M18 16 L23 16 M16.5 25 H24" stroke="#006ee0" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  <text x="46" y="29" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="22" letter-spacing="-0.6" fill="#ffffff">ARMOR<tspan fill="#ffd105"> BIKE</tspan></text>
+</svg>

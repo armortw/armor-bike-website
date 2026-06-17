@@ -1,0 +1,91 @@
+/* ============================================================
+   ARMOR BIKE — Color tokens
+   Sampled directly from the live storefront.
+   ============================================================ */
+:root {
+  /* ---- Brand / base ramps ------------------------------------ */
+  /* Signature ARMOR BIKE blue (header bar, links, primary actions) */
+  --blue-50:  #e6f1fc;
+  --blue-100: #cfe3fa;
+  --blue-200: #9cc4f3;
+  --blue-300: #5fa0ec;
+  --blue-400: #2b81e6;
+  --blue-500: #006ee0;  /* core brand blue */
+  --blue-600: #0061c6;
+  --blue-700: #004fa3;
+  --blue-800: #003e80;
+  --blue-900: #002c5c;
+
+  /* Signature ARMOR BIKE yellow (highlights, accents) */
+  --yellow-300: #ffe46b;
+  --yellow-400: #ffdb3d;
+  --yellow-500: #ffd105;  /* core brand yellow */
+  --yellow-600: #e6bc00;
+  --yellow-700: #b89600;
+
+  /* Sale / promotional magenta-red */
+  --sale-400: #ff2f72;
+  --sale-500: #e0004b;  /* core sale color */
+  --sale-600: #c00040;
+  --sale-700: #9c0035;
+
+  /* Positive (in-stock / success) */
+  --green-100: #d6f3e1;
+  --green-500: #1a8a4f;
+  --green-600: #14743f;
+
+  /* ---- Neutrals (cool gray ramp) ----------------------------- */
+  --gray-0:   #ffffff;
+  --gray-25:  #f7f9fb;
+  --gray-50:  #f1f5f9;  /* product image surface */
+  --gray-100: #e8edf2;
+  --gray-200: #e2e8f0;  /* hairline borders */
+  --gray-300: #cbd4de;
+  --gray-400: #9aa6b4;
+  --gray-500: #6b7785;  /* secondary text */
+  --gray-600: #4c5662;
+  --gray-700: #353d47;
+  --gray-800: #21262e;
+  --gray-900: #16181d;  /* near-black headings */
+
+  /* ============================================================
+     Semantic aliases — author UI against these, not raw ramps
+     ============================================================ */
+
+  /* Brand */
+  --brand-primary:        var(--blue-500);
+  --brand-primary-hover:  var(--blue-600);
+  --brand-primary-active: var(--blue-700);
+  --brand-accent:         var(--yellow-500);
+  --brand-sale:           var(--sale-500);
+
+  /* Text */
+  --text-strong:   var(--gray-900);
+  --text-body:     var(--gray-700);
+  --text-muted:    var(--gray-500);
+  --text-link:     var(--blue-500);
+  --text-on-brand: var(--gray-0);
+  --text-sale:     var(--sale-500);
+
+  /* Surfaces */
+  --surface-page:    var(--gray-0);
+  --surface-subtle:  var(--gray-50);
+  --surface-card:    var(--gray-0);
+  --surface-media:   var(--gray-50);   /* light gray behind product photos */
+  --surface-header:  var(--blue-500);  /* top utility bar */
+  --surface-inverse: var(--gray-900);
+
+  /* Borders */
+  --border-subtle:  var(--gray-200);
+  --border-default: var(--gray-300);
+  --border-strong:  var(--gray-400);
+  --border-focus:   var(--blue-500);
+
+  /* Status */
+  --status-success: var(--green-500);
+  --status-success-surface: var(--green-100);
+  --status-sale:    var(--sale-500);
+
+  /* Focus ring */
+  --ring: 0 0 0 3px rgba(0, 110, 224, 0.35);
+}

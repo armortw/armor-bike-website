@@ -1,0 +1,60 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Catalog components" subtitle="ProductCard, Badge & ColorSwatch" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start; }
+  .col { display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .lbl { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script>
+    const { ProductCard, Badge, ColorSwatch } = window.BIKE24DesignSystem_2233bc;
+    const h = React.createElement;
+    function Demo() {
+      return h('div', { className: 'grid' },
+        h(ProductCard, {
+          manufacturer: 'CUBE',
+          name: 'Reaction Hybrid Pro 625',
+          spec: '29″ · Bosch Performance · 2026',
+          price: '2.299,00',
+          oldPrice: '2.799,00',
+          badge: '-18%',
+          note: 'Ready to ship in 24h',
+        }),
+        h('div', { className: 'col' },
+          h('div', null,
+            h('div', { className: 'lbl', style: { marginBottom: 8 } }, 'Badge'),
+            h('div', { className: 'row' },
+              h(Badge, { variant: 'sale' }, '-18%'),
+              h(Badge, { variant: 'accent' }, 'New'),
+              h(Badge, { variant: 'info' }, 'Bestseller'),
+              h(Badge, { variant: 'success' }, 'In stock'),
+              h(Badge, { variant: 'neutral' }, 'Pre-order'),
+            ),
+          ),
+          h('div', null,
+            h('div', { className: 'lbl', style: { marginBottom: 10 } }, 'ColorSwatch'),
+            h('div', { className: 'row' },
+              h(ColorSwatch, { color: '#16181d', count: 42, selected: true }),
+              h(ColorSwatch, { color: '#006ee0', count: 18 }),
+              h(ColorSwatch, { color: '#e4002b', count: 7 }),
+              h(ColorSwatch, { color: ['#ffd105', '#16181d'], count: 3 }),
+            ),
+          ),
+        ),
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+  </script>
+</body>
+</html>

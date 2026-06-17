@@ -1,0 +1,61 @@
+/* ============================================================
+   ARMOR BIKE — Typography tokens
+   ============================================================ */
+:root {
+  /* Families */
+  --font-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif; /* bold headings, hero, prices */
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif; /* UI, body, nav */
+  --font-mono:    ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+
+  /* Weights */
+  --fw-regular:  400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+  --fw-extra:    800; /* @kind font */
+  --fw-black:    900; /* @kind font */
+
+  /* Type scale (1.250 major-third-ish, tuned for retail UI) */
+  --text-2xs: 11px;
+  --text-xs:  12px;
+  --text-sm:  13px;
+  --text-md:  15px;   /* base body */
+  --text-lg:  17px;
+  --text-xl:  20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 38px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+
+  /* Line heights */
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.45;
+  --leading-relaxed: 1.6;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.06em;  /* uppercase manufacturer / eyebrow labels */
+
+  /* ---- Semantic roles ---------------------------------------- */
+  --type-hero-family:    var(--font-display);
+  --type-hero-weight:    var(--fw-black);
+  --type-hero-size:      var(--text-5xl);
+
+  --type-heading-family: var(--font-display);
+  --type-heading-weight: var(--fw-extra);
+
+  --type-eyebrow-family: var(--font-sans);
+  --type-eyebrow-weight: var(--fw-bold);
+  --type-eyebrow-track:  var(--tracking-caps);
+
+  --type-body-family:    var(--font-sans);
+  --type-body-weight:    var(--fw-regular);
+  --type-body-size:      var(--text-md);
+
+  --type-price-family:   var(--font-display);
+  --type-price-weight:   var(--fw-extra);
+}
