@@ -121,9 +121,9 @@
     const [err, setErr] = useState('');
     const submit = (ev) => {
       ev.preventDefault();
-      if (!username.trim()) return setErr('請輸入帳號');
-      if (password.length < 6) return setErr('密碼至少需要 6 個字元');
-      if (password !== confirm) return setErr('兩次密碼不一致');
+      if (!username.trim()) return setErr('Please enter a username');
+      if (password.length < 6) return setErr('Password must be at least 6 characters');
+      if (password !== confirm) return setErr('Passwords do not match');
       const existing = loadUsers();
       const admin = { id: Date.now(), username: username.trim(), password, role: 'admin', name: displayName.trim() || username.trim() };
       saveUsers([...existing, admin]);
@@ -134,17 +134,17 @@
       e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 420 } },
         e('div', { style: { textAlign: 'center', marginBottom: 32 } },
           e('img', { src: 'assets/logo-armorbike-on-light.svg', alt: 'ARMOR BIKE', style: { height: 38 } }),
-          e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, '建立管理員帳號'),
-          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '設定一組登入帳號與密碼')
+          e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, 'Create admin account'),
+          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, 'Set a login username and password')
         ),
         e('form', { onSubmit: submit },
-          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '顯示名稱'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: 'Administrator', autoFocus: true })),
-          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '帳號'), e(Input, { value: username, onChange: ev => setUsername(ev.target.value), placeholder: 'admin' })),
-          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '密碼（至少 6 位）'), e(Input, { type: 'password', value: password, onChange: ev => setPassword(ev.target.value), placeholder: '••••••••' })),
-          e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, '確認密碼'), e(Input, { type: 'password', value: confirm, onChange: ev => setConfirm(ev.target.value), placeholder: '••••••••' })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Display name'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: 'Administrator', autoFocus: true })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Username'), e(Input, { value: username, onChange: ev => setUsername(ev.target.value), placeholder: 'admin' })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Password (min 6 chars)'), e(Input, { type: 'password', value: password, onChange: ev => setPassword(ev.target.value), placeholder: '••••••••' })),
+          e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, 'Confirm password'), e(Input, { type: 'password', value: confirm, onChange: ev => setConfirm(ev.target.value), placeholder: '••••••••' })),
           err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
-          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, '建立帳號並登入'),
-          onCancel ? e('button', { type: 'button', onClick: onCancel, style: { ...S.btnGhost, width: '100%', padding: 11, fontSize: 13, marginTop: 10 } }, '← 返回登入') : null
+          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, 'Create account & sign in'),
+          onCancel ? e('button', { type: 'button', onClick: onCancel, style: { ...S.btnGhost, width: '100%', padding: 11, fontSize: 13, marginTop: 10 } }, '← Back to sign in') : null
         )
       )
     );
@@ -164,11 +164,11 @@
       ev.preventDefault();
       const user = loadUsers().find(x => x.username === u && x.password === p);
       if (user) { saveAuth(user); onLogin(user); }
-      else setErr('帳號或密碼錯誤');
+      else setErr('Incorrect username or password');
     };
     const doImport = () => {
-      try { const r = importConfigBlob(blob); setErr(''); setShowImport(false); setBlob(''); alert('設定已匯入（' + r.users + ' 個帳號）。請使用同步後的帳號登入。'); }
-      catch (_) { setErr('匯入失敗：設定格式錯誤'); }
+      try { const r = importConfigBlob(blob); setErr(''); setShowImport(false); setBlob(''); alert('Settings imported (' + r.users + ' account(s)). Sign in with the synced account.'); }
+      catch (_) { setErr('Import failed: invalid settings format'); }
     };
     return e('div', { style: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%)' } },
       e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 400 } },
@@ -178,7 +178,7 @@
           e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, 'Sign in to manage your store content')
         ),
         noUsers ? e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '12px 14px', marginBottom: 18, fontSize: 12.5, color: '#92400e', lineHeight: 1.5 } },
-          '此裝置尚無帳號。可在其他已設定的裝置（後台 → Settings → 匯出設定）複製設定後，於此「匯入設定」，或建立新帳號。'
+          'No account on this device. Copy the settings from another configured device (Admin → Settings → Export), then Import them here — or create a new account.'
         ) : null,
         e('form', { onSubmit: submit },
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Username'), e(Input, { value: u, onChange: ev => setU(ev.target.value), placeholder: 'admin', autoFocus: true })),
@@ -188,13 +188,13 @@
         ),
         e('div', { style: { marginTop: 18, paddingTop: 16, borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: 8 } },
           e('div', { style: { display: 'flex', gap: 14, justifyContent: 'center', fontSize: 13 } },
-            e('button', { type: 'button', onClick: () => setShowImport(v => !v), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '⬇ 匯入設定'),
+            e('button', { type: 'button', onClick: () => setShowImport(v => !v), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '⬇ Import settings'),
             e('span', { style: { color: '#cbd5e1' } }, '·'),
-            e('button', { type: 'button', onClick: () => setMode('setup'), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '＋ 建立帳號')
+            e('button', { type: 'button', onClick: () => setMode('setup'), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '＋ Create account')
           ),
           showImport ? e('div', null,
-            e('textarea', { value: blob, onChange: ev => setBlob(ev.target.value), placeholder: '貼上從其他裝置匯出的設定 JSON…', style: { ...S.input, width: '100%', height: 90, fontFamily: 'monospace', fontSize: 12, marginTop: 6 } }),
-            e('button', { type: 'button', onClick: doImport, disabled: !blob.trim(), style: { ...S.btnPrimary, width: '100%', padding: 10, fontSize: 13, marginTop: 8, opacity: blob.trim() ? 1 : 0.5 } }, '匯入並同步')
+            e('textarea', { value: blob, onChange: ev => setBlob(ev.target.value), placeholder: 'Paste the settings JSON exported from another device…', style: { ...S.input, width: '100%', height: 90, fontFamily: 'monospace', fontSize: 12, marginTop: 6 } }),
+            e('button', { type: 'button', onClick: doImport, disabled: !blob.trim(), style: { ...S.btnPrimary, width: '100%', padding: 10, fontSize: 13, marginTop: 8, opacity: blob.trim() ? 1 : 0.5 } }, 'Import & sync')
           ) : null
         )
       )
@@ -441,8 +441,8 @@
   // Required fields for a product; returns array of missing field labels
   const missingProductFields = (f) => {
     const miss = [];
-    if (!f.manufacturer || !f.manufacturer.trim()) miss.push('Manufacturer (品牌)');
-    if (!f.name || !f.name.trim()) miss.push('Product Name (產品名稱)');
+    if (!f.manufacturer || !f.manufacturer.trim()) miss.push('Manufacturer');
+    if (!f.name || !f.name.trim()) miss.push('Product Name');
     return miss;
   };
 
@@ -467,25 +467,25 @@
       onSaved();
     };
 
-    return e(Modal, { title: '☁️ Cloudinary 設定', onClose, width: 520 },
+    return e(Modal, { title: '☁️ Cloudinary settings', onClose, width: 520 },
       e('div', { style: { background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 10, padding: '14px 16px', marginBottom: 22, fontSize: 13, color: '#1e40af', lineHeight: 1.7 } },
-        e('strong', null, '初次設定步驟：'), e('br'),
-        '1. 前往 ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' 建立免費帳號（25 GB 儲存）', e('br'),
-        '2. 儀表板左上角複製你的 ', e('strong', null, 'Cloud Name'), e('br'),
-        '3. 前往 Settings → Upload → Upload presets → Add preset', e('br'),
-        '4. 將 Signing Mode 設為 ', e('code', { style: { background: '#dbeafe', padding: '1px 5px', borderRadius: 4, fontWeight: 700 } }, 'Unsigned'), ' 後儲存'
+        e('strong', null, 'First-time setup steps:'), e('br'),
+        '1. Go to ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' and create a free account (25 GB storage)', e('br'),
+        '2. Copy your ', e('strong', null, 'Cloud Name'), ' from the top-left of the dashboard', e('br'),
+        '3. Go to Settings → Upload → Upload presets → Add preset', e('br'),
+        '4. Set Signing Mode to ', e('code', { style: { background: '#dbeafe', padding: '1px 5px', borderRadius: 4, fontWeight: 700 } }, 'Unsigned'), ' and save'
       ),
       e(Field, { label: 'Cloud Name' },
         e(Input, { value: cloudName, onChange: ev => setCloudName(ev.target.value), placeholder: 'e.g. my-store-abc123', autoFocus: true })
       ),
       e('div', { style: { marginTop: 12 } },
-        e(Field, { label: 'Upload Preset（必須為 Unsigned）' },
+        e(Field, { label: 'Upload Preset (must be Unsigned)' },
           e(Input, { value: preset, onChange: ev => setPreset(ev.target.value), placeholder: 'e.g. armor_unsigned' })
         )
       ),
       e('div', { style: { display: 'flex', gap: 10, marginTop: 20 } },
-        e('button', { onClick: save, disabled: !cloudName.trim() || !preset.trim(), style: { ...S.btnPrimary, opacity: (!cloudName.trim() || !preset.trim()) ? 0.5 : 1 } }, '儲存並繼續上傳'),
-        e('button', { onClick: onClose, style: S.btnGhost }, '取消')
+        e('button', { onClick: save, disabled: !cloudName.trim() || !preset.trim(), style: { ...S.btnPrimary, opacity: (!cloudName.trim() || !preset.trim()) ? 0.5 : 1 } }, 'Save & continue uploading'),
+        e('button', { onClick: onClose, style: S.btnGhost }, 'Cancel')
       )
     );
   }
@@ -513,11 +513,11 @@
 
   function PresetErrorMsg() {
     return e('span', null,
-      'Upload Preset 未設為 Unsigned。請至 ',
+      'Upload Preset is not set to Unsigned. Go to ',
       e('a', { href: 'https://cloudinary.com', target: '_blank', style: { color: BRAND } }, 'Cloudinary'),
-      ' → Settings → Upload Presets，將 Signing Mode 改為 ',
+      ' → Settings → Upload Presets and change Signing Mode to ',
       e('strong', null, 'Unsigned'),
-      ' 後儲存。'
+      ' and save.'
     );
   }
 
@@ -528,7 +528,7 @@
     const openWidget = (cfg) => {
       const config = cfg || loadCldConfig();
       if (!config.cloudName || !config.uploadPreset) { setShowSetup(true); return; }
-      if (!window.cloudinary) { alert('Cloudinary widget 尚未載入，請稍後再試。'); return; }
+      if (!window.cloudinary) { alert('Cloudinary widget not loaded yet. Please try again shortly.'); return; }
       const collected = [];
       const widget = window.cloudinary.createUploadWidget({
         cloudName: config.cloudName,
@@ -578,7 +578,7 @@
         } else if (err.message === 'PRESET_NOT_UNSIGNED') {
           setPresetErr(true);
         } else {
-          setErrMsg('上傳失敗：' + err.message);
+          setErrMsg('Upload failed: ' + err.message);
         }
       } finally {
         setUploading(false);
@@ -611,7 +611,7 @@
           e(Input, {
             value: urlInput,
             onChange: ev => { setUrlInput(ev.target.value); setErrMsg(''); },
-            placeholder: '貼上任意圖片 URL，自動上傳至 Cloudinary…',
+            placeholder: 'Paste any image URL — auto-uploads to Cloudinary…',
             onKeyDown: ev => ev.key === 'Enter' && !uploading && addByUrl(),
             disabled: uploading,
           }),
@@ -619,16 +619,16 @@
             onClick: addByUrl,
             disabled: uploading || !urlInput.trim(),
             style: { ...S.btnPrimary, whiteSpace: 'nowrap', padding: '9px 14px', opacity: uploading ? 0.7 : 1 }
-          }, uploading ? '上傳中…' : '☁️ 上傳')
+          }, uploading ? 'Uploading…' : '☁️ Upload')
         ),
         e(CloudinaryUploadButton, {
           multiple: true,
           onComplete: (newImgs) => onChange([...images, ...newImgs]),
           style: { ...S.btnGhost, whiteSpace: 'nowrap', padding: '9px 16px', display: 'inline-flex', alignItems: 'center', gap: 7, fontWeight: 700, fontSize: 13 }
-        }, '📁 本機上傳')
+        }, '📁 Upload from device')
       ),
       (errMsg || presetErr) && e('p', { style: { margin: '6px 0 0', fontSize: 12, color: '#dc2626' } }, presetErr ? e(PresetErrorMsg) : errMsg),
-      images.length === 0 && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, '尚無圖片 — 貼上 URL 自動轉存至 Cloudinary，或點擊「本機上傳」。第一張圖片為主圖。')
+      images.length === 0 && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, 'No images yet — paste a URL to auto-save to Cloudinary, or click "Upload from device". The first image is the main image.')
     );
   }
 
@@ -642,8 +642,8 @@
         e(Field, { label: req('Manufacturer') }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }) })),
         e(Field, { label: req('Product Name') }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }) })),
         e(Field, { label: 'Spec / Description' }, e(Input, { value: form.spec, onChange: ev => setForm({ ...form, spec: ev.target.value }) })),
-        e(Field, { label: 'Mega Menu 子項目' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
-          e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無 Mega Menu 子項目）'),
+        e(Field, { label: 'Mega Menu sub-item' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
+          e('option', { value: '' }, leaves.length ? '(none)' : '(no Mega Menu sub-items in this category)'),
           leaves.map((m, i) => e('option', { key: i, value: m.link }, (m.group ? m.group + ' › ' : '') + m.link))
         )),
         e(Field, { label: 'Badge' }, e(Select, { value: form.badge || '', onChange: ev => setForm({ ...form, badge: ev.target.value }) },
@@ -652,7 +652,7 @@
         e(Field, { label: 'Note (optional)' }, e(Input, { value: form.note || '', onChange: ev => setForm({ ...form, note: ev.target.value }), placeholder: 'Ships in 24h / Only 3 left' })),
       ),
       missing.length > 0 && e('div', { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 16 } },
-        '尚有必填欄位未填寫：', missing.join('、')
+        'Required fields still missing: ', missing.join(', ')
       ),
       // ── full-width image section ──
       e('div', { style: { borderTop: '1px solid #f1f5f9', paddingTop: 16, marginBottom: 18 } },
@@ -745,11 +745,11 @@
         ),
         e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ Add Product')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, af]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
+      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('Cannot save. Please fill in the required fields:\n• ' + m.join('\n• ')); return; } save([...products, af]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
         products.map((p, i) => editIdx === i
           ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save(products.map((x, j) => j === i ? ef : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
+              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('Cannot save. Please fill in the required fields:\n• ' + m.join('\n• ')); return; } save(products.map((x, j) => j === i ? ef : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
             )
           : e(ProductCardView, {
               key: i, p,
@@ -853,7 +853,7 @@
         } else if (err.message === 'PRESET_NOT_UNSIGNED') {
           setUrlPresetErr(true);
         } else {
-          setUrlErr('上傳失敗：' + err.message);
+          setUrlErr('Upload failed: ' + err.message);
         }
       } finally {
         setUrlUploading(false);
@@ -875,12 +875,12 @@
         // Cloudinary upload
         e('div', { style: S.card },
           e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 } },
-            e('h3', { style: { margin: 0, fontSize: 15, fontWeight: 700 } }, '☁️ Cloudinary 上傳'),
+            e('h3', { style: { margin: 0, fontSize: 15, fontWeight: 700 } }, '☁️ Cloudinary upload'),
             isConfigured
-              ? e('span', { style: { fontSize: 11, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', padding: '2px 8px', borderRadius: 10 } }, '✓ 已設定')
-              : e('span', { style: { fontSize: 11, fontWeight: 700, background: '#fef9c3', color: '#92400e', padding: '2px 8px', borderRadius: 10 } }, '未設定')
+              ? e('span', { style: { fontSize: 11, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', padding: '2px 8px', borderRadius: 10 } }, '✓ Configured')
+              : e('span', { style: { fontSize: 11, fontWeight: 700, background: '#fef9c3', color: '#92400e', padding: '2px 8px', borderRadius: 10 } }, 'Not configured')
           ),
-          e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，只儲存 URL，無容量限制。'),
+          e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b' } }, 'Images upload to the Cloudinary CDN; only the URL is stored, with no size limit.'),
           e(CloudinaryUploadButton, {
             multiple: true,
             onComplete: (newImgs) => setData({ ...data, images: [...images, ...newImgs.map(img => ({ ...img, id: Date.now() + Math.random(), source: 'cloudinary' }))] }),
@@ -891,22 +891,22 @@
               e('line', { x1: 12, y1: 12, x2: 12, y2: 21 }),
               e('path', { d: 'M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3' })
             ),
-            '選擇並上傳圖片'
+            'Choose & upload images'
           ),
-          !isConfigured && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, '首次點擊時會引導你完成 Cloudinary 設定（免費）')
+          !isConfigured && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, 'On first click you will be guided through Cloudinary setup (free)')
         ),
         // URL input
         e('div', { style: S.card },
-          e('h3', { style: { margin: '0 0 6px', fontSize: 15, fontWeight: 700 } }, '🔗 貼上 URL，自動轉存至 Cloudinary'),
-          e('p', { style: { margin: '0 0 14px', fontSize: 12, color: '#64748b' } }, '支援任意圖片網址，包含無副檔名的 URL，Cloudinary 會自動識別格式。'),
-          e(Field, { label: '圖片 URL' }, e(Input, { value: url, onChange: ev => { setUrl(ev.target.value); setUrlErr(''); }, placeholder: 'https://example.com/image（任意 URL 均可）', disabled: urlUploading })),
-          e(Field, { label: 'Alt 文字（選填）' }, e(Input, { value: alt, onChange: ev => setAlt(ev.target.value), placeholder: '圖片描述（留空自動帶入）', disabled: urlUploading })),
+          e('h3', { style: { margin: '0 0 6px', fontSize: 15, fontWeight: 700 } }, '🔗 Paste a URL — auto-saved to Cloudinary'),
+          e('p', { style: { margin: '0 0 14px', fontSize: 12, color: '#64748b' } }, 'Supports any image URL, including ones without a file extension — Cloudinary auto-detects the format.'),
+          e(Field, { label: 'Image URL' }, e(Input, { value: url, onChange: ev => { setUrl(ev.target.value); setUrlErr(''); }, placeholder: 'https://example.com/image (any URL works)', disabled: urlUploading })),
+          e(Field, { label: 'Alt text (optional)' }, e(Input, { value: alt, onChange: ev => setAlt(ev.target.value), placeholder: 'Image description (auto-filled if blank)', disabled: urlUploading })),
           (urlErr || urlPresetErr) && e('p', { style: { margin: '0 0 10px', fontSize: 12, color: '#dc2626' } }, urlPresetErr ? e(PresetErrorMsg) : urlErr),
           e('button', {
             onClick: addUrl,
             disabled: urlUploading || !url.trim(),
             style: { ...S.btnPrimary, opacity: urlUploading ? 0.7 : 1, marginTop: 14 }
-          }, urlUploading ? '上傳至 Cloudinary 中…' : '☁️ 上傳並新增')
+          }, urlUploading ? 'Uploading to Cloudinary…' : '☁️ Upload & add')
         )
       ),
       e('div', { style: { ...S.card } },
@@ -1117,8 +1117,8 @@
 
     const copyExport = () => { try { navigator.clipboard.writeText(exportConfigBlob()); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (_) {} };
     const runImport = () => {
-      try { const r = importConfigBlob(impBlob); setSyncMsg('✓ 已匯入 ' + r.users + ' 個帳號與設定，3 秒後重新載入…'); setTimeout(() => location.reload(), 2500); }
-      catch (_) { setSyncMsg('✕ 匯入失敗：設定格式錯誤'); }
+      try { const r = importConfigBlob(impBlob); setSyncMsg('✓ Imported ' + r.users + ' account(s) and settings. Reloading in 3 seconds…'); setTimeout(() => location.reload(), 2500); }
+      catch (_) { setSyncMsg('✕ Import failed: invalid settings format'); }
     };
 
     const saveCld = () => { saveCldConfig(cfg); setCldSaved(true); setTimeout(() => setCldSaved(false), 2500); };
@@ -1138,21 +1138,21 @@
 
       // ── Cross-origin config sync (Export / Import) ──
       e('div', { style: S.card },
-        e('h2', { style: { margin: '0 0 6px', fontSize: 18, fontWeight: 800 } }, '🔄 設定同步（匯出／匯入）'),
+        e('h2', { style: { margin: '0 0 6px', fontSize: 18, fontWeight: 800 } }, '🔄 Settings sync (Export / Import)'),
         e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 } },
-          'localhost、192.168.x、pages.dev 是不同來源，瀏覽器設定不會自動互通。在這裡「匯出」後，到另一台裝置／網址的後台登入頁或此處「匯入」，即可同步使用者帳號、GitHub Token 與 Cloudinary 設定。'),
+          'localhost, 192.168.x and pages.dev are different origins, so browser settings do not sync automatically. Export here, then Import on the login page or here on another device/URL to sync user accounts, the GitHub Token and Cloudinary settings.'),
         e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 8, padding: '10px 14px', fontSize: 12, color: '#92400e', marginBottom: 16 } },
-          '⚠ 此設定內含 GitHub Token 與登入密碼，請僅在你信任的裝置間複製，勿外流。'),
+          '⚠ These settings contain your GitHub Token and login passwords — only copy them between devices you trust, and do not share them.'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 } },
           e('div', null,
-            e('label', { style: S.label }, '匯出設定（複製到其他裝置）'),
+            e('label', { style: S.label }, 'Export settings (copy to another device)'),
             e('textarea', { readOnly: true, value: exportConfigBlob(), onFocus: ev => ev.target.select(), style: { ...S.input, width: '100%', height: 120, fontFamily: 'monospace', fontSize: 11 } }),
-            e('button', { onClick: copyExport, style: { ...S.btnPrimary, marginTop: 8 } }, copied ? '✓ 已複製' : '📋 複製設定')
+            e('button', { onClick: copyExport, style: { ...S.btnPrimary, marginTop: 8 } }, copied ? '✓ Copied' : '📋 Copy settings')
           ),
           e('div', null,
-            e('label', { style: S.label }, '匯入設定（覆蓋本機設定）'),
-            e('textarea', { value: impBlob, onChange: ev => setImpBlob(ev.target.value), placeholder: '貼上從其他裝置匯出的設定 JSON…', style: { ...S.input, width: '100%', height: 120, fontFamily: 'monospace', fontSize: 11 } }),
-            e('button', { onClick: runImport, disabled: !impBlob.trim(), style: { ...S.btnPrimary, marginTop: 8, opacity: impBlob.trim() ? 1 : 0.5 } }, '⬇ 匯入並覆蓋'),
+            e('label', { style: S.label }, 'Import settings (overwrite this device)'),
+            e('textarea', { value: impBlob, onChange: ev => setImpBlob(ev.target.value), placeholder: 'Paste the settings JSON exported from another device…', style: { ...S.input, width: '100%', height: 120, fontFamily: 'monospace', fontSize: 11 } }),
+            e('button', { onClick: runImport, disabled: !impBlob.trim(), style: { ...S.btnPrimary, marginTop: 8, opacity: impBlob.trim() ? 1 : 0.5 } }, '⬇ Import & overwrite'),
             syncMsg ? e('p', { style: { margin: '8px 0 0', fontSize: 12, color: syncMsg.startsWith('✓') ? '#16a34a' : '#dc2626' } }, syncMsg) : null
           )
         )
@@ -1161,12 +1161,12 @@
       // ── GitHub + Cloudflare Pages auto-publish ──
       e('div', { style: S.card },
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 } },
-          e('h2', { style: { margin: 0, fontSize: 18, fontWeight: 800 } }, '🚀 GitHub + Cloudflare Pages 自動發布'),
+          e('h2', { style: { margin: 0, fontSize: 18, fontWeight: 800 } }, '🚀 GitHub + Cloudflare Pages auto-publish'),
           hasToken
-            ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ 已設定完成')
-            : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ 尚未設定')
+            ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ Configured')
+            : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ Not configured')
         ),
-        e('p', { style: { margin: '0 0 18px', fontSize: 13, color: '#64748b' } }, '完全免費，無 credit 限制。設定後點擊「📦 發布」，CMS 資料會自動 commit 到 GitHub，Cloudflare Pages 立即自動部署。'),
+        e('p', { style: { margin: '0 0 18px', fontSize: 13, color: '#64748b' } }, 'Completely free, no credit limits. Once configured, click "📦 Publish" and the CMS data is committed to GitHub and Cloudflare Pages deploys automatically.'),
         e(Field, { label: 'GitHub Personal Access Token' },
           e('div', { style: { display: 'flex', gap: 8 } },
             e('input', {
@@ -1176,70 +1176,70 @@
               placeholder: 'ghp_xxxxxxxxxxxxxxxx',
               style: { ...S.input, flex: 1, fontFamily: 'monospace', fontSize: 13 }
             }),
-            e('button', { onClick: () => setShowToken(v => !v), style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13 } }, showToken ? '隱藏' : '顯示')
+            e('button', { onClick: () => setShowToken(v => !v), style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13 } }, showToken ? 'Hide' : 'Show')
           )
         ),
-        e(Field, { label: 'GitHub Repository（格式：owner/repo）' },
+        e(Field, { label: 'GitHub Repository (format: owner/repo)' },
           e(Input, { value: github.repo || '', onChange: ev => setGithub({ ...github, repo: ev.target.value }), placeholder: 'e.g. armor-mfg-tw/armor-bike-website' })
         ),
-        e(Field, { label: 'Branch（預設 main）' },
+        e(Field, { label: 'Branch (default: main)' },
           e(Input, { value: github.branch || '', onChange: ev => setGithub({ ...github, branch: ev.target.value }), placeholder: 'main' })
         ),
-        e(Field, { label: 'Cloudflare Pages 網址（選填，用於發布後跳轉）' },
+        e(Field, { label: 'Cloudflare Pages URL (optional, used to redirect after publish)' },
           e(Input, { value: github.siteUrl || '', onChange: ev => setGithub({ ...github, siteUrl: ev.target.value }), placeholder: 'https://armor-bike.pages.dev' })
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center', marginTop: 14 } },
-          e('button', { onClick: saveGithub, style: S.btnPrimary }, '儲存設定'),
+          e('button', { onClick: saveGithub, style: S.btnPrimary }, 'Save settings'),
           githubSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
         )
       ),
       e('div', { style: S.card },
-        e('h3', { style: { margin: '0 0 14px', fontSize: 15, fontWeight: 700 } }, '📖 設定步驟說明'),
+        e('h3', { style: { margin: '0 0 14px', fontSize: 15, fontWeight: 700 } }, '📖 Setup guide'),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 1 — 建立 GitHub Repository'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 1 — Create a GitHub Repository'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
-            e('li', null, '登入 ', e('a', { href: 'https://github.com', target: '_blank', style: { color: BRAND } }, 'github.com'), ' → 右上角 + → New repository'),
-            e('li', null, '設為 ', e('strong', null, 'Public'),'，名稱例如 ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, 'armor-bike-website')),
-            e('li', null, '把本機 project/ 資料夾的所有檔案上傳到此 repo')
+            e('li', null, 'Sign in to ', e('a', { href: 'https://github.com', target: '_blank', style: { color: BRAND } }, 'github.com'), ' → top-right + → New repository'),
+            e('li', null, 'Set it to ', e('strong', null, 'Public'),', e.g. name it ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, 'armor-bike-website')),
+            e('li', null, 'Upload all files from your local project/ folder to this repo')
           )
         ),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 2 — 取得 GitHub Token'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 2 — Get a GitHub Token'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
-            e('li', null, 'GitHub 右上角頭像 → Settings → Developer settings → Personal access tokens → Tokens (classic)'),
-            e('li', null, '點擊 ', e('strong', null, 'Generate new token (classic)'), ' → 輸入名稱'),
-            e('li', null, '勾選 ', e('strong', null, 'repo'), ' scope → 點擊 Generate token → 複製並貼入上方')
+            e('li', null, 'GitHub top-right avatar → Settings → Developer settings → Personal access tokens → Tokens (classic)'),
+            e('li', null, 'Click ', e('strong', null, 'Generate new token (classic)'), ' → enter a name'),
+            e('li', null, 'Check the ', e('strong', null, 'repo'), ' scope → click Generate token → copy and paste it above')
           )
         ),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 3 — 建立 Cloudflare Pages'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 3 — Create Cloudflare Pages'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
-            e('li', null, '登入 ', e('a', { href: 'https://dash.cloudflare.com', target: '_blank', style: { color: BRAND } }, 'dash.cloudflare.com'), ' → Workers & Pages → Create application → Pages'),
-            e('li', null, '選 ', e('strong', null, 'Connect to Git'), ' → 授權 GitHub → 選擇你的 repo'),
-            e('li', null, 'Framework preset 選 ', e('strong', null, 'None'), '，Build command 留空，Build output 填 ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, '/')),
-            e('li', null, '點擊 Deploy → 完成後複製 .pages.dev 網址填入上方「Cloudflare Pages 網址」欄位')
+            e('li', null, 'Sign in to ', e('a', { href: 'https://dash.cloudflare.com', target: '_blank', style: { color: BRAND } }, 'dash.cloudflare.com'), ' → Workers & Pages → Create application → Pages'),
+            e('li', null, 'Choose ', e('strong', null, 'Connect to Git'), ' → authorize GitHub → select your repo'),
+            e('li', null, 'Set Framework preset to ', e('strong', null, 'None'), ', leave Build command empty, set Build output to ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, '/')),
+            e('li', null, 'Click Deploy → once done, copy the .pages.dev URL into the "Cloudflare Pages URL" field above')
           )
         ),
         e('div', { style: { borderTop: '1px solid #e2e8f0', paddingTop: 16 } },
-          e('p', { style: { margin: '0 0 10px', fontSize: 13, color: '#64748b', fontWeight: 600 } }, '備用：若需要手動下載 store-data.js'),
-          e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 下載 store-data.js')
+          e('p', { style: { margin: '0 0 10px', fontSize: 13, color: '#64748b', fontWeight: 600 } }, 'Fallback: if you need to download store-data.js manually'),
+          e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ Download store-data.js')
         )
       ),
 
       // ── Cloudinary image CDN ──
       e('div', { style: S.card },
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 } },
-          e('h2', { style: { margin: 0, fontSize: 18, fontWeight: 800 } }, '☁️ Cloudinary 圖片 CDN'),
+          e('h2', { style: { margin: 0, fontSize: 18, fontWeight: 800 } }, '☁️ Cloudinary image CDN'),
           isOk
-            ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ 已設定完成')
-            : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ 尚未設定')
+            ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ Configured')
+            : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ Not configured')
         ),
-        e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，CMS 只儲存 URL 字串。無 localStorage 容量問題，支援 50 萬+ 筆產品。'),
+        e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, 'Images upload to the Cloudinary CDN and the CMS stores only the URL string — no localStorage size limits, supporting 500,000+ products.'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 } },
           e(Field, { label: 'Cloud Name' },
             e(Input, { value: cfg.cloudName || '', onChange: ev => setCfg({ ...cfg, cloudName: ev.target.value }), placeholder: 'e.g. my-store-abc123' })
           ),
-          e(Field, { label: 'Upload Preset（必須為 Unsigned）' },
+          e(Field, { label: 'Upload Preset (must be Unsigned)' },
             e(Input, { value: cfg.uploadPreset || '', onChange: ev => setCfg({ ...cfg, uploadPreset: ev.target.value }), placeholder: 'e.g. armor_unsigned' })
           )
         ),
@@ -1247,19 +1247,19 @@
           '✓ Cloudinary Cloud: ', e('code', { style: { background: '#dcfce7', padding: '1px 6px', borderRadius: 4 } }, cfg.cloudName)
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
-          e('button', { onClick: saveCld, style: S.btnPrimary }, '儲存設定'),
+          e('button', { onClick: saveCld, style: S.btnPrimary }, 'Save settings'),
           cldSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
         )
       ),
       e('div', { style: S.card },
-        e('h3', { style: { margin: '0 0 16px', fontSize: 16, fontWeight: 700 } }, '📖 Cloudinary 設定教學'),
+        e('h3', { style: { margin: '0 0 16px', fontSize: 16, fontWeight: 700 } }, '📖 Cloudinary setup guide'),
         e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.4, fontSize: 14 } },
-          e('li', null, '前往 ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' 建立免費帳號（', e('strong', null, '25 GB 儲存、25 GB 頻寬/月'), '，完全免費）'),
-          e('li', null, '登入後在儀表板左上角複製你的 ', e('strong', null, 'Cloud Name')),
-          e('li', null, '前往 ', e('strong', null, 'Settings → Upload → Upload presets'), ' → 點擊 Add upload preset'),
-          e('li', null, '將 ', e('strong', null, 'Signing Mode'), ' 設為 ', e('code', { style: { background: '#f1f5f9', padding: '2px 7px', borderRadius: 4, fontWeight: 700, fontSize: 13 } }, 'Unsigned'), ' 然後儲存'),
-          e('li', null, '將 Cloud Name 與 Preset Name 填入上方欄位後點擊「儲存設定」'),
-          e('li', null, '完成！Products 和 Image Library 頁面的上傳按鈕將直接把圖片傳至 Cloudinary')
+          e('li', null, 'Go to ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' and create a free account (', e('strong', null, '25 GB storage, 25 GB bandwidth/month'), ', completely free)'),
+          e('li', null, 'After signing in, copy your ', e('strong', null, 'Cloud Name'), ' from the top-left of the dashboard'),
+          e('li', null, 'Go to ', e('strong', null, 'Settings → Upload → Upload presets'), ' → click Add upload preset'),
+          e('li', null, 'Set ', e('strong', null, 'Signing Mode'), ' to ', e('code', { style: { background: '#f1f5f9', padding: '2px 7px', borderRadius: 4, fontWeight: 700, fontSize: 13 } }, 'Unsigned'), ' and save'),
+          e('li', null, 'Enter the Cloud Name and Preset Name in the fields above, then click "Save settings"'),
+          e('li', null, 'Done! The upload buttons on the Products and Image Library pages will send images straight to Cloudinary')
         )
       )
     );
@@ -1283,20 +1283,20 @@
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
         e('h1', { style: S.heading }, 'Hero Carousel'),
-        e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ 新增圖片')
+        e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ Add image')
       ),
 
       e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 10, padding: '12px 16px', marginBottom: 22, fontSize: 13, color: '#0369a1', lineHeight: 1.7 } },
-        '圖片依序 1 → 2 → 3 → 4 自動輪播（每 5 秒切換）。請先至「Image Library」上傳圖片，再點「+ 新增圖片」選入輪播。'
+        'Images auto-rotate in order 1 → 2 → 3 → 4 (switching every 5 seconds). First upload images in "Image Library", then click "+ Add image" to add them to the carousel.'
       ),
 
       e('div', { style: S.card },
         hero.length === 0
           ? e('div', { style: { textAlign: 'center', padding: '64px 0', color: '#94a3b8' } },
               e('div', { style: { fontSize: 52, marginBottom: 14 } }, '▶'),
-              e('div', { style: { fontWeight: 700, fontSize: 16, color: '#374151', marginBottom: 6 } }, '尚未設定 Hero 輪播圖片'),
-              e('div', { style: { fontSize: 13, marginBottom: 22 } }, '點擊下方按鈕，從 Image Library 選取圖片加入輪播'),
-              e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ 從 Library 選取圖片')
+              e('div', { style: { fontWeight: 700, fontSize: 16, color: '#374151', marginBottom: 6 } }, 'No Hero carousel images yet'),
+              e('div', { style: { fontSize: 13, marginBottom: 22 } }, 'Click the button below to select images from the Image Library to add to the carousel'),
+              e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ Select from Library')
             )
           : e('div', { style: { display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'flex-start' } },
               hero.map((slide, i) =>
@@ -1306,29 +1306,29 @@
                     e('div', { style: { position: 'absolute', top: 8, left: 8, width: 26, height: 26, borderRadius: '50%', background: BRAND, color: '#fff', fontSize: 13, fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 6px rgba(0,0,0,.3)' } }, i + 1)
                   ),
                   e('div', { style: { padding: '10px 12px 12px' } },
-                    e('input', { value: slide.alt || '', onChange: ev => updateAlt(slide.id, ev.target.value), style: { ...S.input, padding: '5px 9px', fontSize: 12, marginBottom: 8 }, placeholder: 'Alt 說明文字' }),
+                    e('input', { value: slide.alt || '', onChange: ev => updateAlt(slide.id, ev.target.value), style: { ...S.input, padding: '5px 9px', fontSize: 12, marginBottom: 8 }, placeholder: 'Alt text' }),
                     e('div', { style: { display: 'flex', gap: 5 } },
-                      e('button', { onClick: () => move(i, -1), disabled: i === 0, style: { ...S.btnSm, flex: 1 } }, '← 前移'),
-                      e('button', { onClick: () => move(i, 1), disabled: i === hero.length - 1, style: { ...S.btnSm, flex: 1 } }, '後移 →'),
-                      e('button', { onClick: () => { if (confirm('移除這張圖片？')) remove(slide.id); }, style: S.btnDanger }, '🗑')
+                      e('button', { onClick: () => move(i, -1), disabled: i === 0, style: { ...S.btnSm, flex: 1 } }, '← Move left'),
+                      e('button', { onClick: () => move(i, 1), disabled: i === hero.length - 1, style: { ...S.btnSm, flex: 1 } }, 'Move right →'),
+                      e('button', { onClick: () => { if (confirm('Remove this image?')) remove(slide.id); }, style: S.btnDanger }, '🗑')
                     )
                   )
                 )
               ),
               e('button', { onClick: () => setShowPicker(true), style: { width: 220, minHeight: 186, border: '2px dashed #cbd5e1', borderRadius: 10, background: '#f8fafc', color: '#94a3b8', fontSize: 13, fontWeight: 700, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 16 } },
                 e('span', { style: { fontSize: 32, lineHeight: 1 } }, '+'),
-                '從 Library 新增'
+                'Add from Library'
               )
             )
       ),
 
-      showPicker && e(Modal, { title: '選擇 Hero 圖片', onClose: () => setShowPicker(false), width: 720 },
+      showPicker && e(Modal, { title: 'Select Hero image', onClose: () => setShowPicker(false), width: 720 },
         library.length === 0
           ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } },
-              '圖片庫為空。請先至「Image Library」上傳圖片後再返回此處。'
+              'The image library is empty. Upload images in "Image Library" first, then come back here.'
             )
           : e(React.Fragment, null,
-              e('p', { style: { margin: '0 0 14px', fontSize: 13, color: '#64748b' } }, '點擊圖片即可加入輪播。已加入的圖片標示綠色，點擊不重複加入。'),
+              e('p', { style: { margin: '0 0 14px', fontSize: 13, color: '#64748b' } }, 'Click an image to add it to the carousel. Images already added are marked green and cannot be added twice.'),
               e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 16 } },
                 library.map(img => {
                   const already = hero.some(h => h.url === img.url);
@@ -1341,12 +1341,12 @@
                       e('img', { src: img.url, alt: img.alt || '', style: { width: '100%', height: '100%', objectFit: 'cover' }, onError: ev => { ev.target.style.display = 'none'; } })
                     ),
                     e('div', { style: { padding: '6px 8px', fontSize: 11, color: '#374151', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, img.alt || '(no alt)'),
-                    already && e('div', { style: { position: 'absolute', top: 6, right: 6, background: '#16a34a', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 7px', borderRadius: 10 } }, '✓ 已加入')
+                    already && e('div', { style: { position: 'absolute', top: 6, right: 6, background: '#16a34a', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 7px', borderRadius: 10 } }, '✓ Added')
                   );
                 })
               ),
               e('div', { style: { borderTop: '1px solid #f1f5f9', paddingTop: 14 } },
-                e('div', { style: { fontSize: 12, fontWeight: 700, color: '#64748b', marginBottom: 8 } }, '或直接上傳新圖片（同時加入 Library 與 Hero）：'),
+                e('div', { style: { fontSize: 12, fontWeight: 700, color: '#64748b', marginBottom: 8 } }, 'Or upload new images directly (adds to both Library and Hero):'),
                 e(CloudinaryUploadButton, {
                   multiple: true,
                   onComplete: (imgs) => {
@@ -1356,7 +1356,7 @@
                     setShowPicker(false);
                   },
                   style: { ...S.btnGhost, fontSize: 13, padding: '9px 16px', display: 'inline-flex', alignItems: 'center', gap: 7 }
-                }, '📁 上傳新圖片')
+                }, '📁 Upload new images')
               )
             )
       )
@@ -1499,7 +1499,7 @@
       const getSha = async (path) => {
         const res = await fetch(`${base}/${path}?ref=${branch}`, { headers: h });
         if (res.status === 404) return null;
-        if (!res.ok) throw new Error(`無法讀取 GitHub 檔案 ${path} (${res.status})`);
+        if (!res.ok) throw new Error(`Could not read GitHub file ${path} (${res.status})`);
         const d = await res.json();
         return d.sha;
       };
@@ -1509,19 +1509,19 @@
         const body = { message: msg, content: toBase64(content), branch };
         if (sha) body.sha = sha;
         const res = await fetch(`${base}/${path}`, { method: 'PUT', headers: h, body: JSON.stringify(body) });
-        if (!res.ok) { const t = await res.text(); throw new Error(`提交 ${path} 失敗 (${res.status}): ${t}`); }
+        if (!res.ok) { const t = await res.text(); throw new Error(`Failed to commit ${path} (${res.status}): ${t}`); }
       };
 
       try {
         // 1. Verify token & repo
-        step('正在驗證 GitHub Token…');
+        step('Verifying GitHub Token…');
         const testRes = await fetch(`https://api.github.com/repos/${repo}`, { headers: h });
-        if (testRes.status === 401) throw new Error('GitHub Token 無效，請至 Settings 重新設定。');
-        if (testRes.status === 404) throw new Error(`找不到 Repository：${repo}，請確認名稱格式為 owner/repo。`);
-        if (!testRes.ok) throw new Error(`無法連接 GitHub (${testRes.status})`);
+        if (testRes.status === 401) throw new Error('GitHub Token is invalid. Please reconfigure it in Settings.');
+        if (testRes.status === 404) throw new Error(`Repository not found: ${repo}. Make sure the name is in owner/repo format.`);
+        if (!testRes.ok) throw new Error(`Could not connect to GitHub (${testRes.status})`);
 
         // 2. Commit store-data.js — use generated only if admin has real CMS data
-        step('正在提交 store-data.js…');
+        step('Committing store-data.js…');
         if (data.categories && data.categories.length > 0) {
           await commitFile('store-data.js', generateStoreJS(data), 'Deploy: update store data');
         } else {
@@ -1533,42 +1533,42 @@
 
         // 3. Commit _ds_bundle.js (design system)
         try {
-          step('正在提交 _ds_bundle.js…');
+          step('Committing _ds_bundle.js…');
           const r = await fetch('./_ds_bundle.js?' + Date.now());
           if (r.ok) { await commitFile('_ds_bundle.js', await r.text(), 'Deploy: update design system bundle'); }
         } catch (_) {}
 
         // 4. Commit styles.css
         try {
-          step('正在提交 styles.css…');
+          step('Committing styles.css…');
           const r = await fetch('./styles.css?' + Date.now());
           if (r.ok) { await commitFile('styles.css', await r.text(), 'Deploy: update styles'); }
         } catch (_) {}
 
         // 5. Commit index.html (storefront entry)
         try {
-          step('正在提交 index.html…');
+          step('Committing index.html…');
           const r = await fetch('./index.html?' + Date.now());
           if (r.ok) { await commitFile('index.html', await r.text(), 'Deploy: update storefront index'); }
         } catch (_) {}
 
         // 6. Commit admin.html (admin entry)
         try {
-          step('正在提交 admin.html…');
+          step('Committing admin.html…');
           const r = await fetch('./admin.html?' + Date.now());
           if (r.ok) { await commitFile('admin.html', await r.text(), 'Deploy: update admin entry'); }
         } catch (_) {}
 
         // 7. Commit store-app.jsx
         try {
-          step('正在提交 store-app.jsx…');
+          step('Committing store-app.jsx…');
           const r = await fetch('./store-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('store-app.jsx', await r.text(), 'Deploy: update store app'); }
         } catch (_) {}
 
         // 8. Commit admin-app.jsx
         try {
-          step('正在提交 admin-app.jsx…');
+          step('Committing admin-app.jsx…');
           const r = await fetch('./admin-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('admin-app.jsx', await r.text(), 'Deploy: update admin app'); }
         } catch (_) {}
@@ -1584,27 +1584,27 @@
 
     const spinStyle = { width: 20, height: 20, border: '3px solid #e2e8f0', borderTop: `3px solid ${BRAND}`, borderRadius: '50%', animation: 'spin 0.8s linear infinite', flexShrink: 0 };
 
-    if (phase === 'notoken') return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose, width: 500 },
+    if (phase === 'notoken') return e(Modal, { title: '📦 Publish to Cloudflare Pages', onClose, width: 500 },
       e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '16px 18px', marginBottom: 20 } },
-        e('p', { style: { margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 } }, '⚠ 尚未設定 GitHub Token 與 Repository'),
-        e('p', { style: { margin: '8px 0 0', fontSize: 13, color: '#78350f' } }, '請前往 Settings 頁面完成 GitHub + Cloudflare Pages 設定，即可一鍵自動發布。')
+        e('p', { style: { margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 } }, '⚠ GitHub Token and Repository not configured'),
+        e('p', { style: { margin: '8px 0 0', fontSize: 13, color: '#78350f' } }, 'Go to the Settings page to finish the GitHub + Cloudflare Pages setup for one-click publishing.')
       ),
       e('div', { style: { display: 'flex', gap: 10 } },
-        e('button', { onClick: goToSettings, style: S.btnPrimary }, '前往 Settings 設定'),
-        e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 手動下載 JS'),
-        e('button', { onClick: onClose, style: S.btnGhost }, '取消')
+        e('button', { onClick: goToSettings, style: S.btnPrimary }, 'Go to Settings'),
+        e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ Download JS manually'),
+        e('button', { onClick: onClose, style: S.btnGhost }, 'Cancel')
       )
     );
 
-    return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose: phase === 'busy' ? undefined : onClose, width: 500 },
+    return e(Modal, { title: '📦 Publish to Cloudflare Pages', onClose: phase === 'busy' ? undefined : onClose, width: 500 },
       phase === 'idle' && e('div', null,
-        e('p', { style: { margin: '0 0 16px', fontSize: 14, color: '#374151' } }, '確認要將目前的 CMS 資料發布到線上網站嗎？'),
+        e('p', { style: { margin: '0 0 16px', fontSize: 14, color: '#374151' } }, 'Publish the current CMS data to the live site?'),
         e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#0369a1', marginBottom: 20 } },
-          '會將 store-data.js、store-app.jsx、admin-app.jsx commit 到 GitHub，Cloudflare Pages 約 30 秒後自動部署完成。'
+          'This commits store-data.js, store-app.jsx and admin-app.jsx to GitHub; Cloudflare Pages deploys automatically in about 30 seconds.'
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
-          e('button', { onClick: publish, style: S.btnPrimary }, '🚀 確認發布'),
-          e('button', { onClick: onClose, style: S.btnGhost }, '取消')
+          e('button', { onClick: publish, style: S.btnPrimary }, '🚀 Confirm publish'),
+          e('button', { onClick: onClose, style: S.btnGhost }, 'Cancel')
         )
       ),
       phase === 'busy' && e('div', { style: { padding: '16px 0 8px', display: 'flex', alignItems: 'center', gap: 12 } },
@@ -1614,24 +1614,24 @@
       phase === 'done' && e('div', null,
         e('div', { style: { textAlign: 'center', padding: '16px 0 8px' } },
           e('div', { style: { fontSize: 48, marginBottom: 10 } }, '🎉'),
-          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已提交到 GitHub！'),
-          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署，約 30 秒後上線。')
+          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, 'Committed to GitHub!'),
+          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages is deploying automatically — live in about 30 seconds.')
         ),
         e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20, flexWrap: 'wrap' } },
-          e('a', { href: deployUrl, target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
-          e('a', { href: deployUrl ? deployUrl.replace(/\/?$/, '/admin.html') : '#', target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ 後台管理'),
-          e('button', { onClick: onClose, style: S.btnGhost }, '關閉')
+          e('a', { href: deployUrl, target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 Storefront'),
+          e('a', { href: deployUrl ? deployUrl.replace(/\/?$/, '/admin.html') : '#', target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ Admin'),
+          e('button', { onClick: onClose, style: S.btnGhost }, 'Close')
         )
       ),
       phase === 'error' && e('div', null,
         e('div', { style: { background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 8, padding: '14px 18px', marginBottom: 20 } },
-          e('p', { style: { margin: 0, fontWeight: 700, color: '#991b1b', fontSize: 14 } }, '✕ 發布失敗'),
+          e('p', { style: { margin: 0, fontWeight: 700, color: '#991b1b', fontSize: 14 } }, '✕ Publish failed'),
           e('p', { style: { margin: '8px 0 0', fontSize: 12, color: '#7f1d1d', fontFamily: 'monospace', whiteSpace: 'pre-wrap', wordBreak: 'break-all' } }, errMsg)
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
-          e('button', { onClick: publish, style: S.btnPrimary }, '重試'),
-          e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 手動下載 JS'),
-          e('button', { onClick: onClose, style: S.btnGhost }, '關閉')
+          e('button', { onClick: publish, style: S.btnPrimary }, 'Retry'),
+          e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ Download JS manually'),
+          e('button', { onClick: onClose, style: S.btnGhost }, 'Close')
         )
       )
     );
@@ -1673,7 +1673,7 @@
           e('span', { style: { fontSize: 13, color: '#94a3b8' } }, 'ARMOR BIKE  ·  CMS Admin Panel'),
           e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
             saved ? e('span', { style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
-            e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px' } }, '📦 發布'),
+            e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px' } }, '📦 Publish'),
             e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none' } }, '👁 Preview Store'),
             // ── user avatar button ──
             e('button', {
