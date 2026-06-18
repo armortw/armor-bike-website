@@ -8,7 +8,7 @@
     bikes: 103, parts: 1240, accessories: 864, electronics: 312,
     clothing: 978, shoes: 246, outdoor: 531, moresports: 489, brands: 207, sale: 248
   };
-  const SORTS = ['Popularity', 'Price: low to high', 'Price: high to low', 'Newest'];
+  const SORTS = ['Popularity', 'Newest'];
 
   function parsePrice(p) { return parseFloat(String(p).replace(/\./g, '').replace(',', '.')) || 0; }
   function fmtPrice(n) { return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
@@ -117,7 +117,6 @@
             React.createElement('button', { onClick: () => onUpdateQty(item.key, 1), style: { width: 28, height: 28, background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: 16 } }, '+')
           ),
           React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 10 } },
-            React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 15, color: 'var(--text-strong)' } }, fmtPrice(lineTotal), ' €'),
             React.createElement('button', { onClick: () => onRemove(item.key), style: { background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: 4 } },
               React.createElement(Icon.trash, { stroke: '#9ca3af' }))
           )
@@ -126,34 +125,22 @@
     );
   }
 
-  function CartDrawer({ open, onClose, cart, onRemove, onUpdateQty, cartTotal }) {
+  function CartDrawer({ open, onClose, cart, onRemove, onUpdateQty }) {
     const totalItems = cart.reduce((s, x) => s + x.qty, 0);
-    const shipping = cartTotal > 199 ? 0 : 9.99;
     return React.createElement(Drawer, { open, onClose, width: 460 },
-      React.createElement(DrawerHead, { title: '購物車', count: totalItems, onClose }),
+      React.createElement(DrawerHead, { title: '詢價清單', count: totalItems, onClose }),
       React.createElement('div', { style: { flex: 1, overflowY: 'auto' } },
         cart.length === 0
-          ? React.createElement(DrawerEmpty, { icon: '🛒', title: 'Your cart is empty', sub: 'Browse products and add items to your cart.', onBrowse: onClose })
+          ? React.createElement(DrawerEmpty, { icon: '📋', title: '詢價清單是空的', sub: '瀏覽產品並加入想詢價的項目。', onBrowse: onClose })
           : cart.map(item => React.createElement(CartItem, { key: item.key, item, onRemove, onUpdateQty }))
       ),
       cart.length > 0 && React.createElement('div', { style: { padding: '16px 22px', borderTop: '1px solid var(--border-subtle)', flexShrink: 0 } },
-        React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--text-muted)', marginBottom: 6 } },
-          React.createElement('span', null, '小計 (' + totalItems + ' 件)'),
-          React.createElement('span', { style: { fontWeight: 600, color: 'var(--text-body)' } }, fmtPrice(cartTotal) + ' €')
+        React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 } },
+          React.createElement('span', null, '項目數量'),
+          React.createElement('span', { style: { fontWeight: 700, color: 'var(--text-body)' } }, totalItems + ' 件')
         ),
-        React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 14 } },
-          React.createElement('span', { style: { color: 'var(--text-muted)' } }, '運費'),
-          React.createElement('span', { style: { fontWeight: 700, color: shipping === 0 ? '#16a34a' : 'var(--text-body)' } }, shipping === 0 ? '免費 🎉' : fmtPrice(shipping) + ' €')
-        ),
-        shipping > 0 && React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', background: '#f8fafc', padding: '6px 10px', borderRadius: 6, marginBottom: 12 } }, '訂單滿 199 € 享免運費'),
-        React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '10px 0 16px', borderTop: '1px solid var(--border-subtle)' } },
-          React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 16 } }, '總計'),
-          React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 22, color: 'var(--text-strong)' } }, fmtPrice(cartTotal + shipping) + ' €*')
-        ),
-        React.createElement('button', { style: { width: '100%', padding: '13px 0', background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, cursor: 'pointer' } }, '前往結帳 →'),
-        React.createElement('div', { style: { marginTop: 12, display: 'flex', justifyContent: 'center', gap: 10 } },
-          ['Visa', 'Mastercard', 'PayPal'].map(m => React.createElement('span', { key: m, style: { fontSize: 11, color: 'var(--text-muted)', background: 'var(--gray-100)', padding: '2px 8px', borderRadius: 4, fontWeight: 600 } }, m))
-        )
+        React.createElement('button', { style: { width: '100%', padding: '13px 0', background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, cursor: 'pointer' } }, '送出詢價清單 →'),
+        React.createElement('div', { style: { marginTop: 12, fontSize: 12, color: 'var(--text-muted)', textAlign: 'center' } }, '我們會盡快回覆報價')
       )
     );
   }
@@ -168,7 +155,7 @@
       React.createElement('div', { style: { flex: 1, minWidth: 0 } },
         React.createElement('div', { style: { fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--text-muted)', marginBottom: 3 } }, product.manufacturer),
         React.createElement('button', { onClick: () => onSelect(product), style: { background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left', fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 14, color: 'var(--text-strong)', lineHeight: 1.3, display: 'block', marginBottom: 5 } }, product.name),
-        React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 15, color: product.oldPrice ? 'var(--text-sale)' : 'var(--text-strong)' } }, product.price, ' €', React.createElement('span', { style: { fontSize: 11 } }, '*'))
+        React.createElement('span', { style: { fontSize: 12, color: 'var(--text-muted)' } }, product.spec || '')
       ),
       React.createElement('button', { onClick: () => onRemove(product), title: 'Remove', style: { background: 'none', border: 'none', cursor: 'pointer', display: 'flex', padding: 6, flexShrink: 0 } },
         React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: '#e0004b', stroke: '#e0004b', strokeWidth: 2 },
@@ -217,7 +204,7 @@
           React.createElement('button', { onClick: () => { onClose(); setTimeout(onOpenCart, 300); }, style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 10, padding: '14px', textAlign: 'left', cursor: 'pointer' } },
             React.createElement('div', { style: { fontSize: 22, marginBottom: 4 } }, '🛒'),
             React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 22 } }, cartCount),
-            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, '購物車')
+            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, '詢價清單')
           )
         ),
 
@@ -293,13 +280,7 @@
         React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontWeight: 'var(--fw-bold)', fontSize: 'var(--text-xs)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--text-strong)' } }, product.manufacturer),
         React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontWeight: 'var(--fw-semibold)', fontSize: 'var(--text-md)', color: 'var(--text-strong)', lineHeight: 'var(--leading-snug)' } }, product.name),
         product.spec && React.createElement('div', { style: { fontSize: 'var(--text-sm)', color: 'var(--text-muted)', lineHeight: 'var(--leading-snug)' } }, product.spec),
-        React.createElement('div', { style: { display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)', marginTop: 'var(--space-3)' } },
-          React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 'var(--fw-extra)', fontSize: 'var(--text-2xl)', color: product.oldPrice ? 'var(--text-sale)' : 'var(--text-strong)' } },
-            product.price, ' ', product.currency || '€', React.createElement('span', { style: { fontSize: 'var(--text-md)' } }, '*')
-          ),
-          product.oldPrice && React.createElement('span', { style: { fontSize: 'var(--text-sm)', color: 'var(--text-muted)', textDecoration: 'line-through' } }, product.oldPrice, ' ', product.currency || '€')
-        ),
-        product.note && React.createElement('div', { style: { fontSize: 'var(--text-xs)', color: 'var(--text-sale)', fontWeight: 'var(--fw-semibold)', marginTop: 'var(--space-1)' } }, product.note)
+        product.note && React.createElement('div', { style: { fontSize: 'var(--text-xs)', color: 'var(--text-sale)', fontWeight: 'var(--fw-semibold)', marginTop: 'var(--space-2)' } }, product.note)
       )
     );
   }
@@ -413,16 +394,10 @@
           el('h1', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 32, lineHeight: 1.12, letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '0 0 12px' } }, product.name),
           product.spec && el('div', { style: { fontSize: 15, color: 'var(--text-muted)', marginBottom: 22, lineHeight: 1.55 } }, product.spec),
 
-          // Price block
-          el('div', { style: { background: 'linear-gradient(180deg,#fbfdff,var(--surface-media))', border: '1px solid var(--border-subtle)', borderRadius: 16, padding: '18px 20px', marginBottom: 18 } },
-            el('div', { style: { display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' } },
-              el('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 40, lineHeight: 1, color: hasSale ? 'var(--text-sale)' : 'var(--text-strong)' } },
-                product.price, ' ', cur, el('span', { style: { fontSize: 20, verticalAlign: 'super' } }, '*')
-              ),
-              hasSale && el('span', { style: { fontSize: 18, color: 'var(--text-muted)', textDecoration: 'line-through' } }, product.oldPrice, ' ', cur),
-              hasSale && saveAmt > 0 && el('span', { style: { fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 12, color: '#0a7d3d', background: '#e6f6ec', border: '1px solid #b7e6c8', padding: '4px 10px', borderRadius: 999 } }, 'Save ' + fmt(saveAmt) + ' ' + cur)
-            ),
-            el('div', { style: { fontSize: 12, color: 'var(--text-muted)', marginTop: 6 } }, '* incl. VAT, plus shipping')
+          // Request-a-quote block (no price shown)
+          el('div', { style: { background: 'linear-gradient(180deg,#fbfdff,var(--surface-media))', border: '1px solid var(--border-subtle)', borderRadius: 16, padding: '16px 20px', marginBottom: 18 } },
+            el('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: 'var(--text-strong)' } }, '價格請洽詢'),
+            el('div', { style: { fontSize: 12, color: 'var(--text-muted)', marginTop: 4 } }, 'Contact us for pricing & bulk quotes')
           ),
 
           // Availability line
@@ -440,7 +415,7 @@
             ),
             el('button', { onClick: handleAdd, className: 'pdp-cta', style: { flex: 1, height: 52, background: added ? '#16a34a' : 'var(--brand-primary)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 15.5, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 8px 20px -6px rgba(0,110,224,.5)' } },
               added ? el(Icon.check, { stroke: '#fff' }) : el(Icon.cart, { width: 20, height: 20 }),
-              added ? '已加入購物車！' : '加入購物車'
+              added ? '已加入詢價清單！' : '加入詢價清單'
             )
           ),
           el('button', { onClick: () => onToggleWishlist(product), className: 'pdp-wish', style: { width: '100%', height: 48, background: isWishlisted ? '#fff5f8' : '#fff', cursor: 'pointer', borderRadius: 12, border: '1px solid ' + (isWishlisted ? '#e0004b' : 'var(--border-default)'), color: isWishlisted ? '#e0004b' : 'var(--text-body)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 } },
@@ -500,7 +475,7 @@
         React.createElement('div', { style: { flex: 1, maxWidth: 720, margin: '0 8px' } }, React.createElement(SearchInput, { placeholder: 'Search for bikes, gear & clothing…' })),
         React.createElement(HeaderAction, { icon: Icon.heart, label: 'Wishlist', badge: wishlistCount || null, onClick: onWishlist }),
         React.createElement(HeaderAction, { icon: Icon.user, label: 'Account', onClick: onAccount }),
-        React.createElement(HeaderAction, { icon: Icon.cart, label: 'Cart', badge: cartCount || null, onClick: onCart })
+        React.createElement(HeaderAction, { icon: Icon.cart, label: '詢價單', badge: cartCount || null, onClick: onCart })
       )
     );
   }
@@ -719,7 +694,7 @@
           React.createElement('div', { style: { minWidth: 0 } },
             React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-strong)' } }, p.manufacturer),
             React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontSize: 'var(--text-sm)', color: 'var(--text-body)', lineHeight: 1.25, margin: '2px 0 4px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' } }, p.name),
-            React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-md)', color: p.oldPrice ? 'var(--text-sale)' : 'var(--text-strong)' } }, p.price + ' €*')
+            p.spec ? React.createElement('div', { style: { fontFamily: 'var(--font-sans)', fontSize: 'var(--text-xs)', color: 'var(--text-muted)' } }, p.spec) : null
           )
         )
       ),
@@ -746,7 +721,7 @@
     );
   }
   function Facet({ facet, fkey, checked, toggleCheck, colors, toggleColor }) {
-    if (facet.kind === 'range') return React.createElement(RangeFacet, { facet });
+    if (facet.kind === 'range') return null; // price range filter hidden (no prices shown)
     if (facet.kind === 'toggles') return React.createElement('div', { style: { padding: 'var(--space-5) 0', borderBottom: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' } },
       (facet.options || []).map(o => React.createElement(Checkbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), count: o.count, label: React.createElement('span', { style: { color: o.sale ? 'var(--text-sale)' : 'var(--text-body)', fontWeight: o.sale ? 700 : 400 } }, o.label) })));
     if (facet.kind === 'color') return React.createElement(FilterGroup, { title: facet.title },
@@ -775,9 +750,7 @@
   function Main({ cat, leaf, sort, setSort, onSelect, isWishlisted, onToggleWishlist }) {
     const products = React.useMemo(() => {
       const arr = (cat.products || []).slice();
-      if (sort === 'Price: low to high') arr.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
-      else if (sort === 'Price: high to low') arr.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-      else if (sort === 'Newest') arr.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
+      if (sort === 'Newest') arr.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
       return arr;
     }, [cat, sort]);
     return React.createElement('section', { style: { flex: 1, minWidth: 0 } },
