@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-18 04:33 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-18 10:57 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -861,10 +861,10 @@
         "price": "39,99"
       },
       {
-        "manufacturer": "123",
+        "manufacturer": "ARMOR ",
         "name": "VK8145",
-        "spec": "123456",
-        "price": "123",
+        "spec": "SIZE: 70X48X32 mm , 2X500mAH 3.7V ",
+        "price": "USD 17.00 / SET ",
         "oldPrice": "",
         "badge": "Hot Deal",
         "note": "",
@@ -872,6 +872,51 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
             "alt": "EP 1"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8149 ",
+        "spec": "SIZE:74X54X30MM , 500mAH X 2 7.4V ",
+        "price": "USD 15.70 /PCE ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+            "alt": "VK 8149"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8146",
+        "spec": "SIZE: 70X50X30MM 600mAH X 2 7.4V ",
+        "price": "USD 16.25 / SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
+            "alt": "VK-8146"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8302 ",
+        "spec": "SIZE: 66X50X134mm , 2000mAHX2 7.4V ",
+        "price": "USD 9.70/ SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+            "alt": "VK-8302"
           }
         ]
       }
