@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-18 10:57 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-18 11:09 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -917,6 +917,36 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
             "alt": "VK-8302"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
           }
         ]
       }
@@ -2473,6 +2503,12 @@
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
     "alt": "CO25-8148",
     "source": "cloudinary"
+  },
+  {
+    "id": 1781780424350.3518,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780420/vqohexxku4odxj28vtv3.png",
+    "alt": "Gemini_Generated_Image_ug12mug12mug12mu -0617",
+    "source": "cloudinary"
   }
 ];
   var hero = [
@@ -2500,6 +2536,11 @@
     "id": 1781689897937.1333,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689874/i714pfle7gjl3e9mvat5.png",
     "alt": "LIGHT"
+  },
+  {
+    "id": 1781780424350.115,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780420/vqohexxku4odxj28vtv3.png",
+    "alt": "E PUMP "
   }
 ];
   var map = {};
