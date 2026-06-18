@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-18 01:47 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-18 04:30 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -286,12 +286,7 @@
         "oldPrice": "2.799,00",
         "badge": "-18%",
         "note": "Ships in 24h",
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781747260/qfxrtqquznklqjwfg5op.jpg",
-            "alt": "P11"
-          }
-        ]
+        "images": []
       },
       {
         "manufacturer": "Canyon",
@@ -638,6 +633,13 @@
             "Panniers",
             "Backpacks",
             "Bar Bags"
+          ]
+        },
+        {
+          "title": "E-PUMP",
+          "links": [
+            "MINI",
+            "BIG"
           ]
         }
       ],
