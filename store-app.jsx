@@ -128,19 +128,19 @@
   function CartDrawer({ open, onClose, cart, onRemove, onUpdateQty }) {
     const totalItems = cart.reduce((s, x) => s + x.qty, 0);
     return React.createElement(Drawer, { open, onClose, width: 460 },
-      React.createElement(DrawerHead, { title: '詢價清單', count: totalItems, onClose }),
+      React.createElement(DrawerHead, { title: 'Quote List', count: totalItems, onClose }),
       React.createElement('div', { style: { flex: 1, overflowY: 'auto' } },
         cart.length === 0
-          ? React.createElement(DrawerEmpty, { icon: '📋', title: '詢價清單是空的', sub: '瀏覽產品並加入想詢價的項目。', onBrowse: onClose })
+          ? React.createElement(DrawerEmpty, { icon: '📋', title: 'Your quote list is empty', sub: 'Browse products and add items to request a quote.', onBrowse: onClose })
           : cart.map(item => React.createElement(CartItem, { key: item.key, item, onRemove, onUpdateQty }))
       ),
       cart.length > 0 && React.createElement('div', { style: { padding: '16px 22px', borderTop: '1px solid var(--border-subtle)', flexShrink: 0 } },
         React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 } },
-          React.createElement('span', null, '項目數量'),
-          React.createElement('span', { style: { fontWeight: 700, color: 'var(--text-body)' } }, totalItems + ' 件')
+          React.createElement('span', null, 'Items'),
+          React.createElement('span', { style: { fontWeight: 700, color: 'var(--text-body)' } }, totalItems + ' item' + (totalItems === 1 ? '' : 's'))
         ),
-        React.createElement('button', { style: { width: '100%', padding: '13px 0', background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, cursor: 'pointer' } }, '送出詢價清單 →'),
-        React.createElement('div', { style: { marginTop: 12, fontSize: 12, color: 'var(--text-muted)', textAlign: 'center' } }, '我們會盡快回覆報價')
+        React.createElement('button', { style: { width: '100%', padding: '13px 0', background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, cursor: 'pointer' } }, 'Request a quote →'),
+        React.createElement('div', { style: { marginTop: 12, fontSize: 12, color: 'var(--text-muted)', textAlign: 'center' } }, 'We will get back to you with a quote shortly.')
       )
     );
   }
@@ -166,7 +166,7 @@
 
   function WishlistDrawer({ open, onClose, wishlist, onSelect, onToggleWishlist }) {
     return React.createElement(Drawer, { open, onClose, width: 440 },
-      React.createElement(DrawerHead, { title: '願望清單', count: wishlist.length, onClose }),
+      React.createElement(DrawerHead, { title: 'Wishlist', count: wishlist.length, onClose }),
       React.createElement('div', { style: { flex: 1, overflowY: 'auto' } },
         wishlist.length === 0
           ? React.createElement(DrawerEmpty, { icon: '♡', title: 'Wishlist is empty', sub: 'Click ♡ on any product to save it here.', onBrowse: onClose })
@@ -192,54 +192,54 @@
     const signOut = () => { onSave(null); setForm({ name: '', email: '' }); setEditing(true); };
 
     return React.createElement(Drawer, { open, onClose, width: 400 },
-      React.createElement(DrawerHead, { title: '我的帳號', count: 0, onClose }),
+      React.createElement(DrawerHead, { title: 'My Account', count: 0, onClose }),
       React.createElement('div', { style: { flex: 1, overflowY: 'auto', padding: '22px' } },
 
         account && React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 22 } },
           React.createElement('button', { onClick: () => { onClose(); setTimeout(onOpenWishlist, 300); }, style: { background: '#fdf2f8', border: '1px solid #f0abfc', borderRadius: 10, padding: '14px', textAlign: 'left', cursor: 'pointer' } },
             React.createElement('div', { style: { fontSize: 22, marginBottom: 4 } }, '♡'),
             React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 22 } }, wishlistCount),
-            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, '願望清單')
+            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, 'Wishlist')
           ),
           React.createElement('button', { onClick: () => { onClose(); setTimeout(onOpenCart, 300); }, style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 10, padding: '14px', textAlign: 'left', cursor: 'pointer' } },
             React.createElement('div', { style: { fontSize: 22, marginBottom: 4 } }, '🛒'),
             React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 22 } }, cartCount),
-            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, '詢價清單')
+            React.createElement('div', { style: { fontSize: 12, color: 'var(--text-muted)', fontWeight: 600 } }, 'Quote List')
           )
         ),
 
         React.createElement('div', { style: { background: '#f8fafc', borderRadius: 12, padding: 18 } },
           React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 } },
-            React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 16 } }, account ? '個人資料' : '建立帳號'),
-            account && !editing && React.createElement('button', { onClick: () => setEditing(true), style: { background: 'none', border: '1px solid var(--border-default)', borderRadius: 7, padding: '4px 12px', cursor: 'pointer', fontSize: 12, fontWeight: 600 } }, '編輯')
+            React.createElement('span', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 16 } }, account ? 'Profile' : 'Create account'),
+            account && !editing && React.createElement('button', { onClick: () => setEditing(true), style: { background: 'none', border: '1px solid var(--border-default)', borderRadius: 7, padding: '4px 12px', cursor: 'pointer', fontSize: 12, fontWeight: 600 } }, 'Edit')
           ),
           !editing && account
             ? React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
-                React.createElement('div', null, React.createElement('div', { style: { fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 2 } }, '姓名'), React.createElement('div', { style: { fontSize: 15, fontWeight: 600 } }, account.name)),
+                React.createElement('div', null, React.createElement('div', { style: { fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 2 } }, 'Name'), React.createElement('div', { style: { fontSize: 15, fontWeight: 600 } }, account.name)),
                 React.createElement('div', null, React.createElement('div', { style: { fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 2 } }, 'Email'), React.createElement('div', { style: { fontSize: 14 } }, account.email))
               )
             : React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 12 } },
                 React.createElement('div', null,
-                  React.createElement('label', { style: { display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 4 } }, '姓名 *'),
-                  React.createElement('input', { style: inp, value: form.name, onChange: ev => setForm(f => ({ ...f, name: ev.target.value })), placeholder: '你的名字' })
+                  React.createElement('label', { style: { display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 4 } }, 'Name *'),
+                  React.createElement('input', { style: inp, value: form.name, onChange: ev => setForm(f => ({ ...f, name: ev.target.value })), placeholder: 'Your name' })
                 ),
                 React.createElement('div', null,
                   React.createElement('label', { style: { display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 4 } }, 'Email *'),
                   React.createElement('input', { style: inp, type: 'email', value: form.email, onChange: ev => setForm(f => ({ ...f, email: ev.target.value })), placeholder: 'your@email.com' })
                 ),
                 React.createElement('div', { style: { display: 'flex', gap: 8 } },
-                  React.createElement('button', { onClick: save, style: { flex: 1, height: 40, background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14 } }, '儲存'),
-                  editing && account && React.createElement('button', { onClick: () => setEditing(false), style: { height: 40, padding: '0 14px', background: 'none', border: '1px solid var(--border-default)', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 600 } }, '取消')
+                  React.createElement('button', { onClick: save, style: { flex: 1, height: 40, background: 'var(--brand-primary)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14 } }, 'Save'),
+                  editing && account && React.createElement('button', { onClick: () => setEditing(false), style: { height: 40, padding: '0 14px', background: 'none', border: '1px solid var(--border-default)', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 600 } }, 'Cancel')
                 ),
                 savedMsg && React.createElement('div', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700, display: 'flex', gap: 5, alignItems: 'center' } },
-                  React.createElement(Icon.check, { stroke: '#16a34a' }), '已儲存！')
+                  React.createElement(Icon.check, { stroke: '#16a34a' }), 'Saved!')
               ),
-          account && !editing && React.createElement('button', { onClick: signOut, style: { marginTop: 16, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600 } }, '登出 →')
+          account && !editing && React.createElement('button', { onClick: signOut, style: { marginTop: 16, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600 } }, 'Sign out →')
         ),
 
         account && React.createElement('div', { style: { marginTop: 16, background: '#f8fafc', borderRadius: 12, padding: 18 } },
-          React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 15, marginBottom: 12 } }, '訂單記錄'),
-          React.createElement('div', { style: { textAlign: 'center', padding: '20px 0', fontSize: 13, color: 'var(--text-muted)' } }, '暫無訂單記錄')
+          React.createElement('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 15, marginBottom: 12 } }, 'Order history'),
+          React.createElement('div', { style: { textAlign: 'center', padding: '20px 0', fontSize: 13, color: 'var(--text-muted)' } }, 'No orders yet')
         )
       )
     );
@@ -396,7 +396,7 @@
 
           // Request-a-quote block (no price shown)
           el('div', { style: { background: 'linear-gradient(180deg,#fbfdff,var(--surface-media))', border: '1px solid var(--border-subtle)', borderRadius: 16, padding: '16px 20px', marginBottom: 18 } },
-            el('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: 'var(--text-strong)' } }, '價格請洽詢'),
+            el('div', { style: { fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: 'var(--text-strong)' } }, 'Price on request'),
             el('div', { style: { fontSize: 12, color: 'var(--text-muted)', marginTop: 4 } }, 'Contact us for pricing & bulk quotes')
           ),
 
@@ -415,13 +415,13 @@
             ),
             el('button', { onClick: handleAdd, className: 'pdp-cta', style: { flex: 1, height: 52, background: added ? '#16a34a' : 'var(--brand-primary)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 15.5, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 8px 20px -6px rgba(0,110,224,.5)' } },
               added ? el(Icon.check, { stroke: '#fff' }) : el(Icon.cart, { width: 20, height: 20 }),
-              added ? '已加入詢價清單！' : '加入詢價清單'
+              added ? 'Added to quote list!' : 'Add to quote list'
             )
           ),
           el('button', { onClick: () => onToggleWishlist(product), className: 'pdp-wish', style: { width: '100%', height: 48, background: isWishlisted ? '#fff5f8' : '#fff', cursor: 'pointer', borderRadius: 12, border: '1px solid ' + (isWishlisted ? '#e0004b' : 'var(--border-default)'), color: isWishlisted ? '#e0004b' : 'var(--text-body)', fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 } },
             el('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: isWishlisted ? '#e0004b' : 'none', stroke: isWishlisted ? '#e0004b' : 'currentColor', strokeWidth: 2 },
               el('path', { d: 'M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z' })),
-            isWishlisted ? '已加入願望清單' : '加入願望清單'
+            isWishlisted ? 'Saved to wishlist' : 'Add to wishlist'
           ),
 
           // Trust strip
@@ -475,7 +475,7 @@
         React.createElement('div', { style: { flex: 1, maxWidth: 720, margin: '0 8px' } }, React.createElement(SearchInput, { placeholder: 'Search for bikes, gear & clothing…' })),
         React.createElement(HeaderAction, { icon: Icon.heart, label: 'Wishlist', badge: wishlistCount || null, onClick: onWishlist }),
         React.createElement(HeaderAction, { icon: Icon.user, label: 'Account', onClick: onAccount }),
-        React.createElement(HeaderAction, { icon: Icon.cart, label: '詢價單', badge: cartCount || null, onClick: onCart })
+        React.createElement(HeaderAction, { icon: Icon.cart, label: 'Quote', badge: cartCount || null, onClick: onCart })
       )
     );
   }
