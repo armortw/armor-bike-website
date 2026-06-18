@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-18 04:32 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-18 04:33 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -859,6 +859,21 @@
         "name": "Bluemels Mudguard Set — 29\"",
         "spec": "Front + rear",
         "price": "39,99"
+      },
+      {
+        "manufacturer": "123",
+        "name": "VK8145",
+        "spec": "123456",
+        "price": "123",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
+            "alt": "EP 1"
+          }
+        ]
       }
     ]
   },
