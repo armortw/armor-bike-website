@@ -25,6 +25,18 @@
   const loadGithubConfig = () => { try { return JSON.parse(localStorage.getItem(GITHUB_KEY)) || {}; } catch { return {}; } };
   const saveGithubConfig = (c) => localStorage.setItem(GITHUB_KEY, JSON.stringify(c));
 
+  // ── cross-origin config sync (users + GitHub token + Cloudinary) ───────────
+  // localStorage is per-origin (localhost / 192.168.x / pages.dev don't share it),
+  // so settings move between devices via this one-blob export/import.
+  const exportConfigBlob = () => JSON.stringify({ v: 1, exported: new Date().toISOString(), users: loadUsers(), github: loadGithubConfig(), cloudinary: loadCldConfig() }, null, 2);
+  const importConfigBlob = (txt) => {
+    const d = JSON.parse(txt);
+    if (Array.isArray(d.users)) saveUsers(d.users);
+    if (d.github && typeof d.github === 'object') saveGithubConfig(d.github);
+    if (d.cloudinary && typeof d.cloudinary === 'object') saveCldConfig(d.cloudinary);
+    return { users: Array.isArray(d.users) ? d.users.length : 0 };
+  };
+
   function getInitialData() {
     const cms = loadCMS();
     const published = {
@@ -101,7 +113,7 @@
   }
 
   // ── FirstTimeSetup ────────────────────────────────────────────────────────
-  function FirstTimeSetup({ onSetup }) {
+  function FirstTimeSetup({ onSetup, onCancel }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
@@ -112,8 +124,9 @@
       if (!username.trim()) return setErr('請輸入帳號');
       if (password.length < 6) return setErr('密碼至少需要 6 個字元');
       if (password !== confirm) return setErr('兩次密碼不一致');
-      const admin = { id: 1, username: username.trim(), password, role: 'admin', name: displayName.trim() || username.trim() };
-      saveUsers([admin]);
+      const existing = loadUsers();
+      const admin = { id: Date.now(), username: username.trim(), password, role: 'admin', name: displayName.trim() || username.trim() };
+      saveUsers([...existing, admin]);
       saveAuth(admin);
       onSetup(admin);
     };
@@ -122,7 +135,7 @@
         e('div', { style: { textAlign: 'center', marginBottom: 32 } },
           e('img', { src: 'assets/logo-armorbike-on-light.svg', alt: 'ARMOR BIKE', style: { height: 38 } }),
           e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, '建立管理員帳號'),
-          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '首次使用，請設定您的登入帳號與密碼')
+          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '設定一組登入帳號與密碼')
         ),
         e('form', { onSubmit: submit },
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '顯示名稱'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: 'Administrator', autoFocus: true })),
@@ -130,7 +143,8 @@
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '密碼（至少 6 位）'), e(Input, { type: 'password', value: password, onChange: ev => setPassword(ev.target.value), placeholder: '••••••••' })),
           e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, '確認密碼'), e(Input, { type: 'password', value: confirm, onChange: ev => setConfirm(ev.target.value), placeholder: '••••••••' })),
           err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
-          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, '建立帳號並登入')
+          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, '建立帳號並登入'),
+          onCancel ? e('button', { type: 'button', onClick: onCancel, style: { ...S.btnGhost, width: '100%', padding: 11, fontSize: 13, marginTop: 10 } }, '← 返回登入') : null
         )
       )
     );
@@ -138,16 +152,23 @@
 
   // ── Login ─────────────────────────────────────────────────────────────────
   function Login({ onLogin }) {
-    const [isFirstTime] = useState(() => !localStorage.getItem(USERS_KEY));
+    const [mode, setMode] = useState('login'); // 'login' | 'setup'
     const [u, setU] = useState('');
     const [p, setP] = useState('');
     const [err, setErr] = useState('');
-    if (isFirstTime) return e(FirstTimeSetup, { onSetup: onLogin });
+    const [showImport, setShowImport] = useState(false);
+    const [blob, setBlob] = useState('');
+    const noUsers = loadUsers().length === 0;
+    if (mode === 'setup') return e(FirstTimeSetup, { onSetup: onLogin, onCancel: () => setMode('login') });
     const submit = (ev) => {
       ev.preventDefault();
       const user = loadUsers().find(x => x.username === u && x.password === p);
       if (user) { saveAuth(user); onLogin(user); }
       else setErr('帳號或密碼錯誤');
+    };
+    const doImport = () => {
+      try { const r = importConfigBlob(blob); setErr(''); setShowImport(false); setBlob(''); alert('設定已匯入（' + r.users + ' 個帳號）。請使用同步後的帳號登入。'); }
+      catch (_) { setErr('匯入失敗：設定格式錯誤'); }
     };
     return e('div', { style: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%)' } },
       e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 400 } },
@@ -156,11 +177,25 @@
           e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, 'CMS Admin Panel'),
           e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, 'Sign in to manage your store content')
         ),
+        noUsers ? e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '12px 14px', marginBottom: 18, fontSize: 12.5, color: '#92400e', lineHeight: 1.5 } },
+          '此裝置尚無帳號。可在其他已設定的裝置（後台 → Settings → 匯出設定）複製設定後，於此「匯入設定」，或建立新帳號。'
+        ) : null,
         e('form', { onSubmit: submit },
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Username'), e(Input, { value: u, onChange: ev => setU(ev.target.value), placeholder: 'admin', autoFocus: true })),
           e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, 'Password'), e(Input, { type: 'password', value: p, onChange: ev => setP(ev.target.value), placeholder: '••••••••' })),
           err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
           e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, 'Sign In')
+        ),
+        e('div', { style: { marginTop: 18, paddingTop: 16, borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: 8 } },
+          e('div', { style: { display: 'flex', gap: 14, justifyContent: 'center', fontSize: 13 } },
+            e('button', { type: 'button', onClick: () => setShowImport(v => !v), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '⬇ 匯入設定'),
+            e('span', { style: { color: '#cbd5e1' } }, '·'),
+            e('button', { type: 'button', onClick: () => setMode('setup'), style: { background: 'none', border: 'none', color: BRAND, cursor: 'pointer', fontWeight: 600 } }, '＋ 建立帳號')
+          ),
+          showImport ? e('div', null,
+            e('textarea', { value: blob, onChange: ev => setBlob(ev.target.value), placeholder: '貼上從其他裝置匯出的設定 JSON…', style: { ...S.input, width: '100%', height: 90, fontFamily: 'monospace', fontSize: 12, marginTop: 6 } }),
+            e('button', { type: 'button', onClick: doImport, disabled: !blob.trim(), style: { ...S.btnPrimary, width: '100%', padding: 10, fontSize: 13, marginTop: 8, opacity: blob.trim() ? 1 : 0.5 } }, '匯入並同步')
+          ) : null
         )
       )
     );
@@ -394,7 +429,22 @@
 
   // ── Products ──────────────────────────────────────────────────────────────
   const BADGE_OPTS = ['', 'New', 'Bestseller', 'Hot Deal', '-10%', '-13%', '-15%', '-18%', '-20%', '-24%', '-28%', '-30%', '-32%', '-36%'];
-  const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', price: '', oldPrice: '', badge: '', note: '', images: [] });
+  const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', images: [] });
+
+  // Flatten a category's Mega Menu into selectable sub-items (group › link)
+  const megaLeaves = (cat) => {
+    const out = [];
+    (cat && cat.mega || []).forEach(col => (col || []).forEach(g => (g.links || []).forEach(lnk => out.push({ group: g.title || '', link: lnk }))));
+    return out;
+  };
+
+  // Required fields for a product; returns array of missing field labels
+  const missingProductFields = (f) => {
+    const miss = [];
+    if (!f.manufacturer || !f.manufacturer.trim()) miss.push('Manufacturer (品牌)');
+    if (!f.name || !f.name.trim()) miss.push('Product Name (產品名稱)');
+    return miss;
+  };
 
   // Backward-compat: old products may have `image` (string); normalise to array of {url,alt}
   const getImages = (p) => {
@@ -582,19 +632,27 @@
     );
   }
 
-  function ProductForm({ form, setForm, onSave, onCancel, saveLabel }) {
+  function ProductForm({ form, setForm, onSave, onCancel, saveLabel, cat }) {
     const imgs = form.images || [];
+    const missing = missingProductFields(form);
+    const req = (label) => e('span', null, label, ' ', e('span', { style: { color: SALE_COLOR } }, '*'));
+    const leaves = megaLeaves(cat);
     return e('div', { style: { ...S.card, border: `2px solid ${BRAND}30` } },
       e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 18 } },
-        e(Field, { label: 'Manufacturer' }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }) })),
-        e(Field, { label: 'Product Name' }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }) })),
+        e(Field, { label: req('Manufacturer') }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }) })),
+        e(Field, { label: req('Product Name') }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }) })),
         e(Field, { label: 'Spec / Description' }, e(Input, { value: form.spec, onChange: ev => setForm({ ...form, spec: ev.target.value }) })),
-        e(Field, { label: 'Price (e.g. 1.299,00)' }, e(Input, { value: form.price, onChange: ev => setForm({ ...form, price: ev.target.value }) })),
-        e(Field, { label: 'Old Price (optional)' }, e(Input, { value: form.oldPrice || '', onChange: ev => setForm({ ...form, oldPrice: ev.target.value }) })),
+        e(Field, { label: 'Mega Menu 子項目' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
+          e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無 Mega Menu 子項目）'),
+          leaves.map((m, i) => e('option', { key: i, value: m.link }, (m.group ? m.group + ' › ' : '') + m.link))
+        )),
         e(Field, { label: 'Badge' }, e(Select, { value: form.badge || '', onChange: ev => setForm({ ...form, badge: ev.target.value }) },
           BADGE_OPTS.map(b => e('option', { key: b, value: b }, b || '(none)'))
         )),
         e(Field, { label: 'Note (optional)' }, e(Input, { value: form.note || '', onChange: ev => setForm({ ...form, note: ev.target.value }), placeholder: 'Ships in 24h / Only 3 left' })),
+      ),
+      missing.length > 0 && e('div', { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 16 } },
+        '尚有必填欄位未填寫：', missing.join('、')
       ),
       // ── full-width image section ──
       e('div', { style: { borderTop: '1px solid #f1f5f9', paddingTop: 16, marginBottom: 18 } },
@@ -653,8 +711,7 @@
         e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10 } }, p.spec),
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
           e('div', null,
-            p.oldPrice ? e('span', { style: { fontSize: 11, color: '#94a3b8', textDecoration: 'line-through', marginRight: 5 } }, p.oldPrice + ' €') : null,
-            e('span', { style: { fontWeight: 900, color: p.oldPrice ? SALE_COLOR : '#16181d', fontSize: 15 } }, p.price + ' €')
+            p.leaf ? e('span', { style: { fontSize: 11, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 6 } }, p.leaf) : null
           ),
           e('div', { style: { display: 'flex', gap: 6 } },
             e('button', { onClick: onEdit, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'),
@@ -688,11 +745,11 @@
         ),
         e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ Add Product')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, onSave: () => { if (!af.manufacturer || !af.name) return; save([...products, af]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
+      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, af]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
         products.map((p, i) => editIdx === i
           ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, onSave: () => { save(products.map((x, j) => j === i ? ef : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
+              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save(products.map((x, j) => j === i ? ef : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
             )
           : e(ProductCardView, {
               key: i, p,
@@ -1054,6 +1111,15 @@
     const [github, setGithub] = useState(loadGithubConfig);
     const [githubSaved, setGithubSaved] = useState(false);
     const [showToken, setShowToken] = useState(false);
+    const [impBlob, setImpBlob] = useState('');
+    const [syncMsg, setSyncMsg] = useState('');
+    const [copied, setCopied] = useState(false);
+
+    const copyExport = () => { try { navigator.clipboard.writeText(exportConfigBlob()); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (_) {} };
+    const runImport = () => {
+      try { const r = importConfigBlob(impBlob); setSyncMsg('✓ 已匯入 ' + r.users + ' 個帳號與設定，3 秒後重新載入…'); setTimeout(() => location.reload(), 2500); }
+      catch (_) { setSyncMsg('✕ 匯入失敗：設定格式錯誤'); }
+    };
 
     const saveCld = () => { saveCldConfig(cfg); setCldSaved(true); setTimeout(() => setCldSaved(false), 2500); };
     const saveGithub = () => { saveGithubConfig(github); setGithubSaved(true); setTimeout(() => setGithubSaved(false), 2500); };
@@ -1069,6 +1135,28 @@
 
     return e('div', null,
       e('h1', { style: S.heading }, 'Settings'),
+
+      // ── Cross-origin config sync (Export / Import) ──
+      e('div', { style: S.card },
+        e('h2', { style: { margin: '0 0 6px', fontSize: 18, fontWeight: 800 } }, '🔄 設定同步（匯出／匯入）'),
+        e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b', lineHeight: 1.6 } },
+          'localhost、192.168.x、pages.dev 是不同來源，瀏覽器設定不會自動互通。在這裡「匯出」後，到另一台裝置／網址的後台登入頁或此處「匯入」，即可同步使用者帳號、GitHub Token 與 Cloudinary 設定。'),
+        e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 8, padding: '10px 14px', fontSize: 12, color: '#92400e', marginBottom: 16 } },
+          '⚠ 此設定內含 GitHub Token 與登入密碼，請僅在你信任的裝置間複製，勿外流。'),
+        e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 } },
+          e('div', null,
+            e('label', { style: S.label }, '匯出設定（複製到其他裝置）'),
+            e('textarea', { readOnly: true, value: exportConfigBlob(), onFocus: ev => ev.target.select(), style: { ...S.input, width: '100%', height: 120, fontFamily: 'monospace', fontSize: 11 } }),
+            e('button', { onClick: copyExport, style: { ...S.btnPrimary, marginTop: 8 } }, copied ? '✓ 已複製' : '📋 複製設定')
+          ),
+          e('div', null,
+            e('label', { style: S.label }, '匯入設定（覆蓋本機設定）'),
+            e('textarea', { value: impBlob, onChange: ev => setImpBlob(ev.target.value), placeholder: '貼上從其他裝置匯出的設定 JSON…', style: { ...S.input, width: '100%', height: 120, fontFamily: 'monospace', fontSize: 11 } }),
+            e('button', { onClick: runImport, disabled: !impBlob.trim(), style: { ...S.btnPrimary, marginTop: 8, opacity: impBlob.trim() ? 1 : 0.5 } }, '⬇ 匯入並覆蓋'),
+            syncMsg ? e('p', { style: { margin: '8px 0 0', fontSize: 12, color: syncMsg.startsWith('✓') ? '#16a34a' : '#dc2626' } }, syncMsg) : null
+          )
+        )
+      ),
 
       // ── GitHub + Cloudflare Pages auto-publish ──
       e('div', { style: S.card },
