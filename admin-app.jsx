@@ -31,10 +31,18 @@
   const exportConfigBlob = () => JSON.stringify({ v: 1, exported: new Date().toISOString(), users: loadUsers(), github: loadGithubConfig(), cloudinary: loadCldConfig() }, null, 2);
   const importConfigBlob = (txt) => {
     const d = JSON.parse(txt);
-    if (Array.isArray(d.users)) saveUsers(d.users);
+    let total = loadUsers().length;
+    if (Array.isArray(d.users)) {
+      // merge by username (incoming wins for duplicates) so no account on either side is lost
+      const cur = loadUsers();
+      const inNames = new Set(d.users.map(u => u.username));
+      const merged = [...cur.filter(u => !inNames.has(u.username)), ...d.users];
+      saveUsers(merged);
+      total = merged.length;
+    }
     if (d.github && typeof d.github === 'object') saveGithubConfig(d.github);
     if (d.cloudinary && typeof d.cloudinary === 'object') saveCldConfig(d.cloudinary);
-    return { users: Array.isArray(d.users) ? d.users.length : 0 };
+    return { users: total };
   };
 
   function getInitialData() {
