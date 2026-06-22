@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:04 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:05 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -952,7 +952,7 @@
         ]
       },
       {
-        "manufacturer": "康升特",
+        "manufacturer": "ARMOR",
         "name": "CO25-8148",
         "spec": "CABLE LOCK  DIA:18MMX1000MM  W/PP MESH MATERIAL",
         "badge": "",
@@ -974,7 +974,7 @@
         ]
       },
       {
-        "manufacturer": "康升特",
+        "manufacturer": "ARMOR",
         "name": "CO25-81348",
         "spec": "CABLE LOCK  10MMX1200MM W/WOVEN KNIT COVER  ",
         "badge": "",
