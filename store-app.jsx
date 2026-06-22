@@ -12,16 +12,46 @@
   function saveLS(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   function prodKey(p) { return (p.manufacturer || '') + '|' + (p.name || ''); }
   function productCount(cat) { return (cat.products || []).length; }
-  function optionCount(cat, option) {
+  function normalizeCountText(value) {
+    return String(value || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+  function singularCountText(value) {
+    return value.endsWith('s') ? value.slice(0, -1) : value;
+  }
+  function matchesCountLabel(value, label) {
+    const text = normalizeCountText(value);
+    const needle = normalizeCountText(label);
+    if (!text || !needle) return false;
+    const singleNeedle = singularCountText(needle);
+    const singleText = singularCountText(text);
+    return text === needle || singleText === singleNeedle || text.includes(singleNeedle) || needle.includes(singleText);
+  }
+  function optionCount(cat, facet, option) {
     const products = cat.products || [];
     const total = products.length;
-    const label = String(option?.label || '').toLowerCase();
+    const label = normalizeCountText(option?.label);
+    const title = normalizeCountText(facet?.title);
+    if (total === 0) return 0;
     if (label.includes('sale') || label.includes('discount')) return products.filter(p => String(p.badge || '').startsWith('-')).length;
     if (label.includes('stock')) return total;
     if (label.includes('new')) return products.filter(p => String(p.badge || '').toLowerCase() === 'new').length;
-    const raw = Number(option?.count);
-    if (!Number.isFinite(raw)) return null;
-    return Math.max(0, Math.min(raw, total));
+    if (title.includes('manufacturer') || title.includes('brand')) {
+      return products.filter(p => matchesCountLabel(p.manufacturer, label)).length;
+    }
+    if (option?.color || title.includes('color')) {
+      const color = normalizeCountText(option?.color || option?.label);
+      const count = products.filter(p => [p.color, p.colour, ...(Array.isArray(p.colors) ? p.colors : [])].some(v => normalizeCountText(v) === color)).length;
+      return count > 0 ? count : null;
+    }
+    return products.filter(p =>
+      matchesCountLabel(p.leaf, label) ||
+      matchesCountLabel(p.type, label) ||
+      matchesCountLabel(p.category, label) ||
+      matchesCountLabel(p.subcategory, label) ||
+      matchesCountLabel(p.name, label) ||
+      matchesCountLabel(p.spec, label) ||
+      matchesCountLabel(p.note, label)
+    ).length;
   }
   function getImages(p) {
     if (Array.isArray(p.images) && p.images.length > 0) return p.images;
@@ -749,12 +779,12 @@
   function Facet({ cat, facet, fkey, checked, toggleCheck, colors, toggleColor }) {
     if (facet.kind === 'range') return null; // price range filter hidden (no prices shown)
     if (facet.kind === 'toggles') return React.createElement('div', { style: { padding: 'var(--space-5) 0', borderBottom: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' } },
-      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), count: optionCount(cat, o), sale: o.sale, label: o.label })));
+      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), count: optionCount(cat, facet, o), sale: o.sale, label: o.label })));
     if (facet.kind === 'color') return React.createElement(FilterGroup, { title: facet.title },
       React.createElement('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 14, paddingTop: 4 } },
-        (facet.options || []).map((o, i) => React.createElement(ColorSwatch, { key: i, color: o.color, count: optionCount(cat, o), selected: !!colors[fkey + ':' + i], onClick: () => toggleColor(fkey, i) }))));
+        (facet.options || []).map((o, i) => React.createElement(ColorSwatch, { key: i, color: o.color, count: optionCount(cat, facet, o), selected: !!colors[fkey + ':' + i], onClick: () => toggleColor(fkey, i) }))));
     return React.createElement(FilterGroup, { title: facet.title },
-      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), label: o.label, count: optionCount(cat, o) })),
+      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), label: o.label, count: optionCount(cat, facet, o) })),
       facet.more && React.createElement('button', { style: { display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: '2px 0', color: 'var(--text-link)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-sm)', fontWeight: 600 } }, React.createElement(Icon.chevron, { stroke: 'var(--text-link)' }), 'Show more')
     );
   }
