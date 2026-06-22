@@ -13,6 +13,12 @@
 /index.html
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
+/design-preview.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/design-preview-app.jsx
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /cms-users.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
