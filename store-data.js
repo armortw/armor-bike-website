@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:20 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:21 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1151,6 +1151,294 @@
     "products": []
   },
   {
+    "id": "moresports",
+    "label": "More Sports",
+    "leaf": "Running",
+    "crumb": [
+      "Sports"
+    ],
+    "mega": [
+      [
+        {
+          "title": "Running",
+          "links": [
+            "Shoes",
+            "Apparel",
+            "Watches",
+            "Accessories"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Swimming",
+          "links": [
+            "Wetsuits",
+            "Goggles",
+            "Caps",
+            "Swimwear"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Fitness",
+          "links": [
+            "Smart Trainers",
+            "Weights",
+            "Mats",
+            "Bands"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Winter",
+          "links": [
+            "Ski",
+            "Snowboard",
+            "Apparel",
+            "Goggles"
+          ]
+        },
+        {
+          "title": "Triathlon",
+          "links": [
+            "Tri Suits",
+            "Race Belts",
+            "Transition"
+          ]
+        }
+      ]
+    ],
+    "facets": [
+      {
+        "kind": "range",
+        "min": "39",
+        "max": "649"
+      },
+      {
+        "kind": "toggles",
+        "options": [
+          {
+            "label": "Sale %",
+            "count": 10,
+            "sale": true
+          },
+          {
+            "label": "In stock",
+            "count": 88
+          }
+        ]
+      },
+      {
+        "kind": "check",
+        "title": "Sport",
+        "options": [
+          {
+            "label": "Running",
+            "count": 34
+          },
+          {
+            "label": "Swimming",
+            "count": 18
+          },
+          {
+            "label": "Fitness",
+            "count": 26
+          },
+          {
+            "label": "Winter",
+            "count": 14
+          },
+          {
+            "label": "Triathlon",
+            "count": 9
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "check",
+        "title": "Manufacturer",
+        "options": [
+          {
+            "label": "Garmin",
+            "count": 16
+          },
+          {
+            "label": "Speedo",
+            "count": 11
+          },
+          {
+            "label": "On",
+            "count": 14
+          },
+          {
+            "label": "Wahoo",
+            "count": 9
+          },
+          {
+            "label": "Salomon",
+            "count": 12
+          }
+        ],
+        "more": true
+      }
+    ],
+    "products": []
+  },
+  {
+    "id": "sale",
+    "label": "SALE %",
+    "accent": true,
+    "leaf": "Bikes on Sale",
+    "crumb": [
+      "Sale"
+    ],
+    "mega": [
+      [
+        {
+          "title": "Bikes on Sale",
+          "links": [
+            "Mountain Bikes",
+            "E-Bikes",
+            "Road & Gravel",
+            "Kids' Bikes"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Parts on Sale",
+          "links": [
+            "Drivetrain",
+            "Brakes",
+            "Wheels",
+            "Cockpit"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Clothing on Sale",
+          "links": [
+            "Jerseys",
+            "Jackets",
+            "Shorts",
+            "Shoes"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Accessories on Sale",
+          "links": [
+            "Lights",
+            "Locks",
+            "Bags",
+            "Electronics"
+          ]
+        }
+      ]
+    ],
+    "facets": [
+      {
+        "kind": "range",
+        "min": "129",
+        "max": "1899"
+      },
+      {
+        "kind": "toggles",
+        "options": [
+          {
+            "label": "On sale only",
+            "count": 248,
+            "sale": true
+          },
+          {
+            "label": "In stock",
+            "count": 201
+          }
+        ]
+      },
+      {
+        "kind": "check",
+        "title": "Discount",
+        "options": [
+          {
+            "label": "-10% or more",
+            "count": 248
+          },
+          {
+            "label": "-20% or more",
+            "count": 162
+          },
+          {
+            "label": "-30% or more",
+            "count": 74
+          },
+          {
+            "label": "-40% or more",
+            "count": 21
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "check",
+        "title": "Category",
+        "options": [
+          {
+            "label": "Bikes",
+            "count": 48
+          },
+          {
+            "label": "Parts",
+            "count": 96
+          },
+          {
+            "label": "Clothing",
+            "count": 64
+          },
+          {
+            "label": "Accessories",
+            "count": 40
+          }
+        ],
+        "more": false
+      },
+      {
+        "kind": "check",
+        "title": "Manufacturer",
+        "options": [
+          {
+            "label": "CUBE",
+            "count": 14
+          },
+          {
+            "label": "GORE",
+            "count": 11
+          },
+          {
+            "label": "Shimano",
+            "count": 22
+          },
+          {
+            "label": "Giro",
+            "count": 9
+          },
+          {
+            "label": "Garmin",
+            "count": 12
+          }
+        ],
+        "more": true
+      }
+    ],
+    "products": []
+  },
+  {
     "id": "clothing",
     "label": "Clothing",
     "leaf": "Jerseys",
@@ -1764,144 +2052,6 @@
     "products": []
   },
   {
-    "id": "moresports",
-    "label": "More Sports",
-    "leaf": "Running",
-    "crumb": [
-      "Sports"
-    ],
-    "mega": [
-      [
-        {
-          "title": "Running",
-          "links": [
-            "Shoes",
-            "Apparel",
-            "Watches",
-            "Accessories"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Swimming",
-          "links": [
-            "Wetsuits",
-            "Goggles",
-            "Caps",
-            "Swimwear"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Fitness",
-          "links": [
-            "Smart Trainers",
-            "Weights",
-            "Mats",
-            "Bands"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Winter",
-          "links": [
-            "Ski",
-            "Snowboard",
-            "Apparel",
-            "Goggles"
-          ]
-        },
-        {
-          "title": "Triathlon",
-          "links": [
-            "Tri Suits",
-            "Race Belts",
-            "Transition"
-          ]
-        }
-      ]
-    ],
-    "facets": [
-      {
-        "kind": "range",
-        "min": "39",
-        "max": "649"
-      },
-      {
-        "kind": "toggles",
-        "options": [
-          {
-            "label": "Sale %",
-            "count": 10,
-            "sale": true
-          },
-          {
-            "label": "In stock",
-            "count": 88
-          }
-        ]
-      },
-      {
-        "kind": "check",
-        "title": "Sport",
-        "options": [
-          {
-            "label": "Running",
-            "count": 34
-          },
-          {
-            "label": "Swimming",
-            "count": 18
-          },
-          {
-            "label": "Fitness",
-            "count": 26
-          },
-          {
-            "label": "Winter",
-            "count": 14
-          },
-          {
-            "label": "Triathlon",
-            "count": 9
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "check",
-        "title": "Manufacturer",
-        "options": [
-          {
-            "label": "Garmin",
-            "count": 16
-          },
-          {
-            "label": "Speedo",
-            "count": 11
-          },
-          {
-            "label": "On",
-            "count": 14
-          },
-          {
-            "label": "Wahoo",
-            "count": 9
-          },
-          {
-            "label": "Salomon",
-            "count": 12
-          }
-        ],
-        "more": true
-      }
-    ],
-    "products": []
-  },
-  {
     "id": "brands",
     "label": "Brands",
     "leaf": "All Brands",
@@ -2052,156 +2202,6 @@
           {
             "label": "Giant",
             "count": 17
-          }
-        ],
-        "more": true
-      }
-    ],
-    "products": []
-  },
-  {
-    "id": "sale",
-    "label": "SALE %",
-    "accent": true,
-    "leaf": "Bikes on Sale",
-    "crumb": [
-      "Sale"
-    ],
-    "mega": [
-      [
-        {
-          "title": "Bikes on Sale",
-          "links": [
-            "Mountain Bikes",
-            "E-Bikes",
-            "Road & Gravel",
-            "Kids' Bikes"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Parts on Sale",
-          "links": [
-            "Drivetrain",
-            "Brakes",
-            "Wheels",
-            "Cockpit"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Clothing on Sale",
-          "links": [
-            "Jerseys",
-            "Jackets",
-            "Shorts",
-            "Shoes"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Accessories on Sale",
-          "links": [
-            "Lights",
-            "Locks",
-            "Bags",
-            "Electronics"
-          ]
-        }
-      ]
-    ],
-    "facets": [
-      {
-        "kind": "range",
-        "min": "129",
-        "max": "1899"
-      },
-      {
-        "kind": "toggles",
-        "options": [
-          {
-            "label": "On sale only",
-            "count": 248,
-            "sale": true
-          },
-          {
-            "label": "In stock",
-            "count": 201
-          }
-        ]
-      },
-      {
-        "kind": "check",
-        "title": "Discount",
-        "options": [
-          {
-            "label": "-10% or more",
-            "count": 248
-          },
-          {
-            "label": "-20% or more",
-            "count": 162
-          },
-          {
-            "label": "-30% or more",
-            "count": 74
-          },
-          {
-            "label": "-40% or more",
-            "count": 21
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "check",
-        "title": "Category",
-        "options": [
-          {
-            "label": "Bikes",
-            "count": 48
-          },
-          {
-            "label": "Parts",
-            "count": 96
-          },
-          {
-            "label": "Clothing",
-            "count": 64
-          },
-          {
-            "label": "Accessories",
-            "count": 40
-          }
-        ],
-        "more": false
-      },
-      {
-        "kind": "check",
-        "title": "Manufacturer",
-        "options": [
-          {
-            "label": "CUBE",
-            "count": 14
-          },
-          {
-            "label": "GORE",
-            "count": 11
-          },
-          {
-            "label": "Shimano",
-            "count": 22
-          },
-          {
-            "label": "Giro",
-            "count": 9
-          },
-          {
-            "label": "Garmin",
-            "count": 12
           }
         ],
         "more": true
