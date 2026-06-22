@@ -1,38 +1,24 @@
-const DEFAULTS = {
-  cloudinary: {
-    cloudName: 'dvzdptb3i',
-    uploadPreset: 'armor_unsigned'
-  },
-  github: {
-    repo: 'armortw/armor-bike-website',
-    branch: 'main',
-    siteUrl: 'https://armor-bike-website.pages.dev/'
-  }
-};
-
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store'
-    }
-  });
-}
-
-export async function onRequestGet({ env }) {
-  const token = env.GITHUB_TOKEN || env.GH_TOKEN || env.GITHUB_PAT;
-  const github = {
-    repo: env.GITHUB_REPO || DEFAULTS.github.repo,
-    branch: env.GITHUB_BRANCH || DEFAULTS.github.branch,
-    siteUrl: env.CLOUDFLARE_PAGES_URL || env.PUBLIC_SITE_URL || env.SITE_URL || DEFAULTS.github.siteUrl,
-    publishConfigured: Boolean(token)
-  };
-
-  const cloudinary = {
-    cloudName: env.CLOUDINARY_CLOUD_NAME || DEFAULTS.cloudinary.cloudName,
-    uploadPreset: env.CLOUDINARY_UPLOAD_PRESET || DEFAULTS.cloudinary.uploadPreset
-  };
-
-  return json({ github, cloudinary });
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARMOR BIKE — Store</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--surface-page); color: var(--text-body); }
+  body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  ::selection { background: var(--blue-100); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="_ds_bundle.js"></script>
+  <script src="store-data.js"></script>
+  <script type="text/babel" src="store-app.jsx"></script>
+</body>
+</html>
