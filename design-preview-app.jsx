@@ -1,124 +1,128 @@
-/* ARMOR BIKE design preview */
+/* ARMOR BIKE Future Lab preview */
 (function () {
   const STORE = window.STORE || { categories: [], map: {} };
   const categories = STORE.categories || [];
-  const productCategory = categories.find(c => (c.products || []).length > 0) || categories[0] || { products: [], facets: [], mega: [] };
-  const products = productCategory.products || [];
+  const sourceCategory = categories.find(c => (c.products || []).length > 0) || categories[0] || { label: 'Products', leaf: 'Product Lab', products: [], facets: [], mega: [] };
+  const sourceProducts = sourceCategory.products || [];
   const fallbackProduct = {
     manufacturer: 'ARMOR',
     name: 'RAINBOW CNC MTB PEDAL',
     spec: 'Aluminum alloy CNC machined body, CR-MO axle, precision bearing platform.',
     price: 'Contact sales',
-    badge: 'OEM Ready',
+    badge: 'Prototype',
+    leaf: 'Pedal',
     images: [{ url: 'uploads/pedal-edm-06162026.png', alt: 'ARMOR BIKE pedal campaign' }]
   };
-  const catalogProducts = products.length ? products : [fallbackProduct];
-  const heroProducts = [
-    catalogProducts[6] || catalogProducts[0],
-    catalogProducts[0] || fallbackProduct,
-    catalogProducts[8] || catalogProducts[1] || catalogProducts[0],
-    catalogProducts[10] || catalogProducts[2] || catalogProducts[0]
+  const products = sourceProducts.length ? sourceProducts : [fallbackProduct];
+  const featured = [
+    products[6] || products[0] || fallbackProduct,
+    products[8] || products[1] || products[0] || fallbackProduct,
+    products[10] || products[2] || products[0] || fallbackProduct,
+    products[0] || fallbackProduct
   ];
 
-  function cleanText(value, fallback = '') {
+  function text(value, fallback = '') {
     return String(value || fallback).trim();
   }
 
-  function imageOf(product, index = 0) {
-    const images = product && Array.isArray(product.images) ? product.images : [];
+  function cleanMaker(product) {
+    return text(product?.manufacturer, 'ARMOR').replace(/\s+/g, ' ');
+  }
+
+  function productImage(product, index = 0) {
+    const images = Array.isArray(product?.images) ? product.images : [];
     return images[index]?.url || images[0]?.url || product?.image || 'uploads/pedal-edm-06162026.png';
   }
 
-  function altOf(product) {
-    return cleanText(product?.images?.[0]?.alt, cleanText(product?.name, 'ARMOR BIKE product'));
+  function productAlt(product) {
+    return text(product?.images?.[0]?.alt, text(product?.name, 'ARMOR BIKE product'));
   }
 
-  function makerOf(product) {
-    return cleanText(product?.manufacturer, 'ARMOR').replace(/\s+/g, ' ');
+  function productPrice(product) {
+    return text(product?.price, 'Contact sales');
   }
 
-  function priceOf(product) {
-    return cleanText(product?.price, 'Contact sales');
+  function countProducts(category) {
+    return (category.products || []).length;
   }
 
-  function countProducts(cat) {
-    return (cat.products || []).length;
-  }
-
-  function countByField(items, field) {
-    const counts = {};
+  function countBy(items, field) {
+    const map = {};
     items.forEach(item => {
-      const key = cleanText(item[field], '');
+      const key = text(item[field]);
       if (!key) return;
-      counts[key] = (counts[key] || 0) + 1;
+      map[key] = (map[key] || 0) + 1;
     });
-    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 5);
   }
 
-  function slideData() {
+  function slides() {
     return [
       {
-        eyebrow: 'OEM / ODM / OBM MANUFACTURING',
-        title: 'Precision bike components built for fast-moving brands.',
-        copy: 'ARMOR BIKE pairs long-run manufacturing experience with modern finishing, dependable QC, and fast-response support for distributors and private-label programs.',
-        product: heroProducts[0],
-        metric: '52 years',
-        note: 'Manufacturing experience'
+        kicker: 'Future supply interface',
+        title: 'Bike components presented like precision hardware.',
+        copy: 'A lighter gray future-lab direction for ARMOR BIKE: clean sourcing paths, technical product focus, and a cooler industrial surface system.',
+        product: featured[0],
+        metric: '52',
+        metricLabel: 'years manufacturing'
       },
       {
-        eyebrow: 'RAINBOW FINISH SERIES',
-        title: 'Anodized color, sharp pricing, ready for global buyers.',
-        copy: 'Rainbow CNC components bring a high-impact finish to MTB builds, with competitive pricing and sample-ready options for new market launches.',
-        product: heroProducts[1],
-        metric: '3 lines',
-        note: 'Featured product stories'
+        kicker: 'Anodized finish program',
+        title: 'Color, tooling and OEM programs in one digital lab.',
+        copy: 'Hero content can rotate between product programs, factory capability, seasonal campaigns, and buyer-focused collections.',
+        product: featured[1],
+        metric: 'OEM',
+        metricLabel: 'ODM / OBM ready'
       },
       {
-        eyebrow: 'ACCESSORIES COLLECTION',
-        title: 'From locks to lights, make the catalog feel curated.',
-        copy: 'Accessories, security products, lights, and cycling essentials are arranged for faster sourcing from first browse to quote request.',
-        product: heroProducts[2],
-        metric: `${catalogProducts.length}`,
-        note: 'Live product records'
+        kicker: 'Accessories sourcing grid',
+        title: 'A catalog that feels engineered, not templated.',
+        copy: 'Product pages use data-driven counts and modular detail panels so buyers can inspect SKUs without losing context.',
+        product: featured[2],
+        metric: String(products.length),
+        metricLabel: 'live product records'
       }
     ];
   }
 
-  function Header({ activeView, setActiveView }) {
+  function Header({ setView }) {
     const [openMega, setOpenMega] = React.useState(null);
     const activeCategory = categories.find(c => c.id === openMega) || categories[0];
+
     return (
       <header className="site-header" onMouseLeave={() => setOpenMega(null)}>
-        <div className="header-inner">
-          <a className="brand-logo" href="#home" onClick={(event) => { event.preventDefault(); setActiveView('home'); }}>
-            <img src="assets/logo-armorbike-on-light.svg" alt="ARMOR BIKE" />
+        <div className="command-bar">
+          <a className="wordmark" href="#home" onClick={(event) => { event.preventDefault(); setView('home'); }}>
+            <span className="wordmark-mark">AB</span>
+            <span>ARMOR <strong>BIKE</strong></span>
           </a>
-          <div className="search-pill" role="search">
-            <span className="search-icon">⌕</span>
-            <span>Search pedals, locks, lights and OEM parts</span>
+          <div className="system-strip" aria-label="Production status">
+            <span className="system-label">LAB MODE</span>
+            <span className="system-scan" aria-hidden="true"></span>
+            <span className="system-status">SYNC READY</span>
           </div>
           <div className="header-actions">
-            <button className="icon-button" type="button" aria-label="Wishlist">♡</button>
-            <button className="icon-button" type="button" aria-label="Account">◎</button>
-            <button className="icon-button" type="button" aria-label="Cart">▱</button>
+            <button className="utility-button" type="button" aria-label="Wishlist">WIS</button>
+            <button className="utility-button" type="button" aria-label="Account">ACC</button>
+            <button className="utility-button" type="button" aria-label="Cart">RFQ</button>
           </div>
         </div>
-        <div className="mega-wrap">
-          <nav className="mega-inner" aria-label="Main menu">
-            {categories.map(cat => (
+        <div className="mega-dock">
+          <nav className="mega-track" aria-label="Mega menu">
+            {categories.map(category => (
               <button
-                key={cat.id}
-                className={`mega-trigger ${openMega === cat.id ? 'active' : ''}`}
+                key={category.id}
+                className={`mega-trigger ${openMega === category.id ? 'active' : ''}`}
                 type="button"
-                onMouseEnter={() => setOpenMega(cat.id)}
-                onFocus={() => setOpenMega(cat.id)}
-                onClick={() => setActiveView('products')}
+                onMouseEnter={() => setOpenMega(category.id)}
+                onFocus={() => setOpenMega(category.id)}
+                onClick={() => setView('products')}
               >
-                {cat.label}
+                {category.label}
               </button>
             ))}
           </nav>
-          {activeCategory && openMega && <MegaPanel category={activeCategory} />}
+          {openMega && activeCategory && <MegaPanel category={activeCategory} />}
         </div>
       </header>
     );
@@ -129,8 +133,12 @@
     return (
       <div className="mega-panel">
         <div className="mega-panel-inner">
-          {mega.map((column, columnIndex) => (
-            <div className="mega-column" key={`${category.id}-${columnIndex}`}>
+          <div className="mega-callout">
+            <strong>{category.label}<br />source map</strong>
+            <span>{countProducts(category)} active records</span>
+          </div>
+          {mega.map((column, index) => (
+            <div className="mega-column" key={`${category.id}-${index}`}>
               {(column || []).map(group => (
                 <div key={group.title}>
                   <h3 className="mega-heading">{group.title}</h3>
@@ -146,77 +154,85 @@
     );
   }
 
-  function PreviewTabs({ activeView, setActiveView }) {
+  function ViewToggle({ view, setView }) {
     return (
-      <div className="preview-tabs" aria-label="Preview sections">
-        <button className={`tab-button ${activeView === 'home' ? 'active' : ''}`} type="button" onClick={() => setActiveView('home')}>Home</button>
-        <button className={`tab-button ${activeView === 'products' ? 'active' : ''}`} type="button" onClick={() => setActiveView('products')}>Products</button>
+      <div className="view-toggle" aria-label="Preview views">
+        <button className={`toggle-button ${view === 'home' ? 'active' : ''}`} type="button" onClick={() => setView('home')}>Home deck</button>
+        <button className={`toggle-button ${view === 'products' ? 'active' : ''}`} type="button" onClick={() => setView('products')}>Product lab</button>
       </div>
     );
   }
 
-  function HomePage({ setActiveView, setSelectedProduct }) {
-    const slides = slideData();
-    const [slideIndex, setSlideIndex] = React.useState(0);
-    const slide = slides[slideIndex];
-    const railProducts = [heroProducts[1], heroProducts[2], heroProducts[3]];
+  function HomePage({ setView, setSelected }) {
+    const slideList = slides();
+    const [active, setActive] = React.useState(0);
+    const slide = slideList[active];
+    const sideProducts = [featured[1], featured[2], featured[3]];
 
     React.useEffect(() => {
       const timer = window.setInterval(() => {
-        setSlideIndex(index => (index + 1) % slides.length);
-      }, 5200);
+        setActive(index => (index + 1) % slideList.length);
+      }, 5400);
       return () => window.clearInterval(timer);
-    }, [slides.length]);
+    }, [slideList.length]);
 
     return (
       <main className="page" id="home">
-        <section className="hero">
-          <div>
-            <span className="eyebrow">{slide.eyebrow}</span>
-            <h1>{slide.title}</h1>
-            <p className="hero-copy">{slide.copy}</p>
-            <div className="hero-actions">
-              <button className="primary-action" type="button" onClick={() => setActiveView('products')}>View product page</button>
-              <a className="secondary-action" href="mailto:?subject=ARMOR%20BIKE%20OEM%20Inquiry">Contact sales</a>
+        <section className="lab-hero">
+          <div className="hero-console">
+            <div>
+              <span className="console-kicker">{slide.kicker}</span>
+              <h1 className="hero-title">{slide.title}</h1>
+              <p className="hero-copy">{slide.copy}</p>
+              <div className="hero-actions">
+                <button className="primary-action" type="button" onClick={() => setView('products')}>Enter product lab</button>
+                <a className="secondary-action" href="mailto:?subject=ARMOR%20BIKE%20OEM%20Inquiry">Start RFQ</a>
+              </div>
             </div>
-            <div className="stats-strip" aria-label="Brand highlights">
-              <div className="stat-item"><div className="stat-value">52</div><div className="stat-label">Years</div></div>
-              <div className="stat-item"><div className="stat-value">OEM</div><div className="stat-label">ODM / OBM</div></div>
-              <div className="stat-item"><div className="stat-value">{catalogProducts.length}</div><div className="stat-label">Products</div></div>
-              <div className="stat-item"><div className="stat-value">QC</div><div className="stat-label">Controlled</div></div>
+            <div className="data-row">
+              <div className="data-cell"><strong>52</strong><span>years</span></div>
+              <div className="data-cell"><strong>OEM</strong><span>ODM / OBM</span></div>
+              <div className="data-cell"><strong>{products.length}</strong><span>records</span></div>
+              <div className="data-cell"><strong>QC</strong><span>validated</span></div>
             </div>
           </div>
-          <div className="hero-showcase">
-            <div className="hero-stage">
-              <div className="slide-controls" aria-label="Hero slideshow">
-                {slides.map((item, index) => (
+
+          <div className="slide-board">
+            <div className="scan-stage">
+              <div className="slide-dots" aria-label="Hero slideshow">
+                {slideList.map((item, index) => (
                   <button
-                    key={item.eyebrow}
-                    className={`slide-dot ${index === slideIndex ? 'active' : ''}`}
+                    className={`slide-dot ${index === active ? 'active' : ''}`}
                     type="button"
+                    key={item.kicker}
                     aria-label={`Slide ${index + 1}`}
-                    onClick={() => setSlideIndex(index)}
+                    onClick={() => setActive(index)}
                   />
                 ))}
               </div>
-              <button className="hero-product" type="button" onClick={() => { setSelectedProduct(slide.product); setActiveView('products'); }} aria-label={cleanText(slide.product?.name, 'Hero product')}>
-                <img src={imageOf(slide.product)} alt={altOf(slide.product)} />
+              <button
+                className="hero-product"
+                type="button"
+                aria-label={text(slide.product?.name, 'Hero product')}
+                onClick={() => { setSelected(slide.product); setView('products'); }}
+              >
+                <img src={productImage(slide.product)} alt={productAlt(slide.product)} />
               </button>
-              <div className="floating-spec">
+              <div className="stage-caption">
                 <strong>{slide.metric}</strong>
-                <span>{slide.note}</span>
+                <span>{slide.metricLabel}</span>
               </div>
             </div>
-            <div className="hero-side-rail" aria-label="Featured product images">
-              {railProducts.map((product, index) => (
+            <div className="product-stack" aria-label="Three featured product images">
+              {sideProducts.map((product, index) => (
                 <button
-                  className="rail-card"
+                  className="stack-card"
                   type="button"
-                  key={`${cleanText(product?.name, 'product')}-${index}`}
-                  onClick={() => { setSelectedProduct(product); setActiveView('products'); }}
+                  key={`${text(product?.name, 'product')}-${index}`}
+                  onClick={() => { setSelected(product); setView('products'); }}
                 >
-                  <img src={imageOf(product, index % 2)} alt={altOf(product)} />
-                  <span className="rail-label">{cleanText(product?.name, 'ARMOR BIKE')}</span>
+                  <img src={productImage(product, index % 2)} alt={productAlt(product)} />
+                  <span className="stack-label">{text(product?.name, 'ARMOR BIKE')}</span>
                 </button>
               ))}
             </div>
@@ -226,15 +242,16 @@
         <section>
           <div className="section-head">
             <div>
-              <h2 className="section-title">Explore ARMOR BIKE categories</h2>
-              <p className="section-copy">Move through factory-ready ranges for bicycles, parts, accessories, electronics, and seasonal offers with a clear sourcing path.</p>
+              <h2 className="section-title">Category nodes</h2>
+              <p className="section-copy">The menu data becomes a technical source map instead of a conventional retail navigation strip.</p>
             </div>
           </div>
-          <div className="category-rail">
-            {categories.map(cat => (
-              <a className="category-tile" href="#products" key={cat.id} onClick={() => setActiveView('products')}>
-                <span className="category-name">{cat.label}</span>
-                <span className="category-meta"><span>{countProducts(cat)} products</span><span className="category-arrow">›</span></span>
+          <div className="category-array">
+            {categories.map((category, index) => (
+              <a className="category-node" href="#products" key={category.id} onClick={() => setView('products')}>
+                <span className="node-index">Node {String(index + 1).padStart(2, '0')}</span>
+                <span className="node-name">{category.label}</span>
+                <span className="node-count">{countProducts(category)} products</span>
               </a>
             ))}
           </div>
@@ -243,129 +260,133 @@
         <section>
           <div className="section-head">
             <div>
-              <h2 className="section-title">Featured products</h2>
-              <p className="section-copy">Selected accessories and components with clean imagery, fast comparison, and a direct route to product details.</p>
+              <h2 className="section-title">Live product modules</h2>
+              <p className="section-copy">Product cards sit on a lighter technical surface with consistent image stages and direct detail access.</p>
             </div>
-            <button className="secondary-action" type="button" onClick={() => setActiveView('products')}>Open catalog</button>
+            <button className="secondary-action" type="button" onClick={() => setView('products')}>Open lab</button>
           </div>
-          <ProductGrid products={catalogProducts.slice(0, 4)} setSelectedProduct={setSelectedProduct} setActiveView={setActiveView} />
+          <ProductGrid products={products.slice(0, 4)} setSelected={setSelected} setView={setView} />
         </section>
 
-        <section className="campaign">
+        <section className="campaign-panel">
           <div className="campaign-copy">
-            <span className="eyebrow">Campaign module</span>
-            <h2>Rainbow CNC MTB pedals with attention-grabbing retail energy.</h2>
-            <p>Seasonal promotions stay bold and visible while the storefront keeps its premium product-first structure.</p>
+            <span className="console-kicker">EDM signal</span>
+            <h2>Campaign artwork becomes a controlled module.</h2>
+            <p>Promotional visuals stay visible, but the page architecture remains a future-facing ARMOR BIKE product system.</p>
           </div>
-          <div className="campaign-image">
-            <img src="uploads/pedal-edm-06162026.png" alt="Rainbow CNC MTB pedals promotion" />
+          <div className="campaign-media">
+            <img src="uploads/pedal-edm-06162026.png" alt="Rainbow CNC MTB pedals campaign" />
           </div>
         </section>
       </main>
     );
   }
 
-  function ProductPage({ selectedProduct, setSelectedProduct, setActiveView }) {
-    const manufacturerCounts = countByField(catalogProducts, 'manufacturer');
-    const typeCounts = countByField(catalogProducts, 'leaf');
-    const current = selectedProduct || catalogProducts[0];
+  function ProductLab({ selected, setSelected, setView }) {
+    const current = selected || products[0] || fallbackProduct;
+    const manufacturerCounts = countBy(products, 'manufacturer');
+    const typeCounts = countBy(products, 'leaf');
 
     return (
       <main className="page" id="products">
         <div className="catalog-layout">
-          <aside className="filter-panel">
-            <h2 className="filter-title">Product filters</h2>
-            <div className="filter-group">
-              <div className="filter-label">Availability</div>
-              <div className="filter-row active"><span className="filter-box"></span><span>In stock</span><span className="filter-count">{catalogProducts.length}</span></div>
-              <div className="filter-row"><span className="filter-box"></span><span>Hot deal</span><span className="filter-count">{catalogProducts.filter(p => cleanText(p.badge).toLowerCase().includes('hot')).length}</span></div>
-            </div>
-            <div className="filter-group">
-              <div className="filter-label">Product type</div>
-              {(typeCounts.length ? typeCounts : [['Accessories', catalogProducts.length]]).map(([name, count], index) => (
-                <div className={`filter-row ${index === 0 ? 'active' : ''}`} key={name}><span className="filter-box"></span><span>{name}</span><span className="filter-count">{count}</span></div>
-              ))}
-            </div>
-            <div className="filter-group">
-              <div className="filter-label">Manufacturer</div>
-              {(manufacturerCounts.length ? manufacturerCounts : [['ARMOR', catalogProducts.length]]).map(([name, count], index) => (
-                <div className={`filter-row ${index === 0 ? 'active' : ''}`} key={name}><span className="filter-box"></span><span>{name}</span><span className="filter-count">{count}</span></div>
-              ))}
-            </div>
+          <aside className="filter-console">
+            <h2 className="filter-title">Source filters</h2>
+            <FilterGroup title="Availability" rows={[
+              ['In stock', products.length, true],
+              ['Hot deal', products.filter(p => text(p.badge).toLowerCase().includes('hot')).length, false]
+            ]} />
+            <FilterGroup title="Type" rows={(typeCounts.length ? typeCounts : [['Accessories', products.length]]).map((row, index) => [row[0], row[1], index === 0])} />
+            <FilterGroup title="Manufacturer" rows={(manufacturerCounts.length ? manufacturerCounts : [['ARMOR', products.length]]).map((row, index) => [row[0], row[1], index === 0])} />
           </aside>
 
           <section>
             <div className="catalog-head">
               <div>
-                <span className="eyebrow">ARMOR BIKE catalog</span>
-                <h1>{productCategory.leaf || productCategory.label || 'Products'}</h1>
+                <span className="console-kicker">ARMOR BIKE product lab</span>
+                <h1>{sourceCategory.leaf || sourceCategory.label || 'Product Lab'}</h1>
               </div>
               <div className="catalog-tools">
-                <span className="count-chip"><strong>{catalogProducts.length}</strong>products</span>
-                <span className="sort-chip">Newest first</span>
+                <span className="tool-chip"><strong>{products.length}</strong>records</span>
+                <span className="tool-chip">live data</span>
               </div>
             </div>
 
-            <ProductDetail product={current} setActiveView={setActiveView} />
+            <ProductDetail product={current} />
 
             <div className="section-head">
               <div>
-                <h2 className="section-title">Catalog selection</h2>
-                <p className="section-copy">Compare SKUs, inspect specifications, and move quickly from product interest to quote request.</p>
+                <h2 className="section-title">Selectable SKU grid</h2>
+                <p className="section-copy">Select any product to reload the inspection module above without changing the current page.</p>
               </div>
             </div>
-            <ProductGrid products={catalogProducts} setSelectedProduct={setSelectedProduct} setActiveView={setActiveView} compact />
+            <ProductGrid products={products} setSelected={setSelected} setView={setView} compact />
           </section>
         </div>
       </main>
     );
   }
 
+  function FilterGroup({ title, rows }) {
+    return (
+      <div className="filter-group">
+        <div className="filter-label">{title}</div>
+        {rows.map(([label, count, active]) => (
+          <div className={`filter-row ${active ? 'active' : ''}`} key={label}>
+            <span className="filter-box"></span>
+            <span>{label}</span>
+            <span className="filter-count">{count}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   function ProductDetail({ product }) {
     return (
-      <article className="detail-panel">
+      <article className="detail-module">
         <div className="detail-media">
-          <img src={imageOf(product)} alt={altOf(product)} />
+          <img src={productImage(product)} alt={productAlt(product)} />
         </div>
         <div className="detail-copy">
-          <span className="maker">{makerOf(product)}</span>
-          <h2 className="detail-title">{cleanText(product?.name, 'ARMOR BIKE Product')}</h2>
-          <p className="detail-spec">{cleanText(product?.spec, 'Premium component selected for OEM, ODM and aftermarket programs.')}</p>
-          <div className="detail-meta">
-            <div className="detail-meta-item"><span>Price</span><strong>{priceOf(product)}</strong></div>
-            <div className="detail-meta-item"><span>Program</span><strong>OEM ready</strong></div>
-            <div className="detail-meta-item"><span>Status</span><strong>{cleanText(product?.badge, 'Available')}</strong></div>
+          <span className="maker">{cleanMaker(product)}</span>
+          <h2 className="detail-title">{text(product?.name, 'ARMOR BIKE Product')}</h2>
+          <p className="detail-spec">{text(product?.spec, 'Premium component selected for OEM, ODM and aftermarket programs.')}</p>
+          <div className="detail-metrics">
+            <div className="metric-card"><span>Price</span><strong>{productPrice(product)}</strong></div>
+            <div className="metric-card"><span>Program</span><strong>OEM ready</strong></div>
+            <div className="metric-card"><span>Status</span><strong>{text(product?.badge, 'Available')}</strong></div>
           </div>
           <div className="detail-actions">
-            <a className="primary-action" href={`mailto:?subject=${encodeURIComponent(cleanText(product?.name, 'ARMOR BIKE Product') + ' Inquiry')}`}>Request quote</a>
-            <a className="secondary-action" href="#home">Back to home</a>
+            <a className="primary-action" href={`mailto:?subject=${encodeURIComponent(text(product?.name, 'ARMOR BIKE Product') + ' Inquiry')}`}>Request quote</a>
+            <a className="secondary-action" href="#home">View campaign</a>
           </div>
         </div>
       </article>
     );
   }
 
-  function ProductGrid({ products, setSelectedProduct, setActiveView, compact = false }) {
+  function ProductGrid({ products, setSelected, setView, compact = false }) {
     return (
-      <div className={compact ? 'catalog-grid' : 'feature-grid'}>
+      <div className={compact ? 'catalog-grid' : 'product-grid'}>
         {products.map((product, index) => (
           <button
-            type="button"
             className="product-card"
-            key={`${cleanText(product.name, 'product')}-${index}`}
-            onClick={() => { setSelectedProduct(product); setActiveView('products'); }}
+            type="button"
+            key={`${text(product.name, 'product')}-${index}`}
+            onClick={() => { setSelected(product); setView('products'); }}
           >
             <div className="product-media">
-              {cleanText(product.badge) && <span className="badge">{product.badge}</span>}
-              <img src={imageOf(product)} alt={altOf(product)} />
+              {text(product.badge) && <span className="chip">{product.badge}</span>}
+              <img src={productImage(product)} alt={productAlt(product)} />
             </div>
             <div className="product-info">
-              <span className="maker">{makerOf(product)}</span>
-              <span className="product-title">{cleanText(product.name, 'ARMOR BIKE Product')}</span>
-              <span className="product-spec">{cleanText(product.spec, 'OEM ready bicycle component')}</span>
+              <span className="maker">{cleanMaker(product)}</span>
+              <span className="product-title">{text(product.name, 'ARMOR BIKE Product')}</span>
+              <span className="product-spec">{text(product.spec, 'OEM ready bicycle component')}</span>
               <span className="price-row">
-                <span className="price">{priceOf(product)}</span>
-                <span className="quote-link">Details</span>
+                <span className="price">{productPrice(product)}</span>
+                <span className="detail-link">Inspect</span>
               </span>
             </div>
           </button>
@@ -375,20 +396,20 @@
   }
 
   function App() {
-    const [activeView, setActiveView] = React.useState('home');
-    const [selectedProduct, setSelectedProduct] = React.useState(catalogProducts[0]);
+    const [view, setView] = React.useState('home');
+    const [selected, setSelected] = React.useState(products[0] || fallbackProduct);
 
     React.useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [activeView]);
+    }, [view]);
 
     return (
-      <div className="preview-shell">
-        <Header activeView={activeView} setActiveView={setActiveView} />
-        <PreviewTabs activeView={activeView} setActiveView={setActiveView} />
-        {activeView === 'home'
-          ? <HomePage setActiveView={setActiveView} setSelectedProduct={setSelectedProduct} />
-          : <ProductPage selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} setActiveView={setActiveView} />}
+      <div className="future-shell">
+        <Header setView={setView} />
+        <ViewToggle view={view} setView={setView} />
+        {view === 'home'
+          ? <HomePage setView={setView} setSelectedProduct={setSelected} setSelected={setSelected} />
+          : <ProductLab selected={selected} setSelected={setSelected} setView={setView} />}
       </div>
     );
   }
