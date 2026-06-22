@@ -5,13 +5,12 @@
 
   const BRAND = '#006ee0';
   const SALE_COLOR = '#e0004b';
-  const CMS_KEY = 'ARMOR_BIKE_CMS';
+  const LEGACY_CMS_KEY = 'ARMOR_BIKE_CMS';
   const AUTH_KEY = 'ARMOR_BIKE_AUTH';
   const USERS_KEY = 'ARMOR_BIKE_USERS';
 
   // ── storage ──────────────────────────────────────────────────────────────
-  const loadCMS = () => { try { const r = localStorage.getItem(CMS_KEY); return r ? JSON.parse(r) : null; } catch { return null; } };
-  const saveCMS = (d) => localStorage.setItem(CMS_KEY, JSON.stringify(d));
+  const clearLegacyCMS = () => { try { localStorage.removeItem(LEGACY_CMS_KEY); } catch {} };
   const loadAuth = () => { try { const r = localStorage.getItem(AUTH_KEY); return r ? JSON.parse(r) : null; } catch { return null; } };
   const saveAuth = (u) => u ? localStorage.setItem(AUTH_KEY, JSON.stringify(u)) : localStorage.removeItem(AUTH_KEY);
   const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); return r ? JSON.parse(r) : []; } catch { return []; } };
@@ -123,20 +122,12 @@
   };
 
   function getInitialData() {
-    const cms = loadCMS();
-    const published = {
+    return {
       categories: JSON.parse(JSON.stringify(window.STORE.categories)),
       images: JSON.parse(JSON.stringify(window.STORE.images || [])),
       badges: [],
       hero: JSON.parse(JSON.stringify(window.STORE.hero || []))
     };
-    if (cms && cms.categories && cms.categories.length > 0) {
-      const merged = { ...published, ...cms };
-      if (!Array.isArray(cms.images) || !cms.images.length) merged.images = published.images;
-      if (!Array.isArray(cms.hero) || !cms.hero.length) merged.hero = published.hero;
-      return merged;
-    }
-    return published;
   }
 
   function generateStoreJS(data) {
@@ -152,10 +143,6 @@
       `  var hero = ${JSON.stringify(data.hero || [], null, 2)};`,
       `  var map = {};`,
       `  categories.forEach(function (c) { map[c.id] = c; });`,
-      `  try {`,
-      `    var _cms = localStorage.getItem('ARMOR_BIKE_CMS');`,
-      `    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }`,
-      `  } catch (_e) {}`,
       `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };`,
       `})();`,
     ].join('\n');
@@ -1690,7 +1677,7 @@
         if (merged.length > 0) {
           files.push({ path: 'cms-users.js', content: await buildCmsUsersJS(merged), message: 'Deploy: update admin accounts' });
         }
-        for (const path of ['_ds_bundle.js', 'styles.css', 'index.html', 'admin.html', 'store-app.jsx', 'admin-app.jsx', 'functions/api/config.js', 'functions/api/publish.js']) {
+        for (const path of ['_ds_bundle.js', 'styles.css', 'index.html', 'admin.html', 'store-app.jsx', 'admin-app.jsx']) {
           try {
             const r = await fetch('./' + path + '?' + Date.now());
             if (r.ok) files.push({ path, content: await r.text(), message: 'Deploy: update ' + path });
@@ -1864,9 +1851,9 @@
     const [showPublish, setShowPublish] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
 
-    useEffect(() => { loadCloudConfig(); }, []);
+    useEffect(() => { loadCloudConfig(); clearLegacyCMS(); }, []);
 
-    const setData = (d) => { setDataRaw(d); saveCMS(d); setSaved('Saved ✓'); setTimeout(() => setSaved(''), 2000); };
+    const setData = (d) => { setDataRaw(d); setSaved('Ready to publish ✓'); setTimeout(() => setSaved(''), 2000); };
     const onLogout = () => { saveAuth(null); setUser(null); setShowProfile(false); };
     const onUpdateUser = (u) => setUser(u);
 

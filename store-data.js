@@ -2750,9 +2750,5 @@
 ];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
-  try {
-    var _cms = localStorage.getItem('ARMOR_BIKE_CMS');
-    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }
-  } catch (_e) {}
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
 })();
