@@ -52,12 +52,55 @@
   };
 
   const CLOUDINARY_KEY = 'ARMOR_BIKE_CDN';
-  const loadCldConfig = () => { try { return JSON.parse(localStorage.getItem(CLOUDINARY_KEY)) || {}; } catch { return {}; } };
-  const saveCldConfig = (c) => localStorage.setItem(CLOUDINARY_KEY, JSON.stringify(c));
+  const CLOUDINARY_DEFAULTS = { cloudName: 'dvzdptb3i', uploadPreset: 'armor_unsigned' };
 
   const GITHUB_KEY = 'ARMOR_BIKE_GITHUB';
-  const loadGithubConfig = () => { try { return JSON.parse(localStorage.getItem(GITHUB_KEY)) || {}; } catch { return {}; } };
-  const saveGithubConfig = (c) => localStorage.setItem(GITHUB_KEY, JSON.stringify(c));
+  const GITHUB_DEFAULTS = {
+    repo: 'armortw/armor-bike-website',
+    branch: 'main',
+    siteUrl: 'https://armor-bike-website.pages.dev/'
+  };
+  const normalizeGithubConfig = (c) => {
+    const next = { ...GITHUB_DEFAULTS, ...(c || {}) };
+    if (!next.siteUrl || next.siteUrl === 'armor-bike.pages.dev' || next.siteUrl === 'https://armor-bike.pages.dev' || next.siteUrl === 'https://armor-bike-website.pages.dev') {
+      next.siteUrl = GITHUB_DEFAULTS.siteUrl;
+    }
+    if (!next.branch) next.branch = GITHUB_DEFAULTS.branch;
+    if (!next.repo) next.repo = GITHUB_DEFAULTS.repo;
+    return next;
+  };
+  const mergeCloudConfig = (c) => ({
+    cloudinary: {
+      cloudName: c?.cloudinary?.cloudName || CLOUDINARY_DEFAULTS.cloudName,
+      uploadPreset: c?.cloudinary?.uploadPreset || CLOUDINARY_DEFAULTS.uploadPreset
+    },
+    github: normalizeGithubConfig(c?.github || {}),
+    source: c?.source || 'defaults'
+  });
+  let cloudConfigState = mergeCloudConfig({});
+  let cloudConfigPromise = null;
+  const loadCloudConfig = async () => {
+    if (!cloudConfigPromise) {
+      cloudConfigPromise = fetch('/api/config', { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          cloudConfigState = mergeCloudConfig({ ...(d || {}), source: d ? 'cloud' : 'defaults' });
+          return cloudConfigState;
+        })
+        .catch(() => cloudConfigState);
+    }
+    return cloudConfigPromise;
+  };
+  const loadCldConfig = () => ({ ...cloudConfigState.cloudinary });
+  const saveCldConfig = (c) => {
+    cloudConfigState = mergeCloudConfig({ ...cloudConfigState, cloudinary: c, source: cloudConfigState.source });
+    return cloudConfigState.cloudinary;
+  };
+  const loadGithubConfig = () => ({ ...cloudConfigState.github });
+  const saveGithubConfig = (c) => {
+    cloudConfigState = mergeCloudConfig({ ...cloudConfigState, github: c, source: cloudConfigState.source });
+    return cloudConfigState.github;
+  };
 
   // ── cross-origin config sync (users + GitHub token + Cloudinary) ───────────
   // localStorage is per-origin (localhost / 192.168.x / pages.dev don't share it),
@@ -1157,6 +1200,16 @@
     const [syncMsg, setSyncMsg] = useState('');
     const [copied, setCopied] = useState(false);
 
+    useEffect(() => {
+      let mounted = true;
+      loadCloudConfig().then(cloud => {
+        if (!mounted) return;
+        setCfg({ ...cloud.cloudinary });
+        setGithub({ ...cloud.github });
+      });
+      return () => { mounted = false; };
+    }, []);
+
     const copyExport = () => { try { navigator.clipboard.writeText(exportConfigBlob()); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch (_) {} };
     const runImport = () => {
       try { const r = importConfigBlob(impBlob); setSyncMsg('✓ 已匯入 ' + r.users + ' 個帳號與設定，3 秒後重新載入…'); setTimeout(() => location.reload(), 2500); }
@@ -1173,7 +1226,7 @@
     };
 
     const isOk = !!(cfg.cloudName && cfg.uploadPreset);
-    const hasToken = !!(github.token && github.repo);
+    const hasToken = !!(github.repo && github.branch && github.siteUrl);
 
     return e('div', null,
       e('h1', { style: S.heading }, 'Settings'),
@@ -1212,23 +1265,23 @@
         e(Field, { label: 'GitHub Personal Access Token' },
           e('div', { style: { display: 'flex', gap: 8 } },
             e('input', {
-              type: showToken ? 'text' : 'password',
-              value: github.token || '',
-              onChange: ev => setGithub({ ...github, token: ev.target.value }),
-              placeholder: 'ghp_xxxxxxxxxxxxxxxx',
+              type: 'text',
+              value: 'Managed in Cloudflare: GITHUB_TOKEN',
+              readOnly: true,
+              placeholder: 'Managed in Cloudflare: GITHUB_TOKEN',
               style: { ...S.input, flex: 1, fontFamily: 'monospace', fontSize: 13 }
             }),
-            e('button', { onClick: () => setShowToken(v => !v), style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13 } }, showToken ? '隱藏' : '顯示')
+            e('button', { disabled: true, style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13, opacity: 0.65, cursor: 'default' } }, 'Cloud')
           )
         ),
         e(Field, { label: 'GitHub Repository（格式：owner/repo）' },
-          e(Input, { value: github.repo || '', onChange: ev => setGithub({ ...github, repo: ev.target.value }), placeholder: 'e.g. armor-mfg-tw/armor-bike-website' })
+          e(Input, { value: github.repo || '', readOnly: true, placeholder: GITHUB_DEFAULTS.repo })
         ),
         e(Field, { label: 'Branch（預設 main）' },
-          e(Input, { value: github.branch || '', onChange: ev => setGithub({ ...github, branch: ev.target.value }), placeholder: 'main' })
+          e(Input, { value: github.branch || '', readOnly: true, placeholder: GITHUB_DEFAULTS.branch })
         ),
         e(Field, { label: 'Cloudflare Pages 網址（選填，用於發布後跳轉）' },
-          e(Input, { value: github.siteUrl || '', onChange: ev => setGithub({ ...github, siteUrl: ev.target.value }), placeholder: 'https://armor-bike.pages.dev' })
+          e(Input, { value: github.siteUrl || '', readOnly: true, placeholder: GITHUB_DEFAULTS.siteUrl })
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center', marginTop: 14 } },
           e('button', { onClick: saveGithub, style: S.btnPrimary }, '儲存設定'),
@@ -1279,10 +1332,10 @@
         e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，CMS 只儲存 URL 字串。無 localStorage 容量問題，支援 50 萬+ 筆產品。'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 } },
           e(Field, { label: 'Cloud Name' },
-            e(Input, { value: cfg.cloudName || '', onChange: ev => setCfg({ ...cfg, cloudName: ev.target.value }), placeholder: 'e.g. my-store-abc123' })
+            e(Input, { value: cfg.cloudName || '', readOnly: true, placeholder: CLOUDINARY_DEFAULTS.cloudName })
           ),
           e(Field, { label: 'Upload Preset（必須為 Unsigned）' },
-            e(Input, { value: cfg.uploadPreset || '', onChange: ev => setCfg({ ...cfg, uploadPreset: ev.target.value }), placeholder: 'e.g. armor_unsigned' })
+            e(Input, { value: cfg.uploadPreset || '', readOnly: true, placeholder: CLOUDINARY_DEFAULTS.uploadPreset })
           )
         ),
         isOk && e('div', { style: { background: '#f0fdf4', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#16a34a', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 } },
@@ -1509,12 +1562,22 @@
 
   // ── Publish modal (auto-deploy via GitHub API → Cloudflare Pages) ──────────────
   function PublishModal({ data, onClose, goToSettings }) {
-    const cfg = loadGithubConfig();
-    const hasToken = !!(cfg.token && cfg.repo);
-    const [phase, setPhase] = useState(hasToken ? 'idle' : 'notoken');
+    const [cfg, setCfg] = useState(loadGithubConfig);
+    const [phase, setPhase] = useState('checking');
     const [phaseLabel, setPhaseLabel] = useState('');
     const [deployUrl, setDeployUrl] = useState('');
     const [errMsg, setErrMsg] = useState('');
+
+    useEffect(() => {
+      let mounted = true;
+      loadCloudConfig().then(cloud => {
+        if (!mounted) return;
+        const next = { ...cloud.github };
+        setCfg(next);
+        setPhase(next.publishConfigured && next.repo ? 'idle' : 'notoken');
+      });
+      return () => { mounted = false; };
+    }, []);
 
     const downloadJS = () => {
       const js = generateStoreJS(data);
@@ -1554,7 +1617,39 @@
         if (!res.ok) { const t = await res.text(); throw new Error(`提交 ${path} 失敗 (${res.status}): ${t}`); }
       };
 
+      const collectPublishFiles = async () => {
+        const files = [{ path: 'store-data.js', content: generateStoreJS(data), message: 'Deploy: update store data' }];
+        const merged = allUsers();
+        if (merged.length > 0) {
+          files.push({ path: 'cms-users.js', content: await buildCmsUsersJS(merged), message: 'Deploy: update admin accounts' });
+        }
+        for (const path of ['_ds_bundle.js', 'styles.css', 'index.html', 'admin.html', 'store-app.jsx', 'admin-app.jsx', 'functions/api/config.js', 'functions/api/publish.js']) {
+          try {
+            const r = await fetch('./' + path + '?' + Date.now());
+            if (r.ok) files.push({ path, content: await r.text(), message: 'Deploy: update ' + path });
+          } catch (_) {}
+        }
+        return files;
+      };
+
       try {
+        if (cfg.publishConfigured) {
+          step('正在送出雲端發布…');
+          const res = await fetch('/api/publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ files: await collectPublishFiles() })
+          });
+          if (!res.ok) {
+            const t = await res.text();
+            throw new Error(t || ('Cloud publish failed (' + res.status + ')'));
+          }
+          const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : GITHUB_DEFAULTS.siteUrl;
+          setDeployUrl(normalizedUrl.replace(/\/$/, ''));
+          setPhase('done');
+          return;
+        }
+
         // 1. Verify token & repo
         step('正在驗證 GitHub Token…');
         const testRes = await fetch(`https://api.github.com/repos/${repo}`, { headers: h });
@@ -1633,6 +1728,13 @@
 
     const spinStyle = { width: 20, height: 20, border: '3px solid #e2e8f0', borderTop: `3px solid ${BRAND}`, borderRadius: '50%', animation: 'spin 0.8s linear infinite', flexShrink: 0 };
 
+    if (phase === 'checking') return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose, width: 500 },
+      e('div', { style: { padding: '16px 0 8px', display: 'flex', alignItems: 'center', gap: 12 } },
+        e('div', { style: spinStyle }),
+        e('span', { style: { fontSize: 14, fontWeight: 600, color: '#374151' } }, '正在讀取雲端設定…')
+      )
+    );
+
     if (phase === 'notoken') return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose, width: 500 },
       e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '16px 18px', marginBottom: 20 } },
         e('p', { style: { margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 } }, '⚠ 尚未設定 GitHub Token 與 Repository'),
@@ -1694,6 +1796,8 @@
     const [saved, setSaved] = useState('');
     const [showPublish, setShowPublish] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
+
+    useEffect(() => { loadCloudConfig(); }, []);
 
     const setData = (d) => { setDataRaw(d); saveCMS(d); setSaved('Saved ✓'); setTimeout(() => setSaved(''), 2000); };
     const onLogout = () => { saveAuth(null); setUser(null); setShowProfile(false); };
