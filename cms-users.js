@@ -1,4 +1,4 @@
-/* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated. */
+/* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */
 window.CMS_USERS = [
   {
     "id": 1,
