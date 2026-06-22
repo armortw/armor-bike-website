@@ -1,13 +1,9 @@
 /* ARMOR BIKE Storefront */
 (function () {
   const DS = window.BIKE24DesignSystem_2233bc;
-  const { Button, Badge, Checkbox, ColorSwatch, FilterGroup, SearchInput } = DS;
+  const { Button, Badge, ColorSwatch, FilterGroup, SearchInput } = DS;
   const STORE = window.STORE;
 
-  const TOTALS = {
-    bikes: 103, parts: 1240, accessories: 864, electronics: 312,
-    clothing: 978, shoes: 246, outdoor: 531, moresports: 489, brands: 207, sale: 248
-  };
   const SORTS = ['Popularity', 'Newest'];
 
   function parsePrice(p) { return parseFloat(String(p).replace(/\./g, '').replace(',', '.')) || 0; }
@@ -15,6 +11,18 @@
   function loadLS(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } }
   function saveLS(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   function prodKey(p) { return (p.manufacturer || '') + '|' + (p.name || ''); }
+  function productCount(cat) { return (cat.products || []).length; }
+  function optionCount(cat, option) {
+    const products = cat.products || [];
+    const total = products.length;
+    const label = String(option?.label || '').toLowerCase();
+    if (label.includes('sale') || label.includes('discount')) return products.filter(p => String(p.badge || '').startsWith('-')).length;
+    if (label.includes('stock')) return total;
+    if (label.includes('new')) return products.filter(p => String(p.badge || '').toLowerCase() === 'new').length;
+    const raw = Number(option?.count);
+    if (!Number.isFinite(raw)) return null;
+    return Math.max(0, Math.min(raw, total));
+  }
   function getImages(p) {
     if (Array.isArray(p.images) && p.images.length > 0) return p.images;
     if (p.image) return [{ url: p.image, alt: p.name || '' }];
@@ -714,21 +722,39 @@
   }
   function Sidebar({ cat, checked, toggleCheck, colors, toggleColor }) {
     return React.createElement('aside', { style: { width: 290, flexShrink: 0 } },
-      (cat.facets || []).map((f, i) => React.createElement(Facet, { key: cat.id + i, facet: f, fkey: cat.id + i, checked, toggleCheck, colors, toggleColor })),
+      (cat.facets || []).map((f, i) => React.createElement(Facet, { key: cat.id + i, cat, facet: f, fkey: cat.id + i, checked, toggleCheck, colors, toggleColor })),
       React.createElement('div', { style: { display: 'flex', justifyContent: 'center', padding: '22px 0 8px' } },
         React.createElement(Button, { variant: 'ghost', iconLeft: React.createElement(Icon.sliders, { stroke: 'var(--brand-primary)' }), style: { color: 'var(--brand-primary)' } }, 'More filter')
       )
     );
   }
-  function Facet({ facet, fkey, checked, toggleCheck, colors, toggleColor }) {
+  function SidebarCheckbox({ checked, onChange, label, count, sale }) {
+    const toggle = () => onChange && onChange(!checked);
+    const onKeyDown = (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggle();
+      }
+    };
+    return React.createElement('label', { role: 'checkbox', tabIndex: 0, 'aria-checked': checked, onClick: toggle, onKeyDown, style: { display: 'flex', alignItems: 'center', gap: 'var(--space-3)', minHeight: 24, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-md)', color: sale ? 'var(--text-sale)' : 'var(--text-body)', fontWeight: sale ? 700 : 400, userSelect: 'none', outline: 'none' } },
+      React.createElement('span', { style: { width: 18, height: 18, flexShrink: 0, borderRadius: 'var(--radius-sm)', border: `2px solid ${checked ? 'var(--brand-primary)' : 'var(--border-default)'}`, background: checked ? 'var(--brand-primary)' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard)' } },
+        checked && React.createElement('svg', { width: 11, height: 11, viewBox: '0 0 24 24', fill: 'none', stroke: '#fff', strokeWidth: 3.5, strokeLinecap: 'round', strokeLinejoin: 'round' },
+          React.createElement('polyline', { points: '20 6 9 17 4 12' })
+        )
+      ),
+      React.createElement('span', { style: { flex: 1, minWidth: 0 } }, label),
+      count != null && React.createElement('span', { style: { width: 34, flexShrink: 0, textAlign: 'right', fontSize: 'var(--text-sm)', lineHeight: 1, color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' } }, count)
+    );
+  }
+  function Facet({ cat, facet, fkey, checked, toggleCheck, colors, toggleColor }) {
     if (facet.kind === 'range') return null; // price range filter hidden (no prices shown)
     if (facet.kind === 'toggles') return React.createElement('div', { style: { padding: 'var(--space-5) 0', borderBottom: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' } },
-      (facet.options || []).map(o => React.createElement(Checkbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), count: o.count, label: React.createElement('span', { style: { color: o.sale ? 'var(--text-sale)' : 'var(--text-body)', fontWeight: o.sale ? 700 : 400 } }, o.label) })));
+      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), count: optionCount(cat, o), sale: o.sale, label: o.label })));
     if (facet.kind === 'color') return React.createElement(FilterGroup, { title: facet.title },
       React.createElement('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 14, paddingTop: 4 } },
-        (facet.options || []).map((o, i) => React.createElement(ColorSwatch, { key: i, color: o.color, count: o.count, selected: !!colors[fkey + ':' + i], onClick: () => toggleColor(fkey, i) }))));
+        (facet.options || []).map((o, i) => React.createElement(ColorSwatch, { key: i, color: o.color, count: optionCount(cat, o), selected: !!colors[fkey + ':' + i], onClick: () => toggleColor(fkey, i) }))));
     return React.createElement(FilterGroup, { title: facet.title },
-      (facet.options || []).map(o => React.createElement(Checkbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), label: o.label, count: o.count })),
+      (facet.options || []).map(o => React.createElement(SidebarCheckbox, { key: o.label, checked: !!checked[fkey + ':' + o.label], onChange: () => toggleCheck(fkey, o.label), label: o.label, count: optionCount(cat, o) })),
       facet.more && React.createElement('button', { style: { display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: '2px 0', color: 'var(--text-link)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-sm)', fontWeight: 600 } }, React.createElement(Icon.chevron, { stroke: 'var(--text-link)' }), 'Show more')
     );
   }
@@ -756,9 +782,9 @@
     return React.createElement('section', { style: { flex: 1, minWidth: 0 } },
       React.createElement('h1', { style: { fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'var(--text-4xl)', letterSpacing: '-0.02em', color: 'var(--text-strong)', margin: '0 0 18px' } }, leaf),
       React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 22 } },
-        React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 10 } },
-          React.createElement('span', { style: { background: 'var(--gray-100)', color: 'var(--text-strong)', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-sm)', padding: '4px 10px', borderRadius: 'var(--radius-sm)' } }, (TOTALS[cat.id] || 0).toLocaleString()),
-          React.createElement('span', { style: { fontFamily: 'var(--font-sans)', fontSize: 'var(--text-md)', color: 'var(--text-muted)' } }, 'products')
+        React.createElement('div', { style: { display: 'inline-flex', alignItems: 'center', height: 30, gap: 10 } },
+          React.createElement('span', { style: { minWidth: 34, height: 28, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--gray-100)', color: 'var(--text-strong)', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-sm)', lineHeight: 1, padding: '0 10px', borderRadius: 'var(--radius-sm)', fontVariantNumeric: 'tabular-nums' } }, productCount(cat).toLocaleString()),
+          React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', height: 28, fontFamily: 'var(--font-sans)', fontSize: 'var(--text-md)', lineHeight: 1, color: 'var(--text-muted)' } }, 'products')
         ),
         React.createElement(SortMenu, { sort, setSort })
       ),
