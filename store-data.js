@@ -277,52 +277,7 @@
         "more": false
       }
     ],
-    "products": [
-      {
-        "manufacturer": "CUBE",
-        "name": "Reaction Hybrid Pro 625 — 29\" E-Mountain",
-        "spec": "2026 · grey / blue",
-        "price": "2.299,00",
-        "oldPrice": "2.799,00",
-        "badge": "-18%",
-        "note": "Ships in 24h",
-        "images": []
-      },
-      {
-        "manufacturer": "Canyon",
-        "name": "Spectral 29 CF 8 — Trail Full Suspension",
-        "spec": "2026 · stealth black",
-        "price": "3.499,00"
-      },
-      {
-        "manufacturer": "Orbea",
-        "name": "Alma M30 — 29\" Cross-Country Hardtail",
-        "spec": "2026 · metallic sunset",
-        "price": "2.099,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "SCOTT",
-        "name": "Scale 970 — 29\" Mountain Bike",
-        "spec": "2026 · black / lime",
-        "price": "1.299,00",
-        "oldPrice": "1.499,00",
-        "note": "Only 3 left"
-      },
-      {
-        "manufacturer": "Academy",
-        "name": "Trail 5 — 24\" Kids Mountain Bike",
-        "spec": "2026 · space grey",
-        "price": "738,66"
-      },
-      {
-        "manufacturer": "Marin",
-        "name": "Rift Zone JR 24 — Kids Mountain Bike",
-        "spec": "2026 · green / yellow fade",
-        "price": "1.427,73",
-        "badge": "Bestseller"
-      }
-    ],
+    "products": [],
     "accent": false
   },
   {
@@ -570,50 +525,7 @@
         ]
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Shimano",
-        "name": "Deore XT M8100 Groupset — 1 × 12",
-        "spec": "Disc · 10–51T",
-        "price": "549,00",
-        "oldPrice": "629,00",
-        "badge": "-13%",
-        "note": "Ships in 24h"
-      },
-      {
-        "manufacturer": "SRAM",
-        "name": "GX Eagle Cassette — 10–52T",
-        "spec": "12-speed · XD",
-        "price": "312,90"
-      },
-      {
-        "manufacturer": "DT Swiss",
-        "name": "XR 1700 Spline Wheelset — 29\"",
-        "spec": "Centerlock · Boost",
-        "price": "689,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Fox",
-        "name": "36 Float Performance Fork — 160mm",
-        "spec": "29\" · GRIP damper",
-        "price": "899,00",
-        "note": "Only 2 left"
-      },
-      {
-        "manufacturer": "Shimano",
-        "name": "Deore XT Disc Brake Set — Front + Rear",
-        "spec": "4-piston · Ice-Tech",
-        "price": "274,50",
-        "oldPrice": "319,00"
-      },
-      {
-        "manufacturer": "Race Face",
-        "name": "Aeffect R Crank Set — 32T",
-        "spec": "Boost · 170mm",
-        "price": "189,90"
-      }
-    ]
+    "products": []
   },
   {
     "id": "accessories",
@@ -821,46 +733,6 @@
       }
     ],
     "products": [
-      {
-        "manufacturer": "Ortlieb",
-        "name": "Back-Roller Classic Panniers — 40L",
-        "spec": "Waterproof · pair",
-        "price": "129,90",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Abus",
-        "name": "Bordo 6000 Folding Lock — 90cm",
-        "spec": "Security level 10",
-        "price": "89,95",
-        "oldPrice": "99,95",
-        "badge": "-10%"
-      },
-      {
-        "manufacturer": "Lezyne",
-        "name": "Macro Drive 1300 Front Light",
-        "spec": "1300 lumen · USB-C",
-        "price": "64,90"
-      },
-      {
-        "manufacturer": "Topeak",
-        "name": "JoeBlow Sport III Floor Pump",
-        "spec": "160 psi · gauge",
-        "price": "44,90"
-      },
-      {
-        "manufacturer": "Fidlock",
-        "name": "TWIST Bottle 600 + Base Mount",
-        "spec": "Magnetic · 600ml",
-        "price": "34,90",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "SKS",
-        "name": "Bluemels Mudguard Set — 29\"",
-        "spec": "Front + rear",
-        "price": "39,99"
-      },
       {
         "manufacturer": "ARMOR ",
         "name": "VK8145",
@@ -1185,48 +1057,7 @@
         "more": false
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Garmin",
-        "name": "Edge 1040 Solar — GPS Computer",
-        "spec": "Solar · 45h battery",
-        "price": "629,00",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Wahoo",
-        "name": "ELEMNT BOLT V2 — GPS Computer",
-        "spec": "Color · aero",
-        "price": "279,90",
-        "oldPrice": "299,90",
-        "badge": "-7%"
-      },
-      {
-        "manufacturer": "GoPro",
-        "name": "HERO12 Black — Action Camera",
-        "spec": "5.3K · HyperSmooth",
-        "price": "399,00"
-      },
-      {
-        "manufacturer": "Garmin",
-        "name": "Varia RCT715 — Radar Rear Light",
-        "spec": "Camera + radar",
-        "price": "349,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Sigma",
-        "name": "ROX 11.1 EVO — GPS Set",
-        "spec": "With sensors",
-        "price": "169,95"
-      },
-      {
-        "manufacturer": "Bosch",
-        "name": "Kiox 300 — Display Kit",
-        "spec": "Smart System",
-        "price": "159,90"
-      }
-    ]
+    "products": []
   },
   {
     "id": "clothing",
@@ -1438,48 +1269,7 @@
         ]
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Castelli",
-        "name": "Free Aero RC — Bib Shorts",
-        "spec": "Men's · black",
-        "price": "159,95",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "GORE",
-        "name": "Spinshift GTX — Rain Jacket",
-        "spec": "GORE-TEX · orange",
-        "price": "199,99",
-        "oldPrice": "249,99",
-        "badge": "-20%"
-      },
-      {
-        "manufacturer": "Assos",
-        "name": "Mille GT Jersey C2 — Short Sleeve",
-        "spec": "Men's · blue",
-        "price": "89,90"
-      },
-      {
-        "manufacturer": "Endura",
-        "name": "MT500 Burner — Trail Shorts",
-        "spec": "Men's · olive",
-        "price": "99,99",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Maloja",
-        "name": "NadelM. — Long Sleeve Jersey",
-        "spec": "Women's · plum",
-        "price": "79,90"
-      },
-      {
-        "manufacturer": "Shimano",
-        "name": "Vertex Thermal — Tights",
-        "spec": "Unisex · black",
-        "price": "119,95"
-      }
-    ]
+    "products": []
   },
   {
     "id": "shoes",
@@ -1690,48 +1480,7 @@
         ]
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Shimano",
-        "name": "RC903 S-PHYRE — Road Shoe",
-        "spec": "Carbon · BOA",
-        "price": "379,95",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Five Ten",
-        "name": "Freerider Pro — MTB Flat Shoe",
-        "spec": "Stealth rubber",
-        "price": "149,95",
-        "oldPrice": "169,95",
-        "badge": "-13%"
-      },
-      {
-        "manufacturer": "Sidi",
-        "name": "Wire 2 Carbon — Road Shoe",
-        "spec": "Tecno-3 dial",
-        "price": "449,00"
-      },
-      {
-        "manufacturer": "Giro",
-        "name": "Empire VR90 — MTB Shoe",
-        "spec": "Lace-up · Vibram",
-        "price": "259,95",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Northwave",
-        "name": "Origin Plus 2 — Gravel Shoe",
-        "spec": "SLW3 dial",
-        "price": "139,95"
-      },
-      {
-        "manufacturer": "Fizik",
-        "name": "Terra Atlas — Gravel Shoe",
-        "spec": "Velcro · grippy",
-        "price": "159,00"
-      }
-    ]
+    "products": []
   },
   {
     "id": "outdoor",
@@ -1921,48 +1670,7 @@
         ]
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Vaude",
-        "name": "Asymmetric 42+8 — Hiking Backpack",
-        "spec": "Green Shape · blue",
-        "price": "179,90",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "The North Face",
-        "name": "Stormbreak 2 — Tent",
-        "spec": "2-person · 3-season",
-        "price": "199,95",
-        "oldPrice": "234,95",
-        "badge": "-15%"
-      },
-      {
-        "manufacturer": "Deuter",
-        "name": "Aircontact Lite 50+10 — Pack",
-        "spec": "Trekking · slate",
-        "price": "169,95"
-      },
-      {
-        "manufacturer": "Petzl",
-        "name": "Actik Core — Headlamp",
-        "spec": "600 lumen · USB",
-        "price": "64,95",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Primus",
-        "name": "Lite+ — Stove System",
-        "spec": "Integrated · 0.5L",
-        "price": "99,90"
-      },
-      {
-        "manufacturer": "Therm-a-Rest",
-        "name": "NeoAir XLite — Sleeping Mat",
-        "spec": "R-value 4.5",
-        "price": "209,95"
-      }
-    ]
+    "products": []
   },
   {
     "id": "moresports",
@@ -2100,48 +1808,7 @@
         "more": true
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Garmin",
-        "name": "Forerunner 965 — Running Watch",
-        "spec": "AMOLED · maps",
-        "price": "649,00",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Speedo",
-        "name": "Fastskin Pure Focus — Goggles",
-        "spec": "Mirror · racing",
-        "price": "39,95",
-        "oldPrice": "49,95",
-        "badge": "-20%"
-      },
-      {
-        "manufacturer": "On",
-        "name": "Cloudmonster — Running Shoe",
-        "spec": "Max cushion",
-        "price": "169,95"
-      },
-      {
-        "manufacturer": "Wahoo",
-        "name": "KICKR Core — Smart Trainer",
-        "spec": "Direct drive",
-        "price": "599,99",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Salomon",
-        "name": "S/Lab Trail 5 — Hydration Vest",
-        "spec": "Race fit · 5L",
-        "price": "139,95"
-      },
-      {
-        "manufacturer": "Arena",
-        "name": "Powerskin Carbon — Race Suit",
-        "spec": "FINA approved",
-        "price": "289,00"
-      }
-    ]
+    "products": []
   },
   {
     "id": "brands",
@@ -2299,48 +1966,7 @@
         "more": true
       }
     ],
-    "products": [
-      {
-        "manufacturer": "CUBE",
-        "name": "Stereo One77 — Trail Full Suspension",
-        "spec": "2026 · carbon",
-        "price": "4.299,00",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Canyon",
-        "name": "Ultimate CF SLX 8 — Road Bike",
-        "spec": "2026 · Di2",
-        "price": "4.799,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Trek",
-        "name": "Marlin 7 Gen 3 — Hardtail",
-        "spec": "2026 · matte black",
-        "price": "949,00",
-        "oldPrice": "1.049,00",
-        "badge": "-10%"
-      },
-      {
-        "manufacturer": "Specialized",
-        "name": "Rockhopper Comp — 29\" MTB",
-        "spec": "2026 · satin red",
-        "price": "899,00"
-      },
-      {
-        "manufacturer": "Giant",
-        "name": "Talon 1 — 29\" Hardtail",
-        "spec": "2026 · blue",
-        "price": "799,00"
-      },
-      {
-        "manufacturer": "SCOTT",
-        "name": "Aspect 940 — 29\" Mountain Bike",
-        "spec": "2026 · grey",
-        "price": "749,00"
-      }
-    ]
+    "products": []
   },
   {
     "id": "sale",
@@ -2490,62 +2116,7 @@
         "more": true
       }
     ],
-    "products": [
-      {
-        "manufacturer": "CUBE",
-        "name": "Attain GTC SLT — Road Bike",
-        "spec": "2025 · carbon",
-        "price": "1.899,00",
-        "oldPrice": "2.499,00",
-        "badge": "-24%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "GORE",
-        "name": "C5 GTX — Trail Jacket",
-        "spec": "Men's · black",
-        "price": "149,99",
-        "oldPrice": "219,99",
-        "badge": "-32%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Shimano",
-        "name": "XT M8100 — Disc Brake Set",
-        "spec": "4-piston",
-        "price": "219,00",
-        "oldPrice": "289,00",
-        "badge": "-24%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Giro",
-        "name": "Aether MIPS — Road Helmet",
-        "spec": "Spherical · matte",
-        "price": "179,95",
-        "oldPrice": "279,95",
-        "badge": "-36%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Garmin",
-        "name": "Edge 530 — GPS Computer",
-        "spec": "ClimbPro",
-        "price": "199,00",
-        "oldPrice": "279,00",
-        "badge": "-28%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Castelli",
-        "name": "Perfetto RoS 2 — Jacket",
-        "spec": "Men's · blue",
-        "price": "129,95",
-        "oldPrice": "184,95",
-        "badge": "-30%",
-        "note": "Sale ends Sunday"
-      }
-    ]
+    "products": []
   }
 ];
   var images = [
