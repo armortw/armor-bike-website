@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:55 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 13:01 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -944,46 +944,6 @@
         "createdAt": "2026-06-22T11:20:09.487Z",
         "updatedAt": "2026-06-22T11:20:09.487Z",
         "updatedBy": "rita"
-      },
-      {
-        "manufacturer": "Ortlieb",
-        "name": "Back-Roller Classic Panniers — 40L",
-        "spec": "Waterproof · pair",
-        "price": "129,90",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Abus",
-        "name": "Bordo 6000 Folding Lock — 90cm",
-        "spec": "Security level 10",
-        "price": "89,95",
-        "oldPrice": "99,95",
-        "badge": "-10%"
-      },
-      {
-        "manufacturer": "Lezyne",
-        "name": "Macro Drive 1300 Front Light",
-        "spec": "1300 lumen · USB-C",
-        "price": "64,90"
-      },
-      {
-        "manufacturer": "Topeak",
-        "name": "JoeBlow Sport III Floor Pump",
-        "spec": "160 psi · gauge",
-        "price": "44,90"
-      },
-      {
-        "manufacturer": "Fidlock",
-        "name": "TWIST Bottle 600 + Base Mount",
-        "spec": "Magnetic · 600ml",
-        "price": "34,90",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "SKS",
-        "name": "Bluemels Mudguard Set — 29\"",
-        "spec": "Front + rear",
-        "price": "39,99"
       },
       {
         "manufacturer": "ARMOR",
