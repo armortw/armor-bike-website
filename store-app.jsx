@@ -652,7 +652,7 @@
 
   function NavBar({ openMenu, activeCat, onTopClick, onTopEnter, onSubClick, onClose }) {
     return React.createElement('div', { onMouseLeave: onClose, style: { position: 'relative', borderBottom: '1px solid var(--border-subtle)', background: '#fff', zIndex: 40 } },
-      React.createElement('nav', { style: { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 28px', height: 'var(--nav-bar-h)', display: 'flex', alignItems: 'stretch', gap: 4 } },
+      React.createElement('nav', { style: { maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 28px', height: 'var(--nav-bar-h)', display: 'flex', alignItems: 'stretch', justifyContent: 'center', gap: 4 } },
         STORE.categories.map(c => {
           const open = openMenu === c.id, active = activeCat === c.id, sale = !!c.accent;
           return React.createElement('button', { key: c.id, onClick: () => onTopClick(c), onMouseEnter: () => onTopEnter(c), style: { position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: '0 14px', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-md)', fontWeight: sale ? 800 : (open || active ? 700 : 600), color: sale ? 'var(--brand-sale)' : (open ? 'var(--brand-primary)' : 'var(--text-strong)'), borderBottom: '3px solid ' + (open ? 'var(--brand-primary)' : 'transparent'), marginBottom: -1, transition: 'color .12s, border-color .12s' } }, c.label);

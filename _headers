@@ -1,0 +1,20 @@
+/store-data.js
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/admin-app.jsx
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/store-app.jsx
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/admin.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/index.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/cms-users.js
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/_ds_bundle.js
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
