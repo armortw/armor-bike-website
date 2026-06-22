@@ -515,6 +515,44 @@
   // ── Products ──────────────────────────────────────────────────────────────
   const BADGE_OPTS = ['', 'New', 'Bestseller', 'Hot Deal', '-10%', '-13%', '-15%', '-18%', '-20%', '-24%', '-28%', '-30%', '-32%', '-36%'];
   const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', images: [] });
+  const makeProductId = () => 'prd_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  const ownerKey = (user) => String(user?.id || user?.username || '').trim();
+  const ownerName = (user) => user?.name || user?.username || 'Unknown';
+  const productOwnerLabel = (p) => p.ownerName || p.ownerUsername || (p.ownerId ? String(p.ownerId) : '');
+  const productFingerprint = (p) => [
+    p.manufacturer || '',
+    p.name || '',
+    p.spec || '',
+    (p.images || []).map(imgUrl).join('|'),
+    p.image || ''
+  ].join('::').toLowerCase();
+  const productMergeKey = (p) => p.productId || p.sourceKey || productFingerprint(p);
+  const canManageProduct = (p, user) => {
+    if (!user) return false;
+    if (user.role === 'admin') return true;
+    const uid = ownerKey(user);
+    return !!uid && (
+      String(p.ownerId || '') === uid ||
+      String(p.ownerUsername || '') === String(user.username || '')
+    );
+  };
+  const stampProductForSave = (product, user, existing) => {
+    const now = new Date().toISOString();
+    const baseOwnerId = existing?.ownerId || product.ownerId || ownerKey(user);
+    const baseOwnerUsername = existing?.ownerUsername || product.ownerUsername || user?.username || '';
+    const baseOwnerName = existing?.ownerName || product.ownerName || ownerName(user);
+    return {
+      ...product,
+      productId: existing?.productId || product.productId || makeProductId(),
+      sourceKey: existing?.sourceKey || existing?.productId || product.sourceKey || (existing ? productFingerprint(existing) : ''),
+      ownerId: baseOwnerId,
+      ownerUsername: baseOwnerUsername,
+      ownerName: baseOwnerName,
+      createdAt: existing?.createdAt || product.createdAt || now,
+      updatedAt: now,
+      updatedBy: user?.username || ''
+    };
+  };
 
   // Flatten a category's Mega Menu into selectable sub-items (group › link)
   const megaLeaves = (cat) => {
@@ -755,7 +793,7 @@
   }
 
   // Product card with image carousel dots
-  function ProductCardView({ p, onEdit, onDelete }) {
+  function ProductCardView({ p, onEdit, onDelete, canManage }) {
     const imgs = getImages(p);
     const [idx, setIdx] = useState(0);
     const safeIdx = Math.min(idx, imgs.length - 1);
@@ -794,20 +832,23 @@
         e('div', { style: { fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: 3 } }, p.manufacturer),
         e('div', { style: { fontSize: 13, fontWeight: 700, color: '#16181d', lineHeight: 1.35, marginBottom: 3 } }, p.name),
         e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10 } }, p.spec),
+        productOwnerLabel(p) ? e('div', { style: { fontSize: 11, color: '#64748b', marginBottom: 10 } }, 'Owner: ', productOwnerLabel(p)) : null,
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
           e('div', null,
             p.leaf ? e('span', { style: { fontSize: 11, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 6 } }, p.leaf) : null
           ),
-          e('div', { style: { display: 'flex', gap: 6 } },
-            e('button', { onClick: onEdit, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'),
-            e('button', { onClick: onDelete, style: S.btnDanger }, '🗑')
-          )
+          canManage
+            ? e('div', { style: { display: 'flex', gap: 6 } },
+                e('button', { onClick: onEdit, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'),
+                e('button', { onClick: onDelete, style: S.btnDanger }, '🗑')
+              )
+            : e('span', { style: { fontSize: 11, fontWeight: 700, color: '#94a3b8', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 20, padding: '3px 9px' } }, 'Locked')
         )
       )
     );
   }
 
-  function ProductsManager({ data, setData }) {
+  function ProductsManager({ data, setData, user }) {
     const [catId, setCatId] = useState(data.categories[0]?.id || '');
     const [editIdx, setEditIdx] = useState(null);
     const [ef, setEf] = useState({});
@@ -817,7 +858,20 @@
     const cat = data.categories.find(c => c.id === catId) || data.categories[0];
     const products = cat?.products || [];
 
-    const save = (prods) => setData({ ...data, categories: data.categories.map(c => c.id === catId ? { ...c, products: prods } : c) });
+    const save = (prods, deletions = []) => setData({
+      ...data,
+      productDeletions: deletions.length ? [...(data.productDeletions || []), ...deletions] : (data.productDeletions || []),
+      categories: data.categories.map(c => c.id === catId ? { ...c, products: prods } : c)
+    });
+    const deletionFor = (p) => ({
+      categoryId: catId,
+      productId: p.productId || '',
+      sourceKey: productMergeKey(p),
+      ownerId: p.ownerId || '',
+      ownerUsername: p.ownerUsername || '',
+      deletedBy: user?.username || '',
+      deletedAt: new Date().toISOString()
+    });
 
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
@@ -830,16 +884,17 @@
         ),
         e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ Add Product')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, af]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
+      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
         products.map((p, i) => editIdx === i
           ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save(products.map((x, j) => j === i ? ef : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
+              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
             )
           : e(ProductCardView, {
-              key: i, p,
-              onEdit: () => { setEditIdx(i); setEf({ ...p, images: getImages(p) }); setShowAdd(false); },
-              onDelete: () => { if (confirm('Delete product?')) save(products.filter((_, j) => j !== i)); }
+              key: p.productId || i, p,
+              canManage: canManageProduct(p, user),
+              onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p) }); setShowAdd(false); },
+              onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('Delete product?')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
             })
         )
       )
@@ -1561,7 +1616,7 @@
   }
 
   // ── Publish modal (auto-deploy via GitHub API → Cloudflare Pages) ──────────────
-  function PublishModal({ data, onClose, goToSettings }) {
+  function PublishModal({ data, user, onClose, goToSettings }) {
     const [cfg, setCfg] = useState(loadGithubConfig);
     const [phase, setPhase] = useState('checking');
     const [phaseLabel, setPhaseLabel] = useState('');
@@ -1618,7 +1673,19 @@
       };
 
       const collectPublishFiles = async () => {
-        const files = [{ path: 'store-data.js', content: generateStoreJS(data), message: 'Deploy: update store data' }];
+        const files = [{
+          path: 'store-data.js',
+          content: generateStoreJS(data),
+          message: 'Deploy: update store data',
+          mergeStrategy: 'owned-products',
+          data,
+          publisher: {
+            id: ownerKey(user),
+            username: user?.username || '',
+            name: ownerName(user),
+            role: user?.role || 'editor'
+          }
+        }];
         const merged = allUsers();
         if (merged.length > 0) {
           files.push({ path: 'cms-users.js', content: await buildCmsUsersJS(merged), message: 'Deploy: update admin accounts' });
@@ -1811,7 +1878,7 @@
       categories: e(CategoriesManager, { data, setData, user }),
       megamenu: e(MegaMenuManager, { data, setData }),
       filters: e(FiltersManager, { data, setData }),
-      products: e(ProductsManager, { data, setData }),
+      products: e(ProductsManager, { data, setData, user }),
       badges: e(BadgesManager, { data, setData }),
       images: e(ImageLibrary, { data, setData }),
       users: user.role === 'admin' ? e(UsersManager) : e('div', null, e('p', null, 'Access denied')),
@@ -1845,7 +1912,7 @@
         // content
         e('div', { style: { flex: 1, overflowY: 'auto', padding: '28px 32px' } }, sections[section] || sections.dashboard)
       ),
-      showPublish && e(PublishModal, { data, onClose: () => setShowPublish(false), goToSettings: () => { setShowPublish(false); setSection('settings'); } }),
+      showPublish && e(PublishModal, { data, user, onClose: () => setShowPublish(false), goToSettings: () => { setShowPublish(false); setSection('settings'); } }),
       showProfile && e(UserProfilePanel, { user, onLogout, onClose: () => setShowProfile(false), onUpdateUser })
     );
   }
