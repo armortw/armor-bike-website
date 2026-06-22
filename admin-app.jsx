@@ -17,6 +17,40 @@
   const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); return r ? JSON.parse(r) : []; } catch { return []; } };
   const saveUsers = (u) => localStorage.setItem(USERS_KEY, JSON.stringify(u));
 
+  // ── shared accounts baked into the deployed site (cms-users.js → window.CMS_USERS) ──
+  // Passwords are stored as SHA-256 hashes (not plaintext), so any browser can sign in
+  // without importing config. Note: client-side auth — convenient, not high-security.
+  const sha256Hex = async (s) => {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(String(s)));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  };
+  const bakedUsers = () => Array.isArray(window.CMS_USERS) ? window.CMS_USERS : [];
+  // Every account known to this browser (local working copy + baked shared accounts).
+  const allUsers = () => {
+    const local = loadUsers();
+    const names = new Set(local.map(u => u.username));
+    return [...local, ...bakedUsers().filter(u => !names.has(u.username))];
+  };
+  // Verify against localStorage plaintext (unpublished/local) OR baked hashed accounts.
+  const verifyLogin = async (username, password) => {
+    username = (username || '').trim();
+    const local = loadUsers().find(x => x.username === username && x.password === password);
+    if (local) return local;
+    const h = await sha256Hex(username + ':' + password);
+    const b = bakedUsers().find(x => x.username === username && x.passwordHash === h);
+    if (b) return { id: b.id || Date.now(), username: b.username, role: b.role || 'admin', name: b.name || b.username };
+    return null;
+  };
+  // Build cms-users.js content from the current accounts (hashing plaintext passwords).
+  const buildCmsUsersJS = async (users) => {
+    const out = [];
+    for (const u of (users || [])) {
+      const hash = u.passwordHash || (u.password ? await sha256Hex((u.username || '') + ':' + u.password) : '');
+      out.push({ id: u.id, username: u.username, passwordHash: hash, role: u.role || 'editor', name: u.name || u.username });
+    }
+    return '/* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */\nwindow.CMS_USERS = ' + JSON.stringify(out, null, 2) + ';\n';
+  };
+
   const CLOUDINARY_KEY = 'ARMOR_BIKE_CDN';
   const loadCldConfig = () => { try { return JSON.parse(localStorage.getItem(CLOUDINARY_KEY)) || {}; } catch { return {}; } };
   const saveCldConfig = (c) => localStorage.setItem(CLOUDINARY_KEY, JSON.stringify(c));
@@ -166,11 +200,11 @@
     const [err, setErr] = useState('');
     const [showImport, setShowImport] = useState(false);
     const [blob, setBlob] = useState('');
-    const noUsers = loadUsers().length === 0;
+    const noUsers = allUsers().length === 0;
     if (mode === 'setup') return e(FirstTimeSetup, { onSetup: onLogin, onCancel: () => setMode('login') });
-    const submit = (ev) => {
+    const submit = async (ev) => {
       ev.preventDefault();
-      const user = loadUsers().find(x => x.username === u && x.password === p);
+      const user = await verifyLogin(u, p);
       if (user) { saveAuth(user); onLogin(user); }
       else setErr('帳號或密碼錯誤');
     };
@@ -1538,6 +1572,13 @@
             if (r.ok) { await commitFile('store-data.js', await r.text(), 'Deploy: update store data'); }
           } catch (_) {}
         }
+
+        // 2b. Commit cms-users.js — shared admin accounts (passwords hashed) so any browser can sign in
+        try {
+          step('正在提交 cms-users.js…');
+          const merged = allUsers();
+          if (merged.length > 0) { await commitFile('cms-users.js', await buildCmsUsersJS(merged), 'Deploy: update admin accounts'); }
+        } catch (_) {}
 
         // 3. Commit _ds_bundle.js (design system)
         try {
