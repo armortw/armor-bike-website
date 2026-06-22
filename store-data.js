@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:05 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:15 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -277,52 +277,7 @@
         "more": false
       }
     ],
-    "products": [
-      {
-        "manufacturer": "CUBE",
-        "name": "Reaction Hybrid Pro 625 — 29\" E-Mountain",
-        "spec": "2026 · grey / blue",
-        "price": "2.299,00",
-        "oldPrice": "2.799,00",
-        "badge": "-18%",
-        "note": "Ships in 24h",
-        "images": []
-      },
-      {
-        "manufacturer": "Canyon",
-        "name": "Spectral 29 CF 8 — Trail Full Suspension",
-        "spec": "2026 · stealth black",
-        "price": "3.499,00"
-      },
-      {
-        "manufacturer": "Orbea",
-        "name": "Alma M30 — 29\" Cross-Country Hardtail",
-        "spec": "2026 · metallic sunset",
-        "price": "2.099,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "SCOTT",
-        "name": "Scale 970 — 29\" Mountain Bike",
-        "spec": "2026 · black / lime",
-        "price": "1.299,00",
-        "oldPrice": "1.499,00",
-        "note": "Only 3 left"
-      },
-      {
-        "manufacturer": "Academy",
-        "name": "Trail 5 — 24\" Kids Mountain Bike",
-        "spec": "2026 · space grey",
-        "price": "738,66"
-      },
-      {
-        "manufacturer": "Marin",
-        "name": "Rift Zone JR 24 — Kids Mountain Bike",
-        "spec": "2026 · green / yellow fade",
-        "price": "1.427,73",
-        "badge": "Bestseller"
-      }
-    ],
+    "products": [],
     "accent": false
   },
   {
