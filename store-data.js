@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-19 00:24 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 08:51 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -286,12 +286,7 @@
         "oldPrice": "2.799,00",
         "badge": "-18%",
         "note": "Ships in 24h",
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781710734/z3ptifcmzlkf0huxzoim.png",
-            "alt": "CO25-8148"
-          }
-        ]
+        "images": []
       },
       {
         "manufacturer": "Canyon",
@@ -327,7 +322,8 @@
         "price": "1.427,73",
         "badge": "Bestseller"
       }
-    ]
+    ],
+    "accent": false
   },
   {
     "id": "parts",
@@ -638,6 +634,13 @@
             "Backpacks",
             "Bar Bags"
           ]
+        },
+        {
+          "title": "E-PUMP",
+          "links": [
+            "MINI",
+            "BIG"
+          ]
         }
       ],
       [
@@ -856,6 +859,96 @@
         "name": "Bluemels Mudguard Set — 29\"",
         "spec": "Front + rear",
         "price": "39,99"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK8145",
+        "spec": "SIZE: 70X48X32 mm , 2X500mAH 3.7V ",
+        "price": "USD 17.00 / SET ",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
+            "alt": "EP 1"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8149 ",
+        "spec": "SIZE:74X54X30MM , 500mAH X 2 7.4V ",
+        "price": "USD 15.70 /PCE ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+            "alt": "VK 8149"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8146",
+        "spec": "SIZE: 70X50X30MM 600mAH X 2 7.4V ",
+        "price": "USD 16.25 / SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
+            "alt": "VK-8146"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8302 ",
+        "spec": "SIZE: 66X50X134mm , 2000mAHX2 7.4V ",
+        "price": "USD 9.70/ SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+            "alt": "VK-8302"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ]
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
+          }
+        ]
       }
     ]
   },
@@ -2404,6 +2497,18 @@
     "alt": "HUB",
     "id": 1781689886134.6062,
     "source": "cloudinary"
+  },
+  {
+    "id": 1781692031296.2617,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
+    "alt": "CO25-8148",
+    "source": "cloudinary"
+  },
+  {
+    "id": 1781780424350.3518,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780420/vqohexxku4odxj28vtv3.png",
+    "alt": "Gemini_Generated_Image_ug12mug12mug12mu -0617",
+    "source": "cloudinary"
   }
 ];
   var hero = [
@@ -2411,6 +2516,11 @@
     "id": 1781689895414.5752,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689835/n2ddykxfj0qcvpha3xmi.png",
     "alt": "Pedal_rainbow_EDM"
+  },
+  {
+    "id": 1781692031296.3933,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
+    "alt": "CO25-8148"
   },
   {
     "id": 1781689899441.6396,
@@ -2426,6 +2536,11 @@
     "id": 1781689897937.1333,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689874/i714pfle7gjl3e9mvat5.png",
     "alt": "LIGHT"
+  },
+  {
+    "id": 1781780424350.115,
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780420/vqohexxku4odxj28vtv3.png",
+    "alt": "E PUMP "
   }
 ];
   var map = {};
