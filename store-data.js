@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:23 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:27 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -652,7 +652,8 @@
             "Light Sets",
             "Frame Locks",
             "Chain Locks",
-            "Cable Lock"
+            "Cable Lock",
+            "Foldng Lock"
           ]
         }
       ],
@@ -1107,6 +1108,40 @@
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:23:02.160Z",
         "updatedAt": "2026-06-22T11:23:02.160Z",
+        "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-8170",
+        "spec": "FOLDING LOCK  760MM   W/2 SPARE KEYS",
+        "badge": "",
+        "note": "",
+        "leaf": "Foldng Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/kpourr1iypp1rqtzyjvo.png",
+            "alt": "CO25-8170"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/xjylcrzzrgprsndfaypw.jpg",
+            "alt": "CO25-8170-2"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/lz5phpzwy2ndzw3n77pf.png",
+            "alt": "CO25-8170-4"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/ecdfmays6a8p39zfwqof.png",
+            "alt": "CO25-8170-3"
+          }
+        ],
+        "productId": "prd_mqp4s1zg_9xjdwb",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-22T11:27:12.652Z",
+        "updatedAt": "2026-06-22T11:27:12.652Z",
         "updatedBy": "rita"
       }
     ]
