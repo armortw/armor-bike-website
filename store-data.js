@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:27 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:31 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -653,7 +653,8 @@
             "Frame Locks",
             "Chain Locks",
             "Cable Lock",
-            "Foldng Lock"
+            "Foldng Lock",
+            "U lock"
           ]
         }
       ],
@@ -1142,6 +1143,28 @@
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:27:12.652Z",
         "updatedAt": "2026-06-22T11:27:12.652Z",
+        "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "CO25-81253",
+        "spec": "U LOCK  SIZE 180MMX260MM CALBE:10MMX1200MM W/2 BARSS KEYS",
+        "badge": "",
+        "note": "",
+        "leaf": "U lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127890/xpasaut2owckax3dnh28.png",
+            "alt": "CO25-81253"
+          }
+        ],
+        "productId": "prd_mqp4xp3o_v3puym",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-22T11:31:35.892Z",
+        "updatedAt": "2026-06-22T11:31:35.892Z",
         "updatedBy": "rita"
       }
     ]
@@ -2750,5 +2773,9 @@
 ];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
+  try {
+    var _cms = localStorage.getItem('ARMOR_BIKE_CMS');
+    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }
+  } catch (_e) {}
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
 })();
