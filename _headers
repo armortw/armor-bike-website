@@ -19,6 +19,27 @@
 /design-preview-app.jsx
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
+/design-reference.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/design-reference-app.jsx
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-dark-hero-full.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-dark-strip.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-promo-ebikes.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-promo-arrivals.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-promo-bestsellers.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /cms-users.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
