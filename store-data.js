@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:43 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:44 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1488,218 +1488,6 @@
     "products": []
   },
   {
-    "id": "clothing",
-    "label": "Clothing",
-    "leaf": "Jerseys",
-    "crumb": [
-      "Cycling",
-      "Clothing"
-    ],
-    "mega": [
-      [
-        {
-          "title": "Jerseys & Tops",
-          "links": [
-            "Short Sleeve",
-            "Long Sleeve",
-            "Base Layers",
-            "Wind Vests"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Shorts & Tights",
-          "links": [
-            "Bib Shorts",
-            "Shorts",
-            "Tights",
-            "Trousers"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Jackets",
-          "links": [
-            "Rain Jackets",
-            "Wind Jackets",
-            "Thermal",
-            "Gilets"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Accessories",
-          "links": [
-            "Gloves",
-            "Socks",
-            "Caps",
-            "Arm Warmers"
-          ]
-        },
-        {
-          "title": "By Gender",
-          "links": [
-            "Men",
-            "Women",
-            "Kids"
-          ]
-        }
-      ]
-    ],
-    "facets": [
-      {
-        "kind": "range",
-        "min": "29",
-        "max": "249"
-      },
-      {
-        "kind": "toggles",
-        "options": [
-          {
-            "label": "Sale %",
-            "count": 12,
-            "sale": true
-          },
-          {
-            "label": "In stock",
-            "count": 96
-          }
-        ]
-      },
-      {
-        "kind": "check",
-        "title": "Size",
-        "options": [
-          {
-            "label": "XS",
-            "count": 14
-          },
-          {
-            "label": "S",
-            "count": 38
-          },
-          {
-            "label": "M",
-            "count": 52
-          },
-          {
-            "label": "L",
-            "count": 47
-          },
-          {
-            "label": "XL",
-            "count": 29
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "check",
-        "title": "Gender",
-        "options": [
-          {
-            "label": "Men",
-            "count": 64
-          },
-          {
-            "label": "Women",
-            "count": 41
-          },
-          {
-            "label": "Unisex",
-            "count": 22
-          }
-        ],
-        "more": false
-      },
-      {
-        "kind": "check",
-        "title": "Manufacturer",
-        "options": [
-          {
-            "label": "Castelli",
-            "count": 22
-          },
-          {
-            "label": "GORE",
-            "count": 18
-          },
-          {
-            "label": "Assos",
-            "count": 14
-          },
-          {
-            "label": "Endura",
-            "count": 20
-          },
-          {
-            "label": "Maloja",
-            "count": 11
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "color",
-        "title": "Colors",
-        "options": [
-          {
-            "color": "#9aa6b4",
-            "count": 16
-          },
-          {
-            "color": "#6d28d9",
-            "count": 15
-          },
-          {
-            "color": "#16181d",
-            "count": 14
-          },
-          {
-            "color": "#006ee0",
-            "count": 13
-          },
-          {
-            "color": "#ffd105",
-            "count": 11
-          },
-          {
-            "color": "#1a8a4f",
-            "count": 8
-          },
-          {
-            "color": "#f97316",
-            "count": 7
-          },
-          {
-            "color": "#14b8a6",
-            "count": 7
-          },
-          {
-            "color": "#e0004b",
-            "count": 5
-          },
-          {
-            "color": "#cbd4de",
-            "count": 4
-          },
-          {
-            "color": "#ec4899",
-            "count": 2
-          },
-          {
-            "color": "#8b5e3c",
-            "count": 2
-          }
-        ]
-      }
-    ],
-    "products": []
-  },
-  {
     "id": "shoes",
     "label": "Shoes",
     "leaf": "Road Shoes",
@@ -2254,6 +2042,218 @@
           }
         ],
         "more": true
+      }
+    ],
+    "products": []
+  },
+  {
+    "id": "clothing",
+    "label": "Clothing",
+    "leaf": "Jerseys",
+    "crumb": [
+      "Cycling",
+      "Clothing"
+    ],
+    "mega": [
+      [
+        {
+          "title": "Jerseys & Tops",
+          "links": [
+            "Short Sleeve",
+            "Long Sleeve",
+            "Base Layers",
+            "Wind Vests"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Shorts & Tights",
+          "links": [
+            "Bib Shorts",
+            "Shorts",
+            "Tights",
+            "Trousers"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Jackets",
+          "links": [
+            "Rain Jackets",
+            "Wind Jackets",
+            "Thermal",
+            "Gilets"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Accessories",
+          "links": [
+            "Gloves",
+            "Socks",
+            "Caps",
+            "Arm Warmers"
+          ]
+        },
+        {
+          "title": "By Gender",
+          "links": [
+            "Men",
+            "Women",
+            "Kids"
+          ]
+        }
+      ]
+    ],
+    "facets": [
+      {
+        "kind": "range",
+        "min": "29",
+        "max": "249"
+      },
+      {
+        "kind": "toggles",
+        "options": [
+          {
+            "label": "Sale %",
+            "count": 12,
+            "sale": true
+          },
+          {
+            "label": "In stock",
+            "count": 96
+          }
+        ]
+      },
+      {
+        "kind": "check",
+        "title": "Size",
+        "options": [
+          {
+            "label": "XS",
+            "count": 14
+          },
+          {
+            "label": "S",
+            "count": 38
+          },
+          {
+            "label": "M",
+            "count": 52
+          },
+          {
+            "label": "L",
+            "count": 47
+          },
+          {
+            "label": "XL",
+            "count": 29
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "check",
+        "title": "Gender",
+        "options": [
+          {
+            "label": "Men",
+            "count": 64
+          },
+          {
+            "label": "Women",
+            "count": 41
+          },
+          {
+            "label": "Unisex",
+            "count": 22
+          }
+        ],
+        "more": false
+      },
+      {
+        "kind": "check",
+        "title": "Manufacturer",
+        "options": [
+          {
+            "label": "Castelli",
+            "count": 22
+          },
+          {
+            "label": "GORE",
+            "count": 18
+          },
+          {
+            "label": "Assos",
+            "count": 14
+          },
+          {
+            "label": "Endura",
+            "count": 20
+          },
+          {
+            "label": "Maloja",
+            "count": 11
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "color",
+        "title": "Colors",
+        "options": [
+          {
+            "color": "#9aa6b4",
+            "count": 16
+          },
+          {
+            "color": "#6d28d9",
+            "count": 15
+          },
+          {
+            "color": "#16181d",
+            "count": 14
+          },
+          {
+            "color": "#006ee0",
+            "count": 13
+          },
+          {
+            "color": "#ffd105",
+            "count": 11
+          },
+          {
+            "color": "#1a8a4f",
+            "count": 8
+          },
+          {
+            "color": "#f97316",
+            "count": 7
+          },
+          {
+            "color": "#14b8a6",
+            "count": 7
+          },
+          {
+            "color": "#e0004b",
+            "count": 5
+          },
+          {
+            "color": "#cbd4de",
+            "count": 4
+          },
+          {
+            "color": "#ec4899",
+            "count": 2
+          },
+          {
+            "color": "#8b5e3c",
+            "count": 2
+          }
+        ]
       }
     ],
     "products": []
