@@ -167,21 +167,30 @@
   }
 
   function CategoryStrip() {
-    const labels = ["Bikes", "Parts", "Accessories", "Electronics", "More Sports", "Sale"];
+    const cards = [
+      ["Bikes", "uploads/reference-cat-bikes.png"],
+      ["Parts", "uploads/reference-cat-parts.png"],
+      ["Accessories", "uploads/reference-cat-accessories.png"],
+      ["Electronics", "uploads/reference-cat-electronics.png"],
+      ["More Sports", "uploads/reference-cat-more-sports.png"],
+      ["Sale", "uploads/reference-cat-sale.png"]
+    ];
     const lefts = [0, 17.1, 35.3, 53.6, 68.8, 84.4];
     const widths = [19.3, 20.2, 20.1, 18.2, 18.3, 15.6];
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
         <div className="category-strip">
-          <img src="uploads/reference-dark-strip.png" alt="Bikes, parts, accessories, electronics, more sports, and sale category cards" />
-          {labels.map((label, index) => (
+          <img className="category-strip-base" src="uploads/reference-dark-strip.png" alt="Bikes, parts, accessories, electronics, more sports, and sale category cards" />
+          {cards.map(([label, src], index) => (
             <a
-              className="strip-link"
+              className="category-card"
               href="#products"
               key={label}
               style={{ left: `${lefts[index]}%`, width: `${widths[index]}%` }}
               aria-label={label}
-            ></a>
+            >
+              <img src={src} alt={`${label} category card`} />
+            </a>
           ))}
         </div>
       </section>
