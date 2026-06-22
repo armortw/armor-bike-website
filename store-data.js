@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:15 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:17 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -277,7 +277,52 @@
         "more": false
       }
     ],
-    "products": [],
+    "products": [
+      {
+        "manufacturer": "CUBE",
+        "name": "Reaction Hybrid Pro 625 — 29\" E-Mountain",
+        "spec": "2026 · grey / blue",
+        "price": "2.299,00",
+        "oldPrice": "2.799,00",
+        "badge": "-18%",
+        "note": "Ships in 24h",
+        "images": []
+      },
+      {
+        "manufacturer": "Canyon",
+        "name": "Spectral 29 CF 8 — Trail Full Suspension",
+        "spec": "2026 · stealth black",
+        "price": "3.499,00"
+      },
+      {
+        "manufacturer": "Orbea",
+        "name": "Alma M30 — 29\" Cross-Country Hardtail",
+        "spec": "2026 · metallic sunset",
+        "price": "2.099,00",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "SCOTT",
+        "name": "Scale 970 — 29\" Mountain Bike",
+        "spec": "2026 · black / lime",
+        "price": "1.299,00",
+        "oldPrice": "1.499,00",
+        "note": "Only 3 left"
+      },
+      {
+        "manufacturer": "Academy",
+        "name": "Trail 5 — 24\" Kids Mountain Bike",
+        "spec": "2026 · space grey",
+        "price": "738,66"
+      },
+      {
+        "manufacturer": "Marin",
+        "name": "Rift Zone JR 24 — Kids Mountain Bike",
+        "spec": "2026 · green / yellow fade",
+        "price": "1.427,73",
+        "badge": "Bestseller"
+      }
+    ],
     "accent": false
   },
   {
@@ -949,6 +994,36 @@
             "alt": "PC2124 RED-Photoroom"
           }
         ]
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81351",
+        "spec": "CABLE LOCK  DIA 10MMX1200MM  5-DIGIT RESETTABLE COMBINETION W/WOVEN KNIT COVER",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/vttk9gdnpg4buvrkufjm.jpg",
+            "alt": "PC2133-RED"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/xvuvvsmklwkn1ixadiwe.png",
+            "alt": "PC2133-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/aupwkdv6kllwemmpwjyt.png",
+            "alt": "PC2133-BLK-BLUE COLOR-Photoroom (1)"
+          }
+        ],
+        "productId": "prd_mqp4evng_fo79jg",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-22T11:16:57.915Z",
+        "updatedAt": "2026-06-22T11:16:57.915Z",
+        "updatedBy": "rita"
       }
     ]
   },
