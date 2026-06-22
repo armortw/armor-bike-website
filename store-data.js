@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:44 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:54 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2303,7 +2303,6 @@
     "source": "cloudinary"
   }
 ];
-  var badges = [];
   var hero = [
   {
     "id": 1781689895414.5752,
@@ -2343,5 +2342,5 @@
 ];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
-  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };
+  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
 })();
