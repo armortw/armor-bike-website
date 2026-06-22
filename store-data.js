@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:32 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:39 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -652,9 +652,7 @@
             "Light Sets",
             "Frame Locks",
             "Chain Locks",
-            "Cable Lock",
-            "Foldng Lock",
-            "U lock"
+            "Cable Lock"
           ]
         }
       ],
@@ -1367,6 +1365,390 @@
         "name": "Kiox 300 — Display Kit",
         "spec": "Smart System",
         "price": "159,90"
+      }
+    ]
+  },
+  {
+    "id": "moresports",
+    "label": "More Sports",
+    "leaf": "Running",
+    "crumb": [
+      "Sports"
+    ],
+    "mega": [
+      [
+        {
+          "title": "Running",
+          "links": [
+            "Shoes",
+            "Apparel",
+            "Watches",
+            "Accessories"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Swimming",
+          "links": [
+            "Wetsuits",
+            "Goggles",
+            "Caps",
+            "Swimwear"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Fitness",
+          "links": [
+            "Smart Trainers",
+            "Weights",
+            "Mats",
+            "Bands"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Winter",
+          "links": [
+            "Ski",
+            "Snowboard",
+            "Apparel",
+            "Goggles"
+          ]
+        },
+        {
+          "title": "Triathlon",
+          "links": [
+            "Tri Suits",
+            "Race Belts",
+            "Transition"
+          ]
+        }
+      ]
+    ],
+    "facets": [
+      {
+        "kind": "range",
+        "min": "39",
+        "max": "649"
+      },
+      {
+        "kind": "toggles",
+        "options": [
+          {
+            "label": "Sale %",
+            "count": 10,
+            "sale": true
+          },
+          {
+            "label": "In stock",
+            "count": 88
+          }
+        ]
+      },
+      {
+        "kind": "check",
+        "title": "Sport",
+        "options": [
+          {
+            "label": "Running",
+            "count": 34
+          },
+          {
+            "label": "Swimming",
+            "count": 18
+          },
+          {
+            "label": "Fitness",
+            "count": 26
+          },
+          {
+            "label": "Winter",
+            "count": 14
+          },
+          {
+            "label": "Triathlon",
+            "count": 9
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "check",
+        "title": "Manufacturer",
+        "options": [
+          {
+            "label": "Garmin",
+            "count": 16
+          },
+          {
+            "label": "Speedo",
+            "count": 11
+          },
+          {
+            "label": "On",
+            "count": 14
+          },
+          {
+            "label": "Wahoo",
+            "count": 9
+          },
+          {
+            "label": "Salomon",
+            "count": 12
+          }
+        ],
+        "more": true
+      }
+    ],
+    "products": [
+      {
+        "manufacturer": "Garmin",
+        "name": "Forerunner 965 — Running Watch",
+        "spec": "AMOLED · maps",
+        "price": "649,00",
+        "badge": "Bestseller"
+      },
+      {
+        "manufacturer": "Speedo",
+        "name": "Fastskin Pure Focus — Goggles",
+        "spec": "Mirror · racing",
+        "price": "39,95",
+        "oldPrice": "49,95",
+        "badge": "-20%"
+      },
+      {
+        "manufacturer": "On",
+        "name": "Cloudmonster — Running Shoe",
+        "spec": "Max cushion",
+        "price": "169,95"
+      },
+      {
+        "manufacturer": "Wahoo",
+        "name": "KICKR Core — Smart Trainer",
+        "spec": "Direct drive",
+        "price": "599,99",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "Salomon",
+        "name": "S/Lab Trail 5 — Hydration Vest",
+        "spec": "Race fit · 5L",
+        "price": "139,95"
+      },
+      {
+        "manufacturer": "Arena",
+        "name": "Powerskin Carbon — Race Suit",
+        "spec": "FINA approved",
+        "price": "289,00"
+      }
+    ]
+  },
+  {
+    "id": "sale",
+    "label": "SALE %",
+    "accent": true,
+    "leaf": "Bikes on Sale",
+    "crumb": [
+      "Sale"
+    ],
+    "mega": [
+      [
+        {
+          "title": "Bikes on Sale",
+          "links": [
+            "Mountain Bikes",
+            "E-Bikes",
+            "Road & Gravel",
+            "Kids' Bikes"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Parts on Sale",
+          "links": [
+            "Drivetrain",
+            "Brakes",
+            "Wheels",
+            "Cockpit"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Clothing on Sale",
+          "links": [
+            "Jerseys",
+            "Jackets",
+            "Shorts",
+            "Shoes"
+          ]
+        }
+      ],
+      [
+        {
+          "title": "Accessories on Sale",
+          "links": [
+            "Lights",
+            "Locks",
+            "Bags",
+            "Electronics"
+          ]
+        }
+      ]
+    ],
+    "facets": [
+      {
+        "kind": "range",
+        "min": "129",
+        "max": "1899"
+      },
+      {
+        "kind": "toggles",
+        "options": [
+          {
+            "label": "On sale only",
+            "count": 248,
+            "sale": true
+          },
+          {
+            "label": "In stock",
+            "count": 201
+          }
+        ]
+      },
+      {
+        "kind": "check",
+        "title": "Discount",
+        "options": [
+          {
+            "label": "-10% or more",
+            "count": 248
+          },
+          {
+            "label": "-20% or more",
+            "count": 162
+          },
+          {
+            "label": "-30% or more",
+            "count": 74
+          },
+          {
+            "label": "-40% or more",
+            "count": 21
+          }
+        ],
+        "more": true
+      },
+      {
+        "kind": "check",
+        "title": "Category",
+        "options": [
+          {
+            "label": "Bikes",
+            "count": 48
+          },
+          {
+            "label": "Parts",
+            "count": 96
+          },
+          {
+            "label": "Clothing",
+            "count": 64
+          },
+          {
+            "label": "Accessories",
+            "count": 40
+          }
+        ],
+        "more": false
+      },
+      {
+        "kind": "check",
+        "title": "Manufacturer",
+        "options": [
+          {
+            "label": "CUBE",
+            "count": 14
+          },
+          {
+            "label": "GORE",
+            "count": 11
+          },
+          {
+            "label": "Shimano",
+            "count": 22
+          },
+          {
+            "label": "Giro",
+            "count": 9
+          },
+          {
+            "label": "Garmin",
+            "count": 12
+          }
+        ],
+        "more": true
+      }
+    ],
+    "products": [
+      {
+        "manufacturer": "CUBE",
+        "name": "Attain GTC SLT — Road Bike",
+        "spec": "2025 · carbon",
+        "price": "1.899,00",
+        "oldPrice": "2.499,00",
+        "badge": "-24%",
+        "note": "Sale ends Sunday"
+      },
+      {
+        "manufacturer": "GORE",
+        "name": "C5 GTX — Trail Jacket",
+        "spec": "Men's · black",
+        "price": "149,99",
+        "oldPrice": "219,99",
+        "badge": "-32%",
+        "note": "Sale ends Sunday"
+      },
+      {
+        "manufacturer": "Shimano",
+        "name": "XT M8100 — Disc Brake Set",
+        "spec": "4-piston",
+        "price": "219,00",
+        "oldPrice": "289,00",
+        "badge": "-24%",
+        "note": "Sale ends Sunday"
+      },
+      {
+        "manufacturer": "Giro",
+        "name": "Aether MIPS — Road Helmet",
+        "spec": "Spherical · matte",
+        "price": "179,95",
+        "oldPrice": "279,95",
+        "badge": "-36%",
+        "note": "Sale ends Sunday"
+      },
+      {
+        "manufacturer": "Garmin",
+        "name": "Edge 530 — GPS Computer",
+        "spec": "ClimbPro",
+        "price": "199,00",
+        "oldPrice": "279,00",
+        "badge": "-28%",
+        "note": "Sale ends Sunday"
+      },
+      {
+        "manufacturer": "Castelli",
+        "name": "Perfetto RoS 2 — Jacket",
+        "spec": "Men's · blue",
+        "price": "129,95",
+        "oldPrice": "184,95",
+        "badge": "-30%",
+        "note": "Sale ends Sunday"
       }
     ]
   },
@@ -2107,185 +2489,6 @@
     ]
   },
   {
-    "id": "moresports",
-    "label": "More Sports",
-    "leaf": "Running",
-    "crumb": [
-      "Sports"
-    ],
-    "mega": [
-      [
-        {
-          "title": "Running",
-          "links": [
-            "Shoes",
-            "Apparel",
-            "Watches",
-            "Accessories"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Swimming",
-          "links": [
-            "Wetsuits",
-            "Goggles",
-            "Caps",
-            "Swimwear"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Fitness",
-          "links": [
-            "Smart Trainers",
-            "Weights",
-            "Mats",
-            "Bands"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Winter",
-          "links": [
-            "Ski",
-            "Snowboard",
-            "Apparel",
-            "Goggles"
-          ]
-        },
-        {
-          "title": "Triathlon",
-          "links": [
-            "Tri Suits",
-            "Race Belts",
-            "Transition"
-          ]
-        }
-      ]
-    ],
-    "facets": [
-      {
-        "kind": "range",
-        "min": "39",
-        "max": "649"
-      },
-      {
-        "kind": "toggles",
-        "options": [
-          {
-            "label": "Sale %",
-            "count": 10,
-            "sale": true
-          },
-          {
-            "label": "In stock",
-            "count": 88
-          }
-        ]
-      },
-      {
-        "kind": "check",
-        "title": "Sport",
-        "options": [
-          {
-            "label": "Running",
-            "count": 34
-          },
-          {
-            "label": "Swimming",
-            "count": 18
-          },
-          {
-            "label": "Fitness",
-            "count": 26
-          },
-          {
-            "label": "Winter",
-            "count": 14
-          },
-          {
-            "label": "Triathlon",
-            "count": 9
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "check",
-        "title": "Manufacturer",
-        "options": [
-          {
-            "label": "Garmin",
-            "count": 16
-          },
-          {
-            "label": "Speedo",
-            "count": 11
-          },
-          {
-            "label": "On",
-            "count": 14
-          },
-          {
-            "label": "Wahoo",
-            "count": 9
-          },
-          {
-            "label": "Salomon",
-            "count": 12
-          }
-        ],
-        "more": true
-      }
-    ],
-    "products": [
-      {
-        "manufacturer": "Garmin",
-        "name": "Forerunner 965 — Running Watch",
-        "spec": "AMOLED · maps",
-        "price": "649,00",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Speedo",
-        "name": "Fastskin Pure Focus — Goggles",
-        "spec": "Mirror · racing",
-        "price": "39,95",
-        "oldPrice": "49,95",
-        "badge": "-20%"
-      },
-      {
-        "manufacturer": "On",
-        "name": "Cloudmonster — Running Shoe",
-        "spec": "Max cushion",
-        "price": "169,95"
-      },
-      {
-        "manufacturer": "Wahoo",
-        "name": "KICKR Core — Smart Trainer",
-        "spec": "Direct drive",
-        "price": "599,99",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Salomon",
-        "name": "S/Lab Trail 5 — Hydration Vest",
-        "spec": "Race fit · 5L",
-        "price": "139,95"
-      },
-      {
-        "manufacturer": "Arena",
-        "name": "Powerskin Carbon — Race Suit",
-        "spec": "FINA approved",
-        "price": "289,00"
-      }
-    ]
-  },
-  {
     "id": "brands",
     "label": "Brands",
     "leaf": "All Brands",
@@ -2483,211 +2686,6 @@
         "price": "749,00"
       }
     ]
-  },
-  {
-    "id": "sale",
-    "label": "SALE %",
-    "accent": true,
-    "leaf": "Bikes on Sale",
-    "crumb": [
-      "Sale"
-    ],
-    "mega": [
-      [
-        {
-          "title": "Bikes on Sale",
-          "links": [
-            "Mountain Bikes",
-            "E-Bikes",
-            "Road & Gravel",
-            "Kids' Bikes"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Parts on Sale",
-          "links": [
-            "Drivetrain",
-            "Brakes",
-            "Wheels",
-            "Cockpit"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Clothing on Sale",
-          "links": [
-            "Jerseys",
-            "Jackets",
-            "Shorts",
-            "Shoes"
-          ]
-        }
-      ],
-      [
-        {
-          "title": "Accessories on Sale",
-          "links": [
-            "Lights",
-            "Locks",
-            "Bags",
-            "Electronics"
-          ]
-        }
-      ]
-    ],
-    "facets": [
-      {
-        "kind": "range",
-        "min": "129",
-        "max": "1899"
-      },
-      {
-        "kind": "toggles",
-        "options": [
-          {
-            "label": "On sale only",
-            "count": 248,
-            "sale": true
-          },
-          {
-            "label": "In stock",
-            "count": 201
-          }
-        ]
-      },
-      {
-        "kind": "check",
-        "title": "Discount",
-        "options": [
-          {
-            "label": "-10% or more",
-            "count": 248
-          },
-          {
-            "label": "-20% or more",
-            "count": 162
-          },
-          {
-            "label": "-30% or more",
-            "count": 74
-          },
-          {
-            "label": "-40% or more",
-            "count": 21
-          }
-        ],
-        "more": true
-      },
-      {
-        "kind": "check",
-        "title": "Category",
-        "options": [
-          {
-            "label": "Bikes",
-            "count": 48
-          },
-          {
-            "label": "Parts",
-            "count": 96
-          },
-          {
-            "label": "Clothing",
-            "count": 64
-          },
-          {
-            "label": "Accessories",
-            "count": 40
-          }
-        ],
-        "more": false
-      },
-      {
-        "kind": "check",
-        "title": "Manufacturer",
-        "options": [
-          {
-            "label": "CUBE",
-            "count": 14
-          },
-          {
-            "label": "GORE",
-            "count": 11
-          },
-          {
-            "label": "Shimano",
-            "count": 22
-          },
-          {
-            "label": "Giro",
-            "count": 9
-          },
-          {
-            "label": "Garmin",
-            "count": 12
-          }
-        ],
-        "more": true
-      }
-    ],
-    "products": [
-      {
-        "manufacturer": "CUBE",
-        "name": "Attain GTC SLT — Road Bike",
-        "spec": "2025 · carbon",
-        "price": "1.899,00",
-        "oldPrice": "2.499,00",
-        "badge": "-24%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "GORE",
-        "name": "C5 GTX — Trail Jacket",
-        "spec": "Men's · black",
-        "price": "149,99",
-        "oldPrice": "219,99",
-        "badge": "-32%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Shimano",
-        "name": "XT M8100 — Disc Brake Set",
-        "spec": "4-piston",
-        "price": "219,00",
-        "oldPrice": "289,00",
-        "badge": "-24%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Giro",
-        "name": "Aether MIPS — Road Helmet",
-        "spec": "Spherical · matte",
-        "price": "179,95",
-        "oldPrice": "279,95",
-        "badge": "-36%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Garmin",
-        "name": "Edge 530 — GPS Computer",
-        "spec": "ClimbPro",
-        "price": "199,00",
-        "oldPrice": "279,00",
-        "badge": "-28%",
-        "note": "Sale ends Sunday"
-      },
-      {
-        "manufacturer": "Castelli",
-        "name": "Perfetto RoS 2 — Jacket",
-        "spec": "Men's · blue",
-        "price": "129,95",
-        "oldPrice": "184,95",
-        "badge": "-30%",
-        "note": "Sale ends Sunday"
-      }
-    ]
   }
 ];
   var images = [
@@ -2773,9 +2771,5 @@
 ];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
-  try {
-    var _cms = localStorage.getItem('ARMOR_BIKE_CMS');
-    if (_cms) { var _d = JSON.parse(_cms); if (_d) { if (Array.isArray(_d.categories) && _d.categories.length) { categories = _d.categories; map = {}; categories.forEach(function (c) { map[c.id] = c; }); } if (Array.isArray(_d.images) && _d.images.length) { images = _d.images; } if (Array.isArray(_d.hero) && _d.hero.length) { hero = _d.hero; } } }
-  } catch (_e) {}
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
 })();
