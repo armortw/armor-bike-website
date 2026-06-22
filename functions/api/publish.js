@@ -36,7 +36,7 @@ function toBase64(str) {
 }
 
 export async function onRequestPost({ request, env }) {
-  const token = env.GITHUB_TOKEN;
+  const token = env.GITHUB_TOKEN || env.GH_TOKEN || env.GITHUB_PAT;
   if (!token) return text('Missing Cloudflare env var: GITHUB_TOKEN', 500);
 
   let payload;
@@ -95,7 +95,7 @@ export async function onRequestPost({ request, env }) {
       ok: true,
       repo,
       branch,
-      siteUrl: env.CF_PAGES_URL || env.CLOUDFLARE_PAGES_URL || DEFAULTS.siteUrl,
+      siteUrl: env.CLOUDFLARE_PAGES_URL || env.PUBLIC_SITE_URL || env.SITE_URL || DEFAULTS.siteUrl,
       files: files.map(f => f.path)
     });
   } catch (err) {

@@ -21,11 +21,12 @@ function json(data, status = 200) {
 }
 
 export async function onRequestGet({ env }) {
+  const token = env.GITHUB_TOKEN || env.GH_TOKEN || env.GITHUB_PAT;
   const github = {
     repo: env.GITHUB_REPO || DEFAULTS.github.repo,
     branch: env.GITHUB_BRANCH || DEFAULTS.github.branch,
-    siteUrl: env.CF_PAGES_URL || env.CLOUDFLARE_PAGES_URL || DEFAULTS.github.siteUrl,
-    publishConfigured: Boolean(env.GITHUB_TOKEN)
+    siteUrl: env.CLOUDFLARE_PAGES_URL || env.PUBLIC_SITE_URL || env.SITE_URL || DEFAULTS.github.siteUrl,
+    publishConfigured: Boolean(token)
   };
 
   const cloudinary = {

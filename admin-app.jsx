@@ -1284,7 +1284,7 @@
           e(Input, { value: github.siteUrl || '', readOnly: true, placeholder: GITHUB_DEFAULTS.siteUrl })
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center', marginTop: 14 } },
-          e('button', { onClick: saveGithub, style: S.btnPrimary }, '儲存設定'),
+          e('button', { disabled: true, style: { ...S.btnGhost, opacity: 0.65, cursor: 'default' } }, '雲端自動載入'),
           githubSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
         )
       ),
@@ -1342,7 +1342,7 @@
           '✓ Cloudinary Cloud: ', e('code', { style: { background: '#dcfce7', padding: '1px 6px', borderRadius: 4 } }, cfg.cloudName)
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
-          e('button', { onClick: saveCld, style: S.btnPrimary }, '儲存設定'),
+          e('button', { disabled: true, style: { ...S.btnGhost, opacity: 0.65, cursor: 'default' } }, '雲端自動載入'),
           cldSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
         )
       ),
@@ -1737,11 +1737,11 @@
 
     if (phase === 'notoken') return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose, width: 500 },
       e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '16px 18px', marginBottom: 20 } },
-        e('p', { style: { margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 } }, '⚠ 尚未設定 GitHub Token 與 Repository'),
-        e('p', { style: { margin: '8px 0 0', fontSize: 13, color: '#78350f' } }, '請前往 Settings 頁面完成 GitHub + Cloudflare Pages 設定，即可一鍵自動發布。')
+        e('p', { style: { margin: 0, fontWeight: 700, color: '#92400e', fontSize: 14 } }, '⚠ Cloudflare 尚未啟用發布密鑰'),
+        e('p', { style: { margin: '8px 0 0', fontSize: 13, color: '#78350f' } }, '請在 Cloudflare Pages 環境變數設定 GITHUB_TOKEN（或 GH_TOKEN / GITHUB_PAT）。設定完成後，所有帳號都會自動使用雲端設定。')
       ),
       e('div', { style: { display: 'flex', gap: 10 } },
-        e('button', { onClick: goToSettings, style: S.btnPrimary }, '前往 Settings 設定'),
+        e('button', { onClick: goToSettings, style: S.btnPrimary }, '查看 Settings'),
         e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 手動下載 JS'),
         e('button', { onClick: onClose, style: S.btnGhost }, '取消')
       )
