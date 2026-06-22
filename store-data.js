@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 10:52 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 10:55 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -948,6 +948,28 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
             "alt": "VK-8152"
+          }
+        ]
+      },
+      {
+        "manufacturer": "康升特",
+        "name": "CO25-8148",
+        "spec": "CABLE LOCK  DIA:18MMX1000MM  W/PP MESH MATERIAL",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png",
+            "alt": "CO25-8164 PK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png",
+            "alt": "BLK COLOR"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png",
+            "alt": "CO25-8164BL"
           }
         ]
       }
