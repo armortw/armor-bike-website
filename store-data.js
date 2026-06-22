@@ -277,7 +277,52 @@
         "more": false
       }
     ],
-    "products": [],
+    "products": [
+      {
+        "manufacturer": "CUBE",
+        "name": "Reaction Hybrid Pro 625 — 29\" E-Mountain",
+        "spec": "2026 · grey / blue",
+        "price": "2.299,00",
+        "oldPrice": "2.799,00",
+        "badge": "-18%",
+        "note": "Ships in 24h",
+        "images": []
+      },
+      {
+        "manufacturer": "Canyon",
+        "name": "Spectral 29 CF 8 — Trail Full Suspension",
+        "spec": "2026 · stealth black",
+        "price": "3.499,00"
+      },
+      {
+        "manufacturer": "Orbea",
+        "name": "Alma M30 — 29\" Cross-Country Hardtail",
+        "spec": "2026 · metallic sunset",
+        "price": "2.099,00",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "SCOTT",
+        "name": "Scale 970 — 29\" Mountain Bike",
+        "spec": "2026 · black / lime",
+        "price": "1.299,00",
+        "oldPrice": "1.499,00",
+        "note": "Only 3 left"
+      },
+      {
+        "manufacturer": "Academy",
+        "name": "Trail 5 — 24\" Kids Mountain Bike",
+        "spec": "2026 · space grey",
+        "price": "738,66"
+      },
+      {
+        "manufacturer": "Marin",
+        "name": "Rift Zone JR 24 — Kids Mountain Bike",
+        "spec": "2026 · green / yellow fade",
+        "price": "1.427,73",
+        "badge": "Bestseller"
+      }
+    ],
     "accent": false
   },
   {
@@ -525,7 +570,50 @@
         ]
       }
     ],
-    "products": []
+    "products": [
+      {
+        "manufacturer": "Shimano",
+        "name": "Deore XT M8100 Groupset — 1 × 12",
+        "spec": "Disc · 10–51T",
+        "price": "549,00",
+        "oldPrice": "629,00",
+        "badge": "-13%",
+        "note": "Ships in 24h"
+      },
+      {
+        "manufacturer": "SRAM",
+        "name": "GX Eagle Cassette — 10–52T",
+        "spec": "12-speed · XD",
+        "price": "312,90"
+      },
+      {
+        "manufacturer": "DT Swiss",
+        "name": "XR 1700 Spline Wheelset — 29\"",
+        "spec": "Centerlock · Boost",
+        "price": "689,00",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "Fox",
+        "name": "36 Float Performance Fork — 160mm",
+        "spec": "29\" · GRIP damper",
+        "price": "899,00",
+        "note": "Only 2 left"
+      },
+      {
+        "manufacturer": "Shimano",
+        "name": "Deore XT Disc Brake Set — Front + Rear",
+        "spec": "4-piston · Ice-Tech",
+        "price": "274,50",
+        "oldPrice": "319,00"
+      },
+      {
+        "manufacturer": "Race Face",
+        "name": "Aeffect R Crank Set — 32T",
+        "spec": "Boost · 170mm",
+        "price": "189,90"
+      }
+    ]
   },
   {
     "id": "accessories",
@@ -896,6 +984,92 @@
         "createdAt": "2026-06-22T11:16:57.915Z",
         "updatedAt": "2026-06-22T11:16:57.915Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "Ortlieb",
+        "name": "Back-Roller Classic Panniers — 40L",
+        "spec": "Waterproof · pair",
+        "price": "129,90",
+        "badge": "Bestseller"
+      },
+      {
+        "manufacturer": "Abus",
+        "name": "Bordo 6000 Folding Lock — 90cm",
+        "spec": "Security level 10",
+        "price": "89,95",
+        "oldPrice": "99,95",
+        "badge": "-10%"
+      },
+      {
+        "manufacturer": "Lezyne",
+        "name": "Macro Drive 1300 Front Light",
+        "spec": "1300 lumen · USB-C",
+        "price": "64,90"
+      },
+      {
+        "manufacturer": "Topeak",
+        "name": "JoeBlow Sport III Floor Pump",
+        "spec": "160 psi · gauge",
+        "price": "44,90"
+      },
+      {
+        "manufacturer": "Fidlock",
+        "name": "TWIST Bottle 600 + Base Mount",
+        "spec": "Magnetic · 600ml",
+        "price": "34,90",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "SKS",
+        "name": "Bluemels Mudguard Set — 29\"",
+        "spec": "Front + rear",
+        "price": "39,99"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81369",
+        "spec": "CABLE LOCK DIA 10MMX1200MM  W/2 SPARE KEY",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/l6vpcta9rexi23hvxf9o.png",
+            "alt": "BLACK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/n98pwyy3d1bxldjl0gm3.png",
+            "alt": "BLUE"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/onkzqdcottt8z7kodlpi.png",
+            "alt": "GREEN"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/n4nuya5u9g2x2ixrjdkm.png",
+            "alt": "圖片1"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/slp3moasz9kly22tgbxy.jpg",
+            "alt": "RED"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/b1nvl6stiqmoh0ocukci.png",
+            "alt": "PC2105"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127196/f5xbzrschaqyoq2erets.png",
+            "alt": "PURPLE COLOR SAMPLE 8MMX1000MM-Photoroom (3)"
+          }
+        ],
+        "productId": "prd_mqp4izgv_22skyx",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-22T11:20:09.487Z",
+        "updatedAt": "2026-06-22T11:20:09.487Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -1057,7 +1231,48 @@
         "more": false
       }
     ],
-    "products": []
+    "products": [
+      {
+        "manufacturer": "Garmin",
+        "name": "Edge 1040 Solar — GPS Computer",
+        "spec": "Solar · 45h battery",
+        "price": "629,00",
+        "badge": "Bestseller"
+      },
+      {
+        "manufacturer": "Wahoo",
+        "name": "ELEMNT BOLT V2 — GPS Computer",
+        "spec": "Color · aero",
+        "price": "279,90",
+        "oldPrice": "299,90",
+        "badge": "-7%"
+      },
+      {
+        "manufacturer": "GoPro",
+        "name": "HERO12 Black — Action Camera",
+        "spec": "5.3K · HyperSmooth",
+        "price": "399,00"
+      },
+      {
+        "manufacturer": "Garmin",
+        "name": "Varia RCT715 — Radar Rear Light",
+        "spec": "Camera + radar",
+        "price": "349,00",
+        "badge": "New"
+      },
+      {
+        "manufacturer": "Sigma",
+        "name": "ROX 11.1 EVO — GPS Set",
+        "spec": "With sensors",
+        "price": "169,95"
+      },
+      {
+        "manufacturer": "Bosch",
+        "name": "Kiox 300 — Display Kit",
+        "spec": "Smart System",
+        "price": "159,90"
+      }
+    ]
   },
   {
     "id": "clothing",
