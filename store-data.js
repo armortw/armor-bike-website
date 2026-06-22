@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-22 11:19 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-22 11:20 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1057,48 +1057,7 @@
         "more": false
       }
     ],
-    "products": [
-      {
-        "manufacturer": "Garmin",
-        "name": "Edge 1040 Solar — GPS Computer",
-        "spec": "Solar · 45h battery",
-        "price": "629,00",
-        "badge": "Bestseller"
-      },
-      {
-        "manufacturer": "Wahoo",
-        "name": "ELEMNT BOLT V2 — GPS Computer",
-        "spec": "Color · aero",
-        "price": "279,90",
-        "oldPrice": "299,90",
-        "badge": "-7%"
-      },
-      {
-        "manufacturer": "GoPro",
-        "name": "HERO12 Black — Action Camera",
-        "spec": "5.3K · HyperSmooth",
-        "price": "399,00"
-      },
-      {
-        "manufacturer": "Garmin",
-        "name": "Varia RCT715 — Radar Rear Light",
-        "spec": "Camera + radar",
-        "price": "349,00",
-        "badge": "New"
-      },
-      {
-        "manufacturer": "Sigma",
-        "name": "ROX 11.1 EVO — GPS Set",
-        "spec": "With sensors",
-        "price": "169,95"
-      },
-      {
-        "manufacturer": "Bosch",
-        "name": "Kiox 300 — Display Kit",
-        "spec": "Smart System",
-        "price": "159,90"
-      }
-    ]
+    "products": []
   },
   {
     "id": "clothing",
