@@ -168,29 +168,35 @@
 
   function CategoryStrip() {
     const cards = [
-      ["Bikes", "uploads/reference-cat-bikes.png"],
-      ["Parts", "uploads/reference-cat-parts.png"],
-      ["Accessories", "uploads/reference-cat-accessories.png"],
-      ["Electronics", "uploads/reference-cat-electronics.png"],
-      ["More Sports", "uploads/reference-cat-more-sports.png"],
-      ["Sale", "uploads/reference-cat-sale.png"]
+      { label: "Bikes", left: 0, width: 19.3, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%)" },
+      { label: "Parts", left: 17.1, width: 20.2, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
+      { label: "Accessories", left: 35.3, width: 20.1, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
+      { label: "Electronics", left: 53.6, width: 18.2, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
+      { label: "More Sports", left: 68.8, width: 18.3, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
+      { label: "Sale", left: 84.4, width: 15.6, clip: "polygon(0 0, 100% 0, calc(100% - 24px) 100%, 30px 100%)" }
     ];
-    const lefts = [0, 17.1, 35.3, 53.6, 68.8, 84.4];
-    const widths = [19.3, 20.2, 20.1, 18.2, 18.3, 15.6];
+    const cardStyle = (card) => {
+      const bgPosition = card.left === 0 ? 0 : (card.left / (100 - card.width)) * 100;
+      return {
+        left: `${card.left}%`,
+        width: `${card.width}%`,
+        "--bg-size": `${10000 / card.width}%`,
+        "--bg-position": `${bgPosition}%`,
+        "--clip": card.clip
+      };
+    };
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
         <div className="category-strip">
           <img className="category-strip-base" src="uploads/reference-dark-strip.png" alt="Bikes, parts, accessories, electronics, more sports, and sale category cards" />
-          {cards.map(([label, src], index) => (
+          {cards.map((card) => (
             <a
               className="category-card"
               href="#products"
-              key={label}
-              style={{ left: `${lefts[index]}%`, width: `${widths[index]}%` }}
-              aria-label={label}
-            >
-              <img src={src} alt={`${label} category card`} />
-            </a>
+              key={card.label}
+              style={cardStyle(card)}
+              aria-label={card.label}
+            ></a>
           ))}
         </div>
       </section>
