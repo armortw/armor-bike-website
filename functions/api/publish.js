@@ -96,6 +96,7 @@ function parseStoreData(source) {
   return {
     categories: parseJsonVar(js, 'categories', []),
     images: parseJsonVar(js, 'images', []),
+    badges: parseJsonVar(js, 'badges', []),
     hero: parseJsonVar(js, 'hero', [])
   };
 }
@@ -180,37 +181,46 @@ function mergeImages(currentImages, incomingImages) {
   return Array.from(merged.values());
 }
 
-function mergeCategories(currentCategories, incomingCategories, publisher, deletions) {
-  const currentById = new Map((Array.isArray(currentCategories) ? currentCategories : []).map(cat => [cat.id, cat]));
-  const incomingById = new Map((Array.isArray(incomingCategories) ? incomingCategories : []).map(cat => [cat.id, cat]));
-  const orderedIds = [
-    ...(Array.isArray(incomingCategories) ? incomingCategories.map(cat => cat.id) : []),
-    ...(Array.isArray(currentCategories) ? currentCategories.map(cat => cat.id).filter(id => !incomingById.has(id)) : [])
-  ];
+function mergeCategories(currentCategories, incomingCategories, publisher, deletions, changes = {}) {
+  const currentList = Array.isArray(currentCategories) ? currentCategories : [];
+  const incomingList = Array.isArray(incomingCategories) ? incomingCategories : [];
+  const currentById = new Map(currentList.map(cat => [cat.id, cat]));
+  const incomingById = new Map(incomingList.map(cat => [cat.id, cat]));
+  const deletedIds = new Set((changes.deletedCategoryIds || []).map(String));
+  const changedIds = new Set((changes.changedCategoryIds || []).map(String));
+  const currentIds = currentList.map(cat => cat.id).filter(id => !deletedIds.has(String(id)));
+  const incomingIds = incomingList.map(cat => cat.id).filter(id => !deletedIds.has(String(id)));
+  const orderedIds = changes.categoryOrderChanged
+    ? [...incomingIds, ...currentIds.filter(id => !incomingById.has(id))]
+    : [...currentIds, ...incomingIds.filter(id => !currentById.has(id) && changedIds.has(String(id)))];
 
   return orderedIds.map((id) => {
     const current = currentById.get(id) || {};
     const incoming = incomingById.get(id) || {};
+    const changed = changedIds.has(String(id));
+    if (!currentById.has(id) && !changed) return null;
+    const categoryBase = changed ? { ...current, ...incoming } : current;
     return {
-      ...current,
-      ...incoming,
+      ...categoryBase,
       products: mergeProducts(current.products, incoming.products, publisher, deletions, id)
     };
-  });
+  }).filter(Boolean);
 }
 
-function mergeStoreDataContent(currentContent, incomingContent, incomingData, publisher) {
+function mergeStoreDataContent(currentContent, incomingContent, incomingData, publisher, contentChanges = {}) {
   const current = parseStoreData(currentContent || incomingContent);
   const incoming = incomingData && Array.isArray(incomingData.categories)
     ? incomingData
     : parseStoreData(incomingContent);
   const deletions = Array.isArray(incoming.productDeletions) ? incoming.productDeletions : [];
-  const categories = mergeCategories(current.categories, incoming.categories, publisher, deletions);
-  const images = mergeImages(current.images, incoming.images);
-  const hero = Array.isArray(incoming.hero) ? incoming.hero : current.hero;
+  const categories = mergeCategories(current.categories, incoming.categories, publisher, deletions, contentChanges);
+  const images = contentChanges.imagesChanged ? (incoming.images || []) : mergeImages(current.images, incoming.images);
+  const badges = contentChanges.badgesChanged ? (incoming.badges || []) : (current.badges || incoming.badges || []);
+  const hero = contentChanges.heroChanged ? (incoming.hero || []) : (current.hero || incoming.hero || []);
   let next = incomingContent || currentContent || '';
   next = replaceJsonVar(next, 'categories', categories);
   next = replaceJsonVar(next, 'images', images);
+  next = replaceJsonVar(next, 'badges', badges);
   next = replaceJsonVar(next, 'hero', hero);
   return next;
 }
@@ -257,7 +267,7 @@ export async function onRequestPost({ request, env }) {
     for (let attempt = 0; attempt < 3; attempt += 1) {
       const current = await getFile(file.path);
       const content = file.path === 'store-data.js' && file.mergeStrategy === 'owned-products'
-        ? mergeStoreDataContent(current.content, file.content, file.data, file.publisher)
+        ? mergeStoreDataContent(current.content, file.content, file.data, file.publisher, file.contentChanges)
         : file.content;
       if (/^functions\/api\/.+\.js$/.test(file.path) && /^\s*<!doctype html/i.test(content)) {
         throw new Error(`Refusing to publish HTML into Cloudflare Function file: ${file.path}`);

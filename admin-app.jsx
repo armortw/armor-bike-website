@@ -125,10 +125,45 @@
     return {
       categories: JSON.parse(JSON.stringify(window.STORE.categories)),
       images: JSON.parse(JSON.stringify(window.STORE.images || [])),
-      badges: [],
+      badges: JSON.parse(JSON.stringify(window.STORE.badges || [])),
       hero: JSON.parse(JSON.stringify(window.STORE.hero || []))
     };
   }
+
+  const withoutProducts = (cat) => {
+    const copy = { ...(cat || {}) };
+    delete copy.products;
+    return copy;
+  };
+  const sameJSON = (a, b) => JSON.stringify(a || null) === JSON.stringify(b || null);
+  const buildContentChanges = (data) => {
+    const baseCategories = Array.isArray(window.STORE.categories) ? window.STORE.categories : [];
+    const nextCategories = Array.isArray(data.categories) ? data.categories : [];
+    const baseById = new Map(baseCategories.map(c => [c.id, c]));
+    const nextById = new Map(nextCategories.map(c => [c.id, c]));
+    const deleted = new Set((data.categoryDeletions || []).map(String));
+    baseCategories.forEach((cat) => {
+      if (cat?.id && !nextById.has(cat.id)) deleted.add(String(cat.id));
+    });
+
+    const changed = new Set();
+    nextCategories.forEach((cat) => {
+      if (!cat?.id) return;
+      const base = baseById.get(cat.id);
+      if (!base || !sameJSON(withoutProducts(base), withoutProducts(cat))) changed.add(String(cat.id));
+    });
+
+    const baseOrder = baseCategories.map(c => c.id).filter(id => !deleted.has(String(id)));
+    const nextOrder = nextCategories.map(c => c.id);
+    return {
+      deletedCategoryIds: Array.from(deleted),
+      changedCategoryIds: Array.from(changed),
+      categoryOrderChanged: !sameJSON(baseOrder, nextOrder),
+      heroChanged: !sameJSON(window.STORE.hero || [], data.hero || []),
+      imagesChanged: !sameJSON(window.STORE.images || [], data.images || []),
+      badgesChanged: !sameJSON(window.STORE.badges || [], data.badges || [])
+    };
+  };
 
   function generateStoreJS(data) {
     const HEX = window.STORE.HEX;
@@ -140,10 +175,11 @@
       `  var HEX = {\n${hexLines}\n  };`,
       `  var categories = ${JSON.stringify(data.categories, null, 2)};`,
       `  var images = ${JSON.stringify(data.images || [], null, 2)};`,
+      `  var badges = ${JSON.stringify(data.badges || [], null, 2)};`,
       `  var hero = ${JSON.stringify(data.hero || [], null, 2)};`,
       `  var map = {};`,
       `  categories.forEach(function (c) { map[c.id] = c; });`,
-      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };`,
+      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };`,
       `})();`,
     ].join('\n');
   }
@@ -348,11 +384,15 @@
     const [af, setAf] = useState({ id: '', label: '', accent: false, leaf: '', crumb: '' });
     const cats = data.categories;
 
-    const update = (cats) => setData({ ...data, categories: cats });
+    const update = (cats, extra = {}) => setData({ ...data, ...extra, categories: cats });
 
     const startEdit = (c) => { setEditId(c.id); setEf({ label: c.label, accent: !!c.accent, leaf: c.leaf, crumb: (c.crumb || []).join(' > ') }); };
     const saveEdit = (id) => { update(cats.map(c => c.id === id ? { ...c, ...ef, crumb: ef.crumb.split('>').map(s => s.trim()).filter(Boolean) } : c)); setEditId(null); };
-    const del = (id) => { if (confirm('Delete category and all its data?')) update(cats.filter(c => c.id !== id)); };
+    const del = (id) => {
+      if (confirm('Delete category and all its data?')) {
+        update(cats.filter(c => c.id !== id), { categoryDeletions: [...(data.categoryDeletions || []), id] });
+      }
+    };
     const move = (i, dir) => { const a = [...cats]; [a[i], a[i + dir]] = [a[i + dir], a[i]]; update(a); };
 
     const add = () => {
@@ -1666,6 +1706,7 @@
           message: 'Deploy: update store data',
           mergeStrategy: 'owned-products',
           data,
+          contentChanges: buildContentChanges(data),
           publisher: {
             id: ownerKey(user),
             username: user?.username || '',

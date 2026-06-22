@@ -2303,6 +2303,7 @@
     "source": "cloudinary"
   }
 ];
+  var badges = [];
   var hero = [
   {
     "id": 1781689895414.5752,
@@ -2342,5 +2343,5 @@
 ];
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
-  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, hero: hero };
+  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };
 })();
