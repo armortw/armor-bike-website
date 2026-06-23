@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 07:25 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 09:13 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -280,8 +280,8 @@
     "products": [
       {
         "manufacturer": "ARMOR",
-        "name": "29 MEN SKD",
-        "spec": "",
+        "name": "29 MEN ",
+        "spec": "29\" STEEL FRAME, SUSPENSION FORK ",
         "badge": "",
         "note": "29",
         "leaf": "Hardtail",
@@ -292,12 +292,12 @@
           }
         ],
         "productId": "prd_mqqbkkg9_rxnw17",
-        "sourceKey": "",
+        "sourceKey": "prd_mqqbkkg9_rxnw17",
         "ownerId": "1781828327951",
         "ownerUsername": "anna",
         "ownerName": "anna",
         "createdAt": "2026-06-23T07:25:06.824Z",
-        "updatedAt": "2026-06-23T07:25:06.824Z",
+        "updatedAt": "2026-06-23T09:13:36.422Z",
         "updatedBy": "anna"
       }
     ],
