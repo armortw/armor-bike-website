@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 09:13 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 09:21 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -956,6 +956,208 @@
         "createdAt": "2026-06-23T04:06:27.191Z",
         "updatedAt": "2026-06-23T04:09:53.255Z",
         "updatedBy": "ken"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-47135",
+        "spec": "PEDAL FOR MTB, RECYCLED PP BODY, EPB BEARING, STEEL AXLE, SIZE: 110.5*102MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187782/knczeeeakesy45hieq2o.jpg",
+            "alt": "VP-537"
+          }
+        ],
+        "productId": "prd_mqq4gjxn_psrpec",
+        "sourceKey": "prd_mqq4gjxn_psrpec",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:06:02.219Z",
+        "updatedAt": "2026-06-23T04:09:48.763Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-4701",
+        "spec": "PEDAL FOR MTB/BMX, ONE-PIECE PP, BORON, STEEL AXLE, SIZE: 95.6*90*23MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187885/tp1wwrkn06d6qu6koq6l.jpg",
+            "alt": "NW-315"
+          }
+        ],
+        "productId": "prd_mqq4nn6f_3kqk65",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:11:33.015Z",
+        "updatedAt": "2026-06-23T04:11:33.015Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-4738",
+        "spec": "PEDAL FOR MTB, ONE-PIECE PP, BALL BEARING,  STEEL AXLE  GENERAL REFL,  SIZE:110*97MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187985/epcgkkwq4951udu9ksv0.png",
+            "alt": "KW-P276"
+          }
+        ],
+        "productId": "prd_mqq4prvn_1jhy15",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:13:12.419Z",
+        "updatedAt": "2026-06-23T04:13:12.419Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-4717",
+        "spec": "PEDAL FOR CITY, ONE-PIECE PP, BALL BEARING W/  BORON, STEEL AXLE, SIZE:107*75MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188094/nnw7oqmho2htbgdjcxh1.png",
+            "alt": "HF-877"
+          }
+        ],
+        "productId": "prd_mqq4s2d4_5va3s3",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:14:59.320Z",
+        "updatedAt": "2026-06-23T04:14:59.320Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-4716",
+        "spec": "PEDAL FOR CITY, ONE-PIECE PP, BALL BEARING W/  BORON, STEEL AXLE, SIZE:108*70MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188166/wnyc6dacg8hcfsvhvdwm.png",
+            "alt": "HF-320"
+          }
+        ],
+        "productId": "prd_mqq4tl3k_9typj5",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:16:10.256Z",
+        "updatedAt": "2026-06-23T04:16:10.256Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-4737",
+        "spec": "PEDAL FOR CITY, ONE-PIECE PP, BALL BEARING, STEEL AXLE GENERAL REFL, SIZE:102*100MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188248/vmgec63jik0codlooj2k.png",
+            "alt": "KW-P265"
+          }
+        ],
+        "productId": "prd_mqq4vb9h_45abma",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:17:30.821Z",
+        "updatedAt": "2026-06-23T04:17:30.821Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-4750",
+        "spec": "PEDAL FOR KID'S, ONE-PIECE PP,  W/O BALL,  STEEL AXLE  GENERAL REFL,  SIZE:92*85MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188395/njk3pixaicmkwbfqmcbb.png",
+            "alt": "MX-P687"
+          }
+        ],
+        "productId": "prd_mqq4yz7s_vhhs1y",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:20:21.832Z",
+        "updatedAt": "2026-06-23T04:20:21.832Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-47111",
+        "spec": "PEDAL FOR  KID'S, ONE-PIECE PP,  W/O BALL BEARING,  STEEL AXLE GENERAL REFL,   SIZE:86*83MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188982/lcrsydriz30ldlwohwjy.jpg",
+            "alt": "KW-229-2"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782189001/gucb6evno18wkqdhec5x.jpg",
+            "alt": "KW-229-1"
+          }
+        ],
+        "productId": "prd_mqq5bk86_ayvvb0",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:30:08.934Z",
+        "updatedAt": "2026-06-23T04:30:08.934Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-47124",
+        "spec": "PEDAL FOR KID'S, ONE-PIECE PP,  W/O BALL,  STEEL AXLE GENERAL REFL,   SIZE:98*55MM",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782194825/kmganz8dpfumrpqmnv0q.png",
+            "alt": "YJ-019"
+          }
+        ],
+        "productId": "prd_mqq5dmnx_ql33ww",
+        "sourceKey": "prd_mqq5dmnx_ql33ww",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-23T04:31:45.405Z",
+        "updatedAt": "2026-06-23T06:07:09.402Z",
+        "updatedBy": "donald"
       }
     ]
   },
