@@ -1,6 +1,13 @@
 /* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */
 window.CMS_USERS = [
   {
+    "id": 1782178182340,
+    "username": "ken",
+    "passwordHash": "22cecf4bd79ec1267f3a8e855e205a206d4eefb953c24016f6be93932898ffbd",
+    "role": "admin",
+    "name": "ken"
+  },
+  {
     "id": 1782119477089,
     "username": "Archie",
     "passwordHash": "56ed1baf6b4b9aa7b74625e203f78c024407137554d03d54d6c99b8a64adc099",
@@ -111,12 +118,5 @@ window.CMS_USERS = [
     "passwordHash": "13cc7550ae307d7f61b660cc2caa7ea41f0d6b8cc1a2ebc0fd27073ecc6d440b",
     "role": "editor",
     "name": "archie"
-  },
-  {
-    "id": 1781828654615,
-    "username": "ken",
-    "passwordHash": "22cecf4bd79ec1267f3a8e855e205a206d4eefb953c24016f6be93932898ffbd",
-    "role": "editor",
-    "name": "ken"
   }
 ];
