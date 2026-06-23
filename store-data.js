@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 05:46 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 07:25 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -277,7 +277,30 @@
         "more": false
       }
     ],
-    "products": [],
+    "products": [
+      {
+        "manufacturer": "ARMOR",
+        "name": "29 MEN SKD",
+        "spec": "",
+        "badge": "",
+        "note": "29",
+        "leaf": "Hardtail",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782199439/x6gb5xkmyhft5ibk73tu.png",
+            "alt": "29 MEN SKD 1"
+          }
+        ],
+        "productId": "prd_mqqbkkg9_rxnw17",
+        "sourceKey": "",
+        "ownerId": "1781828327951",
+        "ownerUsername": "anna",
+        "ownerName": "anna",
+        "createdAt": "2026-06-23T07:25:06.824Z",
+        "updatedAt": "2026-06-23T07:25:06.824Z",
+        "updatedBy": "anna"
+      }
+    ],
     "accent": false
   },
   {
