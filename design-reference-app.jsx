@@ -168,12 +168,12 @@
 
   function CategoryStrip() {
     const cards = [
-      { label: "Bikes", clip: "polygon(0% 0%, 21.476% 0%, 16.489% 100%, 0% 100%)", liftClip: "polygon(0% 0%, 21.056% 0%, 16.069% 100%, 0% 100%)" },
-      { label: "Parts", clip: "polygon(21.476% 0%, 37.766% 0%, 32.979% 100%, 16.489% 100%)", liftClip: "polygon(21.896% 0%, 37.346% 0%, 32.559% 100%, 16.909% 100%)" },
-      { label: "Accessories", clip: "polygon(37.766% 0%, 53.657% 0%, 48.803% 100%, 32.979% 100%)", liftClip: "polygon(38.186% 0%, 53.237% 0%, 48.383% 100%, 33.399% 100%)" },
-      { label: "Electronics", clip: "polygon(53.657% 0%, 67.886% 0%, 63.098% 100%, 48.803% 100%)", liftClip: "polygon(54.077% 0%, 67.466% 0%, 62.678% 100%, 49.223% 100%)" },
-      { label: "More Sports", clip: "polygon(67.886% 0%, 85.638% 0%, 80.452% 100%, 63.098% 100%)", liftClip: "polygon(68.306% 0%, 85.218% 0%, 80.032% 100%, 63.518% 100%)" },
-      { label: "Sale", clip: "polygon(85.638% 0%, 100% 0%, 94.814% 100%, 80.452% 100%)", liftClip: "polygon(86.058% 0%, 100% 0%, 94.394% 100%, 80.872% 100%)" }
+      { label: "Bikes", clip: "polygon(0% 0%, 21.476% 0%, 16.489% 100%, 0% 100%)", liftClip: "polygon(0% 0%, 21.056% 0%, 16.489% 100%, 0% 100%)" },
+      { label: "Parts", clip: "polygon(21.476% 0%, 37.766% 0%, 32.979% 100%, 16.489% 100%)", liftClip: "polygon(21.896% 0%, 37.346% 0%, 32.979% 100%, 16.489% 100%)" },
+      { label: "Accessories", clip: "polygon(37.766% 0%, 53.657% 0%, 48.803% 100%, 32.979% 100%)", liftClip: "polygon(38.186% 0%, 53.237% 0%, 48.803% 100%, 32.979% 100%)" },
+      { label: "Electronics", clip: "polygon(53.657% 0%, 67.886% 0%, 63.098% 100%, 48.803% 100%)", liftClip: "polygon(54.077% 0%, 67.466% 0%, 63.098% 100%, 48.803% 100%)" },
+      { label: "More Sports", clip: "polygon(67.886% 0%, 85.638% 0%, 80.452% 100%, 63.098% 100%)", liftClip: "polygon(68.306% 0%, 85.218% 0%, 80.452% 100%, 63.098% 100%)" },
+      { label: "Sale", clip: "polygon(85.638% 0%, 100% 0%, 94.814% 100%, 80.452% 100%)", liftClip: "polygon(86.058% 0%, 100% 0%, 94.814% 100%, 80.452% 100%)" }
     ];
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
