@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 04:04 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 04:06 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -874,12 +874,64 @@
           }
         ],
         "productId": "prd_mqq3f8ip_rb1dm4",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq3f8ip_rb1dm4",
         "ownerId": "1782178182340",
         "ownerUsername": "ken",
         "ownerName": "ken",
         "createdAt": "2026-06-23T03:37:01.153Z",
-        "updatedAt": "2026-06-23T03:37:01.153Z",
+        "updatedAt": "2026-06-23T04:06:35.323Z",
+        "updatedBy": "ken"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-SD-003",
+        "spec": "Steel rail, w/o clamp , Size: 260 x 160mm ",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187348/hju3pau2lmbzkm8anch2.png",
+            "alt": "Gemini_Generated_Image_eyzxo8eyzxo8eyzx"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187341/kjltapkyxj1shwdhtbyy.png",
+            "alt": "ChatGPT Image 2026年6月23日 下午12_00_39"
+          }
+        ],
+        "productId": "prd_mqq4fwma_rpbcx0",
+        "sourceKey": "",
+        "ownerId": "1782178182340",
+        "ownerUsername": "ken",
+        "ownerName": "ken",
+        "createdAt": "2026-06-23T04:05:32.002Z",
+        "updatedAt": "2026-06-23T04:05:32.002Z",
+        "updatedBy": "ken"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK-SD-007",
+        "spec": "Steel rail, w/o clamp ,  Size: 260 x 160mm        ",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187579/vmtj32q7yemn3bwu9lqr.png",
+            "alt": "Gemini_Generated_Image_s9icums9icums9ic"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187579/kkwxjmjfkrdpwqahqkmx.png",
+            "alt": "Gemini_Generated_Image_9gj0jx9gj0jx9gj0"
+          }
+        ],
+        "productId": "prd_mqq4h37b_ly7ujv",
+        "sourceKey": "",
+        "ownerId": "1782178182340",
+        "ownerUsername": "ken",
+        "ownerName": "ken",
+        "createdAt": "2026-06-23T04:06:27.191Z",
+        "updatedAt": "2026-06-23T04:06:27.191Z",
         "updatedBy": "ken"
       }
     ]
