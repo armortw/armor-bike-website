@@ -2,12 +2,73 @@
 (function () {
   const STORE = window.STORE || { categories: [], map: {}, HEX: {} };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
-  const catalogCategory = categories.find((category) => Array.isArray(category.products) && category.products.length) || categories[0] || { label: "Products", products: [], facets: [], mega: [] };
-  const products = Array.isArray(catalogCategory.products) ? catalogCategory.products : [];
+  const fallbackCategory = { id: "products", label: "Products", leaf: "Featured", products: [], facets: [], mega: [] };
   const colors = ["#111827", "#009ce0", "#c8d2df", "#18a34a", "#e60012", "#ffd105"];
 
   function text(value, fallback = "") {
     return String(value || fallback).trim();
+  }
+
+  function normalizeLabel(value) {
+    return text(value)
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "");
+  }
+
+  function sameLabel(a, b) {
+    const left = normalizeLabel(a);
+    const right = normalizeLabel(b);
+    return Boolean(left && right && left === right);
+  }
+
+  function isPublishedProduct(product) {
+    if (!product) return false;
+    if (product.published === false || product.isPublished === false || product.visible === false) return false;
+    if (product.hidden === true || product.draft === true || product.deleted === true) return false;
+    const status = text(product.status || product.state || product.visibility || product.publishStatus).toLowerCase();
+    return !["draft", "hidden", "inactive", "archived", "unpublished", "disabled", "deleted", "private"].includes(status);
+  }
+
+  function isAvailableProduct(product) {
+    if (!product) return false;
+    if (product.inStock === false || product.available === false) return false;
+    const stock = Number(product.stock);
+    if (Number.isFinite(stock) && stock <= 0) return false;
+    const status = text(product.availability || product.stockStatus).toLowerCase();
+    return !["out of stock", "sold out", "unavailable", "preorder only"].includes(status);
+  }
+
+  function productsForCategory(category) {
+    const items = Array.isArray(category && category.products) ? category.products : [];
+    return items.filter(isPublishedProduct);
+  }
+
+  function initialCategory() {
+    return categories.find((category) => productsForCategory(category).length) || categories[0] || fallbackCategory;
+  }
+
+  function findCategory(value) {
+    const key = normalizeLabel(value);
+    return categories.find((category) => {
+      return normalizeLabel(category.id) === key || normalizeLabel(category.label) === key;
+    });
+  }
+
+  function hasLeaf(items, leaf, fallbackLeaf = "") {
+    return Boolean(text(leaf) && items.some((product) => sameLabel(text(product && product.leaf, fallbackLeaf), leaf)));
+  }
+
+  function filterByLeaf(items, leaf, fallbackLeaf = "") {
+    if (!text(leaf)) return items;
+    return items.filter((product) => sameLabel(text(product && product.leaf, fallbackLeaf), leaf));
+  }
+
+  function scrollToProducts() {
+    window.requestAnimationFrame(() => {
+      const target = document.getElementById("products");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 
   function imageFor(product, fallback = "uploads/reference-promo-ebikes.png") {
@@ -28,6 +89,13 @@
     return text(product && product.price, "Contact for price");
   }
 
+  function numericPrice(product) {
+    const match = text(product && product.price).replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
+    if (!match) return null;
+    const value = Number(match[1]);
+    return Number.isFinite(value) ? value : null;
+  }
+
   function makeCounts(items, key, fallbackLabel) {
     const counts = new Map();
     items.forEach((item) => {
@@ -37,15 +105,13 @@
     });
     return Array.from(counts.entries())
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .slice(0, 6)
+      .slice(0, 8)
       .map(([label, count]) => ({ label, count }));
   }
 
   function parsePrices(items) {
     const values = items
-      .map((item) => text(item && item.price).match(/(\d+(?:\.\d+)?)/))
-      .filter(Boolean)
-      .map((match) => Number(match[1]))
+      .map(numericPrice)
       .filter((value) => Number.isFinite(value));
     if (!values.length) return { min: 0, max: 0 };
     return { min: Math.floor(Math.min(...values)), max: Math.ceil(Math.max(...values)) };
@@ -80,7 +146,7 @@
     return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 9H8L6 3H3" strokeLinecap="round" strokeLinejoin="round"></path><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg>;
   }
 
-  function Header() {
+  function Header({ selectedCategory, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
     const [openId, setOpenId] = React.useState(null);
     const navItems = categories.length ? categories : [
       { id: "bikes", label: "Bikes", mega: [] },
@@ -90,6 +156,7 @@
       { id: "moresports", label: "More Sports", mega: [] },
       { id: "sale", label: "SALE %", mega: [] }
     ];
+    const selectedId = selectedCategory && selectedCategory.id;
     const openCategory = navItems.find((item) => item.id === openId);
 
     return (
@@ -100,13 +167,16 @@
             <span className="brand-text"><span>ARMOR</span><span>BIKE</span></span>
           </a>
           <nav className="main-nav" aria-label="Main navigation">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <button
-                className={`nav-button ${item.id === "sale" ? "sale" : ""} ${openId === item.id || (!openId && index === 0) ? "active" : ""}`}
+                className={`nav-button ${item.id === "sale" ? "sale" : ""} ${openId === item.id || selectedId === item.id ? "active" : ""}`}
                 key={item.id}
                 onMouseEnter={() => setOpenId(item.id)}
                 onFocus={() => setOpenId(item.id)}
-                onClick={() => setOpenId(openId === item.id ? null : item.id)}
+                onClick={() => {
+                  setOpenId(item.id);
+                  onSelectCategory(item);
+                }}
                 type="button"
               >
                 {item.label}
@@ -119,27 +189,38 @@
             <button className="icon-button" type="button" aria-label="Cart">{icon("cart")}<span className="cart-badge">2</span></button>
           </div>
         </div>
-        {openCategory && <MegaMenu category={openCategory} />}
+        {openCategory && (
+          <MegaMenu
+            category={openCategory}
+            onSelectCategory={onSelectCategory}
+            onSelectMegaGroup={onSelectMegaGroup}
+            onSelectMegaLink={onSelectMegaLink}
+          />
+        )}
       </header>
     );
   }
 
-  function MegaMenu({ category }) {
+  function MegaMenu({ category, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
     const mega = Array.isArray(category.mega) ? category.mega : [];
     return (
       <div className="mega-panel">
         <div className="mega-inner">
-          <a className="mega-feature" href="#products">
+          <button className="mega-feature" type="button" onClick={() => onSelectCategory(category)}>
             <strong>{category.label}<br />Collection</strong>
             <span>Performance paths, product families and fast entry points from the live catalog.</span>
-          </a>
+          </button>
           {mega.slice(0, 4).map((column, columnIndex) => (
             <div className="mega-column" key={`${category.id}-${columnIndex}`}>
               {(column || []).map((group) => (
                 <div className="mega-group" key={group.title}>
-                  <h3>{group.title}</h3>
+                  <button className="mega-group-title" type="button" onClick={() => onSelectMegaGroup(category, group.title)}>
+                    {group.title}
+                  </button>
                   {(group.links || []).slice(0, 8).map((link) => (
-                    <a className="mega-link" href="#products" key={link}>{link}</a>
+                    <button className="mega-link" type="button" onClick={() => onSelectMegaLink(category, link)} key={link}>
+                      {link}
+                    </button>
                   ))}
                 </div>
               ))}
@@ -150,12 +231,12 @@
     );
   }
 
-  function Hero() {
+  function Hero({ onExplore }) {
     return (
       <section className="hero" id="top" aria-label="Ride beyond limits hero">
         <img className="hero-picture" src="uploads/reference-dark-hero-full.png" alt="Cyclist riding through mountain road with ARMOR BIKE performance graphics" />
         <h1 className="sr-only">Ride Beyond Limits</h1>
-        <a className="hero-hotspot" href="#products" aria-label="Explore collection"></a>
+        <button className="hero-hotspot" type="button" aria-label="Explore collection" onClick={onExplore}></button>
         <button className="hero-arrow prev" type="button" aria-label="Previous slide">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round"></path></svg>
         </button>
@@ -166,15 +247,15 @@
     );
   }
 
-  function CategoryStrip() {
+  function CategoryStrip({ onSelectCategory }) {
     const [activeCard, setActiveCard] = React.useState(null);
     const cards = [
-      { label: "Bikes", image: "uploads/reference-card-bikes.png", x: "0%", w: "21.476%", shape: "polygon(0% 0%, 100% 0%, 76.78% 100%, 0% 100%)" },
-      { label: "Parts", image: "uploads/reference-card-parts.png", x: "16.489%", w: "21.277%", shape: "polygon(23.44% 0%, 100% 0%, 77.5% 100%, 0% 100%)" },
-      { label: "Accessories", image: "uploads/reference-card-accessories.png", x: "32.979%", w: "20.678%", shape: "polygon(23.15% 0%, 100% 0%, 76.53% 100%, 0% 100%)" },
-      { label: "Electronics", image: "uploads/reference-card-electronics.png", x: "48.803%", w: "19.083%", shape: "polygon(25.44% 0%, 100% 0%, 74.91% 100%, 0% 100%)" },
-      { label: "More Sports", image: "uploads/reference-card-more-sports.png", x: "63.098%", w: "22.54%", shape: "polygon(21.24% 0%, 100% 0%, 76.99% 100%, 0% 100%)" },
-      { label: "Sale", image: "uploads/reference-card-sale.png", x: "80.452%", w: "19.548%", shape: "polygon(26.53% 0%, 100% 0%, 73.47% 100%, 0% 100%)" }
+      { id: "bikes", label: "Bikes", image: "uploads/reference-card-bikes.png", x: "0%", w: "21.476%", shape: "polygon(0% 0%, 100% 0%, 76.78% 100%, 0% 100%)" },
+      { id: "parts", label: "Parts", image: "uploads/reference-card-parts.png", x: "16.489%", w: "21.277%", shape: "polygon(23.44% 0%, 100% 0%, 77.5% 100%, 0% 100%)" },
+      { id: "accessories", label: "Accessories", image: "uploads/reference-card-accessories.png", x: "32.979%", w: "20.678%", shape: "polygon(23.15% 0%, 100% 0%, 76.53% 100%, 0% 100%)" },
+      { id: "electronics", label: "Electronics", image: "uploads/reference-card-electronics.png", x: "48.803%", w: "19.083%", shape: "polygon(25.44% 0%, 100% 0%, 74.91% 100%, 0% 100%)" },
+      { id: "moresports", label: "More Sports", image: "uploads/reference-card-more-sports.png", x: "63.098%", w: "22.54%", shape: "polygon(21.24% 0%, 100% 0%, 76.99% 100%, 0% 100%)" },
+      { id: "sale", label: "Sale", image: "uploads/reference-card-sale.png", x: "80.452%", w: "19.548%", shape: "polygon(26.53% 0%, 100% 0%, 73.47% 100%, 0% 100%)" }
     ];
     return (
       <section className="category-shell" aria-label="Featured category shortcuts" onMouseLeave={() => setActiveCard(null)}>
@@ -186,6 +267,10 @@
               key={card.label}
               style={{ "--x": card.x, "--w": card.w, "--shape": card.shape, "--z": index + 2 }}
               aria-label={card.label}
+              onClick={(event) => {
+                event.preventDefault();
+                onSelectCategory(findCategory(card.id) || findCategory(card.label) || { id: card.id, label: card.label, products: [] });
+              }}
               onMouseEnter={() => setActiveCard(card)}
               onFocus={() => setActiveCard(card)}
               onBlur={() => setActiveCard(null)}
@@ -226,29 +311,51 @@
     );
   }
 
-  function PromoRow() {
+  function PromoRow({ onSelectCategory, onSelectMegaLink }) {
+    const bikes = findCategory("bikes") || { id: "bikes", label: "Bikes", leaf: "E-Bikes", products: [] };
+    const parts = findCategory("parts") || fallbackCategory;
     return (
       <section className="promo-row" aria-label="Promotions">
-        <a className="promo-card" href="#products"><img src="uploads/reference-promo-ebikes.png" alt="E-bikes promotion" /></a>
-        <a className="promo-card" href="#products"><img src="uploads/reference-promo-arrivals.png" alt="New arrivals promotion" /></a>
-        <a className="promo-card" href="#products"><img src="uploads/reference-promo-bestsellers.png" alt="Best sellers promotion" /></a>
+        <button className="promo-card" type="button" onClick={() => onSelectMegaLink(bikes, "E-Bikes")}><img src="uploads/reference-promo-ebikes.png" alt="E-bikes promotion" /></button>
+        <button className="promo-card" type="button" onClick={() => onSelectCategory(parts)}><img src="uploads/reference-promo-arrivals.png" alt="New arrivals promotion" /></button>
+        <button className="promo-card" type="button" onClick={() => onSelectCategory(parts)}><img src="uploads/reference-promo-bestsellers.png" alt="Best sellers promotion" /></button>
       </section>
     );
   }
 
-  function FilterPanel() {
-    const manufacturers = makeCounts(products, "manufacturer", "ARMOR");
-    const leaves = makeCounts(products, "leaf", catalogCategory.leaf || catalogCategory.label || "Products");
+  function FilterPanel({
+    category,
+    products,
+    exactLeafFilter,
+    manufacturerFilter,
+    inStockOnly,
+    onSelectLeaf,
+    onSelectManufacturer,
+    onToggleAvailability,
+    onClearFilters
+  }) {
+    const leafProducts = exactLeafFilter ? filterByLeaf(products, exactLeafFilter, category.leaf || category.label) : products;
+    const manufacturerProducts = manufacturerFilter ? leafProducts.filter((product) => sameLabel(product.manufacturer, manufacturerFilter)) : leafProducts;
+    const manufacturers = makeCounts(leafProducts, "manufacturer", "ARMOR");
+    const leaves = makeCounts(products, "leaf", category.leaf || category.label || "Products");
     const price = parsePrices(products);
+    const availableCount = manufacturerProducts.filter(isAvailableProduct).length;
     return (
       <aside className="filter-panel" aria-label="Product filters">
         <div className="filter-head">
           <strong>FILTER</strong>
-          <button type="button">Clear All</button>
+          <button type="button" onClick={onClearFilters}>Clear All</button>
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Category</span><span>+</span></div>
-          {leaves.map((item, index) => <FilterRow item={item} active={index === 0} key={item.label} />)}
+          {leaves.length ? leaves.map((item) => (
+            <FilterRow
+              item={item}
+              active={sameLabel(exactLeafFilter, item.label)}
+              key={item.label}
+              onClick={() => onSelectLeaf(item.label)}
+            />
+          )) : <div className="filter-empty">No category items</div>}
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Price Range</span><span>+</span></div>
@@ -257,7 +364,14 @@
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Brand</span><span>+</span></div>
-          {manufacturers.map((item, index) => <FilterRow item={item} active={index === 0} key={item.label} />)}
+          {manufacturers.length ? manufacturers.map((item) => (
+            <FilterRow
+              item={item}
+              active={sameLabel(manufacturerFilter, item.label)}
+              key={item.label}
+              onClick={() => onSelectManufacturer(item.label)}
+            />
+          )) : <div className="filter-empty">No brands</div>}
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Color</span><span>+</span></div>
@@ -267,44 +381,66 @@
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Availability</span><span>+</span></div>
-          <FilterRow item={{ label: "In stock", count: products.length }} active={true} />
+          <FilterRow item={{ label: "In stock", count: availableCount }} active={inStockOnly} onClick={onToggleAvailability} />
         </div>
-        <button className="apply-button" type="button">APPLY FILTERS</button>
+        <button className="apply-button" type="button" onClick={scrollToProducts}>APPLY FILTERS</button>
       </aside>
     );
   }
 
-  function FilterRow({ item, active }) {
+  function FilterRow({ item, active, onClick }) {
     return (
-      <div className={`filter-row ${active ? "active" : ""}`}>
+      <button className={`filter-row ${active ? "active" : ""}`} type="button" aria-pressed={active} onClick={onClick}>
         <span className="check"></span>
         <span>{item.label}</span>
         <span className="filter-count">{item.count}</span>
-      </div>
+      </button>
     );
   }
 
-  function Catalog() {
-    const visibleProducts = products.length ? products : [{
-      manufacturer: "ARMOR",
-      name: "Performance Bike Kit",
-      spec: "Reference product layout",
-      price: "Contact for price",
-      images: [{ url: "uploads/reference-promo-ebikes.png", alt: "Performance bike kit" }]
-    }];
+  function Catalog({
+    category,
+    currentLeaf,
+    baseProducts,
+    visibleProducts,
+    exactLeafFilter,
+    manufacturerFilter,
+    inStockOnly,
+    onSelectLeaf,
+    onSelectManufacturer,
+    onToggleAvailability,
+    onClearFilters
+  }) {
     return (
       <section className="catalog" id="products">
         <div className="catalog-top">
           <div>
-            <div className="crumbs"><span>Home</span><span>/</span><span>{catalogCategory.label}</span><span>/</span><span>{catalogCategory.leaf || "Featured"}</span></div>
-            <h2>{catalogCategory.label} <span>({visibleProducts.length} products)</span></h2>
+            <div className="crumbs"><span>Home</span><span>/</span><span>{category.label}</span><span>/</span><span>{currentLeaf || "Featured"}</span></div>
+            <h2>{category.label} <span>({visibleProducts.length} products)</span></h2>
           </div>
           <button className="sort" type="button">Sort by: Featured</button>
         </div>
         <div className="catalog-layout">
-          <FilterPanel />
+          <FilterPanel
+            category={category}
+            products={baseProducts}
+            exactLeafFilter={exactLeafFilter}
+            manufacturerFilter={manufacturerFilter}
+            inStockOnly={inStockOnly}
+            onSelectLeaf={onSelectLeaf}
+            onSelectManufacturer={onSelectManufacturer}
+            onToggleAvailability={onToggleAvailability}
+            onClearFilters={onClearFilters}
+          />
           <div className="product-grid">
-            {visibleProducts.slice(0, 12).map((product, index) => <ProductCard product={product} index={index} key={`${text(product.name, "product")}-${index}`} />)}
+            {visibleProducts.length ? visibleProducts.map((product, index) => (
+              <ProductCard product={product} index={index} key={`${text(product.productId || product.sourceKey || product.name, "product")}-${index}`} />
+            )) : (
+              <div className="empty-catalog">
+                <strong>No listed products in this section yet.</strong>
+                <span>Only published catalog items from the selected menu path are shown here.</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -339,14 +475,98 @@
   }
 
   function App() {
+    const defaultCategory = React.useMemo(() => initialCategory(), []);
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(defaultCategory.id || defaultCategory.label);
+    const [displayLeaf, setDisplayLeaf] = React.useState("");
+    const [exactLeafFilter, setExactLeafFilter] = React.useState("");
+    const [manufacturerFilter, setManufacturerFilter] = React.useState("");
+    const [inStockOnly, setInStockOnly] = React.useState(false);
+
+    const selectedCategory = React.useMemo(() => {
+      return categories.find((category) => category.id === selectedCategoryId) || defaultCategory || fallbackCategory;
+    }, [defaultCategory, selectedCategoryId]);
+
+    const baseProducts = React.useMemo(() => productsForCategory(selectedCategory), [selectedCategory]);
+
+    const visibleProducts = React.useMemo(() => {
+      let items = exactLeafFilter ? filterByLeaf(baseProducts, exactLeafFilter, selectedCategory.leaf || selectedCategory.label) : baseProducts;
+      if (manufacturerFilter) items = items.filter((product) => sameLabel(product.manufacturer, manufacturerFilter));
+      if (inStockOnly) items = items.filter(isAvailableProduct);
+      return items;
+    }, [baseProducts, exactLeafFilter, manufacturerFilter, inStockOnly]);
+
+    const currentLeaf = displayLeaf || selectedCategory.leaf || "Featured";
+
+    function selectCategory(category, options = {}) {
+      const target = category && category.id ? category : findCategory(category) || fallbackCategory;
+      setSelectedCategoryId(target.id || target.label);
+      setDisplayLeaf(options.leaf || "");
+      setExactLeafFilter(options.exactLeaf || "");
+      setManufacturerFilter("");
+      setInStockOnly(false);
+      if (options.scroll !== false) scrollToProducts();
+    }
+
+    function selectMegaGroup(category, leaf) {
+      const exactLeaf = hasLeaf(productsForCategory(category), leaf, category.leaf || category.label) ? leaf : "";
+      selectCategory(category, { leaf, exactLeaf });
+    }
+
+    function selectMegaLink(category, leaf) {
+      selectCategory(category, { leaf, exactLeaf: leaf });
+    }
+
+    function selectFilterLeaf(leaf) {
+      const nextLeaf = sameLabel(exactLeafFilter, leaf) ? "" : leaf;
+      setDisplayLeaf(nextLeaf);
+      setExactLeafFilter(nextLeaf);
+      setManufacturerFilter("");
+      scrollToProducts();
+    }
+
+    function selectManufacturer(manufacturer) {
+      setManufacturerFilter((current) => sameLabel(current, manufacturer) ? "" : manufacturer);
+      scrollToProducts();
+    }
+
+    function toggleAvailability() {
+      setInStockOnly((current) => !current);
+      scrollToProducts();
+    }
+
+    function clearFilters() {
+      setDisplayLeaf("");
+      setExactLeafFilter("");
+      setManufacturerFilter("");
+      setInStockOnly(false);
+      scrollToProducts();
+    }
+
     return (
       <main className="page">
-        <Header />
-        <Hero />
-        <CategoryStrip />
+        <Header
+          selectedCategory={selectedCategory}
+          onSelectCategory={selectCategory}
+          onSelectMegaGroup={selectMegaGroup}
+          onSelectMegaLink={selectMegaLink}
+        />
+        <Hero onExplore={scrollToProducts} />
+        <CategoryStrip onSelectCategory={selectCategory} />
         <Services />
-        <PromoRow />
-        <Catalog />
+        <PromoRow onSelectCategory={selectCategory} onSelectMegaLink={selectMegaLink} />
+        <Catalog
+          category={selectedCategory}
+          currentLeaf={currentLeaf}
+          baseProducts={baseProducts}
+          visibleProducts={visibleProducts}
+          exactLeafFilter={exactLeafFilter}
+          manufacturerFilter={manufacturerFilter}
+          inStockOnly={inStockOnly}
+          onSelectLeaf={selectFilterLeaf}
+          onSelectManufacturer={selectManufacturer}
+          onToggleAvailability={toggleAvailability}
+          onClearFilters={clearFilters}
+        />
       </main>
     );
   }
