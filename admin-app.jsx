@@ -201,6 +201,8 @@
   const Field = ({ label, children }) => e('div', null, e('label', { style: S.label }, label), children);
   const Input = (props) => e('input', { style: S.input, ...props });
   const Select = ({ children, ...props }) => e('select', { style: S.input, ...props }, children);
+  const Textarea = ({ style, ...props }) => e('textarea', { style: { ...S.input, minHeight: 132, resize: 'vertical', lineHeight: 1.65, whiteSpace: 'pre-wrap', ...style }, ...props });
+  const roleLabel = (role) => role === 'admin' ? '管理員' : role === 'editor' ? '編輯者' : (role || '使用者');
 
   const IconPencil = ({ size = 18 }) =>
     e('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round', style: { display: 'block', flexShrink: 0 } },
@@ -246,7 +248,7 @@
           e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '設定一組登入帳號與密碼')
         ),
         e('form', { onSubmit: submit },
-          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '顯示名稱'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: 'Administrator', autoFocus: true })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '顯示名稱'), e(Input, { value: displayName, onChange: ev => setDisplayName(ev.target.value), placeholder: '管理員', autoFocus: true })),
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '帳號'), e(Input, { value: username, onChange: ev => setUsername(ev.target.value), placeholder: 'admin' })),
           e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '密碼（至少 6 位）'), e(Input, { type: 'password', value: password, onChange: ev => setPassword(ev.target.value), placeholder: '••••••••' })),
           e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, '確認密碼'), e(Input, { type: 'password', value: confirm, onChange: ev => setConfirm(ev.target.value), placeholder: '••••••••' })),
@@ -282,17 +284,17 @@
       e('div', { style: { background: '#fff', borderRadius: 16, boxShadow: '0 20px 60px rgba(0,0,0,.25)', padding: '48px 40px', width: 400 } },
         e('div', { style: { textAlign: 'center', marginBottom: 32 } },
           e('img', { src: 'assets/logo-armorbike-on-light.svg', alt: 'ARMOR BIKE', style: { height: 38 } }),
-          e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, 'CMS Admin Panel'),
-          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, 'Sign in to manage your store content')
+          e('h2', { style: { margin: '14px 0 4px', fontSize: 22, fontWeight: 800, color: '#16181d' } }, '後台管理系統'),
+          e('p', { style: { margin: 0, fontSize: 13, color: '#94a3b8' } }, '請登入以管理網站內容')
         ),
         noUsers ? e('div', { style: { background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 10, padding: '12px 14px', marginBottom: 18, fontSize: 12.5, color: '#92400e', lineHeight: 1.5 } },
-          '此裝置尚無帳號。可在其他已設定的裝置（後台 → Settings → 匯出設定）複製設定後，於此「匯入設定」，或建立新帳號。'
+          '此裝置尚無帳號。可在其他已設定的裝置（後台 → 設定 → 匯出設定）複製設定後，於此「匯入設定」，或建立新帳號。'
         ) : null,
         e('form', { onSubmit: submit },
-          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, 'Username'), e(Input, { value: u, onChange: ev => setU(ev.target.value), placeholder: 'admin', autoFocus: true })),
-          e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, 'Password'), e(Input, { type: 'password', value: p, onChange: ev => setP(ev.target.value), placeholder: '••••••••' })),
+          e('div', { style: { marginBottom: 14 } }, e('label', { style: S.label }, '帳號'), e(Input, { value: u, onChange: ev => setU(ev.target.value), placeholder: 'admin', autoFocus: true })),
+          e('div', { style: { marginBottom: 20 } }, e('label', { style: S.label }, '密碼'), e(Input, { type: 'password', value: p, onChange: ev => setP(ev.target.value), placeholder: '••••••••' })),
           err ? e('div', { style: { background: '#fef2f2', color: '#dc2626', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 14 } }, err) : null,
-          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, 'Sign In')
+          e('button', { type: 'submit', style: { ...S.btnPrimary, width: '100%', padding: 13, fontSize: 15 } }, '登入')
         ),
         e('div', { style: { marginTop: 18, paddingTop: 16, borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: 8 } },
           e('div', { style: { display: 'flex', gap: 14, justifyContent: 'center', fontSize: 13 } },
@@ -312,21 +314,21 @@
   // ── Sidebar ───────────────────────────────────────────────────────────────
   function Sidebar({ section, setSection, user, onLogout }) {
     const nav = [
-      { id: 'dashboard', icon: '◈', label: 'Dashboard' },
-      { id: 'hero', icon: '▶', label: 'Hero Carousel' },
-      { id: 'categories', icon: '☰', label: 'Navigation Menu' },
-      { id: 'megamenu', icon: '▦', label: 'Mega Menu' },
-      { id: 'filters', icon: '▽', label: 'Left-side Filters' },
-      { id: 'products', icon: '◻', label: 'Products' },
-      { id: 'badges', icon: '◈', label: 'Tags & Badges' },
-      { id: 'images', icon: '▣', label: 'Image Library' },
-      ...(user.role === 'admin' ? [{ id: 'users', icon: '◉', label: 'Users' }] : []),
-      { id: 'settings', icon: '⚙', label: 'Settings' },
+      { id: 'dashboard', icon: '◈', label: '總覽' },
+      { id: 'hero', icon: '▶', label: '首頁輪播' },
+      { id: 'categories', icon: '☰', label: '導覽選單' },
+      { id: 'megamenu', icon: '▦', label: '大型選單' },
+      { id: 'filters', icon: '▽', label: '左側篩選' },
+      { id: 'products', icon: '◻', label: '產品管理' },
+      { id: 'badges', icon: '◈', label: '標籤與徽章' },
+      { id: 'images', icon: '▣', label: '圖片庫' },
+      ...(user.role === 'admin' ? [{ id: 'users', icon: '◉', label: '使用者' }] : []),
+      { id: 'settings', icon: '⚙', label: '設定' },
     ];
     return e('aside', { style: { width: 230, background: '#0f172a', minHeight: '100vh', display: 'flex', flexDirection: 'column', flexShrink: 0 } },
       e('div', { style: { padding: '22px 20px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' } },
         e('div', { style: { fontSize: 17, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' } }, 'ARMOR BIKE'),
-        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' } }, 'CMS Admin')
+        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' } }, '後台管理')
       ),
       e('nav', { style: { flex: 1, padding: '12px 10px' } },
         nav.map(item => e('button', {
@@ -336,8 +338,8 @@
       ),
       e('div', { style: { padding: '14px 18px', borderTop: '1px solid rgba(255,255,255,.07)' } },
         e('div', { style: { fontSize: 13, fontWeight: 600, color: '#e2e8f0' } }, user.name),
-        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 1, textTransform: 'uppercase', letterSpacing: '0.05em' } }, user.role),
-        e('button', { onClick: onLogout, style: { marginTop: 10, padding: '5px 12px', background: 'rgba(255,255,255,.06)', border: 'none', borderRadius: 6, color: '#64748b', fontSize: 12, cursor: 'pointer', width: '100%' } }, 'Sign Out')
+        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 1, letterSpacing: '0.05em' } }, roleLabel(user.role)),
+        e('button', { onClick: onLogout, style: { marginTop: 10, padding: '5px 12px', background: 'rgba(255,255,255,.06)', border: 'none', borderRadius: 6, color: '#64748b', fontSize: 12, cursor: 'pointer', width: '100%' } }, '登出')
       )
     );
   }
@@ -346,13 +348,13 @@
   function Dashboard({ data }) {
     const totalProducts = data.categories.reduce((a, c) => a + (c.products || []).length, 0);
     const stats = [
-      { label: 'Categories', value: data.categories.length, color: BRAND },
-      { label: 'Products', value: totalProducts, color: '#16a34a' },
-      { label: 'Images', value: (data.images || []).length, color: '#f97316' },
-      { label: 'Users', value: loadUsers().length, color: '#7c3aed' },
+      { label: '分類數', value: data.categories.length, color: BRAND },
+      { label: '產品數', value: totalProducts, color: '#16a34a' },
+      { label: '圖片數', value: (data.images || []).length, color: '#f97316' },
+      { label: '使用者', value: loadUsers().length, color: '#7c3aed' },
     ];
     return e('div', null,
-      e('h1', { style: S.heading }, 'Dashboard'),
+      e('h1', { style: S.heading }, '總覽'),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 18, marginBottom: 28 } },
         stats.map(s => e('div', { key: s.label, style: { background: '#fff', borderRadius: 12, padding: '22px 24px', boxShadow: '0 1px 4px rgba(0,0,0,.06)', borderLeft: `4px solid ${s.color}` } },
           e('div', { style: { fontSize: 30, fontWeight: 900, color: '#16181d' } }, s.value),
@@ -360,9 +362,9 @@
         ))
       ),
       e('div', { style: S.card },
-        e('h2', { style: { margin: '0 0 16px', fontSize: 17, fontWeight: 700 } }, 'Category Overview'),
+        e('h2', { style: { margin: '0 0 16px', fontSize: 17, fontWeight: 700 } }, '分類總覽'),
         e('table', { style: { width: '100%', borderCollapse: 'collapse' } },
-          e('thead', null, e('tr', null, ['Category', 'Products', 'Mega Columns', 'Filters'].map(h => e('th', { key: h, style: S.th }, h)))),
+          e('thead', null, e('tr', null, ['分類', '產品數', '大型選單欄數', '篩選器'].map(h => e('th', { key: h, style: S.th }, h)))),
           e('tbody', null,
             data.categories.map((cat, i) => e('tr', { key: cat.id, style: { background: i % 2 ? '#f8fafc' : '#fff' } },
               e('td', { style: S.td }, e('span', { style: { fontWeight: 700, color: cat.accent ? SALE_COLOR : '#16181d' } }, cat.label)),
@@ -389,39 +391,39 @@
     const startEdit = (c) => { setEditId(c.id); setEf({ label: c.label, accent: !!c.accent, leaf: c.leaf, crumb: (c.crumb || []).join(' > ') }); };
     const saveEdit = (id) => { update(cats.map(c => c.id === id ? { ...c, ...ef, crumb: ef.crumb.split('>').map(s => s.trim()).filter(Boolean) } : c)); setEditId(null); };
     const del = (id) => {
-      if (confirm('Delete category and all its data?')) {
+      if (confirm('確定刪除此分類與所有資料嗎？')) {
         update(cats.filter(c => c.id !== id), { categoryDeletions: [...(data.categoryDeletions || []), id] });
       }
     };
     const move = (i, dir) => { const a = [...cats]; [a[i], a[i + dir]] = [a[i + dir], a[i]]; update(a); };
 
     const add = () => {
-      if (!af.id || !af.label) return alert('ID and Label are required');
+      if (!af.id || !af.label) return alert('請填寫 ID 與顯示名稱');
       const c = { id: af.id.toLowerCase().replace(/\s+/g, '-'), label: af.label, accent: af.accent, leaf: af.leaf || af.label, crumb: af.crumb ? af.crumb.split('>').map(s => s.trim()).filter(Boolean) : [af.label], mega: [], facets: [], products: [] };
       update([...cats, c]); setAf({ id: '', label: '', accent: false, leaf: '', crumb: '' }); setShowAdd(false);
     };
 
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
-        e('h1', { style: S.heading }, 'Navigation Menu'),
-        e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ Add Category')
+        e('h1', { style: S.heading }, '導覽選單'),
+        e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ 新增分類')
       ),
       showAdd && e('div', { style: S.card },
-        e('h3', { style: { margin: '0 0 18px', fontSize: 16, fontWeight: 700 } }, 'New Category'),
+        e('h3', { style: { margin: '0 0 18px', fontSize: 16, fontWeight: 700 } }, '新增分類'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 } },
-          e(Field, { label: 'ID (slug)' }, e(Input, { value: af.id, onChange: ev => setAf({ ...af, id: ev.target.value }), placeholder: 'e.g. helmets' })),
-          e(Field, { label: 'Label' }, e(Input, { value: af.label, onChange: ev => setAf({ ...af, label: ev.target.value }), placeholder: 'e.g. Helmets' })),
-          e(Field, { label: 'Leaf / Page Title' }, e(Input, { value: af.leaf, onChange: ev => setAf({ ...af, leaf: ev.target.value }), placeholder: 'e.g. All Helmets' })),
-          e(Field, { label: 'Breadcrumb  (A > B)' }, e(Input, { value: af.crumb, onChange: ev => setAf({ ...af, crumb: ev.target.value }), placeholder: 'e.g. Cycling > Helmets' })),
+          e(Field, { label: 'ID（網址代稱）' }, e(Input, { value: af.id, onChange: ev => setAf({ ...af, id: ev.target.value }), placeholder: '例如：helmets' })),
+          e(Field, { label: '顯示名稱' }, e(Input, { value: af.label, onChange: ev => setAf({ ...af, label: ev.target.value }), placeholder: '例如：Helmets' })),
+          e(Field, { label: '頁面標題' }, e(Input, { value: af.leaf, onChange: ev => setAf({ ...af, leaf: ev.target.value }), placeholder: '例如：All Helmets' })),
+          e(Field, { label: '麵包屑（A > B）' }, e(Input, { value: af.crumb, onChange: ev => setAf({ ...af, crumb: ev.target.value }), placeholder: '例如：Cycling > Helmets' })),
         ),
         e('label', { style: { display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer', marginBottom: 18 } },
-          e('input', { type: 'checkbox', checked: af.accent, onChange: ev => setAf({ ...af, accent: ev.target.checked }) }), 'Sale / Accent style (red label)'
+          e('input', { type: 'checkbox', checked: af.accent, onChange: ev => setAf({ ...af, accent: ev.target.checked }) }), 'SALE / 強調樣式（紅色標籤）'
         ),
-        e('div', { style: { display: 'flex', gap: 10 } }, e('button', { onClick: add, style: S.btnPrimary }, 'Add'), e('button', { onClick: () => setShowAdd(false), style: S.btnGhost }, 'Cancel'))
+        e('div', { style: { display: 'flex', gap: 10 } }, e('button', { onClick: add, style: S.btnPrimary }, '新增'), e('button', { onClick: () => setShowAdd(false), style: S.btnGhost }, '取消'))
       ),
       e('div', { style: S.card },
         e('table', { style: { width: '100%', borderCollapse: 'collapse' } },
-          e('thead', null, e('tr', null, ['Order', 'ID', 'Label', 'Leaf Title', 'Breadcrumb', 'Style', 'Actions'].map(h => e('th', { key: h, style: S.th }, h)))),
+          e('thead', null, e('tr', null, ['排序', 'ID', '顯示名稱', '頁面標題', '麵包屑', '樣式', '操作'].map(h => e('th', { key: h, style: S.th }, h)))),
           e('tbody', null,
             cats.map((cat, i) => editId === cat.id
               ? e('tr', { key: cat.id },
@@ -432,7 +434,7 @@
                   e('td', { style: S.td }, e(Input, { value: ef.crumb, onChange: ev => setEf({ ...ef, crumb: ev.target.value }), style: { ...S.input, padding: '6px 10px' } })),
                   e('td', { style: S.td }, e('input', { type: 'checkbox', checked: ef.accent, onChange: ev => setEf({ ...ef, accent: ev.target.checked }) })),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => saveEdit(cat.id), style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '✓ Save'), ' ',
+                    e('button', { onClick: () => saveEdit(cat.id), style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '✓ 儲存'), ' ',
                     e('button', { onClick: () => setEditId(null), style: S.btnSm }, '✕')
                   )
                 )
@@ -449,10 +451,10 @@
                   e('td', { style: S.td }, (cat.crumb || []).join(' › ')),
                   e('td', { style: S.td }, cat.accent
                     ? e('span', { style: { background: '#fef2f2', color: SALE_COLOR, padding: '2px 8px', borderRadius: 20, fontSize: 11, fontWeight: 700 } }, 'SALE')
-                    : e('span', { style: { background: '#f1f5f9', color: '#64748b', padding: '2px 8px', borderRadius: 20, fontSize: 11 } }, 'Normal')
+                    : e('span', { style: { background: '#f1f5f9', color: '#64748b', padding: '2px 8px', borderRadius: 20, fontSize: 11 } }, '一般')
                   ),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => startEdit(cat), style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'), ' ',
+                    e('button', { onClick: () => startEdit(cat), style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'), ' ',
                     user.role === 'admin' && e('button', { onClick: () => del(cat.id), style: S.btnDanger }, '🗑')
                   )
                 )
@@ -474,7 +476,7 @@
     const updateCat = (c) => setData({ ...data, categories: data.categories.map(x => x.id === catId ? c : x) });
 
     const addCol = () => updateCat({ ...cat, mega: [...(cat.mega || []), []] });
-    const delCol = (ci) => { if (confirm('Remove column?')) updateCat({ ...cat, mega: cat.mega.filter((_, i) => i !== ci) }); };
+    const delCol = (ci) => { if (confirm('確定移除此欄嗎？')) updateCat({ ...cat, mega: cat.mega.filter((_, i) => i !== ci) }); };
     const delGrp = (ci, gi) => { const m = cat.mega.map((col, i) => i === ci ? col.filter((_, j) => j !== gi) : col); updateCat({ ...cat, mega: m }); };
 
     const openAdd = (ci) => setModal({ mode: 'add', ci, form: { title: '', links: '' } });
@@ -495,26 +497,26 @@
 
     return e('div', null,
       e('div', { style: { display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 } },
-        e('h1', { style: { ...S.heading, margin: 0 } }, 'Mega Menu Editor'),
+        e('h1', { style: { ...S.heading, margin: 0 } }, '大型選單編輯'),
         e('select', { value: catId, onChange: ev => setCatId(ev.target.value), style: { ...S.input, width: 180 } },
           data.categories.map(c => e('option', { key: c.id, value: c.id }, c.label))
         )
       ),
-      modal && e(Modal, { title: modal.mode === 'add' ? 'Add Group' : 'Edit Group', onClose: () => setModal(null) },
-        e(Field, { label: 'Group Title' }, e(Input, { value: modal.form.title, onChange: ev => setModal({ ...modal, form: { ...modal.form, title: ev.target.value } }), style: { ...S.input, marginBottom: 14 }, autoFocus: true })),
-        e(Field, { label: 'Links — one per line' },
+      modal && e(Modal, { title: modal.mode === 'add' ? '新增群組' : '編輯群組', onClose: () => setModal(null) },
+        e(Field, { label: '群組標題' }, e(Input, { value: modal.form.title, onChange: ev => setModal({ ...modal, form: { ...modal.form, title: ev.target.value } }), style: { ...S.input, marginBottom: 14 }, autoFocus: true })),
+        e(Field, { label: '連結項目 — 每行一個' },
           e('textarea', { value: modal.form.links, onChange: ev => setModal({ ...modal, form: { ...modal.form, links: ev.target.value } }), rows: 9, style: { ...S.input, resize: 'vertical', fontFamily: 'monospace', fontSize: 13 } })
         ),
         e('div', { style: { display: 'flex', gap: 10, marginTop: 20 } },
-          e('button', { onClick: saveModal, style: S.btnPrimary }, modal.mode === 'add' ? 'Add Group' : 'Save Changes'),
-          e('button', { onClick: () => setModal(null), style: S.btnGhost }, 'Cancel')
+          e('button', { onClick: saveModal, style: S.btnPrimary }, modal.mode === 'add' ? '新增群組' : '儲存變更'),
+          e('button', { onClick: () => setModal(null), style: S.btnGhost }, '取消')
         )
       ),
       e('div', { style: { display: 'flex', gap: 14, overflowX: 'auto', paddingBottom: 12, alignItems: 'flex-start' } },
         (cat.mega || []).map((col, ci) =>
           e('div', { key: ci, style: { background: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,.06)', padding: 18, minWidth: 210, flexShrink: 0 } },
             e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 } },
-              e('span', { style: { fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' } }, `Column ${ci + 1}`),
+              e('span', { style: { fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' } }, `第 ${ci + 1} 欄`),
               e('button', { onClick: () => delCol(ci), style: { background: 'none', border: 'none', color: '#dc2626', cursor: 'pointer', fontSize: 18, lineHeight: 1 } }, '×')
             ),
             col.map((grp, gi) =>
@@ -531,10 +533,10 @@
                 )
               )
             ),
-            e('button', { onClick: () => openAdd(ci), style: { width: '100%', padding: 8, background: '#f0f9ff', color: BRAND, border: `1px dashed ${BRAND}`, borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700, marginTop: 4 } }, '+ Add Group')
+            e('button', { onClick: () => openAdd(ci), style: { width: '100%', padding: 8, background: '#f0f9ff', color: BRAND, border: `1px dashed ${BRAND}`, borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700, marginTop: 4 } }, '+ 新增群組')
           )
         ),
-        e('button', { onClick: addCol, style: { background: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: 12, minWidth: 120, height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: 13, fontWeight: 700, cursor: 'pointer', flexShrink: 0, alignSelf: 'flex-start', marginTop: 0 } }, '+ Column')
+        e('button', { onClick: addCol, style: { background: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: 12, minWidth: 120, height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: 13, fontWeight: 700, cursor: 'pointer', flexShrink: 0, alignSelf: 'flex-start', marginTop: 0 } }, '+ 新增欄位')
       )
     );
   }
@@ -544,7 +546,7 @@
   const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', images: [] });
   const makeProductId = () => 'prd_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
   const ownerKey = (user) => String(user?.id || user?.username || '').trim();
-  const ownerName = (user) => user?.name || user?.username || 'Unknown';
+  const ownerName = (user) => user?.name || user?.username || '未知使用者';
   const productOwnerLabel = (p) => p.ownerName || p.ownerUsername || (p.ownerId ? String(p.ownerId) : '');
   const productFingerprint = (p) => [
     p.manufacturer || '',
@@ -592,7 +594,7 @@
   const missingProductFields = (f) => {
     const miss = [];
     if (!f.manufacturer || !f.manufacturer.trim()) miss.push('Manufacturer (品牌)');
-    if (!f.name || !f.name.trim()) miss.push('Product Name (產品名稱)');
+    if (!f.name || !f.name.trim()) miss.push('產品名稱');
     return miss;
   };
 
@@ -621,15 +623,15 @@
       e('div', { style: { background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 10, padding: '14px 16px', marginBottom: 22, fontSize: 13, color: '#1e40af', lineHeight: 1.7 } },
         e('strong', null, '初次設定步驟：'), e('br'),
         '1. 前往 ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' 建立免費帳號（25 GB 儲存）', e('br'),
-        '2. 儀表板左上角複製你的 ', e('strong', null, 'Cloud Name'), e('br'),
+        '2. 儀表板左上角複製你的 ', e('strong', null, 'Cloud Name（雲端名稱）'), e('br'),
         '3. 前往 Settings → Upload → Upload presets → Add preset', e('br'),
         '4. 將 Signing Mode 設為 ', e('code', { style: { background: '#dbeafe', padding: '1px 5px', borderRadius: 4, fontWeight: 700 } }, 'Unsigned'), ' 後儲存'
       ),
-      e(Field, { label: 'Cloud Name' },
+      e(Field, { label: 'Cloud Name（雲端名稱）' },
         e(Input, { value: cloudName, onChange: ev => setCloudName(ev.target.value), placeholder: 'e.g. my-store-abc123', autoFocus: true })
       ),
       e('div', { style: { marginTop: 12 } },
-        e(Field, { label: 'Upload Preset（必須為 Unsigned）' },
+        e(Field, { label: 'Upload Preset（上傳預設，必須為 Unsigned）' },
           e(Input, { value: preset, onChange: ev => setPreset(ev.target.value), placeholder: 'e.g. armor_unsigned' })
         )
       ),
@@ -665,7 +667,7 @@
     return e('span', null,
       'Upload Preset 未設為 Unsigned。請至 ',
       e('a', { href: 'https://cloudinary.com', target: '_blank', style: { color: BRAND } }, 'Cloudinary'),
-      ' → Settings → Upload Presets，將 Signing Mode 改為 ',
+      ' → Settings（設定）→ Upload Presets（上傳預設），將 Signing Mode（簽署模式）改為 ',
       e('strong', null, 'Unsigned'),
       ' 後儲存。'
     );
@@ -701,7 +703,7 @@
     };
 
     return e(React.Fragment, null,
-      e('button', { onClick: () => openWidget(), style: style || S.btnGhost }, children || 'Upload via Cloudinary'),
+      e('button', { onClick: () => openWidget(), style: style || S.btnGhost }, children || '透過 Cloudinary 上傳'),
       showSetup && e(CloudinarySetupModal, { onClose: () => setShowSetup(false), onSaved: () => { setShowSetup(false); openWidget(loadCldConfig()); } })
     );
   }
@@ -788,18 +790,31 @@
     const req = (label) => e('span', null, label, ' ', e('span', { style: { color: SALE_COLOR } }, '*'));
     const leaves = megaLeaves(cat);
     return e('div', { style: { ...S.card, border: `2px solid ${BRAND}30` } },
-      e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 18 } },
-        e(Field, { label: req('Manufacturer') }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }) })),
-        e(Field, { label: req('Product Name') }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }) })),
-        e(Field, { label: 'Spec / Description' }, e(Input, { value: form.spec, onChange: ev => setForm({ ...form, spec: ev.target.value }) })),
-        e(Field, { label: 'Mega Menu 子項目' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
-          e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無 Mega Menu 子項目）'),
+      e('div', { style: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 16, marginBottom: 18 } },
+        e(Field, { label: req('製造商') }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }), placeholder: '例如：ARMOR' })),
+        e(Field, { label: req('產品名稱') }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }), placeholder: '例如：29 MEN SKD' })),
+        e('div', { style: { gridColumn: '1 / -1' } },
+          e(Field, { label: '規格 / 商品描述' },
+            e(Textarea, {
+              value: form.spec || '',
+              onChange: ev => setForm({ ...form, spec: ev.target.value }),
+              rows: 7,
+              placeholder: '可輸入多行內容，例如：\nFrame：Carbon 29\nFork：RockShox 120mm\nWheelset：29 inch\n備註：每一行都會保留換行',
+              style: { minHeight: 156 }
+            })
+          ),
+          e('p', { style: { margin: '6px 0 0', color: '#64748b', fontSize: 12, lineHeight: 1.6 } }, '支援 Enter 分行；儲存與發布後會保留換行內容。')
+        ),
+        e(Field, { label: '大型選單子項目' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
+          e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無大型選單子項目）'),
           leaves.map((m, i) => e('option', { key: i, value: m.link }, (m.group ? m.group + ' › ' : '') + m.link))
         )),
-        e(Field, { label: 'Badge' }, e(Select, { value: form.badge || '', onChange: ev => setForm({ ...form, badge: ev.target.value }) },
-          BADGE_OPTS.map(b => e('option', { key: b, value: b }, b || '(none)'))
+        e(Field, { label: '商品標籤' }, e(Select, { value: form.badge || '', onChange: ev => setForm({ ...form, badge: ev.target.value }) },
+          BADGE_OPTS.map(b => e('option', { key: b, value: b }, b || '（無）'))
         )),
-        e(Field, { label: 'Note (optional)' }, e(Input, { value: form.note || '', onChange: ev => setForm({ ...form, note: ev.target.value }), placeholder: 'Ships in 24h / Only 3 left' })),
+        e('div', { style: { gridColumn: '1 / -1' } },
+          e(Field, { label: '備註（選填）' }, e(Input, { value: form.note || '', onChange: ev => setForm({ ...form, note: ev.target.value }), placeholder: '例如：24 小時內出貨 / 僅剩 3 件' }))
+        ),
       ),
       missing.length > 0 && e('div', { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 16 } },
         '尚有必填欄位未填寫：', missing.join('、')
@@ -807,14 +822,14 @@
       // ── full-width image section ──
       e('div', { style: { borderTop: '1px solid #f1f5f9', paddingTop: 16, marginBottom: 18 } },
         e('label', { style: { ...S.label, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 } },
-          'Product Images',
+          '產品圖片',
           imgs.length > 0 && e('span', { style: { background: BRAND, color: '#fff', fontSize: 11, fontWeight: 700, padding: '1px 8px', borderRadius: 10 } }, imgs.length)
         ),
         e(ImagesEditor, { images: imgs, onChange: imgs => setForm({ ...form, images: imgs }) })
       ),
       e('div', { style: { display: 'flex', gap: 10 } },
         e('button', { onClick: onSave, style: S.btnPrimary }, saveLabel),
-        e('button', { onClick: onCancel, style: S.btnGhost }, 'Cancel')
+        e('button', { onClick: onCancel, style: S.btnGhost }, '取消')
       )
     );
   }
@@ -858,19 +873,44 @@
       e('div', { style: { padding: '14px 16px' } },
         e('div', { style: { fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: 3 } }, p.manufacturer),
         e('div', { style: { fontSize: 13, fontWeight: 700, color: '#16181d', lineHeight: 1.35, marginBottom: 3 } }, p.name),
-        e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10 } }, p.spec),
-        productOwnerLabel(p) ? e('div', { style: { fontSize: 11, color: '#64748b', marginBottom: 10 } }, 'Owner: ', productOwnerLabel(p)) : null,
+        e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10, lineHeight: 1.55, whiteSpace: 'pre-line', maxHeight: 78, overflow: 'hidden' } }, p.spec),
+        productOwnerLabel(p) ? e('div', { style: { fontSize: 11, color: '#64748b', marginBottom: 10 } }, '建立者：', productOwnerLabel(p)) : null,
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
           e('div', null,
             p.leaf ? e('span', { style: { fontSize: 11, color: '#64748b', background: '#f1f5f9', padding: '2px 8px', borderRadius: 6 } }, p.leaf) : null
           ),
           canManage
             ? e('div', { style: { display: 'flex', gap: 6 } },
-                e('button', { onClick: onEdit, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'),
+                e('button', { onClick: onEdit, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'),
                 e('button', { onClick: onDelete, style: S.btnDanger }, '🗑')
               )
-            : e('span', { style: { fontSize: 11, fontWeight: 700, color: '#94a3b8', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 20, padding: '3px 9px' } }, 'Locked')
+            : e('span', { style: { fontSize: 11, fontWeight: 700, color: '#94a3b8', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 20, padding: '3px 9px' } }, '無權限')
         )
+      )
+    );
+  }
+
+  function ProductsSopGuide() {
+    const steps = [
+      { icon: '①', title: '選擇分類', text: '先在上方選擇商品所屬分類。' },
+      { icon: '②', title: '新增或編輯', text: '點「新增產品」或卡片上的「編輯」。' },
+      { icon: '③', title: '填寫資料', text: '輸入名稱、規格描述，並上傳產品圖片。' },
+      { icon: '④', title: '發布同步', text: '儲存後點右上角「發布」，同步到前台網站。' }
+    ];
+    return e('section', { style: { ...S.card, marginTop: 24, padding: 22, border: '1px solid #dbeafe', background: 'linear-gradient(135deg,#ffffff 0%,#f0f9ff 100%)' } },
+      e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, marginBottom: 18 } },
+        e('div', null,
+          e('h2', { style: { margin: '0 0 6px', fontSize: 17, fontWeight: 800, color: '#0f172a' } }, '產品上架 SOP'),
+          e('p', { style: { margin: 0, color: '#64748b', fontSize: 13, lineHeight: 1.7 } }, '照著 4 個步驟操作，即可完成新增、編輯與前台同步。')
+        ),
+        e('span', { style: { background: '#dbeafe', color: BRAND, fontSize: 12, fontWeight: 800, borderRadius: 20, padding: '4px 10px', whiteSpace: 'nowrap' } }, '簡易教學')
+      ),
+      e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gap: 12 } },
+        steps.map(step => e('div', { key: step.title, style: { border: '1px solid #bfdbfe', borderRadius: 12, background: 'rgba(255,255,255,.86)', padding: 16, minHeight: 126 } },
+          e('div', { style: { width: 34, height: 34, borderRadius: 10, background: BRAND, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, marginBottom: 12, boxShadow: '0 8px 18px rgba(0,110,224,.18)' } }, step.icon),
+          e('div', { style: { fontWeight: 850, color: '#0f172a', fontSize: 14, marginBottom: 5 } }, step.title),
+          e('div', { style: { color: '#64748b', fontSize: 12, lineHeight: 1.65 } }, step.text)
+        ))
       )
     );
   }
@@ -903,28 +943,29 @@
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
         e('div', { style: { display: 'flex', alignItems: 'center', gap: 14 } },
-          e('h1', { style: { ...S.heading, margin: 0 } }, 'Products'),
+          e('h1', { style: { ...S.heading, margin: 0 } }, '產品管理'),
           e('select', { value: catId, onChange: ev => { setCatId(ev.target.value); setEditIdx(null); setShowAdd(false); }, style: { ...S.input, width: 180 } },
             data.categories.map(c => e('option', { key: c.id, value: c.id }, c.label))
           ),
-          e('span', { style: { fontSize: 13, color: '#64748b' } }, `${products.length} products`)
+          e('span', { style: { fontSize: 13, color: '#64748b' } }, `${products.length} 項產品`)
         ),
-        e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ Add Product')
+        e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ 新增產品')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: 'Add Product' }),
+      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: '新增產品' }),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
         products.map((p, i) => editIdx === i
           ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: 'Save Changes' })
+              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: '儲存變更' })
             )
           : e(ProductCardView, {
               key: p.productId || i, p,
               canManage: canManageProduct(p, user),
               onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p) }); setShowAdd(false); },
-              onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('Delete product?')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
+              onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('確定刪除這個產品嗎？')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
             })
         )
-      )
+      ),
+      e(ProductsSopGuide)
     );
   }
 
@@ -956,7 +997,7 @@
     };
 
     const remove = (b) => {
-      if (!confirm(`Remove badge "${b}" from all products?`)) return;
+      if (!confirm(`確定從所有產品移除標籤「${b}」嗎？`)) return;
       const categories = data.categories.map(c => ({ ...c, products: (c.products || []).map(p => p.badge === b ? { ...p, badge: '' } : p) }));
       setData({ ...data, categories, badges: (data.badges || []).filter(x => x !== b) });
     };
@@ -964,15 +1005,15 @@
     const chipColor = (b) => b.startsWith('-') ? { bg: '#fef2f2', color: SALE_COLOR, border: '#fca5a5' } : b === 'New' ? { bg: '#f0fdf4', color: '#16a34a', border: '#86efac' } : b === 'Bestseller' ? { bg: '#fff7ed', color: '#ea580c', border: '#fdba74' } : { bg: '#eff6ff', color: BRAND, border: '#93c5fd' };
 
     return e('div', null,
-      e('h1', { style: S.heading }, 'Tags & Badges'),
+      e('h1', { style: S.heading }, '標籤與徽章'),
       e('div', { style: S.card },
         e('div', { style: { display: 'flex', gap: 10, marginBottom: 24, alignItems: 'center' } },
-          e(Input, { value: newB, onChange: ev => setNewB(ev.target.value), style: { ...S.input, width: 220 }, placeholder: 'New badge label…', onKeyDown: ev => ev.key === 'Enter' && addBadge() }),
-          e('button', { onClick: addBadge, style: S.btnPrimary }, '+ Add Badge')
+          e(Input, { value: newB, onChange: ev => setNewB(ev.target.value), style: { ...S.input, width: 220 }, placeholder: '新增標籤名稱…', onKeyDown: ev => ev.key === 'Enter' && addBadge() }),
+          e('button', { onClick: addBadge, style: S.btnPrimary }, '+ 新增標籤')
         ),
-        e('p', { style: { margin: '0 0 14px', fontSize: 13, color: '#64748b' } }, `${allBadges.length} badges · click the pencil icon to rename, × to remove from all products`),
+        e('p', { style: { margin: '0 0 14px', fontSize: 13, color: '#64748b' } }, `${allBadges.length} 個標籤 · 點鉛筆可重新命名，點 × 可從所有產品移除`),
         e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 10 } },
-          allBadges.length === 0 && e('p', { style: { color: '#94a3b8', fontSize: 13 } }, 'No badges found. Add one above or assign badges to products.'),
+          allBadges.length === 0 && e('p', { style: { color: '#94a3b8', fontSize: 13 } }, '尚無標籤。可從上方新增，或在產品中指定標籤。'),
           allBadges.map(b => {
             const cc = chipColor(b);
             return renameFrom === b
@@ -984,7 +1025,7 @@
               : e('div', { key: b, style: { display: 'flex', alignItems: 'center', gap: 8, background: cc.bg, border: `1px solid ${cc.border}`, borderRadius: 30, padding: '6px 14px' } },
                   e('span', { style: { fontWeight: 800, color: cc.color, fontSize: 13 } }, b),
                   e('span', { style: { fontSize: 11, color: '#94a3b8' } }, `×${usageCount(b)}`),
-                  e('button', { onClick: () => { setRenameFrom(b); setRenameTo(b); }, style: { background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: 2, display: 'inline-flex', alignItems: 'center' }, title: 'Rename' }, e(IconPencil, { size: 16 })),
+                  e('button', { onClick: () => { setRenameFrom(b); setRenameTo(b); }, style: { background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: 2, display: 'inline-flex', alignItems: 'center' }, title: '重新命名' }, e(IconPencil, { size: 16 })),
                   e('button', { onClick: () => remove(b), style: { background: 'none', border: 'none', cursor: 'pointer', color: '#dc2626', fontSize: 16, padding: 0, lineHeight: 1 } }, '×')
                 );
           })
@@ -1031,13 +1072,13 @@
       navigator.clipboard.writeText(img.url).then(() => { setCopied(img.id); setTimeout(() => setCopied(null), 1800); });
     };
 
-    const del = (id) => { if (confirm('Delete image?')) setData({ ...data, images: images.filter(x => x.id !== id) }); };
+    const del = (id) => { if (confirm('確定刪除這張圖片嗎？')) setData({ ...data, images: images.filter(x => x.id !== id) }); };
 
     const cldConfig = loadCldConfig();
     const isConfigured = !!(cldConfig.cloudName && cldConfig.uploadPreset);
 
     return e('div', null,
-      e('h1', { style: S.heading }, 'Image Library'),
+      e('h1', { style: S.heading }, '圖片庫'),
       e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 24 } },
         // Cloudinary upload
         e('div', { style: S.card },
@@ -1078,10 +1119,10 @@
       ),
       e('div', { style: { ...S.card } },
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 } },
-          e('span', { style: { fontWeight: 700, fontSize: 15 } }, `Gallery  ·  ${images.length} images`),
+          e('span', { style: { fontWeight: 700, fontSize: 15 } }, `圖片庫  ·  ${images.length} 張圖片`),
         ),
         images.length === 0
-          ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } }, 'No images yet. Upload or add by URL above.')
+          ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } }, '尚無圖片。請從上方上傳或貼上圖片 URL。')
           : e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 14 } },
               images.map(img => e('div', { key: img.id, style: { background: '#f8fafc', borderRadius: 10, overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,.06)' } },
                 e('div', { style: { height: 110, overflow: 'hidden', background: '#e2e8f0' } },
@@ -1090,7 +1131,7 @@
                 e('div', { style: { padding: '8px 10px' } },
                   e('div', { style: { fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, img.alt),
                   e('div', { style: { display: 'flex', gap: 5 } },
-                    e('button', { onClick: () => copy(img), style: { ...S.btnSm, fontSize: 11, flex: 1, background: copied === img.id ? '#dcfce7' : undefined, color: copied === img.id ? '#16a34a' : undefined } }, copied === img.id ? '✓ Copied' : '📋 URL'),
+                    e('button', { onClick: () => copy(img), style: { ...S.btnSm, fontSize: 11, flex: 1, background: copied === img.id ? '#dcfce7' : undefined, color: copied === img.id ? '#16a34a' : undefined } }, copied === img.id ? '✓ 已複製' : '📋 URL'),
                     e('button', { onClick: () => del(img.id), style: { ...S.btnDanger, fontSize: 11 } }, '🗑')
                   )
                 )
@@ -1112,42 +1153,42 @@
 
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
-        e('h1', { style: S.heading }, 'User Management'),
-        e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ Add User')
+        e('h1', { style: S.heading }, '使用者管理'),
+        e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ 新增使用者')
       ),
       showAdd && e('div', { style: S.card },
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 } },
-          e(Field, { label: 'Username' }, e(Input, { value: af.username, onChange: ev => setAf({ ...af, username: ev.target.value }) })),
-          e(Field, { label: 'Full Name' }, e(Input, { value: af.name, onChange: ev => setAf({ ...af, name: ev.target.value }) })),
-          e(Field, { label: 'Password' }, e(Input, { type: 'password', value: af.password, onChange: ev => setAf({ ...af, password: ev.target.value }) })),
-          e(Field, { label: 'Role' }, e(Select, { value: af.role, onChange: ev => setAf({ ...af, role: ev.target.value }) }, e('option', { value: 'editor' }, 'Editor'), e('option', { value: 'admin' }, 'Admin'))),
+          e(Field, { label: '帳號' }, e(Input, { value: af.username, onChange: ev => setAf({ ...af, username: ev.target.value }) })),
+          e(Field, { label: '姓名' }, e(Input, { value: af.name, onChange: ev => setAf({ ...af, name: ev.target.value }) })),
+          e(Field, { label: '密碼' }, e(Input, { type: 'password', value: af.password, onChange: ev => setAf({ ...af, password: ev.target.value }) })),
+          e(Field, { label: '角色' }, e(Select, { value: af.role, onChange: ev => setAf({ ...af, role: ev.target.value }) }, e('option', { value: 'editor' }, '編輯者'), e('option', { value: 'admin' }, '管理員'))),
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
-          e('button', { onClick: () => { if (!af.username || !af.password) return; save([...users, { id: Date.now(), ...af }]); setAf({ username: '', password: '', name: '', role: 'editor' }); setShowAdd(false); }, style: S.btnPrimary }, 'Add User'),
-          e('button', { onClick: () => setShowAdd(false), style: S.btnGhost }, 'Cancel')
+          e('button', { onClick: () => { if (!af.username || !af.password) return; save([...users, { id: Date.now(), ...af }]); setAf({ username: '', password: '', name: '', role: 'editor' }); setShowAdd(false); }, style: S.btnPrimary }, '新增使用者'),
+          e('button', { onClick: () => setShowAdd(false), style: S.btnGhost }, '取消')
         )
       ),
       e('div', { style: S.card },
         e('table', { style: { width: '100%', borderCollapse: 'collapse' } },
-          e('thead', null, e('tr', null, ['Username', 'Full Name', 'Role', 'Actions'].map(h => e('th', { key: h, style: S.th }, h)))),
+          e('thead', null, e('tr', null, ['帳號', '姓名', '角色', '操作'].map(h => e('th', { key: h, style: S.th }, h)))),
           e('tbody', null,
             users.map((u, i) => editId === u.id
               ? e('tr', { key: u.id },
                   e('td', { style: S.td }, e(Input, { value: ef.username, onChange: ev => setEf({ ...ef, username: ev.target.value }), style: { ...S.input, padding: '6px 10px' } })),
                   e('td', { style: S.td }, e(Input, { value: ef.name, onChange: ev => setEf({ ...ef, name: ev.target.value }), style: { ...S.input, padding: '6px 10px' } })),
-                  e('td', { style: S.td }, e(Select, { value: ef.role, onChange: ev => setEf({ ...ef, role: ev.target.value }), style: { ...S.input, padding: '6px 10px' } }, e('option', { value: 'editor' }, 'Editor'), e('option', { value: 'admin' }, 'Admin'))),
+                  e('td', { style: S.td }, e(Select, { value: ef.role, onChange: ev => setEf({ ...ef, role: ev.target.value }), style: { ...S.input, padding: '6px 10px' } }, e('option', { value: 'editor' }, '編輯者'), e('option', { value: 'admin' }, '管理員'))),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => { save(users.map(x => x.id === u.id ? { ...x, ...ef } : x)); setEditId(null); }, style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '✓ Save'), ' ',
+                    e('button', { onClick: () => { save(users.map(x => x.id === u.id ? { ...x, ...ef } : x)); setEditId(null); }, style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '✓ 儲存'), ' ',
                     e('button', { onClick: () => setEditId(null), style: S.btnSm }, '✕')
                   )
                 )
               : e('tr', { key: u.id, style: { background: i % 2 ? '#f8fafc' : '#fff' } },
                   e('td', { style: S.td }, e('code', { style: { fontWeight: 700, fontSize: 13 } }, u.username)),
                   e('td', { style: S.td }, u.name),
-                  e('td', { style: S.td }, e('span', { style: { background: u.role === 'admin' ? '#eff6ff' : '#f0fdf4', color: u.role === 'admin' ? BRAND : '#16a34a', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 800, textTransform: 'uppercase' } }, u.role)),
+                  e('td', { style: S.td }, e('span', { style: { background: u.role === 'admin' ? '#eff6ff' : '#f0fdf4', color: u.role === 'admin' ? BRAND : '#16a34a', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 800 } }, roleLabel(u.role))),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => { setEditId(u.id); setEf({ username: u.username, name: u.name, role: u.role }); }, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'), ' ',
-                    e('button', { onClick: () => { if (confirm('Delete user?')) save(users.filter(x => x.id !== u.id)); }, style: S.btnDanger }, '🗑')
+                    e('button', { onClick: () => { setEditId(u.id); setEf({ username: u.username, name: u.name, role: u.role }); }, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'), ' ',
+                    e('button', { onClick: () => { if (confirm('確定刪除此使用者嗎？')) save(users.filter(x => x.id !== u.id)); }, style: S.btnDanger }, '🗑')
                   )
                 )
             )
@@ -1185,11 +1226,11 @@
     const changePw = () => {
       const users = loadUsers();
       const u = users.find(x => x.id === user.id);
-      if (!u || u.password !== pwForm.current) { setPwMsg({ type: 'err', text: 'Current password is incorrect' }); return; }
-      if (pwForm.next.length < 6) { setPwMsg({ type: 'err', text: 'New password must be at least 6 characters' }); return; }
-      if (pwForm.next !== pwForm.confirm) { setPwMsg({ type: 'err', text: 'Passwords do not match' }); return; }
+      if (!u || u.password !== pwForm.current) { setPwMsg({ type: 'err', text: '目前密碼不正確' }); return; }
+      if (pwForm.next.length < 6) { setPwMsg({ type: 'err', text: '新密碼至少需要 6 個字元' }); return; }
+      if (pwForm.next !== pwForm.confirm) { setPwMsg({ type: 'err', text: '兩次輸入的密碼不一致' }); return; }
       saveUsers(users.map(x => x.id === user.id ? { ...x, password: pwForm.next } : x));
-      setPwMsg({ type: 'ok', text: 'Password updated successfully' });
+      setPwMsg({ type: 'ok', text: '密碼已更新' });
       setPwForm({ current: '', next: '', confirm: '' });
     };
 
@@ -1222,27 +1263,27 @@
                   )
                 : e('div', { style: { display: 'flex', alignItems: 'center', gap: 7 } },
                     e('div', { style: { fontSize: 17, fontWeight: 800, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
-                    e('button', { onClick: () => { setNameInput(user.name || ''); setEditName(true); }, title: 'Edit name', style: { background: 'none', border: 'none', color: 'rgba(255,255,255,.65)', cursor: 'pointer', padding: 2, display: 'inline-flex', alignItems: 'center', flexShrink: 0 } }, e(IconPencil, { size: 14 }))
+                    e('button', { onClick: () => { setNameInput(user.name || ''); setEditName(true); }, title: '編輯名稱', style: { background: 'none', border: 'none', color: 'rgba(255,255,255,.65)', cursor: 'pointer', padding: 2, display: 'inline-flex', alignItems: 'center', flexShrink: 0 } }, e(IconPencil, { size: 14 }))
                   ),
               e('div', { style: { fontSize: 12, color: 'rgba(255,255,255,.7)', marginTop: 3 } }, `@${user.username}`),
-              e('span', { style: { display: 'inline-block', marginTop: 7, background: 'rgba(255,255,255,.2)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 9px', borderRadius: 10, textTransform: 'uppercase', letterSpacing: '0.07em' } }, user.role)
+              e('span', { style: { display: 'inline-block', marginTop: 7, background: 'rgba(255,255,255,.2)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 9px', borderRadius: 10, letterSpacing: '0.07em' } }, roleLabel(user.role))
             )
           )
         ),
         // ── Tabs ──
         e('div', { style: { display: 'flex', borderBottom: '1px solid #f1f5f9' } },
-          [{ id: 'profile', label: 'Profile' }, { id: 'security', label: 'Security' }].map(t =>
-            e('button', { key: t.id, onClick: () => { setTab(t.id); setPwMsg(null); }, style: { flex: 1, padding: '11px', background: 'none', border: 'none', borderBottom: `2px solid ${tab === t.id ? avatarBg : 'transparent'}`, cursor: 'pointer', fontWeight: tab === t.id ? 700 : 500, fontSize: 13, color: tab === t.id ? avatarBg : '#64748b', transition: 'all .12s' } }, t.label)
+          [{ id: 'profile', label: '個人資料' }, { id: 'security', label: '安全性' }].map(t =>
+            e('button', { key: t.id, onClick: () => { setTab(t.id); setPwMsg(null); }, style: { flex: 1, padding: '11px', background: 'none', border: 'none', borderBottom: `2px solid ${tab === t.id ? avatarBg : 'transparent'}`, cursor: 'pointer', fontWeight: tab === t.id ? 700 : 500, fontSize: 13, color: tab === t.id ? avatarBg : '#64748b', transition: 'background-color .12s, border-color .12s, color .12s, transform .12s, opacity .12s' } }, t.label)
           )
         ),
         // ── Content ──
         e('div', { style: { padding: '18px 22px 22px' } },
           tab === 'profile'
             ? e('div', null,
-                e(InfoRow, { label: 'Username', value: `@${user.username}` }),
-                e(InfoRow, { label: 'Full Name', value: user.name || '—' }),
-                e(InfoRow, { label: 'Role', value: user.role === 'admin' ? 'Administrator' : 'Editor', pill: true }),
-                e(InfoRow, { label: 'Session', value: 'Active' }),
+                e(InfoRow, { label: '帳號', value: `@${user.username}` }),
+                e(InfoRow, { label: '姓名', value: user.name || '—' }),
+                e(InfoRow, { label: '角色', value: user.role === 'admin' ? '管理員' : '編輯者', pill: true }),
+                e(InfoRow, { label: '登入狀態', value: '使用中' }),
                 e('button', {
                   onClick: () => { onLogout(); onClose(); },
                   style: { width: '100%', marginTop: 18, padding: '10px', background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 9, cursor: 'pointer', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7 }
@@ -1252,19 +1293,19 @@
                     e('polyline', { points: '16 17 21 12 16 7' }),
                     e('line', { x1: 21, y1: 12, x2: 9, y2: 12 })
                   ),
-                  'Sign Out'
+                  '登出'
                 )
               )
             : e('div', null,
-                e('p', { style: { fontSize: 13, color: '#64748b', margin: '0 0 16px' } }, 'Update your account password below.'),
-                [{ label: 'Current Password', key: 'current' }, { label: 'New Password', key: 'next' }, { label: 'Confirm Password', key: 'confirm' }].map(f =>
+                e('p', { style: { fontSize: 13, color: '#64748b', margin: '0 0 16px' } }, '可在下方更新你的帳號密碼。'),
+                [{ label: '目前密碼', key: 'current' }, { label: '新密碼', key: 'next' }, { label: '確認密碼', key: 'confirm' }].map(f =>
                   e('div', { key: f.key, style: { marginBottom: 11 } },
                     e('label', { style: S.label }, f.label),
                     e('input', { type: 'password', value: pwForm[f.key], onChange: ev => { setPwForm({ ...pwForm, [f.key]: ev.target.value }); setPwMsg(null); }, style: S.input })
                   )
                 ),
                 pwMsg && e('div', { style: { padding: '9px 12px', borderRadius: 8, fontSize: 13, fontWeight: 600, marginBottom: 12, background: pwMsg.type === 'err' ? '#fef2f2' : '#f0fdf4', color: pwMsg.type === 'err' ? '#dc2626' : '#16a34a' } }, pwMsg.text),
-                e('button', { onClick: changePw, style: { ...S.btnPrimary, width: '100%', padding: '10px', fontSize: 13 } }, 'Update Password')
+                e('button', { onClick: changePw, style: { ...S.btnPrimary, width: '100%', padding: '10px', fontSize: 13 } }, '更新密碼')
               )
         )
       )
@@ -1311,7 +1352,7 @@
     const hasToken = !!(github.repo && github.branch && github.siteUrl);
 
     return e('div', null,
-      e('h1', { style: S.heading }, 'Settings'),
+      e('h1', { style: S.heading }, '設定'),
 
       // ── Cross-origin config sync (Export / Import) ──
       e('div', { style: S.card },
@@ -1343,7 +1384,7 @@
             ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ 已設定完成')
             : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ 尚未設定')
         ),
-        e('p', { style: { margin: '0 0 18px', fontSize: 13, color: '#64748b' } }, '完全免費，無 credit 限制。設定後點擊「📦 發布」，CMS 資料會自動 commit 到 GitHub，Cloudflare Pages 立即自動部署。'),
+        e('p', { style: { margin: '0 0 18px', fontSize: 13, color: '#64748b' } }, '完全免費，無額度限制。設定後點擊「📦 發布」，CMS 資料會自動提交到 GitHub，Cloudflare Pages 立即自動部署。'),
         e(Field, { label: 'GitHub Personal Access Token' },
           e('div', { style: { display: 'flex', gap: 8 } },
             e('input', {
@@ -1353,27 +1394,27 @@
               placeholder: 'Managed in Cloudflare: GITHUB_TOKEN',
               style: { ...S.input, flex: 1, fontFamily: 'monospace', fontSize: 13 }
             }),
-            e('button', { disabled: true, style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13, opacity: 0.65, cursor: 'default' } }, 'Cloud')
+            e('button', { disabled: true, style: { ...S.btnGhost, padding: '0 12px', flexShrink: 0, fontSize: 13, opacity: 0.65, cursor: 'default' } }, '雲端')
           )
         ),
-        e(Field, { label: 'GitHub Repository（格式：owner/repo）' },
+        e(Field, { label: 'GitHub Repository（儲存庫，格式：owner/repo）' },
           e(Input, { value: github.repo || '', readOnly: true, placeholder: GITHUB_DEFAULTS.repo })
         ),
-        e(Field, { label: 'Branch（預設 main）' },
+        e(Field, { label: 'Branch（分支，預設 main）' },
           e(Input, { value: github.branch || '', readOnly: true, placeholder: GITHUB_DEFAULTS.branch })
         ),
-        e(Field, { label: 'Cloudflare Pages 網址（選填，用於發布後跳轉）' },
+        e(Field, { label: 'Cloudflare Pages 網址（發布後跳轉用）' },
           e(Input, { value: github.siteUrl || '', readOnly: true, placeholder: GITHUB_DEFAULTS.siteUrl })
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center', marginTop: 14 } },
           e('button', { disabled: true, style: { ...S.btnGhost, opacity: 0.65, cursor: 'default' } }, '雲端自動載入'),
-          githubSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
+          githubSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, '已儲存 ✓')
         )
       ),
       e('div', { style: S.card },
         e('h3', { style: { margin: '0 0 14px', fontSize: 15, fontWeight: 700 } }, '📖 設定步驟說明'),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 1 — 建立 GitHub Repository'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, '步驟 1 — 建立 GitHub Repository'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
             e('li', null, '登入 ', e('a', { href: 'https://github.com', target: '_blank', style: { color: BRAND } }, 'github.com'), ' → 右上角 + → New repository'),
             e('li', null, '設為 ', e('strong', null, 'Public'),'，名稱例如 ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, 'armor-bike-website')),
@@ -1381,20 +1422,20 @@
           )
         ),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 2 — 取得 GitHub Token'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, '步驟 2 — 取得 GitHub Token'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
-            e('li', null, 'GitHub 右上角頭像 → Settings → Developer settings → Personal access tokens → Tokens (classic)'),
-            e('li', null, '點擊 ', e('strong', null, 'Generate new token (classic)'), ' → 輸入名稱'),
+            e('li', null, 'GitHub 右上角頭像 → Settings（設定）→ Developer settings（開發者設定）→ Personal access tokens（個人存取權杖）→ Tokens (classic)' ),
+            e('li', null, '點擊 ', e('strong', null, 'Generate new token (classic)（產生新權杖）'), ' → 輸入名稱'),
             e('li', null, '勾選 ', e('strong', null, 'repo'), ' scope → 點擊 Generate token → 複製並貼入上方')
           )
         ),
         e('div', { style: { marginBottom: 18 } },
-          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, 'Step 3 — 建立 Cloudflare Pages'),
+          e('p', { style: { margin: '0 0 8px', fontWeight: 700, fontSize: 14, color: '#374151' } }, '步驟 3 — 建立 Cloudflare Pages'),
           e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.2, fontSize: 13 } },
-            e('li', null, '登入 ', e('a', { href: 'https://dash.cloudflare.com', target: '_blank', style: { color: BRAND } }, 'dash.cloudflare.com'), ' → Workers & Pages → Create application → Pages'),
-            e('li', null, '選 ', e('strong', null, 'Connect to Git'), ' → 授權 GitHub → 選擇你的 repo'),
-            e('li', null, 'Framework preset 選 ', e('strong', null, 'None'), '，Build command 留空，Build output 填 ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, '/')),
-            e('li', null, '點擊 Deploy → 完成後複製 .pages.dev 網址填入上方「Cloudflare Pages 網址」欄位')
+            e('li', null, '登入 ', e('a', { href: 'https://dash.cloudflare.com', target: '_blank', style: { color: BRAND } }, 'dash.cloudflare.com'), ' → Workers & Pages（Workers 與 Pages）→ Create application（建立應用程式）→ Pages'),
+            e('li', null, '選 ', e('strong', null, 'Connect to Git（連接 Git）'), ' → 授權 GitHub → 選擇你的 repo'),
+            e('li', null, 'Framework preset（框架預設）選 ', e('strong', null, 'None（無）'), '，Build command（建置命令）留空，Build output（輸出目錄）填 ', e('code', { style: { background: '#f1f5f9', padding: '1px 5px', borderRadius: 3 } }, '/')),
+            e('li', null, '點擊 Deploy（部署）→ 完成後複製 .pages.dev 網址填入上方「Cloudflare Pages 網址」欄位')
           )
         ),
         e('div', { style: { borderTop: '1px solid #e2e8f0', paddingTop: 16 } },
@@ -1413,30 +1454,30 @@
         ),
         e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，CMS 只儲存 URL 字串。無 localStorage 容量問題，支援 50 萬+ 筆產品。'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 } },
-          e(Field, { label: 'Cloud Name' },
+          e(Field, { label: 'Cloud Name（雲端名稱）' },
             e(Input, { value: cfg.cloudName || '', readOnly: true, placeholder: CLOUDINARY_DEFAULTS.cloudName })
           ),
-          e(Field, { label: 'Upload Preset（必須為 Unsigned）' },
+          e(Field, { label: 'Upload Preset（上傳預設，必須為 Unsigned）' },
             e(Input, { value: cfg.uploadPreset || '', readOnly: true, placeholder: CLOUDINARY_DEFAULTS.uploadPreset })
           )
         ),
         isOk && e('div', { style: { background: '#f0fdf4', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#16a34a', fontWeight: 600, marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 } },
-          '✓ Cloudinary Cloud: ', e('code', { style: { background: '#dcfce7', padding: '1px 6px', borderRadius: 4 } }, cfg.cloudName)
+          '✓ Cloudinary 雲端：', e('code', { style: { background: '#dcfce7', padding: '1px 6px', borderRadius: 4 } }, cfg.cloudName)
         ),
         e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
           e('button', { disabled: true, style: { ...S.btnGhost, opacity: 0.65, cursor: 'default' } }, '雲端自動載入'),
-          cldSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, 'Saved ✓')
+          cldSaved && e('span', { style: { fontSize: 13, color: '#16a34a', fontWeight: 700 } }, '已儲存 ✓')
         )
       ),
       e('div', { style: S.card },
         e('h3', { style: { margin: '0 0 16px', fontSize: 16, fontWeight: 700 } }, '📖 Cloudinary 設定教學'),
         e('ol', { style: { margin: 0, paddingLeft: 22, color: '#374151', lineHeight: 2.4, fontSize: 14 } },
           e('li', null, '前往 ', e('a', { href: 'https://cloudinary.com/users/register/free', target: '_blank', style: { color: BRAND, fontWeight: 700 } }, 'cloudinary.com'), ' 建立免費帳號（', e('strong', null, '25 GB 儲存、25 GB 頻寬/月'), '，完全免費）'),
-          e('li', null, '登入後在儀表板左上角複製你的 ', e('strong', null, 'Cloud Name')),
-          e('li', null, '前往 ', e('strong', null, 'Settings → Upload → Upload presets'), ' → 點擊 Add upload preset'),
-          e('li', null, '將 ', e('strong', null, 'Signing Mode'), ' 設為 ', e('code', { style: { background: '#f1f5f9', padding: '2px 7px', borderRadius: 4, fontWeight: 700, fontSize: 13 } }, 'Unsigned'), ' 然後儲存'),
-          e('li', null, '將 Cloud Name 與 Preset Name 填入上方欄位後點擊「儲存設定」'),
-          e('li', null, '完成！Products 和 Image Library 頁面的上傳按鈕將直接把圖片傳至 Cloudinary')
+          e('li', null, '登入後在儀表板左上角複製你的 ', e('strong', null, 'Cloud Name（雲端名稱）')),
+          e('li', null, '前往 ', e('strong', null, 'Settings（設定）→ Upload（上傳）→ Upload presets（上傳預設）'), ' → 點擊 Add upload preset（新增上傳預設）'),
+          e('li', null, '將 ', e('strong', null, 'Signing Mode（簽署模式）'), ' 設為 ', e('code', { style: { background: '#f1f5f9', padding: '2px 7px', borderRadius: 4, fontWeight: 700, fontSize: 13 } }, 'Unsigned'), ' 然後儲存'),
+          e('li', null, 'Cloud Name 與 Preset Name 會由雲端設定自動載入。'),
+          e('li', null, '完成！產品管理與圖片庫頁面的上傳按鈕會直接把圖片傳至 Cloudinary。')
         )
       )
     );
@@ -1459,12 +1500,12 @@
 
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
-        e('h1', { style: S.heading }, 'Hero Carousel'),
+        e('h1', { style: S.heading }, '首頁輪播'),
         e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ 新增圖片')
       ),
 
       e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 10, padding: '12px 16px', marginBottom: 22, fontSize: 13, color: '#0369a1', lineHeight: 1.7 } },
-        '圖片依序 1 → 2 → 3 → 4 自動輪播（每 5 秒切換）。請先至「Image Library」上傳圖片，再點「+ 新增圖片」選入輪播。'
+        '圖片依序 1 → 2 → 3 → 4 自動輪播（每 5 秒切換）。請先至「圖片庫」上傳圖片，再點「+ 新增圖片」選入輪播。'
       ),
 
       e('div', { style: S.card },
@@ -1472,7 +1513,7 @@
           ? e('div', { style: { textAlign: 'center', padding: '64px 0', color: '#94a3b8' } },
               e('div', { style: { fontSize: 52, marginBottom: 14 } }, '▶'),
               e('div', { style: { fontWeight: 700, fontSize: 16, color: '#374151', marginBottom: 6 } }, '尚未設定 Hero 輪播圖片'),
-              e('div', { style: { fontSize: 13, marginBottom: 22 } }, '點擊下方按鈕，從 Image Library 選取圖片加入輪播'),
+              e('div', { style: { fontSize: 13, marginBottom: 22 } }, '點擊下方按鈕，從圖片庫選取圖片加入輪播'),
               e('button', { onClick: () => setShowPicker(true), style: S.btnPrimary }, '+ 從 Library 選取圖片')
             )
           : e('div', { style: { display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'flex-start' } },
@@ -1494,15 +1535,15 @@
               ),
               e('button', { onClick: () => setShowPicker(true), style: { width: 220, minHeight: 186, border: '2px dashed #cbd5e1', borderRadius: 10, background: '#f8fafc', color: '#94a3b8', fontSize: 13, fontWeight: 700, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 16 } },
                 e('span', { style: { fontSize: 32, lineHeight: 1 } }, '+'),
-                '從 Library 新增'
+                '從圖片庫新增'
               )
             )
       ),
 
-      showPicker && e(Modal, { title: '選擇 Hero 圖片', onClose: () => setShowPicker(false), width: 720 },
+      showPicker && e(Modal, { title: '選擇首頁輪播圖片', onClose: () => setShowPicker(false), width: 720 },
         library.length === 0
           ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } },
-              '圖片庫為空。請先至「Image Library」上傳圖片後再返回此處。'
+              '圖片庫為空。請先至「圖片庫」上傳圖片後再返回此處。'
             )
           : e(React.Fragment, null,
               e('p', { style: { margin: '0 0 14px', fontSize: 13, color: '#64748b' } }, '點擊圖片即可加入輪播。已加入的圖片標示綠色，點擊不重複加入。'),
@@ -1512,12 +1553,12 @@
                   return e('div', {
                     key: img.id,
                     onClick: () => { if (!already) { addSlide(img); } },
-                    style: { cursor: already ? 'default' : 'pointer', borderRadius: 8, overflow: 'hidden', border: `2px solid ${already ? '#86efac' : '#e2e8f0'}`, opacity: already ? 0.65 : 1, transition: 'border-color .12s', background: '#f8fafc', position: 'relative' }
+                    style: { cursor: already ? 'default' : 'pointer', borderRadius: 8, overflow: 'hidden', border: `2px solid ${already ? '#86efac' : '#e2e8f0'}`, opacity: already ? 0.65 : 1, transition: 'border-color .12s, opacity .12s', background: '#f8fafc', position: 'relative' }
                   },
                     e('div', { style: { height: 90, overflow: 'hidden', background: '#e2e8f0' } },
                       e('img', { src: img.url, alt: img.alt || '', style: { width: '100%', height: '100%', objectFit: 'cover' }, onError: ev => { ev.target.style.display = 'none'; } })
                     ),
-                    e('div', { style: { padding: '6px 8px', fontSize: 11, color: '#374151', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, img.alt || '(no alt)'),
+                    e('div', { style: { padding: '6px 8px', fontSize: 11, color: '#374151', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, img.alt || '（無說明）'),
                     already && e('div', { style: { position: 'absolute', top: 6, right: 6, background: '#16a34a', color: '#fff', fontSize: 10, fontWeight: 800, padding: '2px 7px', borderRadius: 10 } }, '✓ 已加入')
                   );
                 })
@@ -1564,7 +1605,7 @@
 
     const openAdd = () => setModal({ mode: 'add', form: { title: '', kind: 'list', optText: '', min: '0', max: '5000' } });
     const openEdit = (fi) => { const f = cat.facets[fi]; setModal({ mode: 'edit', fi, form: { title: f.title || '', kind: f.kind, optText: facetToText(f), min: String(f.min || 0), max: String(f.max || 5000) } }); };
-    const del = (fi) => { if (confirm('Remove this filter?')) updateCat({ ...cat, facets: cat.facets.filter((_, i) => i !== fi) }); };
+    const del = (fi) => { if (confirm('確定移除此篩選器嗎？')) updateCat({ ...cat, facets: cat.facets.filter((_, i) => i !== fi) }); };
     const move = (fi, dir) => { const arr = [...cat.facets]; [arr[fi], arr[fi + dir]] = [arr[fi + dir], arr[fi]]; updateCat({ ...cat, facets: arr }); };
 
     const saveModal = () => {
@@ -1577,21 +1618,21 @@
     };
 
     const setF = (key, val) => setModal(m => ({ ...m, form: { ...m.form, [key]: val } }));
-    const KIND_LABELS = { list: 'List (checkboxes)', toggles: 'Toggles (tag pills)', range: 'Price Range (slider)', color: 'Color swatches' };
+    const KIND_LABELS = { list: '清單（核取方塊）', toggles: '切換標籤', range: '價格範圍（滑桿）', color: '色票' };
 
     return e('div', null,
       e('div', { style: { display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 } },
-        e('h1', { style: { ...S.heading, margin: 0 } }, 'Filters & Facets'),
+        e('h1', { style: { ...S.heading, margin: 0 } }, '左側篩選器'),
         e('select', { value: catId, onChange: ev => setCatId(ev.target.value), style: { ...S.input, width: 200 } },
           data.categories.map(c => e('option', { key: c.id, value: c.id }, c.label))
         ),
-        e('button', { onClick: openAdd, style: S.btnPrimary }, '+ Add Filter')
+        e('button', { onClick: openAdd, style: S.btnPrimary }, '+ 新增篩選器')
       ),
 
-      modal && e(Modal, { title: modal.mode === 'add' ? 'Add Filter' : 'Edit Filter', onClose: () => setModal(null) },
+      modal && e(Modal, { title: modal.mode === 'add' ? '新增篩選器' : '編輯篩選器', onClose: () => setModal(null) },
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 } },
-          e(Field, { label: 'Filter Title' }, e(Input, { value: modal.form.title, onChange: ev => setF('title', ev.target.value), placeholder: 'e.g. Frame Size', autoFocus: true })),
-          e(Field, { label: 'Type' },
+          e(Field, { label: '篩選器標題' }, e(Input, { value: modal.form.title, onChange: ev => setF('title', ev.target.value), placeholder: '例如：車架尺寸', autoFocus: true })),
+          e(Field, { label: '類型' },
             e(Select, { value: modal.form.kind, onChange: ev => setF('kind', ev.target.value) },
               Object.entries(KIND_LABELS).map(([v, l]) => e('option', { key: v, value: v }, l))
             )
@@ -1599,25 +1640,25 @@
         ),
         modal.form.kind === 'range'
           ? e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 } },
-              e(Field, { label: 'Min (€)' }, e(Input, { type: 'number', value: modal.form.min, onChange: ev => setF('min', ev.target.value) })),
-              e(Field, { label: 'Max (€)' }, e(Input, { type: 'number', value: modal.form.max, onChange: ev => setF('max', ev.target.value) }))
+              e(Field, { label: '最低值（€）' }, e(Input, { type: 'number', value: modal.form.min, onChange: ev => setF('min', ev.target.value) })),
+              e(Field, { label: '最高值（€）' }, e(Input, { type: 'number', value: modal.form.max, onChange: ev => setF('max', ev.target.value) }))
             )
-          : e(Field, { label: modal.form.kind === 'color' ? 'Options — one per line:  #hex: count' : 'Options — one per line:  Label: count  (prefix SALE for red highlight)' },
-              e('textarea', { value: modal.form.optText, onChange: ev => setF('optText', ev.target.value), rows: 10, style: { ...S.input, resize: 'vertical', fontFamily: 'monospace', fontSize: 13 }, placeholder: modal.form.kind === 'color' ? '#e63946: 12\n#2a9d8f: 8\n#264653: 5' : 'XS: 8\nS: 15\nM: 24\nL: 18\nXL: 10\nSALE Clearance: 3' })
+          : e(Field, { label: modal.form.kind === 'color' ? '選項 — 每行一筆：#色碼: 數量' : '選項 — 每行一筆：標籤: 數量（前綴 SALE 會以紅色強調）' },
+              e('textarea', { value: modal.form.optText, onChange: ev => setF('optText', ev.target.value), rows: 10, style: { ...S.input, resize: 'vertical', fontFamily: 'monospace', fontSize: 13 }, placeholder: modal.form.kind === 'color' ? '#e63946: 12\n#2a9d8f: 8\n#264653: 5' : 'XS: 8\nS: 15\nM: 24\nL: 18\nXL: 10\nSALE 出清: 3' })
             ),
         e('div', { style: { display: 'flex', gap: 10, marginTop: 20 } },
-          e('button', { onClick: saveModal, style: S.btnPrimary }, modal.mode === 'add' ? 'Add Filter' : 'Save Changes'),
-          e('button', { onClick: () => setModal(null), style: S.btnGhost }, 'Cancel')
+          e('button', { onClick: saveModal, style: S.btnPrimary }, modal.mode === 'add' ? '新增篩選器' : '儲存變更'),
+          e('button', { onClick: () => setModal(null), style: S.btnGhost }, '取消')
         )
       ),
 
       e('div', { style: S.card },
         (cat.facets || []).length === 0
           ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } },
-              'No filters yet for ', e('strong', null, cat.label), '. Click "+ Add Filter" above to create the left-side sidebar filters.'
+              '此分類尚無篩選器：', e('strong', null, cat.label), '。請點擊上方「+ 新增篩選器」建立前台左側篩選項目。'
             )
           : e('table', { style: { width: '100%', borderCollapse: 'collapse' } },
-              e('thead', null, e('tr', null, ['Order', 'Title', 'Type', 'Options preview', 'Actions'].map(h => e('th', { key: h, style: S.th }, h)))),
+              e('thead', null, e('tr', null, ['排序', '標題', '類型', '選項預覽', '操作'].map(h => e('th', { key: h, style: S.th }, h)))),
               e('tbody', null,
                 (cat.facets || []).map((f, i) =>
                   e('tr', { key: i, style: { background: i % 2 ? '#f8fafc' : '#fff' } },
@@ -1626,12 +1667,12 @@
                       e('button', { onClick: () => move(i, 1), disabled: i === (cat.facets || []).length - 1, style: S.btnSm }, '↓')
                     )),
                     e('td', { style: { ...S.td, fontWeight: 700 } }, f.title || '—'),
-                    e('td', { style: S.td }, e('span', { style: { background: '#f1f5f9', padding: '2px 9px', borderRadius: 20, fontSize: 11, fontWeight: 700, color: '#475569' } }, f.kind)),
+                    e('td', { style: S.td }, e('span', { style: { background: '#f1f5f9', padding: '2px 9px', borderRadius: 20, fontSize: 11, fontWeight: 700, color: '#475569' } }, KIND_LABELS[f.kind] || f.kind)),
                     e('td', { style: { ...S.td, color: '#64748b', fontSize: 13 } },
                       f.kind === 'range' ? `€${f.min} — €${f.max}` : (f.options || []).slice(0, 5).map(o => o.label || o.color).join(', ') + ((f.options || []).length > 5 ? ' …' : '')
                     ),
                     e('td', { style: S.td },
-                      e('button', { onClick: () => openEdit(i), style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), 'Edit'), ' ',
+                      e('button', { onClick: () => openEdit(i), style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'), ' ',
                       e('button', { onClick: () => del(i), style: S.btnDanger }, '🗑')
                     )
                   )
@@ -1737,7 +1778,7 @@
           });
           if (!res.ok) {
             const t = await res.text();
-            throw new Error(t || ('Cloud publish failed (' + res.status + ')'));
+            throw new Error(t || ('雲端發布失敗 (' + res.status + ')'));
           }
           const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : GITHUB_DEFAULTS.siteUrl;
           setDeployUrl(normalizedUrl.replace(/\/$/, ''));
@@ -1748,7 +1789,7 @@
         // 1. Verify token & repo
         step('正在驗證 GitHub Token…');
         const testRes = await fetch(`https://api.github.com/repos/${repo}`, { headers: h });
-        if (testRes.status === 401) throw new Error('GitHub Token 無效，請至 Settings 重新設定。');
+        if (testRes.status === 401) throw new Error('GitHub Token 無效，請至「設定」重新確認。');
         if (testRes.status === 404) throw new Error(`找不到 Repository：${repo}，請確認名稱格式為 owner/repo。`);
         if (!testRes.ok) throw new Error(`無法連接 GitHub (${testRes.status})`);
 
@@ -1836,7 +1877,7 @@
         e('p', { style: { margin: '8px 0 0', fontSize: 13, color: '#78350f' } }, '請在 Cloudflare Pages 環境變數設定 GITHUB_TOKEN（或 GH_TOKEN / GITHUB_PAT）。設定完成後，所有帳號都會自動使用雲端設定。')
       ),
       e('div', { style: { display: 'flex', gap: 10 } },
-        e('button', { onClick: goToSettings, style: S.btnPrimary }, '查看 Settings'),
+        e('button', { onClick: goToSettings, style: S.btnPrimary }, '查看設定'),
         e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 手動下載 JS'),
         e('button', { onClick: onClose, style: S.btnGhost }, '取消')
       )
@@ -1846,7 +1887,7 @@
       phase === 'idle' && e('div', null,
         e('p', { style: { margin: '0 0 16px', fontSize: 14, color: '#374151' } }, '確認要將目前的 CMS 資料發布到線上網站嗎？'),
         e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#0369a1', marginBottom: 20 } },
-          '會將 store-data.js、store-app.jsx、admin-app.jsx commit 到 GitHub，Cloudflare Pages 約 30 秒後自動部署完成。'
+          '會將 store-data.js、store-app.jsx、admin-app.jsx 提交到 GitHub，Cloudflare Pages 約 30 秒後自動部署完成。'
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
           e('button', { onClick: publish, style: S.btnPrimary }, '🚀 確認發布'),
@@ -1894,7 +1935,7 @@
 
     useEffect(() => { loadCloudConfig(); clearLegacyCMS(); }, []);
 
-    const setData = (d) => { setDataRaw(d); setSaved('Ready to publish ✓'); setTimeout(() => setSaved(''), 2000); };
+    const setData = (d) => { setDataRaw(d); setSaved('可發布 ✓'); setTimeout(() => setSaved(''), 2000); };
     const onLogout = () => { saveAuth(null); setUser(null); setShowProfile(false); };
     const onUpdateUser = (u) => setUser(u);
 
@@ -1909,7 +1950,7 @@
       products: e(ProductsManager, { data, setData, user }),
       badges: e(BadgesManager, { data, setData }),
       images: e(ImageLibrary, { data, setData }),
-      users: user.role === 'admin' ? e(UsersManager) : e('div', null, e('p', null, 'Access denied')),
+      users: user.role === 'admin' ? e(UsersManager) : e('div', null, e('p', null, '沒有權限')),
       settings: e(SettingsManager, { data }),
     };
 
@@ -1918,16 +1959,16 @@
       e('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' } },
         // topbar
         e('div', { style: { background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 50 } },
-          e('span', { style: { fontSize: 13, color: '#94a3b8' } }, 'ARMOR BIKE  ·  CMS Admin Panel'),
+          e('span', { style: { fontSize: 13, color: '#94a3b8' } }, 'ARMOR BIKE  ·  後台管理系統'),
           e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
             saved ? e('span', { style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
             e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px' } }, '📦 發布'),
-            e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none' } }, '👁 Preview Store'),
+            e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none' } }, '👁 預覽前台'),
             // ── user avatar button ──
             e('button', {
               onClick: () => setShowProfile(v => !v),
               title: user.name || user.username,
-              style: { display: 'flex', alignItems: 'center', gap: 8, background: showProfile ? '#f1f5f9' : 'none', border: '1px solid ' + (showProfile ? '#e2e8f0' : 'transparent'), borderRadius: 30, padding: '4px 10px 4px 4px', cursor: 'pointer', transition: 'all .12s' }
+              style: { display: 'flex', alignItems: 'center', gap: 8, background: showProfile ? '#f1f5f9' : 'none', border: '1px solid ' + (showProfile ? '#e2e8f0' : 'transparent'), borderRadius: 30, padding: '4px 10px 4px 4px', cursor: 'pointer', transition: 'background-color .12s, border-color .12s, color .12s, transform .12s, opacity .12s' }
             },
               e(UserAvatar, { user, size: 30, fontSize: 12 }),
               e('span', { style: { fontSize: 13, fontWeight: 600, color: '#374151', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
