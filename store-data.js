@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 09:46 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 10:37 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1706,6 +1706,29 @@
         "createdAt": "2026-06-23T04:22:45.110Z",
         "updatedAt": "2026-06-23T09:43:56.546Z",
         "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3101",
+        "spec": "",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782210998/pej5kranb3qcwbitrs3b.jpg",
+            "alt": "pro-N351EP1"
+          }
+        ],
+        "productId": "prd_mqqif5cy_77w9os",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-23T10:36:51.298Z",
+        "updatedAt": "2026-06-23T10:36:51.298Z",
+        "updatedBy": "alicia"
       }
     ]
   },
