@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 09:21 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 09:39 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1676,7 +1676,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "CO25-81450",
-        "spec": "KIDS CABLE LOCK  DIA 10MMX650MM W/2 SPARE KEY",
+        "spec": "KIDS CABLE LOCK  \nDIA 10MMX650MM \nW/2 SPARE KEY",
         "badge": "",
         "note": "",
         "leaf": "Cable Lock",
@@ -1699,12 +1699,12 @@
           }
         ],
         "productId": "prd_mqq521rq_ldybpd",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq521rq_ldybpd",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-23T04:22:45.110Z",
-        "updatedAt": "2026-06-23T04:22:45.110Z",
+        "updatedAt": "2026-06-23T09:39:01.323Z",
         "updatedBy": "rita"
       }
     ]
