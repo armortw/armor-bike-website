@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 04:10 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 04:22 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1446,6 +1446,40 @@
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:31:35.892Z",
         "updatedAt": "2026-06-22T11:32:35.925Z",
+        "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81450",
+        "spec": "KIDS CABLE LOCK  DIA 10MMX650MM W/2 SPARE KEY",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/fayoupyd7az50xfdta9l.jpg",
+            "alt": "音符"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/woujqpixrqlqvfoh0ort.jpg",
+            "alt": "火箭"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/qlqin6m2owfw0a6beezn.jpg",
+            "alt": "草莓"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/ctyztf4gcggfo07icb28.jpg",
+            "alt": "飛機"
+          }
+        ],
+        "productId": "prd_mqq521rq_ldybpd",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-23T04:22:45.110Z",
+        "updatedAt": "2026-06-23T04:22:45.110Z",
         "updatedBy": "rita"
       }
     ]
