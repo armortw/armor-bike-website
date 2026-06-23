@@ -40,24 +40,6 @@
 /uploads/reference-promo-bestsellers.png
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
-/uploads/reference-cat-bikes.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/uploads/reference-cat-parts.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/uploads/reference-cat-accessories.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/uploads/reference-cat-electronics.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/uploads/reference-cat-more-sports.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
-/uploads/reference-cat-sale.png
-  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
-
 /cms-users.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 

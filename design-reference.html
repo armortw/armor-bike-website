@@ -87,10 +87,10 @@
     height: 76px;
     color: #ffffff;
     background:
-      linear-gradient(110deg, rgba(0, 0, 0, 0.86), rgba(5, 18, 29, 0.96) 48%, rgba(4, 16, 26, 0.9)),
-      radial-gradient(circle at 15% 0%, rgba(0, 184, 255, 0.22), transparent 34%);
-    border-bottom: 1px solid rgba(0, 184, 255, 0.55);
-    box-shadow: 0 8px 24px rgba(0, 8, 18, 0.22);
+      linear-gradient(135deg, #009ce0 0%, #008fd0 44%, #0079bb 100%),
+      radial-gradient(circle at 15% 0%, rgba(255, 255, 255, 0.18), transparent 34%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+    box-shadow: 0 10px 28px rgba(0, 93, 143, 0.28);
     backdrop-filter: blur(16px);
   }
 
@@ -114,7 +114,7 @@
     position: relative;
     width: 68px;
     height: 68px;
-    filter: drop-shadow(0 8px 18px rgba(0, 184, 255, 0.28));
+    filter: drop-shadow(0 8px 18px rgba(0, 55, 90, 0.18));
   }
 
   .brand-mark::before,
@@ -126,14 +126,14 @@
   }
 
   .brand-mark::before {
-    background: linear-gradient(180deg, #1ed2ff, #009ce0 56%, #00b8ff);
+    background: linear-gradient(180deg, #ffffff, #e8f8ff);
   }
 
   .brand-mark::after {
     inset: 17px 22px 24px;
     background:
-      linear-gradient(180deg, transparent 0 39%, #07131d 39% 55%, transparent 55%),
-      linear-gradient(90deg, transparent 0 18%, #07131d 18% 82%, transparent 82%);
+      linear-gradient(180deg, transparent 0 39%, #009ce0 39% 55%, transparent 55%),
+      linear-gradient(90deg, transparent 0 18%, #009ce0 18% 82%, transparent 82%);
     clip-path: polygon(50% 0, 92% 13%, 82% 74%, 50% 100%, 18% 74%, 8% 13%);
   }
 
@@ -184,8 +184,8 @@
     width: 98px;
     height: 6px;
     border-radius: 99px;
-    background: linear-gradient(90deg, #009ce0, #17c6ff);
-    box-shadow: 0 0 22px rgba(0, 184, 255, 0.62);
+    background: linear-gradient(90deg, #ffffff, #bcefff);
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.46);
     transform: translateX(-50%) scaleX(0);
   }
 
@@ -196,7 +196,7 @@
     bottom: -4px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--brand);
+    border-bottom: 8px solid #ffffff;
     transform: translateX(-50%) translateY(9px);
     opacity: 0;
   }
@@ -240,7 +240,7 @@
 
   .icon-button:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.16);
   }
 
   .icon-button svg {
@@ -260,8 +260,8 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: var(--brand-strong);
-    color: #fff;
+    background: #ffffff;
+    color: var(--brand);
     font-size: 12px;
     font-weight: 900;
   }
@@ -445,29 +445,20 @@
 
   .category-card {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     display: block;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: inherit;
     background: #07131d;
     background-image: url("uploads/reference-dark-strip.png");
-    background-size: var(--bg-size) 100%;
-    background-position: var(--bg-position) center;
+    background-size: 100% 100%;
+    background-position: center;
     background-repeat: no-repeat;
     clip-path: var(--clip);
     opacity: 0;
     box-shadow: none;
     isolation: isolate;
     will-change: transform, opacity, filter;
-  }
-
-  .category-card:first-child {
-    border-radius: 8px;
-  }
-
-  .category-card:last-child {
-    border-radius: 8px;
   }
 
   .category-card:hover,

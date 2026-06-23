@@ -168,23 +168,13 @@
 
   function CategoryStrip() {
     const cards = [
-      { label: "Bikes", left: 0, width: 19.3, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%)" },
-      { label: "Parts", left: 17.1, width: 20.2, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
-      { label: "Accessories", left: 35.3, width: 20.1, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
-      { label: "Electronics", left: 53.6, width: 18.2, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
-      { label: "More Sports", left: 68.8, width: 18.3, clip: "polygon(0 0, calc(100% - 30px) 0, 100% 100%, 30px 100%)" },
-      { label: "Sale", left: 84.4, width: 15.6, clip: "polygon(0 0, 100% 0, calc(100% - 24px) 100%, 30px 100%)" }
+      { label: "Bikes", clip: "polygon(0% 0%, 21.476% 0%, 16.489% 100%, 0% 100%)" },
+      { label: "Parts", clip: "polygon(21.476% 0%, 37.766% 0%, 32.979% 100%, 16.489% 100%)" },
+      { label: "Accessories", clip: "polygon(37.766% 0%, 53.657% 0%, 48.803% 100%, 32.979% 100%)" },
+      { label: "Electronics", clip: "polygon(53.657% 0%, 67.886% 0%, 63.098% 100%, 48.803% 100%)" },
+      { label: "More Sports", clip: "polygon(67.886% 0%, 85.638% 0%, 80.452% 100%, 63.098% 100%)" },
+      { label: "Sale", clip: "polygon(85.638% 0%, 100% 0%, 94.814% 100%, 80.452% 100%)" }
     ];
-    const cardStyle = (card) => {
-      const bgPosition = card.left === 0 ? 0 : (card.left / (100 - card.width)) * 100;
-      return {
-        left: `${card.left}%`,
-        width: `${card.width}%`,
-        "--bg-size": `${10000 / card.width}%`,
-        "--bg-position": `${bgPosition}%`,
-        "--clip": card.clip
-      };
-    };
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
         <div className="category-strip">
@@ -194,7 +184,7 @@
               className="category-card"
               href="#products"
               key={card.label}
-              style={cardStyle(card)}
+              style={{ "--clip": card.clip }}
               aria-label={card.label}
             ></a>
           ))}
