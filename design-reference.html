@@ -510,6 +510,10 @@
     will-change: transform, opacity, filter;
   }
 
+  .category-card.is-active {
+    opacity: 0;
+  }
+
   .category-card img {
     width: 100%;
     height: 100%;
@@ -521,11 +525,34 @@
 
   .category-card:hover,
   .category-card:focus-visible {
-    z-index: 20;
+    z-index: var(--z);
+  }
+
+  .category-popout {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: var(--w);
+    height: 100%;
+    z-index: 30;
+    display: block;
+    pointer-events: none;
     transform: translateY(-34px);
+    clip-path: var(--shape);
+    overflow: hidden;
+    background: #07131d;
     filter:
       drop-shadow(0 24px 24px rgba(0, 35, 66, 0.18))
       drop-shadow(0 8px 14px rgba(0, 156, 224, 0.1));
+  }
+
+  .category-popout img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
   }
 
   .services {

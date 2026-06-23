@@ -167,6 +167,7 @@
   }
 
   function CategoryStrip() {
+    const [activeCard, setActiveCard] = React.useState(null);
     const cards = [
       { label: "Bikes", image: "uploads/reference-card-bikes.png", x: "0%", w: "21.476%", shape: "polygon(0% 0%, 100% 0%, 76.78% 100%, 0% 100%)" },
       { label: "Parts", image: "uploads/reference-card-parts.png", x: "16.489%", w: "21.277%", shape: "polygon(23.44% 0%, 100% 0%, 77.5% 100%, 0% 100%)" },
@@ -176,19 +177,31 @@
       { label: "Sale", image: "uploads/reference-card-sale.png", x: "80.452%", w: "19.548%", shape: "polygon(26.53% 0%, 100% 0%, 73.47% 100%, 0% 100%)" }
     ];
     return (
-      <section className="category-shell" aria-label="Featured category shortcuts">
+      <section className="category-shell" aria-label="Featured category shortcuts" onMouseLeave={() => setActiveCard(null)}>
         <div className="category-strip">
           {cards.map((card, index) => (
             <a
-              className="category-card"
+              className={`category-card${activeCard && activeCard.label === card.label ? " is-active" : ""}`}
               href="#products"
               key={card.label}
               style={{ "--x": card.x, "--w": card.w, "--shape": card.shape, "--z": index + 2 }}
               aria-label={card.label}
+              onMouseEnter={() => setActiveCard(card)}
+              onFocus={() => setActiveCard(card)}
+              onBlur={() => setActiveCard(null)}
             >
               <img src={card.image} alt="" aria-hidden="true" />
             </a>
           ))}
+          {activeCard && (
+            <div
+              className="category-popout"
+              style={{ "--x": activeCard.x, "--w": activeCard.w, "--shape": activeCard.shape }}
+              aria-hidden="true"
+            >
+              <img src={activeCard.image} alt="" />
+            </div>
+          )}
         </div>
       </section>
     );
