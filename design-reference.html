@@ -497,28 +497,32 @@
 
   .category-card {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: var(--x);
+    width: var(--w);
+    height: 100%;
     display: block;
-    overflow: hidden;
-    border-radius: inherit;
-    background: #07131d;
-    background-image: url("uploads/reference-dark-strip.png");
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    clip-path: var(--clip);
+    background: transparent;
+    clip-path: var(--shape);
     opacity: 1;
-    z-index: 2;
+    z-index: var(--z);
     box-shadow: none;
-    isolation: isolate;
     will-change: transform, opacity, filter;
+  }
+
+  .category-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
   }
 
   .category-card:hover,
   .category-card:focus-visible {
-    z-index: 6;
+    z-index: 20;
     transform: translateY(-34px);
-    clip-path: var(--clip);
     filter:
       drop-shadow(0 24px 24px rgba(0, 35, 66, 0.18))
       drop-shadow(0 8px 14px rgba(0, 156, 224, 0.1));

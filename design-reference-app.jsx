@@ -168,24 +168,26 @@
 
   function CategoryStrip() {
     const cards = [
-      { label: "Bikes", clip: "polygon(0% 0%, 21.476% 0%, 16.489% 100%, 0% 100%)" },
-      { label: "Parts", clip: "polygon(21.476% 0%, 37.766% 0%, 32.979% 100%, 16.489% 100%)" },
-      { label: "Accessories", clip: "polygon(37.766% 0%, 53.657% 0%, 48.803% 100%, 32.979% 100%)" },
-      { label: "Electronics", clip: "polygon(53.657% 0%, 67.886% 0%, 63.098% 100%, 48.803% 100%)" },
-      { label: "More Sports", clip: "polygon(67.886% 0%, 85.638% 0%, 80.452% 100%, 63.098% 100%)" },
-      { label: "Sale", clip: "polygon(85.638% 0%, 100% 0%, 94.814% 100%, 80.452% 100%)" }
+      { label: "Bikes", image: "uploads/reference-card-bikes.png", x: "0%", w: "21.476%", shape: "polygon(0% 0%, 100% 0%, 76.78% 100%, 0% 100%)" },
+      { label: "Parts", image: "uploads/reference-card-parts.png", x: "16.489%", w: "21.277%", shape: "polygon(23.44% 0%, 100% 0%, 77.5% 100%, 0% 100%)" },
+      { label: "Accessories", image: "uploads/reference-card-accessories.png", x: "32.979%", w: "20.678%", shape: "polygon(23.15% 0%, 100% 0%, 76.53% 100%, 0% 100%)" },
+      { label: "Electronics", image: "uploads/reference-card-electronics.png", x: "48.803%", w: "19.083%", shape: "polygon(25.44% 0%, 100% 0%, 74.91% 100%, 0% 100%)" },
+      { label: "More Sports", image: "uploads/reference-card-more-sports.png", x: "63.098%", w: "22.54%", shape: "polygon(21.24% 0%, 100% 0%, 76.99% 100%, 0% 100%)" },
+      { label: "Sale", image: "uploads/reference-card-sale.png", x: "80.452%", w: "19.548%", shape: "polygon(26.53% 0%, 100% 0%, 73.47% 100%, 0% 100%)" }
     ];
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
         <div className="category-strip">
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <a
               className="category-card"
               href="#products"
               key={card.label}
-              style={{ "--clip": card.clip }}
+              style={{ "--x": card.x, "--w": card.w, "--shape": card.shape, "--z": index + 2 }}
               aria-label={card.label}
-            ></a>
+            >
+              <img src={card.image} alt="" aria-hidden="true" />
+            </a>
           ))}
         </div>
       </section>

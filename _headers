@@ -31,6 +31,24 @@
 /uploads/reference-dark-strip.png
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
+/uploads/reference-card-bikes.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-card-parts.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-card-accessories.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-card-electronics.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-card-more-sports.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/uploads/reference-card-sale.png
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /uploads/reference-promo-ebikes.png
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
