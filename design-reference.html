@@ -974,6 +974,81 @@
     display: block;
   }
 
+  .product-image-control {
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    width: 32px;
+    height: 40px;
+    border: 1px solid rgba(214, 231, 242, 0.86);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.82);
+    color: #0078b8;
+    box-shadow: 0 12px 24px rgba(0, 72, 112, 0.14);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  .product-card:hover .product-image-control,
+  .product-image-control:focus-visible {
+    opacity: 1;
+  }
+
+  .product-image-control:hover {
+    color: #ffffff;
+    background: var(--brand);
+    border-color: rgba(0, 156, 224, 0.7);
+  }
+
+  .product-image-control.prev { left: 10px; }
+  .product-image-control.next { right: 10px; }
+
+  .product-image-control svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    fill: none;
+  }
+
+  .product-image-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    max-width: calc(100% - 88px);
+    padding: 5px 8px;
+    border: 1px solid rgba(214, 231, 242, 0.82);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 22px rgba(0, 72, 112, 0.12);
+    transform: translateX(-50%);
+  }
+
+  .product-image-dot {
+    width: 7px;
+    height: 7px;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    background: #b8c7d8;
+    cursor: pointer;
+  }
+
+  .product-image-dot.active,
+  .product-image-dot:hover,
+  .product-image-dot:focus-visible {
+    background: var(--brand);
+    transform: scale(1.35);
+  }
+
   .badge {
     position: absolute;
     left: 14px;
@@ -1181,6 +1256,7 @@
     }
 
     .mega-feature { grid-column: 1 / -1; }
+    .product-image-control { opacity: 0.96; }
     .mega-column + .mega-column { border-left: 0; padding-left: 0; }
     .hero {
       width: calc(100% - 20px);

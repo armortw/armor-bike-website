@@ -76,6 +76,26 @@
     return text((images[0] && images[0].url) || product?.image, fallback);
   }
 
+  function productImages(product) {
+    const records = [];
+    const seen = new Set();
+    const append = (entry) => {
+      const url = text(entry && entry.url ? entry.url : entry);
+      if (!url || seen.has(url)) return;
+      seen.add(url);
+      records.push({
+        url,
+        alt: text(entry && entry.alt, text(product && product.name, "Product image"))
+      });
+    };
+
+    if (Array.isArray(product && product.images)) {
+      product.images.forEach(append);
+    }
+    append(product && product.image);
+    if (!records.length) append("uploads/reference-promo-ebikes.png");
+    return records;
+  }
   function badgeFor(product, index) {
     const badge = text(product && product.badge);
     if (badge) return badge;
@@ -458,12 +478,60 @@
   function ProductCard({ product, index }) {
     const badge = badgeFor(product, index);
     const badgeClass = badge.toLowerCase().includes("sale") ? "sale" : badge.toLowerCase().includes("hot") ? "hot" : "";
+    const images = productImages(product);
+    const [imageIndex, setImageIndex] = React.useState(0);
+    const activeImage = images[imageIndex] || images[0];
+    const hasMultipleImages = images.length > 1;
+
+    React.useEffect(() => {
+      setImageIndex(0);
+    }, [product && product.productId, product && product.sourceKey, product && product.name]);
+
+    function showImage(nextIndex) {
+      setImageIndex((current) => {
+        const next = typeof nextIndex === "number" ? nextIndex : current;
+        return (next + images.length) % images.length;
+      });
+    }
+
     return (
-      <button className="product-card" type="button">
+      <article className="product-card">
         <div className="product-media">
           {badge && <span className={`badge ${badgeClass}`}>{badge}</span>}
           <span className="heart-button">{icon("heart")}</span>
-          <img src={imageFor(product)} alt={text(product?.images?.[0]?.alt, text(product.name, "Product"))} />
+          <img src={activeImage.url} alt={text(activeImage.alt, text(product.name, "Product"))} />
+          {hasMultipleImages && (
+            <React.Fragment>
+              <button
+                className="product-image-control prev"
+                type="button"
+                aria-label="Previous product image"
+                onClick={() => showImage(imageIndex - 1)}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              </button>
+              <button
+                className="product-image-control next"
+                type="button"
+                aria-label="Next product image"
+                onClick={() => showImage(imageIndex + 1)}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              </button>
+              <div className="product-image-dots" aria-label="Product image selector">
+                {images.map((image, dotIndex) => (
+                  <button
+                    className={`product-image-dot ${dotIndex === imageIndex ? "active" : ""}`}
+                    type="button"
+                    aria-label={`Show product image ${dotIndex + 1}`}
+                    aria-pressed={dotIndex === imageIndex}
+                    key={`${image.url}-${dotIndex}`}
+                    onClick={() => showImage(dotIndex)}
+                  ></button>
+                ))}
+              </div>
+            </React.Fragment>
+          )}
         </div>
         <div className="product-info">
           <div className="product-name">{text(product.name, "ARMOR Product")}</div>
@@ -478,10 +546,9 @@
             <span className="cart-button">{icon("cart")}</span>
           </div>
         </div>
-      </button>
+      </article>
     );
   }
-
   function App() {
     const defaultCategory = React.useMemo(() => initialCategory(), []);
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(defaultCategory.id || defaultCategory.label);
