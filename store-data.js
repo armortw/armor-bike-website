@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 10:37 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 10:42 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1728,6 +1728,29 @@
         "ownerName": "alicia",
         "createdAt": "2026-06-23T10:36:51.298Z",
         "updatedAt": "2026-06-23T10:36:51.298Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3102",
+        "spec": "GRIP 120MM, MATERIAL: RUBBER,\nLOCK RING, MATT BK (ANODIZED),\nCLOSE END, OEM",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782211319/mxckdrpoxxxcnn96saxc.jpg",
+            "alt": "pro-1678"
+          }
+        ],
+        "productId": "prd_mqqilxus_vwamio",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-23T10:42:08.163Z",
+        "updatedAt": "2026-06-23T10:42:08.163Z",
         "updatedBy": "alicia"
       }
     ]
