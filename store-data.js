@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 02:01 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 03:37 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -855,6 +855,32 @@
         "createdAt": "2026-06-23T02:00:20.498Z",
         "updatedAt": "2026-06-23T02:00:20.498Z",
         "updatedBy": "Archie"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK-SD-006",
+        "spec": "Steel rail, w/o clamp  , Size: 260 x 160mm        ",
+        "badge": "",
+        "note": "",
+        "leaf": "Saddles",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782185804/dmynqh3iyl5xbphnqnjz.png",
+            "alt": "Gemini_Generated_Image_s9icums9icums9ic"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782185807/fmjvcbp9kf6sr6q9xhpa.png",
+            "alt": "Gemini_Generated_Image_uul85wuul85wuul8"
+          }
+        ],
+        "productId": "prd_mqq3f8ip_rb1dm4",
+        "sourceKey": "",
+        "ownerId": "1782178182340",
+        "ownerUsername": "ken",
+        "ownerName": "ken",
+        "createdAt": "2026-06-23T03:37:01.153Z",
+        "updatedAt": "2026-06-23T03:37:01.153Z",
+        "updatedBy": "ken"
       }
     ]
   },
