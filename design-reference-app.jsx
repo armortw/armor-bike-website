@@ -139,7 +139,7 @@
   }
 
   function productUrl(product) {
-    return `/Product?id=${encodeURIComponent(productKey(product))}`;
+    return `/Product/?id=${encodeURIComponent(productKey(product))}`;
   }
 
   function goToProduct(product) {
