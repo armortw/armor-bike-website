@@ -163,8 +163,16 @@
       <header className="header" onMouseLeave={() => setOpenId(null)}>
         <div className="header-inner">
           <a className="brand" href="#top" aria-label="ARMOR BIKE home">
-            <span className="brand-mark" aria-hidden="true"></span>
-            <span className="brand-text"><span>ARMOR</span><span>BIKE</span></span>
+            <img
+              className="brand-logo-mark"
+              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187548/tlocousnxawpnq8qjkvo.png"
+              alt="ARMOR BIKE logo mark"
+            />
+            <img
+              className="brand-logo-type"
+              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187520/jwnvywanec2ytbbfrqw0.png"
+              alt="ARMOR BIKE"
+            />
           </a>
           <nav className="main-nav" aria-label="Main navigation">
             {navItems.map((item) => (
