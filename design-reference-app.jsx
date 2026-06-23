@@ -9,6 +9,31 @@
     return String(value || fallback).trim();
   }
 
+  function normalizeProductColor(entry) {
+    const raw = text(entry && (entry.hex || entry.color || entry.value || entry.label) ? (entry.hex || entry.color || entry.value || entry.label) : entry);
+    if (!raw) return "";
+    const mapped = STORE.HEX && STORE.HEX[raw.toLowerCase()] ? STORE.HEX[raw.toLowerCase()] : raw;
+    const compact = String(mapped).replace(/\s+/g, "");
+    const short = compact.match(/^#?([0-9a-f]{3})$/i);
+    if (short) return "#" + short[1].split("").map((ch) => ch + ch).join("").toLowerCase();
+    const full = compact.match(/^#?([0-9a-f]{6})$/i);
+    return full ? "#" + full[1].toLowerCase() : "";
+  }
+
+  function productColors(product) {
+    const raw = product && (product.colors || product.colorOptions || product.color);
+    const source = Array.isArray(raw) ? raw : text(raw).split(/[\n,;]+/).filter(Boolean);
+    const seen = new Set();
+    const out = [];
+    source.forEach((entry) => {
+      const hex = normalizeProductColor(entry);
+      if (!hex || seen.has(hex)) return;
+      seen.add(hex);
+      out.push(hex);
+    });
+    return out.length ? out : colors;
+  }
+
   function normalizeLabel(value) {
     return text(value)
       .toLowerCase()
@@ -109,6 +134,17 @@
     return text(product && product.price, "Contact for price");
   }
 
+  function productKey(product) {
+    return text(product && (product.productId || product.sourceKey || product.name), "product");
+  }
+
+  function productUrl(product) {
+    return `/Product?id=${encodeURIComponent(productKey(product))}`;
+  }
+
+  function goToProduct(product) {
+    window.location.assign(productUrl(product));
+  }
   function numericPrice(product) {
     const match = text(product && product.price).replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
     if (!match) return null;
@@ -495,11 +531,25 @@
     }
 
     return (
-      <article className="product-card">
+      <article
+        className="product-card"
+        role="link"
+        tabIndex="0"
+        aria-label={`View ${text(product.name, "product")}`}
+        onClick={(event) => {
+          if (event.target.closest("button, a")) return;
+          goToProduct(product);
+        }}
+        onKeyDown={(event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          goToProduct(product);
+        }}
+      >
         <div className="product-media">
           {badge && <span className={`badge ${badgeClass}`}>{badge}</span>}
           <span className="heart-button">{icon("heart")}</span>
-          <img src={activeImage.url} alt={text(activeImage.alt, text(product.name, "Product"))} />
+          <img src={activeImage.url} alt={text(activeImage.alt, text(product.name, "Product"))} onClick={(event) => { event.stopPropagation(); goToProduct(product); }} />
           {hasMultipleImages && (
             <React.Fragment>
               <button
@@ -541,7 +591,7 @@
           <div className="rating">***** <span>({index + 8})</span></div>
           <div className="card-actions">
             <div className="product-swatches">
-              {colors.slice(0, 3).map((color) => <span className="product-dot" style={{ background: color }} key={`${product.name}-${color}`}></span>)}
+              {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: color }} key={`${product.name}-${color}`}></span>)}
             </div>
             <span className="cart-button">{icon("cart")}</span>
           </div>

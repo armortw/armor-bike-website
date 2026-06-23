@@ -951,6 +951,11 @@
     box-shadow: var(--shadow-float);
   }
 
+  .product-card:focus-visible {
+    outline: 3px solid rgba(0, 184, 255, 0.44);
+    outline-offset: 4px;
+  }
+
   .product-media {
     position: relative;
     height: clamp(210px, 18vw, 286px);
@@ -966,6 +971,7 @@
     position: absolute;
     left: 7%;
     top: 9%;
+    cursor: pointer;
     width: 86%;
     height: 82%;
     max-width: none;
@@ -1115,15 +1121,14 @@
   }
 
   .product-spec {
-    min-height: 38px;
+    min-height: 52px;
+    max-height: 70px;
     margin-top: 8px;
     color: #5d6b7d;
     font-size: 12px;
     line-height: 1.45;
     font-weight: 600;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: pre-line;
     overflow: hidden;
   }
 

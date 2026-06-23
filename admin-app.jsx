@@ -543,7 +543,33 @@
 
   // ── Products ──────────────────────────────────────────────────────────────
   const BADGE_OPTS = ['', 'New', 'Bestseller', 'Hot Deal', '-10%', '-13%', '-15%', '-18%', '-20%', '-24%', '-28%', '-30%', '-32%', '-36%'];
-  const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', images: [] });
+  const COLOR_PRESETS = ['#009ce0', '#111827', '#ffffff', '#c8d2df', '#18a34a', '#e60012', '#ffd105', '#f97316', '#7c3aed'];
+  const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', colors: [], images: [] });
+  const normalizeHexColor = (value) => {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    const mapped = window.STORE?.HEX?.[raw.toLowerCase()] || '';
+    const compact = String(mapped || raw).replace(/\s+/g, '');
+    const short = compact.match(/^#?([0-9a-f]{3})$/i);
+    if (short) return '#' + short[1].split('').map(ch => ch + ch).join('').toLowerCase();
+    const full = compact.match(/^#?([0-9a-f]{6})$/i);
+    return full ? '#' + full[1].toLowerCase() : '';
+  };
+  const normalizeProductColors = (value) => {
+    const source = Array.isArray(value)
+      ? value
+      : String(value || '').split(/[\n,;]+/).map(s => s.trim()).filter(Boolean);
+    const seen = new Set();
+    const out = [];
+    source.forEach(entry => {
+      const raw = typeof entry === 'object' && entry ? (entry.hex || entry.color || entry.value || entry.label) : entry;
+      const hex = normalizeHexColor(raw);
+      if (!hex || seen.has(hex)) return;
+      seen.add(hex);
+      out.push(hex);
+    });
+    return out;
+  };
   const makeProductId = () => 'prd_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
   const ownerKey = (user) => String(user?.id || user?.username || '').trim();
   const ownerName = (user) => user?.name || user?.username || '未知使用者';
@@ -570,8 +596,12 @@
     const baseOwnerId = existing?.ownerId || product.ownerId || ownerKey(user);
     const baseOwnerUsername = existing?.ownerUsername || product.ownerUsername || user?.username || '';
     const baseOwnerName = existing?.ownerName || product.ownerName || ownerName(user);
+    const normalizedColors = normalizeProductColors(product.colors || product.colorOptions || product.color);
+    const normalizedBadge = String(product.badge || '').trim();
     return {
       ...product,
+      badge: normalizedBadge,
+      colors: normalizedColors,
       productId: existing?.productId || product.productId || makeProductId(),
       sourceKey: existing?.sourceKey || existing?.productId || product.sourceKey || (existing ? productFingerprint(existing) : ''),
       ownerId: baseOwnerId,
@@ -784,12 +814,119 @@
     );
   }
 
-  function ProductForm({ form, setForm, onSave, onCancel, saveLabel, cat }) {
+  function sampleColorsFromImage(url) {
+    return new Promise((resolve, reject) => {
+      if (!url) { reject(new Error('NO_IMAGE')); return; }
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const maxSide = 96;
+          const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || 1, img.naturalHeight || 1));
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round((img.naturalWidth || 1) * scale));
+          canvas.height = Math.max(1, Math.round((img.naturalHeight || 1) * scale));
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          const buckets = new Map();
+          const toHex = (n) => Math.max(0, Math.min(255, n)).toString(16).padStart(2, '0');
+          for (let i = 0; i < pixels.length; i += 16) {
+            const r = pixels[i], g = pixels[i + 1], b = pixels[i + 2], a = pixels[i + 3];
+            if (a < 160) continue;
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            if (max > 238 && min > 222) continue;
+            const qr = Math.min(255, Math.round(r / 24) * 24);
+            const qg = Math.min(255, Math.round(g / 24) * 24);
+            const qb = Math.min(255, Math.round(b / 24) * 24);
+            const hex = '#' + toHex(qr) + toHex(qg) + toHex(qb);
+            const saturation = max - min;
+            const score = 1 + saturation / 255 + (255 - Math.abs(128 - max)) / 512;
+            buckets.set(hex, (buckets.get(hex) || 0) + score);
+          }
+          const colors = Array.from(buckets.entries()).sort((a, b) => b[1] - a[1]).map(([hex]) => normalizeHexColor(hex)).filter(Boolean).slice(0, 5);
+          colors.length ? resolve(colors) : reject(new Error('NO_COLORS'));
+        } catch (err) {
+          reject(err);
+        }
+      };
+      img.onerror = () => reject(new Error('IMAGE_LOAD_FAILED'));
+      img.src = url;
+    });
+  }
+
+  function ColorPaletteEditor({ colors, images, onChange }) {
+    const current = normalizeProductColors(colors);
+    const [draft, setDraft] = useState(current[0] || COLOR_PRESETS[0]);
+    const [msg, setMsg] = useState('');
+    const imageList = Array.isArray(images) ? images : [];
+    const firstImageUrl = imageList.length ? imgUrl(imageList[0]) : '';
+    const update = (next) => onChange(normalizeProductColors(next));
+    const addColor = (raw) => {
+      const hex = normalizeHexColor(raw);
+      if (!hex) { setMsg('請輸入 #RRGGBB 色碼，或使用吸管從產品圖片取色。'); return; }
+      update([...current, hex]);
+      setDraft(hex);
+      setMsg('已加入顏色 ' + hex.toUpperCase());
+    };
+    const removeColor = (hex) => update(current.filter(c => c !== hex));
+    const pickColor = async () => {
+      if (!window.EyeDropper) { setMsg('此瀏覽器不支援吸管，請使用 Chrome / Edge 或直接輸入色碼。'); return; }
+      try {
+        const picked = await new window.EyeDropper().open();
+        addColor(picked.sRGBHex);
+      } catch (_) {
+        setMsg('已取消吸管取色。');
+      }
+    };
+    const extractFromImage = async () => {
+      if (!firstImageUrl) { setMsg('請先上傳產品圖片，再從主圖擷取顏色。'); return; }
+      setMsg('正在從主圖擷取顏色…');
+      try {
+        const sampled = await sampleColorsFromImage(firstImageUrl);
+        update([...current, ...sampled]);
+        setMsg('已從主圖擷取 ' + sampled.length + ' 個候選顏色。');
+      } catch (_) {
+        setMsg('圖片因跨網域限制無法自動擷取，請使用吸管直接點選圖片顏色。');
+      }
+    };
+
+    return e('div', { style: { border: '1px solid #dbeafe', borderRadius: 12, background: '#f8fbff', padding: 14 } },
+      e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12, minHeight: 28 } },
+        current.length
+          ? current.map(hex => e('button', { key: hex, type: 'button', onClick: () => removeColor(hex), title: '移除 ' + hex.toUpperCase(), style: { display: 'inline-flex', alignItems: 'center', gap: 6, border: '1px solid #cbd5e1', borderRadius: 999, background: '#fff', padding: '5px 10px', cursor: 'pointer', fontSize: 12, fontWeight: 800, color: '#334155' } },
+              e('span', { style: { width: 18, height: 18, borderRadius: '50%', background: hex, border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } }),
+              hex.toUpperCase(),
+              e('span', { style: { color: '#dc2626', fontWeight: 900 } }, '×')
+            ))
+          : e('span', { style: { color: '#94a3b8', fontSize: 12, fontWeight: 700 } }, '尚未設定顏色，前台會使用預設色票。')
+      ),
+      e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 12 } },
+        COLOR_PRESETS.map(hex => e('button', { key: hex, type: 'button', onClick: () => addColor(hex), title: hex.toUpperCase(), style: { width: 30, height: 30, borderRadius: '50%', background: hex, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer' } }))
+      ),
+      e('div', { style: { display: 'grid', gridTemplateColumns: '44px minmax(0,1fr) auto auto auto', gap: 8, alignItems: 'center' } },
+        e('input', { type: 'color', value: normalizeHexColor(draft) || COLOR_PRESETS[0], onChange: ev => { setDraft(ev.target.value); addColor(ev.target.value); }, title: '選擇顏色', style: { width: 44, height: 38, padding: 2, border: '1px solid #cbd5e1', borderRadius: 8, background: '#fff', cursor: 'pointer' } }),
+        e(Input, { value: draft, onChange: ev => { setDraft(ev.target.value); setMsg(''); }, placeholder: '#009ce0 或 blue', onKeyDown: ev => ev.key === 'Enter' && addColor(draft) }),
+        e('button', { type: 'button', onClick: () => addColor(draft), style: { ...S.btnSm, padding: '9px 12px', whiteSpace: 'nowrap', background: '#e0f2fe', color: BRAND } }, '+ 加入'),
+        e('button', { type: 'button', onClick: pickColor, style: { ...S.btnSm, padding: '9px 12px', whiteSpace: 'nowrap', background: '#fff', color: BRAND, border: '1px solid #bae6fd' } }, '吸管取色'),
+        e('button', { type: 'button', onClick: extractFromImage, style: { ...S.btnSm, padding: '9px 12px', whiteSpace: 'nowrap' } }, '主圖擷取')
+      ),
+      e('p', { style: { margin: '8px 0 0', color: msg ? '#0369a1' : '#64748b', fontSize: 12, lineHeight: 1.6 } }, msg || '可輸入色碼、點選色票，或按「吸管取色」後直接點產品圖片顏色。')
+    );
+  }
+
+  function ProductForm({ form, setForm, onSave, onCancel, saveLabel, cat, badges = [] }) {
     const imgs = form.images || [];
     const missing = missingProductFields(form);
     const req = (label) => e('span', null, label, ' ', e('span', { style: { color: SALE_COLOR } }, '*'));
     const leaves = megaLeaves(cat);
-    return e('div', { style: { ...S.card, border: `2px solid ${BRAND}30` } },
+    const badgeOptions = useMemo(() => {
+      const set = new Set([...BADGE_OPTS, ...(badges || []), form.badge || ''].map(x => String(x || '').trim()).filter(Boolean));
+      return Array.from(set);
+    }, [badges, form.badge]);
+    const badgeListId = useMemo(() => 'product-badge-options-' + Math.random().toString(36).slice(2), []);
+    return e('div', { style: { ...S.card, border: '2px solid ' + BRAND + '30' } },
       e('div', { style: { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 16, marginBottom: 18 } },
         e(Field, { label: req('製造商') }, e(Input, { value: form.manufacturer, onChange: ev => setForm({ ...form, manufacturer: ev.target.value }), placeholder: '例如：ARMOR' })),
         e(Field, { label: req('產品名稱') }, e(Input, { value: form.name, onChange: ev => setForm({ ...form, name: ev.target.value }), placeholder: '例如：29 MEN SKD' })),
@@ -809,17 +946,24 @@
           e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無大型選單子項目）'),
           leaves.map((m, i) => e('option', { key: i, value: m.link }, (m.group ? m.group + ' › ' : '') + m.link))
         )),
-        e(Field, { label: '商品標籤' }, e(Select, { value: form.badge || '', onChange: ev => setForm({ ...form, badge: ev.target.value }) },
-          BADGE_OPTS.map(b => e('option', { key: b, value: b }, b || '（無）'))
-        )),
+        e(Field, { label: '商品標籤' },
+          e(React.Fragment, null,
+            e(Input, { value: form.badge || '', list: badgeListId, onChange: ev => setForm({ ...form, badge: ev.target.value }), placeholder: '可直接輸入，例如：New / Hot Deal / 限量到貨' }),
+            e('datalist', { id: badgeListId }, badgeOptions.map(b => e('option', { key: b, value: b })))
+          )
+        ),
+        e('div', { style: { gridColumn: '1 / -1' } },
+          e(Field, { label: '顏色選項' },
+            e(ColorPaletteEditor, { colors: form.colors || form.colorOptions || form.color || [], images: imgs, onChange: colors => setForm({ ...form, colors }) })
+          )
+        ),
         e('div', { style: { gridColumn: '1 / -1' } },
           e(Field, { label: '備註（選填）' }, e(Input, { value: form.note || '', onChange: ev => setForm({ ...form, note: ev.target.value }), placeholder: '例如：24 小時內出貨 / 僅剩 3 件' }))
-        ),
+        )
       ),
       missing.length > 0 && e('div', { style: { background: '#fef2f2', border: '1px solid #fecaca', color: '#b91c1c', padding: '10px 14px', borderRadius: 8, fontSize: 13, marginBottom: 16 } },
         '尚有必填欄位未填寫：', missing.join('、')
       ),
-      // ── full-width image section ──
       e('div', { style: { borderTop: '1px solid #f1f5f9', paddingTop: 16, marginBottom: 18 } },
         e('label', { style: { ...S.label, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 } },
           '產品圖片',
@@ -841,6 +985,7 @@
     const safeIdx = Math.min(idx, imgs.length - 1);
     const mainImg = imgs.length > 0 ? imgUrl(imgs[safeIdx]) : null;
     const badgeColor = (b) => b.startsWith('-') ? SALE_COLOR : b === 'New' ? '#16a34a' : '#f97316';
+    const swatches = normalizeProductColors(p.colors || p.colorOptions || p.color);
 
     return e('div', { style: { background: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,.06)', overflow: 'hidden' } },
       // image area
@@ -874,6 +1019,10 @@
         e('div', { style: { fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94a3b8', marginBottom: 3 } }, p.manufacturer),
         e('div', { style: { fontSize: 13, fontWeight: 700, color: '#16181d', lineHeight: 1.35, marginBottom: 3 } }, p.name),
         e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10, lineHeight: 1.55, whiteSpace: 'pre-line', maxHeight: 78, overflow: 'hidden' } }, p.spec),
+        swatches.length > 0 ? e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 } },
+          swatches.slice(0, 6).map(hex => e('span', { key: hex, title: hex.toUpperCase(), style: { width: 16, height: 16, borderRadius: '50%', background: hex, border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } })),
+          swatches.length > 6 ? e('span', { style: { fontSize: 11, color: '#64748b', fontWeight: 800 } }, '+' + (swatches.length - 6)) : null
+        ) : null,
         productOwnerLabel(p) ? e('div', { style: { fontSize: 11, color: '#64748b', marginBottom: 10 } }, '建立者：', productOwnerLabel(p)) : null,
         e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
           e('div', null,
@@ -924,6 +1073,11 @@
 
     const cat = data.categories.find(c => c.id === catId) || data.categories[0];
     const products = cat?.products || [];
+    const productBadges = useMemo(() => {
+      const set = new Set(data.badges || []);
+      (data.categories || []).forEach(c => (c.products || []).forEach(p => { if (p.badge) set.add(p.badge); }));
+      return Array.from(set);
+    }, [data.badges, data.categories]);
 
     const save = (prods, deletions = []) => setData({
       ...data,
@@ -951,16 +1105,16 @@
         ),
         e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ 新增產品')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: '新增產品' }),
+      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, badges: productBadges, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: '新增產品' }),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
         products.map((p, i) => editIdx === i
           ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, cat, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: '儲存變更' })
+              e(ProductForm, { form: ef, setForm: setEf, cat, badges: productBadges, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: '儲存變更' })
             )
           : e(ProductCardView, {
               key: p.productId || i, p,
               canManage: canManageProduct(p, user),
-              onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p) }); setShowAdd(false); },
+              onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p), colors: normalizeProductColors(p.colors || p.colorOptions || p.color) }); setShowAdd(false); },
               onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('確定刪除這個產品嗎？')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
             })
         )
@@ -1759,7 +1913,7 @@
         if (merged.length > 0) {
           files.push({ path: 'cms-users.js', content: await buildCmsUsersJS(merged), message: 'Deploy: update admin accounts' });
         }
-        for (const path of ['_ds_bundle.js', 'styles.css', 'index.html', 'admin.html', 'store-app.jsx', 'admin-app.jsx']) {
+        for (const path of ['_ds_bundle.js', 'styles.css', 'index.html', 'design-reference.html', 'design-reference-app.jsx', 'product-page-app.jsx', 'Product/index.html', 'admin.html', 'store-app.jsx', 'admin-app.jsx']) {
           try {
             const r = await fetch('./' + path + '?' + Date.now());
             if (r.ok) files.push({ path, content: await r.text(), message: 'Deploy: update ' + path });
