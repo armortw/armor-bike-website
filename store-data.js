@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 09:44 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 09:46 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1512,25 +1512,25 @@
         "leaf": "Cable Lock",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/vttk9gdnpg4buvrkufjm.jpg",
-            "alt": "PC2133-RED"
-          },
-          {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/xvuvvsmklwkn1ixadiwe.png",
             "alt": "PC2133-Photoroom"
           },
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/aupwkdv6kllwemmpwjyt.png",
             "alt": "PC2133-BLK-BLUE COLOR-Photoroom (1)"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/vttk9gdnpg4buvrkufjm.jpg",
+            "alt": "PC2133-RED"
           }
         ],
         "productId": "prd_mqp4evng_fo79jg",
-        "sourceKey": "",
+        "sourceKey": "prd_mqp4evng_fo79jg",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:16:57.915Z",
-        "updatedAt": "2026-06-22T11:16:57.915Z",
+        "updatedAt": "2026-06-23T09:46:03.255Z",
         "updatedBy": "rita"
       },
       {
