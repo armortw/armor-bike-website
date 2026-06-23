@@ -1,11 +1,11 @@
 /* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */
 window.CMS_USERS = [
   {
-    "id": 1782178182340,
-    "username": "ken",
-    "passwordHash": "22cecf4bd79ec1267f3a8e855e205a206d4eefb953c24016f6be93932898ffbd",
+    "id": 1782119625138,
+    "username": "donald",
+    "passwordHash": "65d4ea08d6a6c5067c873aa53dcece3d8dbcfc1d234017d305aecbeb26545c31",
     "role": "admin",
-    "name": "ken"
+    "name": "donald"
   },
   {
     "id": 1782119477089,
@@ -55,13 +55,6 @@ window.CMS_USERS = [
     "passwordHash": "36c3bcd3be7cddcc3e20e5526a2d446611f858c56f49058f0687af0e5932c2ed",
     "role": "editor",
     "name": "vicky"
-  },
-  {
-    "id": 1781828141459,
-    "username": "donald",
-    "passwordHash": "65d4ea08d6a6c5067c873aa53dcece3d8dbcfc1d234017d305aecbeb26545c31",
-    "role": "editor",
-    "name": "donald"
   },
   {
     "id": 1781828156662,
@@ -118,5 +111,12 @@ window.CMS_USERS = [
     "passwordHash": "13cc7550ae307d7f61b660cc2caa7ea41f0d6b8cc1a2ebc0fd27073ecc6d440b",
     "role": "editor",
     "name": "archie"
+  },
+  {
+    "id": 1781828654615,
+    "username": "ken",
+    "passwordHash": "22cecf4bd79ec1267f3a8e855e205a206d4eefb953c24016f6be93932898ffbd",
+    "role": "editor",
+    "name": "ken"
   }
 ];
