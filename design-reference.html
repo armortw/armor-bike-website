@@ -491,21 +491,13 @@
     height: 190px;
     overflow: visible;
     border-radius: 8px;
+    background: linear-gradient(180deg, #f4f7fa 0%, #eef3f8 100%);
     box-shadow: 0 10px 26px rgba(5, 14, 24, 0.12);
-  }
-
-  .category-strip-base {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: inherit;
   }
 
   .category-card {
     position: absolute;
     inset: 0;
-    bottom: -28px;
     display: block;
     overflow: hidden;
     border-radius: inherit;
@@ -514,40 +506,22 @@
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    clip-path: var(--clip-lift, var(--clip));
-    opacity: 0;
+    clip-path: var(--clip);
+    opacity: 1;
     z-index: 2;
     box-shadow: none;
     isolation: isolate;
     will-change: transform, opacity, filter;
   }
 
-  .category-card-gap {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    display: block;
-    border-radius: inherit;
-    clip-path: var(--clip);
-    background: linear-gradient(180deg, #f4f7fa 0%, #eef3f8 100%);
-    opacity: 0;
-    pointer-events: none;
-    will-change: opacity;
-  }
-
   .category-card:hover,
   .category-card:focus-visible {
     z-index: 6;
-    opacity: 1;
     transform: translateY(-34px);
+    clip-path: var(--clip-lift, var(--clip));
     filter:
-      drop-shadow(0 42px 38px rgba(0, 35, 66, 0.35))
-      drop-shadow(0 14px 22px rgba(0, 156, 224, 0.16));
-  }
-
-  .category-card:hover + .category-card-gap,
-  .category-card:focus-visible + .category-card-gap {
-    opacity: 1;
+      drop-shadow(0 24px 24px rgba(0, 35, 66, 0.18))
+      drop-shadow(0 8px 14px rgba(0, 156, 224, 0.1));
   }
 
   .services {

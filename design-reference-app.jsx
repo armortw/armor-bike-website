@@ -178,21 +178,14 @@
     return (
       <section className="category-shell" aria-label="Featured category shortcuts">
         <div className="category-strip">
-          <img className="category-strip-base" src="uploads/reference-dark-strip.png" alt="Bikes, parts, accessories, electronics, more sports, and sale category cards" />
           {cards.map((card) => (
-            <React.Fragment key={card.label}>
-              <a
-                className="category-card"
-                href="#products"
-                style={{ "--clip": card.clip, "--clip-lift": card.liftClip }}
-                aria-label={card.label}
-              ></a>
-              <span
-                className="category-card-gap"
-                style={{ "--clip": card.clip }}
-                aria-hidden="true"
-              ></span>
-            </React.Fragment>
+            <a
+              className="category-card"
+              href="#products"
+              key={card.label}
+              style={{ "--clip": card.clip, "--clip-lift": card.liftClip }}
+              aria-label={card.label}
+            ></a>
           ))}
         </div>
       </section>
