@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 09:39 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-23 09:42 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1682,10 +1682,6 @@
         "leaf": "Cable Lock",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/fayoupyd7az50xfdta9l.jpg",
-            "alt": "音符"
-          },
-          {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/woujqpixrqlqvfoh0ort.jpg",
             "alt": "火箭"
           },
@@ -1696,6 +1692,10 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/ctyztf4gcggfo07icb28.jpg",
             "alt": "飛機"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/fayoupyd7az50xfdta9l.jpg",
+            "alt": "音符"
           }
         ],
         "productId": "prd_mqq521rq_ldybpd",
@@ -1704,7 +1704,7 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-23T04:22:45.110Z",
-        "updatedAt": "2026-06-23T09:39:01.323Z",
+        "updatedAt": "2026-06-23T09:41:57.199Z",
         "updatedBy": "rita"
       }
     ]
