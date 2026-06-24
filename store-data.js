@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 05:49 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 05:53 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2179,6 +2179,29 @@
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:49:04.386Z",
         "updatedAt": "2026-06-24T05:49:04.386Z",
+        "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-005",
+        "spec": "50/20/10LUX\nSIZE:41.4*67*70.1MM",
+        "badge": "",
+        "note": "",
+        "leaf": "Front Lights",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782280387/h2eeu80zfjfp0uinbasa.png",
+            "alt": "2026-06-24-82480656-1a8c-4fbe-b68b-d712ee823910"
+          }
+        ],
+        "productId": "prd_mqrnqati_eghg7y",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T05:53:15.846Z",
+        "updatedAt": "2026-06-24T05:53:15.846Z",
         "updatedBy": "jessica"
       }
     ]
