@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 04:18 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 04:22 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1986,6 +1986,55 @@
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:30:43.540Z",
         "updatedAt": "2026-06-24T01:30:43.540Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8146",
+        "spec": "SIZE: 70X50X30MM 600mAH X 2 7.4V ",
+        "price": "USD 16.25 / SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
+            "alt": "VK-8146"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274836/ylf0zijadfywsrrayxg0.jpg",
+            "alt": "VK-8146"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274872/niqgnjhwimtnkyo1kfcq.png",
+            "alt": "去背"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274870/xtw3s4talla52kuc6reh.jpg",
+            "alt": "去3"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274870/yvgqgxm9isandgkj0ltp.jpg",
+            "alt": "去背 2"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274871/vszwvtdfpbbdb8kbrubm.jpg",
+            "alt": "去5"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274871/dqi4w3tpvuf6ghqig5pc.jpg",
+            "alt": "去4"
+          }
+        ],
+        "colors": [],
+        "leaf": "MINI",
+        "productId": "prd_mqrkgsua_rxplva",
+        "sourceKey": "armor ::vk-8146::size: 70x50x30mm 600mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T04:21:53.794Z",
+        "updatedAt": "2026-06-24T04:21:53.794Z",
         "updatedBy": "joanne"
       }
     ]
