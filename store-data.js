@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 11:28 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 11:32 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1427,7 +1427,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "VK26-3501",
-        "spec": "ALLOY COLORFUL HUB\nF: ID 5.2*14G*36H*100*108MM,\nW/BLACK Q.R.\nR:ID 5.2*14G*36H*135*145MM,\nW/BLACK Q.R.\n",
+        "spec": "ALLOY COLORFUL HUB\nF: ID 5.2*14G*36H*100*108MM,\nW/BLACK Q.R.\nR:ID 5.2*14G*36H*135*145MM,\n120 SOUNDS, W/BLACK Q.R.\n",
         "badge": "",
         "note": "",
         "leaf": "",
@@ -1439,18 +1439,18 @@
           }
         ],
         "productId": "prd_mqrzmlj0_r6lf7q",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrzmlj0_r6lf7q",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:26:18.491Z",
-        "updatedAt": "2026-06-24T11:26:18.491Z",
+        "updatedAt": "2026-06-24T11:30:31.347Z",
         "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
         "name": "VK26-3502",
-        "spec": "ALLOY BLACK HUB,\nF: 3/8\"*36H*100*108MM\nR: 3/8\"*36H*135*145MM,\nW/120 SOUNDS",
+        "spec": "ALLOY BLACK HUB,\nF: 3/8\"*36H*100*108MM,\nW/BLACK Q.R.\nR: 3/8\"*36H*135*145MM,\nW/BLACK Q.R.\nW/120 SOUNDS",
         "badge": "",
         "note": "",
         "leaf": "",
@@ -1462,12 +1462,12 @@
           }
         ],
         "productId": "prd_mqrzpr96_iu6k2j",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrzpr96_iu6k2j",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:28:45.882Z",
-        "updatedAt": "2026-06-24T11:28:45.882Z",
+        "updatedAt": "2026-06-24T11:31:37.003Z",
         "updatedBy": "alicia"
       }
     ]
