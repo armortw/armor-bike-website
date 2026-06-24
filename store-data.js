@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:00 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:02 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2361,6 +2361,29 @@
         "createdAt": "2026-06-24T09:58:31.939Z",
         "updatedAt": "2026-06-24T10:00:27.201Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-007",
+        "spec": "Item No.: LW-R90\nRadar alarm light brightness: 90LM\nRear light ring brightness: Max.50LM\nBattery capacity: 1100mAh\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Rear Lights",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782295348/eytoar7lsupboiz5arad.png",
+            "alt": "2026-06-24-68f7d60e-a8bd-489b-b893-aad92690171d"
+          }
+        ],
+        "productId": "prd_mqrwmu4j_ru0kat",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T10:02:30.780Z",
+        "updatedAt": "2026-06-24T10:02:30.780Z",
+        "updatedBy": "jessica"
       }
     ]
   },
