@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-23 10:42 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 01:12 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1752,6 +1752,32 @@
         "createdAt": "2026-06-23T10:42:08.163Z",
         "updatedAt": "2026-06-23T10:42:08.163Z",
         "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK8145",
+        "spec": "SIZE: 70X48X32 mm\n2X500mAH 3.7V ",
+        "price": "USD 17.00 / SET ",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
+            "alt": "EP 1"
+          }
+        ],
+        "colors": [
+          "#ffffff"
+        ],
+        "productId": "prd_mqrdomqe_cu1eaf",
+        "sourceKey": "armor ::vk8145::size: 70x48x32 mm , 2x500mah 3.7v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:12:01.813Z",
+        "updatedAt": "2026-06-24T01:12:01.813Z",
+        "updatedBy": "joanne"
       }
     ]
   },
