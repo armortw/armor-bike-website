@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 05:38 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 05:44 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2116,7 +2116,7 @@
         "spec": "Main materials：PC plastic\nCharging port: Type-C\nMax. lumens：120 lumens (Red)\nColor: Matt black+red lens\nLED type: 68PCS COB LED CHIPS\nBattery capacity: 500mah rechargeable li-poly\nCharge time: 2h\nWaterproof level: IP65",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Rear Lights",
         "colors": [],
         "images": [
           {
@@ -2125,12 +2125,35 @@
           }
         ],
         "productId": "prd_mqrn6z41_pz11vo",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrn6z41_pz11vo",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:38:14.209Z",
-        "updatedAt": "2026-06-24T05:38:14.209Z",
+        "updatedAt": "2026-06-24T05:39:37.604Z",
+        "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-003",
+        "spec": "Brightness: 350+150Im (white)\nLed type: SZ5-M3*3PCS+2835*3PCS\nBattery: 1100mAh Li-poly\nCharging port: Type-C\nSize: 50*40*30mm\nMaterial: PC\nWaterproof level: IPX65",
+        "badge": "",
+        "note": "",
+        "leaf": "Front Lights",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279832/kgtzdy1l9bq8blqpj9n7.png",
+            "alt": "2026-06-24-24adcb3e-ac0f-43aa-aac7-2b1ede203bc9"
+          }
+        ],
+        "productId": "prd_mqrneam6_pgb8md",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T05:43:55.710Z",
+        "updatedAt": "2026-06-24T05:43:55.710Z",
         "updatedBy": "jessica"
       }
     ]
