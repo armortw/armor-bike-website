@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 04:25 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 04:30 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2086,6 +2086,29 @@
         "createdAt": "2026-06-24T04:23:57.315Z",
         "updatedAt": "2026-06-24T04:24:18.158Z",
         "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-001",
+        "spec": "Material: PC+Nylon bracket\nMax Lumens: 350LM\nBattery capacity: 1100mAh\nCharging port: USB C\nWaterproof level: IP65\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Front Lights",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782275360/z5w97zxwzgryxlgeq2be.png",
+            "alt": "2026-06-24-d4d62c33-a79b-45fa-90fb-06133dda25e8"
+          }
+        ],
+        "productId": "prd_mqrkqj6w_a98ueo",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T04:29:27.848Z",
+        "updatedAt": "2026-06-24T04:29:27.848Z",
+        "updatedBy": "jessica"
       }
     ]
   },
