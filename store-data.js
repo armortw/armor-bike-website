@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 05:53 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 06:09 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2202,6 +2202,29 @@
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:53:15.846Z",
         "updatedAt": "2026-06-24T05:53:15.846Z",
+        "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-006",
+        "spec": " (front light)\nMax Lumens: 700LM\nSize(w/o bracket): 81(L)x29(Head Diameter)x26.4(Tail Diameter)MM\nWaterproof level: IP65\n(Rear Light)\nCharging port: USB-C\nMax Lumens: 10LM (Red)\nBattery capacity:200mah \nMain materials: Plastic",
+        "badge": "",
+        "note": "",
+        "leaf": "Light Sets",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782281361/zquzlxe84rmwpyzm90sz.png",
+            "alt": "2026-06-24-c444d82a-a63c-4bb6-850d-b0b75959be63"
+          }
+        ],
+        "productId": "prd_mqrob67x_68gbyv",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T06:09:29.661Z",
+        "updatedAt": "2026-06-24T06:09:29.661Z",
         "updatedBy": "jessica"
       }
     ]
