@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:28 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:36 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2387,33 +2387,33 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "CO25-81252",
-        "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION \nSIZE: 6MMX1200MM",
+        "name": "CO25-81311",
+        "spec": "CHAIN LOCK\n6MMX1200MM\nW/2 SPARE KEY ",
         "badge": "",
         "note": "",
-        "leaf": "Chain Locks",
+        "leaf": "",
         "colors": [],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/cf52yy6fexer5qaxbuwo.png",
-            "alt": "CO25-81252BK"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ivdggglypptqdhg6ouyz.png",
+            "alt": "CO25-81340BK"
           },
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/drd0shro5i6z7ungiym4.png",
-            "alt": "CO25-81252BL"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ktcrx6vilthv66yakkkx.png",
+            "alt": "CO25-81340 ORANGE"
           },
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/nkh2hygd0j5dz6xcdkyy.png",
-            "alt": "CO25-81252RD"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ehoqxjj1vez85d0kscly.png",
+            "alt": "CO25-81340GREEN"
           }
         ],
-        "productId": "prd_mqrxfenb_fg277v",
-        "sourceKey": "prd_mqrxfenb_fg277v",
+        "productId": "prd_mqrxu8bp_hcjn0f",
+        "sourceKey": "",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
-        "createdAt": "2026-06-24T10:24:43.751Z",
-        "updatedAt": "2026-06-24T10:28:11.237Z",
+        "createdAt": "2026-06-24T10:36:15.397Z",
+        "updatedAt": "2026-06-24T10:36:15.397Z",
         "updatedBy": "rita"
       }
     ]
