@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 06:57 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 09:53 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -298,6 +298,29 @@
         "ownerName": "anna",
         "createdAt": "2026-06-23T07:25:06.824Z",
         "updatedAt": "2026-06-23T09:13:36.422Z",
+        "updatedBy": "anna"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "29 21-SPEED ",
+        "spec": "",
+        "badge": "29\" STEEL FRAME & SUSPENSION FORR",
+        "note": "",
+        "leaf": "Hardtail",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782294819/qed2rl78mcityikn5ywx.jpg",
+            "alt": "MACH 1  29 CKD"
+          }
+        ],
+        "productId": "prd_mqrwblpy_7xfgw1",
+        "sourceKey": "",
+        "ownerId": "1781828327951",
+        "ownerUsername": "anna",
+        "ownerName": "anna",
+        "createdAt": "2026-06-24T09:53:46.677Z",
+        "updatedAt": "2026-06-24T09:53:46.677Z",
         "updatedBy": "anna"
       }
     ],
