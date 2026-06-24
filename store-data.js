@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 01:15 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 01:30 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1756,32 +1756,6 @@
       {
         "manufacturer": "ARMOR ",
         "name": "VK8145",
-        "spec": "SIZE: 70X48X32 mm\n2X500mAH 3.7V ",
-        "price": "USD 17.00 / SET ",
-        "oldPrice": "",
-        "badge": "Hot Deal",
-        "note": "",
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
-            "alt": "EP 1"
-          }
-        ],
-        "colors": [
-          "#ffffff"
-        ],
-        "productId": "prd_mqrdomqe_cu1eaf",
-        "sourceKey": "armor ::vk8145::size: 70x48x32 mm , 2x500mah 3.7v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg::",
-        "ownerId": "1",
-        "ownerUsername": "joanne",
-        "ownerName": "joanne",
-        "createdAt": "2026-06-24T01:12:01.813Z",
-        "updatedAt": "2026-06-24T01:12:01.813Z",
-        "updatedBy": "joanne"
-      },
-      {
-        "manufacturer": "ARMOR ",
-        "name": "VK8145",
         "spec": "SIZE: 70X48X32 mm  \n2X500mAH 3.7V ",
         "price": "USD 17.00 / SET ",
         "oldPrice": "",
@@ -1818,6 +1792,131 @@
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:15:10.092Z",
         "updatedAt": "2026-06-24T01:15:10.092Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8149 ",
+        "spec": "SIZE:74X54X30MM , 500mAH X 2 7.4V ",
+        "price": "USD 15.70 /PCE ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+            "alt": "VK 8149"
+          }
+        ],
+        "colors": [],
+        "leaf": "MINI",
+        "productId": "prd_mqrebkck_ic723m",
+        "sourceKey": "armor ::vk-8149 ::size:74x54x30mm , 500mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:29:51.812Z",
+        "updatedAt": "2026-06-24T01:29:51.812Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8146",
+        "spec": "SIZE: 70X50X30MM 600mAH X 2 7.4V ",
+        "price": "USD 16.25 / SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
+            "alt": "VK-8146"
+          }
+        ],
+        "colors": [],
+        "leaf": "MINI",
+        "productId": "prd_mqrebw1s_5kjlqc",
+        "sourceKey": "armor ::vk-8146::size: 70x50x30mm 600mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:30:06.976Z",
+        "updatedAt": "2026-06-24T01:30:06.976Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8302 ",
+        "spec": "SIZE: 66X50X134mm , 2000mAHX2 7.4V ",
+        "price": "USD 9.70/ SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+            "alt": "VK-8302"
+          }
+        ],
+        "colors": [],
+        "leaf": "BIG",
+        "productId": "prd_mqrec4yf_7xib7p",
+        "sourceKey": "armor ::vk-8302 ::size: 66x50x134mm , 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:30:18.519Z",
+        "updatedAt": "2026-06-24T01:30:18.519Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ],
+        "colors": [],
+        "leaf": "BIG",
+        "productId": "prd_mqrecgyi_j8u0a2",
+        "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:30:34.074Z",
+        "updatedAt": "2026-06-24T01:30:34.074Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
+          }
+        ],
+        "colors": [],
+        "leaf": "BIG",
+        "productId": "prd_mqreco9g_8t4lys",
+        "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:30:43.540Z",
+        "updatedAt": "2026-06-24T01:30:43.540Z",
         "updatedBy": "joanne"
       }
     ]
