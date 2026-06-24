@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 06:33 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 06:57 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1273,6 +1273,110 @@
         "createdAt": "2026-06-24T04:06:48.269Z",
         "updatedAt": "2026-06-24T04:06:48.269Z",
         "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-0919",
+        "spec": "BODY: ALUMINUM DIE CASTING \nAXLE: CNC MACHINED CR-MO\nBEARING: 1 x BEARINGS + 1 DU\nFINISH: RAINBOW OR ANODIZED",
+        "badge": "New",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283551/gqqbbk47zy1fvd1eqebf.jpg",
+            "alt": "VK26-0919R"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283560/f9tmhhxb6rlqz1x46sby.jpg",
+            "alt": "VK26-0919B"
+          }
+        ],
+        "productId": "prd_mqrpmgxa_i6c38v",
+        "sourceKey": "prd_mqrpmgxa_i6c38v",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-24T06:46:16.365Z",
+        "updatedAt": "2026-06-24T06:53:12.536Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-0216",
+        "spec": "BODY: ALUMINUM ALLOY CNC MACHINED\nAXLE: CNC MACHINED CR-MO\nBEARING: 1 x BEARINGS + 1 DU\nFINISH: RAINBOW OR ANODIZED",
+        "badge": "New",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283784/joj1kcbcaj5hknzc0wkt.jpg",
+            "alt": "VK26-0216R"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283791/eljoz7llyjtm4bcvcje6.jpg",
+            "alt": "VK26-0216B"
+          }
+        ],
+        "productId": "prd_mqrpr7m4_xoffnt",
+        "sourceKey": "prd_mqrpr7m4_xoffnt",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-24T06:49:57.580Z",
+        "updatedAt": "2026-06-24T06:53:26.154Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-0218",
+        "spec": "BODY: ALUMINUM ALLOY CNC MACHINED\nAXLE: CNC MACHINED CR-MO\nBEARING: 3 x BEARINGS \nFINISH: RAINBOW OR ANODIZED ",
+        "badge": "New",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283961/v73yhkhtlpj0qeag4tfb.jpg",
+            "alt": "VK26-0218R"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283967/dsbcmmbsgxzmah2yixsk.png",
+            "alt": "VK26-0218B"
+          }
+        ],
+        "productId": "prd_mqrpv206_o8fbud",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-24T06:52:56.934Z",
+        "updatedAt": "2026-06-24T06:52:56.934Z",
+        "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-0874",
+        "spec": "BODY: NYLON\nAXLE: CNC MACHINED CR-MO\nBEARING: 1 x BEARINGS + 1 DU\nSIZE: 112*115  MM \nFINISH: SINGLE COLOR AVAIL.",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782284211/fhocswzru2o1svlrfmzs.jpg",
+            "alt": "VK26-0874"
+          }
+        ],
+        "productId": "prd_mqrq0y28_isl6id",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-06-24T06:57:31.760Z",
+        "updatedAt": "2026-06-24T06:57:31.760Z",
+        "updatedBy": "donald"
       }
     ]
   },
