@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:02 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:24 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2384,6 +2384,37 @@
         "createdAt": "2026-06-24T10:02:30.780Z",
         "updatedAt": "2026-06-24T10:02:30.780Z",
         "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81311",
+        "spec": "CHAIN LOCK\n6MMX1200MM \nW/2 SPARE KEY",
+        "badge": "",
+        "note": "",
+        "leaf": "Chain Locks",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/cf52yy6fexer5qaxbuwo.png",
+            "alt": "CO25-81252BK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/drd0shro5i6z7ungiym4.png",
+            "alt": "CO25-81252BL"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782296676/nkh2hygd0j5dz6xcdkyy.png",
+            "alt": "CO25-81252RD"
+          }
+        ],
+        "productId": "prd_mqrxfenb_fg277v",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-24T10:24:43.751Z",
+        "updatedAt": "2026-06-24T10:24:43.751Z",
+        "updatedBy": "rita"
       }
     ]
   },
