@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 06:09 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 06:33 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1511,21 +1511,6 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
             "alt": "VK 8149"
-          }
-        ]
-      },
-      {
-        "manufacturer": "ARMOR ",
-        "name": "VK-8146",
-        "spec": "SIZE: 70X50X30MM 600mAH X 2 7.4V ",
-        "price": "USD 16.25 / SET ",
-        "oldPrice": "",
-        "badge": "",
-        "note": "",
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
-            "alt": "VK-8146"
           }
         ]
       },
