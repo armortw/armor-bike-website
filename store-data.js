@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:24 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:26 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2388,7 +2388,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "CO25-81311",
-        "spec": "CHAIN LOCK\n6MMX1200MM \nW/2 SPARE KEY",
+        "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION \nW/2 SPARE KEYS",
         "badge": "",
         "note": "",
         "leaf": "Chain Locks",
@@ -2408,12 +2408,12 @@
           }
         ],
         "productId": "prd_mqrxfenb_fg277v",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrxfenb_fg277v",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T10:24:43.751Z",
-        "updatedAt": "2026-06-24T10:24:43.751Z",
+        "updatedAt": "2026-06-24T10:26:14.097Z",
         "updatedBy": "rita"
       }
     ]
