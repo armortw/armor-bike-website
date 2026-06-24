@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 04:22 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 04:24 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2035,6 +2035,56 @@
         "ownerName": "joanne",
         "createdAt": "2026-06-24T04:21:53.794Z",
         "updatedAt": "2026-06-24T04:21:53.794Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ],
+        "colors": [],
+        "leaf": "BIG",
+        "productId": "prd_mqrkjpe5_l24q05",
+        "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T04:24:09.293Z",
+        "updatedAt": "2026-06-24T04:24:09.293Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
+          }
+        ],
+        "colors": [],
+        "leaf": "BIG",
+        "productId": "prd_mqrkjg5f_0rr1ae",
+        "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T04:23:57.315Z",
+        "updatedAt": "2026-06-24T04:24:18.158Z",
         "updatedBy": "joanne"
       }
     ]
