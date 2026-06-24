@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 03:40 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 03:59 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1162,7 +1162,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "VK26-3101",
-        "spec": "MATERIAL: PP+STICKY RUBBER (NON-SLIDE),\nONE INSIDE MATT BLACK LOCK RING,\nOPEN END W/BLACK PLUG  ",
+        "spec": "MATERIAL: PP+STICKY RUBBER (NON-SLIDE) 126MM,\nBLACK GRIP, ONE INSIDE MATT BLACK LOCK RING,\nOPEN END W/BLACK PLUG  ",
         "badge": "",
         "note": "",
         "leaf": "",
@@ -1174,12 +1174,58 @@
           }
         ],
         "productId": "prd_mqriyomd_9cf7ly",
-        "sourceKey": "",
+        "sourceKey": "prd_mqriyomd_9cf7ly",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:39:48.900Z",
-        "updatedAt": "2026-06-24T03:39:48.900Z",
+        "updatedAt": "2026-06-24T03:44:32.700Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3102",
+        "spec": "MATERIAL: RUBBER, 120MM, BLACK GRIP\nMATT BLACK LOCK RING, CLOSE END\n",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272593/mtj63jd6yibk45yrmoxg.png",
+            "alt": "PRO-1678 (VK26-3102)"
+          }
+        ],
+        "productId": "prd_mqrj3b6l_crxhj2",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-24T03:43:24.764Z",
+        "updatedAt": "2026-06-24T03:43:24.764Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3103",
+        "spec": "MATERIAL: PP + RUBBER 132MM,\nBLACK GRIP, ONE INSIDE MATT BLACK\nLOCK RING, OPEN END W/BLACK PLUG",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272770/ctsvc93rp5e0tudbpq7i.jpg",
+            "alt": "PRO-G688EP1 (VK26-3103)"
+          }
+        ],
+        "productId": "prd_mqrj740c_4d8etg",
+        "sourceKey": "prd_mqrj740c_4d8etg",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-24T03:46:22.092Z",
+        "updatedAt": "2026-06-24T03:59:00.797Z",
         "updatedBy": "alicia"
       }
     ]
