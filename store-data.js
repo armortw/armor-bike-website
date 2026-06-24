@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:36 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:39 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2414,6 +2414,37 @@
         "ownerName": "rita",
         "createdAt": "2026-06-24T10:36:15.397Z",
         "updatedAt": "2026-06-24T10:36:15.397Z",
+        "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81252",
+        "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION\n6MMX1200MM",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/i25v9laob4myljyl9rwz.png",
+            "alt": "CO25-81252BK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/p5cpwe6pdihfoowc81bi.png",
+            "alt": "CO25-81252BL"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/ef8ikbzlcwnbinyxzpyp.png",
+            "alt": "CO25-81252RD"
+          }
+        ],
+        "productId": "prd_mqrxxpn9_bg04p5",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-24T10:38:57.813Z",
+        "updatedAt": "2026-06-24T10:38:57.813Z",
         "updatedBy": "rita"
       }
     ]
