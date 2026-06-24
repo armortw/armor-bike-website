@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 01:30 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 03:40 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1158,6 +1158,29 @@
         "createdAt": "2026-06-23T04:31:45.405Z",
         "updatedAt": "2026-06-23T06:07:09.402Z",
         "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3101",
+        "spec": "MATERIAL: PP+STICKY RUBBER (NON-SLIDE),\nONE INSIDE MATT BLACK LOCK RING,\nOPEN END W/BLACK PLUG  ",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272196/vbgzfes2x1zya9yfyaw0.png",
+            "alt": "PRO-N351EP1 (VK26-3101)"
+          }
+        ],
+        "productId": "prd_mqriyomd_9cf7ly",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-24T03:39:48.900Z",
+        "updatedAt": "2026-06-24T03:39:48.900Z",
+        "updatedBy": "alicia"
       }
     ]
   },
@@ -1706,52 +1729,6 @@
         "createdAt": "2026-06-23T04:22:45.110Z",
         "updatedAt": "2026-06-23T09:43:56.546Z",
         "updatedBy": "admin"
-      },
-      {
-        "manufacturer": "ARMOR",
-        "name": "VK26-3101",
-        "spec": "",
-        "badge": "",
-        "note": "",
-        "leaf": "",
-        "colors": [],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782210998/pej5kranb3qcwbitrs3b.jpg",
-            "alt": "pro-N351EP1"
-          }
-        ],
-        "productId": "prd_mqqif5cy_77w9os",
-        "sourceKey": "",
-        "ownerId": "1781828095910",
-        "ownerUsername": "alicia",
-        "ownerName": "alicia",
-        "createdAt": "2026-06-23T10:36:51.298Z",
-        "updatedAt": "2026-06-23T10:36:51.298Z",
-        "updatedBy": "alicia"
-      },
-      {
-        "manufacturer": "ARMOR",
-        "name": "VK26-3102",
-        "spec": "GRIP 120MM, MATERIAL: RUBBER,\nLOCK RING, MATT BK (ANODIZED),\nCLOSE END, OEM",
-        "badge": "",
-        "note": "",
-        "leaf": "",
-        "colors": [],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782211319/mxckdrpoxxxcnn96saxc.jpg",
-            "alt": "pro-1678"
-          }
-        ],
-        "productId": "prd_mqqilxus_vwamio",
-        "sourceKey": "",
-        "ownerId": "1781828095910",
-        "ownerUsername": "alicia",
-        "ownerName": "alicia",
-        "createdAt": "2026-06-23T10:42:08.163Z",
-        "updatedAt": "2026-06-23T10:42:08.163Z",
-        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR ",
