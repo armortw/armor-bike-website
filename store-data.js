@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 09:58 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:00 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2345,7 +2345,7 @@
         "spec": "RING LOCK\nSTEEL AND PVC SHEEL ART 2 STARS \nDIA WIDTH 62MM \nW/2 SPARE",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Frame Locks",
         "colors": [],
         "images": [
           {
@@ -2354,12 +2354,12 @@
           }
         ],
         "productId": "prd_mqrwhptw_akedq7",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrwhptw_akedq7",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T09:58:31.939Z",
-        "updatedAt": "2026-06-24T09:58:31.939Z",
+        "updatedAt": "2026-06-24T10:00:27.201Z",
         "updatedBy": "rita"
       }
     ]
