@@ -1,6 +1,13 @@
 /* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */
 window.CMS_USERS = [
   {
+    "id": 1782186185801,
+    "username": "jessica",
+    "passwordHash": "ffbf96a9e1e2fc0c73c92ee16dffe4b542f3e72b8357e915493caa06b379be5a",
+    "role": "admin",
+    "name": "jessica"
+  },
+  {
     "id": 1,
     "username": "joanne",
     "passwordHash": "3c17ff23360d0b6f2ca19c7e197610b88b138cd52adab0d7007dbbed0b16361f",
