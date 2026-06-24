@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 04:30 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 05:38 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2108,6 +2108,29 @@
         "ownerName": "jessica",
         "createdAt": "2026-06-24T04:29:27.848Z",
         "updatedAt": "2026-06-24T04:29:27.848Z",
+        "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-002",
+        "spec": "Main materials：PC plastic\nCharging port: Type-C\nMax. lumens：120 lumens (Red)\nColor: Matt black+red lens\nLED type: 68PCS COB LED CHIPS\nBattery capacity: 500mah rechargeable li-poly\nCharge time: 2h\nWaterproof level: IP65",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279489/i6j2xd28q0o0ptkxuiuf.png",
+            "alt": "2026-06-24-419dc7ea-d774-4b24-933c-685865e01f55"
+          }
+        ],
+        "productId": "prd_mqrn6z41_pz11vo",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T05:38:14.209Z",
+        "updatedAt": "2026-06-24T05:38:14.209Z",
         "updatedBy": "jessica"
       }
     ]
