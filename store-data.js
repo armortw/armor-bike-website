@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 01:12 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 01:15 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1777,6 +1777,47 @@
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:12:01.813Z",
         "updatedAt": "2026-06-24T01:12:01.813Z",
+        "updatedBy": "joanne"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK8145",
+        "spec": "SIZE: 70X48X32 mm  \n2X500mAH 3.7V ",
+        "price": "USD 17.00 / SET ",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/dejyycd4yj8xmfdfgm0b.jpg",
+            "alt": "WeChat 圖片_20260623113627"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/vu7ol4zeeulhs0pvfjzl.jpg",
+            "alt": "WeChat 圖片_20260623113623"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/hknf2l4jn4wsgirhwo2t.jpg",
+            "alt": "WeChat 圖片_20260623113635"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/ld5rb9li1ile6cwjiwze.jpg",
+            "alt": "WeChat 圖片_20260623113641"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263683/kiyjipgron6zcrfvxnqd.jpg",
+            "alt": "WeChat 圖片_20260623113631"
+          }
+        ],
+        "colors": [],
+        "leaf": "MINI",
+        "productId": "prd_mqrdso0d_vamyza",
+        "sourceKey": "armor ::vk8145::size: 70x48x32 mm , 2x500mah 3.7v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "joanne",
+        "ownerName": "joanne",
+        "createdAt": "2026-06-24T01:15:10.092Z",
+        "updatedAt": "2026-06-24T01:15:10.092Z",
         "updatedBy": "joanne"
       }
     ]
