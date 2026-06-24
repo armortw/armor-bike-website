@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 05:44 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 05:49 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2154,6 +2154,31 @@
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:43:55.710Z",
         "updatedAt": "2026-06-24T05:43:55.710Z",
+        "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-004",
+        "spec": "Inclusive Type-C USB cable\nBattery: Lithium polymer battery 3.7V/400mAh\nCharging time: 2.5-3hrs\nWaterproof: IPX5\nFit for saddle",
+        "badge": "",
+        "note": "",
+        "leaf": "Rear Lights",
+        "colors": [
+          "#111827"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782280142/laiu7wwbzhuo0kolhjcd.png",
+            "alt": "2026-06-24-5d40e693-17a5-41b5-a16b-448f42c04a0d"
+          }
+        ],
+        "productId": "prd_mqrnkwsi_67zrkc",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-24T05:49:04.386Z",
+        "updatedAt": "2026-06-24T05:49:04.386Z",
         "updatedBy": "jessica"
       }
     ]
