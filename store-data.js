@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-24 10:26 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-24 10:28 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2387,8 +2387,8 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "CO25-81311",
-        "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION \nW/2 SPARE KEYS",
+        "name": "CO25-81252",
+        "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION \nSIZE: 6MMX1200MM",
         "badge": "",
         "note": "",
         "leaf": "Chain Locks",
@@ -2413,7 +2413,7 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T10:24:43.751Z",
-        "updatedAt": "2026-06-24T10:26:14.097Z",
+        "updatedAt": "2026-06-24T10:28:11.237Z",
         "updatedBy": "rita"
       }
     ]
