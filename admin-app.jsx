@@ -165,28 +165,21 @@
     };
   };
 
-  function makePublishId(prefix = 'pub') {
-    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
-  }
-
-  function generateStoreJS(data, publishId = '') {
+  function generateStoreJS(data) {
     const HEX = window.STORE.HEX;
     const hexLines = Object.entries(HEX).map(([k, v]) => `    ${k}: '${v}'`).join(',\n');
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
-    const safePublishId = String(publishId || makePublishId('manual')).replace(/[^a-zA-Z0-9_.:-]/g, '_');
     return [
       `/* ARMOR BIKE Storefront — published ${ts} */`,
-      `/* ARMOR_BIKE_PUBLISH_ID:${safePublishId} */`,
       `(function () {`,
       `  var HEX = {\n${hexLines}\n  };`,
       `  var categories = ${JSON.stringify(data.categories, null, 2)};`,
       `  var images = ${JSON.stringify(data.images || [], null, 2)};`,
       `  var badges = ${JSON.stringify(data.badges || [], null, 2)};`,
       `  var hero = ${JSON.stringify(data.hero || [], null, 2)};`,
-      `  var publishId = ${JSON.stringify(safePublishId)};`,
       `  var map = {};`,
       `  categories.forEach(function (c) { map[c.id] = c; });`,
-      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };`,
+      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };`,
       `})();`,
     ].join('\n');
   }
@@ -1865,45 +1858,18 @@
     }, []);
 
     const downloadJS = () => {
-      const js = generateStoreJS(data, makePublishId('download'));
+      const js = generateStoreJS(data);
       const blob = new Blob([js], { type: 'text/javascript' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'store-data.js'; a.click();
     };
 
     const step = (label) => setPhaseLabel(label);
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const normalizeSiteUrl = (url) => (url || GITHUB_DEFAULTS.siteUrl).replace(/\/$/, '');
-    const finishPublish = (url, stamp) => {
+    const finishPublish = (url) => {
       setDeployUrl(normalizeSiteUrl(url));
-      setDeployStamp(stamp || Date.now().toString(36));
+      setDeployStamp(Date.now().toString(36));
       setPhase('done');
-    };
-    const waitForFrontendDeploy = async (url, publishId) => {
-      const baseUrl = normalizeSiteUrl(url);
-      const marker = `ARMOR_BIKE_PUBLISH_ID:${publishId}`;
-      const deadline = Date.now() + 120000;
-      let attempt = 0;
-      let lastError = '';
-      while (Date.now() < deadline) {
-        attempt += 1;
-        step(`正在等待 Cloudflare Pages 完成部署…（第 ${attempt} 次確認）`);
-        try {
-          const target = `${baseUrl}/store-data.js?deploy=${encodeURIComponent(publishId)}&check=${Date.now()}`;
-          const res = await fetch(target, { cache: 'no-store' });
-          if (res.ok) {
-            const online = await res.text();
-            if (online.includes(marker) || online.includes(`"publishId": ${JSON.stringify(publishId)}`) || online.includes(`var publishId = ${JSON.stringify(publishId)}`)) return true;
-            lastError = '線上資料仍是上一版';
-          } else {
-            lastError = `線上資料讀取失敗 (${res.status})`;
-          }
-        } catch (err) {
-          lastError = err.message || '線上部署狀態暫時無法讀取';
-        }
-        await sleep(attempt < 3 ? 3000 : 5000);
-      }
-      throw new Error(`已提交到 GitHub，但 Cloudflare Pages 尚未完成部署：${lastError}。請稍後重新發布或到 Cloudflare Pages 查看部署狀態。`);
     };
     const deployLink = (path = '/') => {
       if (!deployUrl) return '#';
@@ -1928,7 +1894,6 @@
     const publish = async () => {
       setPhase('busy');
       setErrMsg('');
-      const publishId = makePublishId();
       const { token, repo, branch = 'main', siteUrl } = cfg;
       const h = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' };
       const base = `https://api.github.com/repos/${repo}/contents`;
@@ -1952,7 +1917,7 @@
       const collectPublishFiles = async () => {
         const files = [{
           path: 'store-data.js',
-          content: generateStoreJS(data, publishId),
+          content: generateStoreJS(data),
           message: 'Deploy: update store data',
           mergeStrategy: 'owned-products',
           data,
@@ -1992,10 +1957,7 @@
           const result = await res.json().catch(() => ({}));
           const responseUrl = result.siteUrl || siteUrl || GITHUB_DEFAULTS.siteUrl;
           const normalizedUrl = responseUrl.startsWith('http') ? responseUrl : `https://${responseUrl}`;
-          setDeployUrl(normalizeSiteUrl(normalizedUrl));
-          setDeployStamp(publishId);
-          await waitForFrontendDeploy(normalizedUrl, publishId);
-          finishPublish(normalizedUrl, publishId);
+          finishPublish(normalizedUrl);
           return;
         }
 
@@ -2009,7 +1971,7 @@
         // 2. Commit store-data.js — use generated only if admin has real CMS data
         step('正在提交 store-data.js…');
         if (data.categories && data.categories.length > 0) {
-          await commitFile('store-data.js', generateStoreJS(data, publishId), 'Deploy: update store data');
+          await commitFile('store-data.js', generateStoreJS(data), 'Deploy: update store data');
         } else {
           try {
             const r = await fetch('./store-data.js?' + Date.now());
@@ -2067,10 +2029,7 @@
         } catch (_) {}
 
         const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : `https://github.com/${repo}`;
-        setDeployUrl(normalizeSiteUrl(normalizedUrl));
-        setDeployStamp(publishId);
-        await waitForFrontendDeploy(normalizedUrl, publishId);
-        finishPublish(normalizedUrl, publishId);
+        finishPublish(normalizedUrl);
       } catch (err) {
         setErrMsg(err.message);
         setPhase('error');
@@ -2102,7 +2061,7 @@
       phase === 'idle' && e('div', null,
         e('p', { style: { margin: '0 0 16px', fontSize: 14, color: '#374151' } }, '確認要將目前的 CMS 資料發布到線上網站嗎？'),
         e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#0369a1', marginBottom: 20 } },
-          '會將 store-data.js、store-app.jsx、admin-app.jsx 提交到 GitHub，並等待 Cloudflare Pages 確認線上資料已更新後，才顯示前台網站按鈕。'
+          '會將 store-data.js、store-app.jsx、admin-app.jsx 提交到 GitHub，Cloudflare Pages 約 30 秒後自動部署完成。'
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
           e('button', { onClick: publish, style: S.btnPrimary }, '🚀 確認發布'),
@@ -2116,8 +2075,8 @@
       phase === 'done' && e('div', null,
         e('div', { style: { textAlign: 'center', padding: '16px 0 8px' } },
           e('div', { style: { fontSize: 48, marginBottom: 10 } }, '🎉'),
-          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已發布到線上網站！'),
-          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 已確認讀到最新資料。按下前台網站會直接開啟本次發布版本。')
+          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已提交到 GitHub！'),
+          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署。按鈕會以最新部署參數開啟，避免讀到舊快取。')
         ),
         e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20, flexWrap: 'wrap' } },
           e('a', { href: deployLink('/'), target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
