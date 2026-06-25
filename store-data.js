@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 03:47 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 03:54 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1210,7 +1210,7 @@
         "spec": "MATERIAL: RUBBER, 120MM, BLACK GRIP\nMATT BLACK LOCK RING, CLOSE END\n",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Grips",
         "colors": [],
         "images": [
           {
@@ -1219,12 +1219,12 @@
           }
         ],
         "productId": "prd_mqrj3b6l_crxhj2",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrj3b6l_crxhj2",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:43:24.764Z",
-        "updatedAt": "2026-06-24T03:43:24.764Z",
+        "updatedAt": "2026-06-25T03:52:27.168Z",
         "updatedBy": "alicia"
       },
       {
@@ -1233,7 +1233,7 @@
         "spec": "MATERIAL: PP + RUBBER 132MM,\nBLACK GRIP, ONE INSIDE MATT BLACK\nLOCK RING, OPEN END W/BLACK PLUG",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Grips",
         "colors": [],
         "images": [
           {
@@ -1247,7 +1247,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:46:22.092Z",
-        "updatedAt": "2026-06-24T03:59:00.797Z",
+        "updatedAt": "2026-06-25T03:52:42.360Z",
         "updatedBy": "alicia"
       },
       {
@@ -1256,7 +1256,7 @@
         "spec": "PP/TPR, 135MM, BLACK GRIP,\nOPEN END, SINGLE ALLOY LOCKRING,\nW/PLUG",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Grips",
         "colors": [],
         "images": [
           {
@@ -1270,7 +1270,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:03:37.054Z",
-        "updatedAt": "2026-06-24T04:06:18.789Z",
+        "updatedAt": "2026-06-25T03:52:55.865Z",
         "updatedBy": "alicia"
       },
       {
@@ -1279,7 +1279,7 @@
         "spec": "PP/TPR, 130MM, BLACK GRIP,\nOPEN END, PLASTIC LOCKRING,\nW/PLUG",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Grips",
         "colors": [],
         "images": [
           {
@@ -1288,12 +1288,12 @@
           }
         ],
         "productId": "prd_mqrjxe4t_djxx2s",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrjxe4t_djxx2s",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:06:48.269Z",
-        "updatedAt": "2026-06-24T04:06:48.269Z",
+        "updatedAt": "2026-06-25T03:53:14.232Z",
         "updatedBy": "alicia"
       },
       {
@@ -1429,7 +1429,7 @@
         "spec": "ALLOY COLORFUL HUB\nF: ID 5.2*14G*36H*100*108MM,\nW/BLACK Q.R.\nR:ID 5.2*14G*36H*135*145MM,\n120 SOUNDS, W/BLACK Q.R.\n",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Hubs & Freewheels",
         "colors": [],
         "images": [
           {
@@ -1443,7 +1443,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:26:18.491Z",
-        "updatedAt": "2026-06-24T11:30:31.347Z",
+        "updatedAt": "2026-06-25T03:53:38.832Z",
         "updatedBy": "alicia"
       },
       {
@@ -1452,7 +1452,7 @@
         "spec": "ALLOY BLACK HUB,\nF: 3/8\"*36H*100*108MM,\nW/BLACK Q.R.\nR: 3/8\"*36H*135*145MM,\nW/BLACK Q.R.\nW/120 SOUNDS",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Hubs & Freewheels",
         "colors": [],
         "images": [
           {
@@ -1466,7 +1466,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:28:45.882Z",
-        "updatedAt": "2026-06-24T11:31:37.003Z",
+        "updatedAt": "2026-06-25T03:54:06.032Z",
         "updatedBy": "alicia"
       }
     ]
