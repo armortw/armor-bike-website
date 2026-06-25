@@ -962,6 +962,7 @@
     display: grid;
     place-items: center;
     overflow: hidden;
+    isolation: isolate;
     background:
       radial-gradient(circle at 50% 38%, rgba(0, 156, 224, 0.09), transparent 42%),
       #f8fbfe;
@@ -969,6 +970,7 @@
 
   .product-media img {
     position: absolute;
+    z-index: 1;
     left: 7%;
     top: 9%;
     cursor: pointer;
@@ -1057,6 +1059,7 @@
 
   .badge {
     position: absolute;
+    z-index: 5;
     left: 14px;
     top: 13px;
     border-radius: 5px;
@@ -1073,6 +1076,7 @@
 
   .heart-button {
     position: absolute;
+    z-index: 5;
     right: 13px;
     top: 12px;
     width: 32px;
@@ -1081,7 +1085,8 @@
     place-items: center;
     border: 1px solid transparent;
     border-radius: 8px;
-    background: rgba(255,255,255,0.78);
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 8px 18px rgba(11, 31, 54, 0.1);
     color: #8090a3;
   }
 
