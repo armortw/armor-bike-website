@@ -1,5 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 04:39 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqt0jdh4_yz320j */
+/* ARMOR BIKE Storefront — published 2026-06-25 04:40 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1536,6 +1535,64 @@
         "createdAt": "2026-06-24T11:16:02.677Z",
         "updatedAt": "2026-06-24T11:16:02.677Z",
         "updatedBy": "VICKY"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-3118",
+        "spec": "RUBBER GRIP, SIZE: 22.2 * 166MM,\nOPEN END, W/PLUG\nBLACK/SINGLE COLOR/2-TONE/3-TONE COLOR\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362270/agudhle76rlkye3ng7wq.png",
+            "alt": "HL-G132 (CO25-3118) 3-TONE"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362287/yaabnq9sxd7tbsdfm4yu.png",
+            "alt": "HL-G132 (CO25-3118) 2-TONE"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362299/dmfb7pslmc4ommybro9h.png",
+            "alt": "HL-G132 (CO25-3118) SINGLE COLOR"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362313/sn6hrjl0nlch0obnmdkn.png",
+            "alt": "HL-G132 (CO25-3118) BLACK"
+          }
+        ],
+        "productId": "prd_mqszuph7_096rtx",
+        "sourceKey": "prd_mqszuph7_096rtx",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-25T04:20:23.035Z",
+        "updatedAt": "2026-06-25T04:39:17.546Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-3142",
+        "spec": "TPE GRIP, PP PLUG\nL: 165MM, I.D. 22.2MM\nBLACK/SINGLE COLOR/2-TONE COLOR\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782361497/j09jp4csocpohaclkgmg.png",
+            "alt": "HC-2407 (CO25-3142)"
+          }
+        ],
+        "productId": "prd_mqt00wlm_0v6d4s",
+        "sourceKey": "prd_mqt00wlm_0v6d4s",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-25T04:25:12.202Z",
+        "updatedAt": "2026-06-25T04:39:56.274Z",
+        "updatedBy": "alicia"
       }
     ]
   },
@@ -3116,8 +3173,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqt0jdh4_yz320j";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
-  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
+  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };
 })();
