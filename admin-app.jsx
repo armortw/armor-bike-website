@@ -165,21 +165,28 @@
     };
   };
 
-  function generateStoreJS(data) {
+  function makePublishId(prefix = 'pub') {
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function generateStoreJS(data, publishId = '') {
     const HEX = window.STORE.HEX;
     const hexLines = Object.entries(HEX).map(([k, v]) => `    ${k}: '${v}'`).join(',\n');
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
+    const safePublishId = String(publishId || makePublishId('manual')).replace(/[^a-zA-Z0-9_.:-]/g, '_');
     return [
       `/* ARMOR BIKE Storefront — published ${ts} */`,
+      `/* ARMOR_BIKE_PUBLISH_ID:${safePublishId} */`,
       `(function () {`,
       `  var HEX = {\n${hexLines}\n  };`,
       `  var categories = ${JSON.stringify(data.categories, null, 2)};`,
       `  var images = ${JSON.stringify(data.images || [], null, 2)};`,
       `  var badges = ${JSON.stringify(data.badges || [], null, 2)};`,
       `  var hero = ${JSON.stringify(data.hero || [], null, 2)};`,
+      `  var publishId = ${JSON.stringify(safePublishId)};`,
       `  var map = {};`,
       `  categories.forEach(function (c) { map[c.id] = c; });`,
-      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero };`,
+      `  window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };`,
       `})();`,
     ].join('\n');
   }
@@ -1845,6 +1852,23 @@
     const [deployUrl, setDeployUrl] = useState('');
     const [deployStamp, setDeployStamp] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [elapsedSec, setElapsedSec] = useState(0);
+    const [progress, setProgress] = useState({
+      current: 'prepare',
+      detail: '',
+      percent: 0,
+      done: {},
+      failed: '',
+      attempt: 0,
+      startedAt: 0
+    });
+
+    const progressSteps = [
+      { id: 'prepare', title: '準備資料', hint: '整理 CMS 資料、版本碼與發布檔案' },
+      { id: 'github', title: 'GitHub 提交', hint: '寫入 store-data.js、前台與後台檔案' },
+      { id: 'cloudflare', title: 'Cloudflare 部署', hint: '等待 Pages 建置並切換到最新版本' },
+      { id: 'verify', title: '前台驗證', hint: '確認線上資料就是本次發布版本' }
+    ];
 
     useEffect(() => {
       let mounted = true;
@@ -1857,19 +1881,89 @@
       return () => { mounted = false; };
     }, []);
 
+    useEffect(() => {
+      if (phase !== 'busy' || !progress.startedAt) return undefined;
+      const tick = () => setElapsedSec(Math.max(0, Math.floor((Date.now() - progress.startedAt) / 1000)));
+      tick();
+      const timer = setInterval(tick, 1000);
+      return () => clearInterval(timer);
+    }, [phase, progress.startedAt]);
+
     const downloadJS = () => {
-      const js = generateStoreJS(data);
+      const js = generateStoreJS(data, makePublishId('download'));
       const blob = new Blob([js], { type: 'text/javascript' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'store-data.js'; a.click();
     };
 
     const step = (label) => setPhaseLabel(label);
+    const updateProgress = (current, detail, percent, extra = {}) => {
+      step(detail);
+      setProgress(prev => ({
+        ...prev,
+        ...extra,
+        current,
+        detail,
+        percent: Math.max(prev.percent || 0, percent),
+        failed: '',
+        updatedAt: Date.now()
+      }));
+    };
+    const completeProgress = (id, percent) => {
+      setProgress(prev => ({
+        ...prev,
+        percent: Math.max(prev.percent || 0, percent),
+        done: { ...(prev.done || {}), [id]: true },
+        updatedAt: Date.now()
+      }));
+    };
+    const failProgress = (message) => {
+      setProgress(prev => ({
+        ...prev,
+        detail: message || prev.detail,
+        failed: prev.current || 'github',
+        updatedAt: Date.now()
+      }));
+    };
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const normalizeSiteUrl = (url) => (url || GITHUB_DEFAULTS.siteUrl).replace(/\/$/, '');
-    const finishPublish = (url) => {
+    const finishPublish = (url, stamp) => {
       setDeployUrl(normalizeSiteUrl(url));
-      setDeployStamp(Date.now().toString(36));
+      setDeployStamp(stamp || Date.now().toString(36));
       setPhase('done');
+    };
+    const waitForFrontendDeploy = async (url, publishId) => {
+      const baseUrl = normalizeSiteUrl(url);
+      const marker = `ARMOR_BIKE_PUBLISH_ID:${publishId}`;
+      const deadline = Date.now() + 120000;
+      let attempt = 0;
+      let lastError = '';
+      while (Date.now() < deadline) {
+        attempt += 1;
+        updateProgress('cloudflare', `正在等待 Cloudflare Pages 完成部署…（第 ${attempt} 次確認）`, Math.min(92, 72 + attempt * 2), { attempt });
+        try {
+          const target = `${baseUrl}/store-data.js?deploy=${encodeURIComponent(publishId)}&check=${Date.now()}`;
+          const res = await fetch(target, { cache: 'no-store' });
+          if (res.ok) {
+            const online = await res.text();
+            if (online.includes(marker) || online.includes(`"publishId": ${JSON.stringify(publishId)}`) || online.includes(`var publishId = ${JSON.stringify(publishId)}`)) {
+              completeProgress('cloudflare', 94);
+              updateProgress('verify', '正在確認前台資料版本…', 97, { attempt });
+              completeProgress('verify', 100);
+              return true;
+            }
+            lastError = '線上資料仍是上一版';
+          } else {
+            lastError = `線上資料讀取失敗 (${res.status})`;
+          }
+          updateProgress('cloudflare', `${lastError}，繼續等待 Cloudflare Pages…（第 ${attempt} 次確認）`, Math.min(92, 72 + attempt * 2), { attempt });
+        } catch (err) {
+          lastError = err.message || '線上部署狀態暫時無法讀取';
+          updateProgress('cloudflare', `${lastError}，稍後重試…（第 ${attempt} 次確認）`, Math.min(92, 72 + attempt * 2), { attempt });
+        }
+        await sleep(attempt < 3 ? 3000 : 5000);
+      }
+      throw new Error(`已提交到 GitHub，但 Cloudflare Pages 尚未完成部署：${lastError}。請稍後重新發布或到 Cloudflare Pages 查看部署狀態。`);
     };
     const deployLink = (path = '/') => {
       if (!deployUrl) return '#';
@@ -1894,6 +1988,10 @@
     const publish = async () => {
       setPhase('busy');
       setErrMsg('');
+      const startedAt = Date.now();
+      setElapsedSec(0);
+      setProgress({ current: 'prepare', detail: '正在準備發布資料…', percent: 4, done: {}, failed: '', attempt: 0, startedAt });
+      const publishId = makePublishId();
       const { token, repo, branch = 'main', siteUrl } = cfg;
       const h = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' };
       const base = `https://api.github.com/repos/${repo}/contents`;
@@ -1917,7 +2015,7 @@
       const collectPublishFiles = async () => {
         const files = [{
           path: 'store-data.js',
-          content: generateStoreJS(data),
+          content: generateStoreJS(data, publishId),
           message: 'Deploy: update store data',
           mergeStrategy: 'owned-products',
           data,
@@ -1944,34 +2042,43 @@
 
       try {
         if (cfg.publishConfigured) {
-          step('正在送出雲端發布…');
+          updateProgress('prepare', '正在整理要發布的檔案…', 10);
+          const files = await collectPublishFiles();
+          completeProgress('prepare', 20);
+          updateProgress('github', `正在透過雲端發布服務提交 ${files.length} 個檔案到 GitHub…`, 32);
           const res = await fetch('/api/publish', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ files: await collectPublishFiles() })
+            body: JSON.stringify({ files })
           });
           if (!res.ok) {
             const t = await res.text();
             throw new Error(t || ('雲端發布失敗 (' + res.status + ')'));
           }
+          completeProgress('github', 68);
           const result = await res.json().catch(() => ({}));
           const responseUrl = result.siteUrl || siteUrl || GITHUB_DEFAULTS.siteUrl;
           const normalizedUrl = responseUrl.startsWith('http') ? responseUrl : `https://${responseUrl}`;
-          finishPublish(normalizedUrl);
+          setDeployUrl(normalizeSiteUrl(normalizedUrl));
+          setDeployStamp(publishId);
+          updateProgress('cloudflare', 'GitHub 已提交，正在等待 Cloudflare Pages 建置…', 72);
+          await waitForFrontendDeploy(normalizedUrl, publishId);
+          finishPublish(normalizedUrl, publishId);
           return;
         }
 
         // 1. Verify token & repo
-        step('正在驗證 GitHub Token…');
+        updateProgress('prepare', '正在驗證 GitHub Token 與 Repository…', 12);
         const testRes = await fetch(`https://api.github.com/repos/${repo}`, { headers: h });
         if (testRes.status === 401) throw new Error('GitHub Token 無效，請至「設定」重新確認。');
         if (testRes.status === 404) throw new Error(`找不到 Repository：${repo}，請確認名稱格式為 owner/repo。`);
         if (!testRes.ok) throw new Error(`無法連接 GitHub (${testRes.status})`);
+        completeProgress('prepare', 20);
 
         // 2. Commit store-data.js — use generated only if admin has real CMS data
-        step('正在提交 store-data.js…');
+        updateProgress('github', '正在提交 store-data.js 到 GitHub…', 28);
         if (data.categories && data.categories.length > 0) {
-          await commitFile('store-data.js', generateStoreJS(data), 'Deploy: update store data');
+          await commitFile('store-data.js', generateStoreJS(data, publishId), 'Deploy: update store data');
         } else {
           try {
             const r = await fetch('./store-data.js?' + Date.now());
@@ -1981,62 +2088,107 @@
 
         // 2b. Commit cms-users.js — shared admin accounts (passwords hashed) so any browser can sign in
         try {
-          step('正在提交 cms-users.js…');
+          updateProgress('github', '正在提交 cms-users.js 到 GitHub…', 36);
           const merged = allUsers();
           if (merged.length > 0) { await commitFile('cms-users.js', await buildCmsUsersJS(merged), 'Deploy: update admin accounts'); }
         } catch (_) {}
 
         // 3. Commit _ds_bundle.js (design system)
         try {
-          step('正在提交 _ds_bundle.js…');
+          updateProgress('github', '正在提交 _ds_bundle.js 到 GitHub…', 42);
           const r = await fetch('./_ds_bundle.js?' + Date.now());
           if (r.ok) { await commitFile('_ds_bundle.js', await r.text(), 'Deploy: update design system bundle'); }
         } catch (_) {}
 
         // 4. Commit styles.css
         try {
-          step('正在提交 styles.css…');
+          updateProgress('github', '正在提交 styles.css 到 GitHub…', 48);
           const r = await fetch('./styles.css?' + Date.now());
           if (r.ok) { await commitFile('styles.css', await r.text(), 'Deploy: update styles'); }
         } catch (_) {}
 
         // 5. Commit index.html (storefront entry)
         try {
-          step('正在提交 index.html…');
+          updateProgress('github', '正在提交 index.html 到 GitHub…', 54);
           const r = await fetch('./index.html?' + Date.now());
           if (r.ok) { await commitFile('index.html', await r.text(), 'Deploy: update storefront index'); }
         } catch (_) {}
 
         // 6. Commit admin.html (admin entry)
         try {
-          step('正在提交 admin.html…');
+          updateProgress('github', '正在提交 admin.html 到 GitHub…', 58);
           const r = await fetch('./admin.html?' + Date.now());
           if (r.ok) { await commitFile('admin.html', await r.text(), 'Deploy: update admin entry'); }
         } catch (_) {}
 
         // 7. Commit store-app.jsx
         try {
-          step('正在提交 store-app.jsx…');
+          updateProgress('github', '正在提交 store-app.jsx 到 GitHub…', 62);
           const r = await fetch('./store-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('store-app.jsx', await r.text(), 'Deploy: update store app'); }
         } catch (_) {}
 
         // 8. Commit admin-app.jsx
         try {
-          step('正在提交 admin-app.jsx…');
+          updateProgress('github', '正在提交 admin-app.jsx 到 GitHub…', 66);
           const r = await fetch('./admin-app.jsx?' + Date.now());
           if (r.ok) { await commitFile('admin-app.jsx', await r.text(), 'Deploy: update admin app'); }
         } catch (_) {}
+        completeProgress('github', 68);
 
         const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : `https://github.com/${repo}`;
-        finishPublish(normalizedUrl);
+        setDeployUrl(normalizeSiteUrl(normalizedUrl));
+        setDeployStamp(publishId);
+        updateProgress('cloudflare', 'GitHub 已提交，正在等待 Cloudflare Pages 建置…', 72);
+        await waitForFrontendDeploy(normalizedUrl, publishId);
+        finishPublish(normalizedUrl, publishId);
       } catch (err) {
+        failProgress(err.message);
         setErrMsg(err.message);
         setPhase('error');
       }
     };
 
     const spinStyle = { width: 20, height: 20, border: '3px solid #e2e8f0', borderTop: `3px solid ${BRAND}`, borderRadius: '50%', animation: 'spin 0.8s linear infinite', flexShrink: 0 };
+    const formatElapsed = (sec) => {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return m ? `${m}分 ${String(s).padStart(2, '0')}秒` : `${s}秒`;
+    };
+    const progressStatus = (id) => {
+      if (progress.failed === id) return 'error';
+      if (progress.done && progress.done[id]) return 'done';
+      if (progress.current === id) return 'active';
+      return 'pending';
+    };
+    const progressStatusText = (status) => status === 'done' ? '完成' : status === 'active' ? '進行中' : status === 'error' ? '卡住' : '等待';
+    const renderPublishProgress = () => e('div', { style: { marginTop: 2 } },
+      e('div', { style: { marginBottom: 13 } },
+        e('div', { style: { display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 7, fontSize: 12, color: '#64748b', fontWeight: 800 } },
+          e('span', null, phase === 'error' ? '發布中斷' : phase === 'done' ? '發布完成' : '發布進度'),
+          e('span', null, `${Math.round(progress.percent || 0)}% · ${formatElapsed(elapsedSec)}`)
+        ),
+        e('div', { style: { height: 9, borderRadius: 999, background: '#e2e8f0', overflow: 'hidden', boxShadow: 'inset 0 1px 2px rgba(15,23,42,.08)' } },
+          e('div', { style: { width: '100%', height: '100%', borderRadius: 999, background: progress.failed ? '#dc2626' : `linear-gradient(90deg, ${BRAND}, #38bdf8)`, transformOrigin: 'left center', transform: `scaleX(${Math.min(100, Math.max(0, progress.percent || 0)) / 100})`, transition: 'transform 220ms cubic-bezier(.2,.9,.2,1)' } })
+        )
+      ),
+      e('div', { style: { display: 'grid', gap: 8 } },
+        progressSteps.map(item => {
+          const status = progressStatus(item.id);
+          const isActive = status === 'active';
+          const isDone = status === 'done';
+          const isError = status === 'error';
+          return e('div', { key: item.id, style: { display: 'grid', gridTemplateColumns: '30px minmax(0,1fr) auto', gap: 10, alignItems: 'center', padding: '10px 11px', borderRadius: 10, border: `1px solid ${isError ? '#fecaca' : isActive ? '#bae6fd' : isDone ? '#bbf7d0' : '#e2e8f0'}`, background: isError ? '#fef2f2' : isActive ? '#f0f9ff' : isDone ? '#f0fdf4' : '#f8fafc' } },
+            e('span', { style: { width: 26, height: 26, borderRadius: '50%', display: 'grid', placeItems: 'center', background: isError ? '#dc2626' : isDone ? '#16a34a' : isActive ? BRAND : '#cbd5e1', color: '#fff', fontSize: 13, fontWeight: 900 } }, isError ? '!' : isDone ? '✓' : isActive ? '…' : '•'),
+            e('span', { style: { minWidth: 0 } },
+              e('strong', { style: { display: 'block', fontSize: 13, color: '#0f172a' } }, item.title),
+              e('span', { style: { display: 'block', marginTop: 2, fontSize: 12, color: isActive || isError ? '#334155' : '#64748b', lineHeight: 1.4 } }, isActive || isError ? (progress.detail || item.hint) : item.hint)
+            ),
+            e('span', { style: { fontSize: 11, fontWeight: 900, color: isError ? '#dc2626' : isDone ? '#15803d' : isActive ? '#0369a1' : '#94a3b8' } }, progressStatusText(status))
+          );
+        })
+      )
+    );
 
     if (phase === 'checking') return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose, width: 500 },
       e('div', { style: { padding: '16px 0 8px', display: 'flex', alignItems: 'center', gap: 12 } },
@@ -2057,27 +2209,31 @@
       )
     );
 
-    return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose: phase === 'busy' ? undefined : onClose, width: 500 },
+    return e(Modal, { title: '📦 發布至 Cloudflare Pages', onClose: phase === 'busy' ? undefined : onClose, width: 560 },
       phase === 'idle' && e('div', null,
         e('p', { style: { margin: '0 0 16px', fontSize: 14, color: '#374151' } }, '確認要將目前的 CMS 資料發布到線上網站嗎？'),
         e('div', { style: { background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#0369a1', marginBottom: 20 } },
-          '會將 store-data.js、store-app.jsx、admin-app.jsx 提交到 GitHub，Cloudflare Pages 約 30 秒後自動部署完成。'
+          '會將 store-data.js、store-app.jsx、admin-app.jsx 提交到 GitHub，並等待 Cloudflare Pages 確認線上資料已更新後，才顯示前台網站按鈕。'
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
           e('button', { onClick: publish, style: S.btnPrimary }, '🚀 確認發布'),
           e('button', { onClick: onClose, style: S.btnGhost }, '取消')
         )
       ),
-      phase === 'busy' && e('div', { style: { padding: '16px 0 8px', display: 'flex', alignItems: 'center', gap: 12 } },
-        e('div', { style: spinStyle }),
-        e('span', { style: { fontSize: 14, fontWeight: 600, color: '#374151' } }, phaseLabel)
+      phase === 'busy' && e('div', { style: { padding: '8px 0 2px' } },
+        e('div', { style: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 } },
+          e('div', { style: spinStyle }),
+          e('span', { style: { fontSize: 14, fontWeight: 700, color: '#374151', lineHeight: 1.45 } }, phaseLabel || '正在發布…')
+        ),
+        renderPublishProgress()
       ),
       phase === 'done' && e('div', null,
         e('div', { style: { textAlign: 'center', padding: '16px 0 8px' } },
           e('div', { style: { fontSize: 48, marginBottom: 10 } }, '🎉'),
-          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已提交到 GitHub！'),
-          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署。按鈕會以最新部署參數開啟，避免讀到舊快取。')
+          e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已發布到線上網站！'),
+          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 已確認讀到最新資料。按下前台網站會直接開啟本次發布版本。')
         ),
+        renderPublishProgress(),
         e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20, flexWrap: 'wrap' } },
           e('a', { href: deployLink('/'), target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
           e('a', { href: deployLink('/admin.html'), target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ 後台管理'),
@@ -2089,7 +2245,8 @@
           e('p', { style: { margin: 0, fontWeight: 700, color: '#991b1b', fontSize: 14 } }, '✕ 發布失敗'),
           e('p', { style: { margin: '8px 0 0', fontSize: 12, color: '#7f1d1d', fontFamily: 'monospace', whiteSpace: 'pre-wrap', wordBreak: 'break-all' } }, errMsg)
         ),
-        e('div', { style: { display: 'flex', gap: 10 } },
+        renderPublishProgress(),
+        e('div', { style: { display: 'flex', gap: 10, marginTop: 18 } },
           e('button', { onClick: publish, style: S.btnPrimary }, '重試'),
           e('button', { onClick: downloadJS, style: S.btnGhost }, '⬇ 手動下載 JS'),
           e('button', { onClick: onClose, style: S.btnGhost }, '關閉')
