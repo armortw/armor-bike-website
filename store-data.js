@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 06:46 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqt524pu_hsy37a */
+/* ARMOR BIKE Storefront — published 2026-06-25 06:48 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqt55o20_3wvo83 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -382,7 +382,8 @@
           "title": "Wheels",
           "links": [
             "Wheelsets",
-            "Hubs & Freewheels",
+            "Hubs",
+            "Freewheels",
             "Rims",
             "Spokes & Nipples"
           ]
@@ -3174,7 +3175,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqt524pu_hsy37a";
+  var publishId = "pub_mqt55o20_3wvo83";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
