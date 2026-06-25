@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 03:21 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 03:23 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1398,7 +1398,7 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:57:31.760Z",
-        "updatedAt": "2026-06-25T03:19:42.017Z",
+        "updatedAt": "2026-06-25T03:23:17.566Z",
         "updatedBy": "donald"
       },
       {
