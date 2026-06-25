@@ -1488,6 +1488,29 @@
         "createdAt": "2026-06-25T04:05:29.520Z",
         "updatedAt": "2026-06-25T04:05:29.520Z",
         "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3108",
+        "spec": "TPR99, 135MM, BLACK GRIP,\nCLOSE END, ONE PC LOCKRING\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360783/uwqkobqord097tj5vyrc.jpg",
+            "alt": "D2903 (VK26-3108)"
+          }
+        ],
+        "productId": "prd_mqszlk3t_wv781m",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-25T04:13:16.168Z",
+        "updatedAt": "2026-06-25T04:13:16.168Z",
+        "updatedBy": "alicia"
       }
     ]
   },
