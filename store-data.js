@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 03:44 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 03:47 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -32,7 +32,6 @@
             "Hardtail",
             "Full Suspension",
             "Trail",
-            "Enduro",
             "Downhill",
             "Cross Country"
           ]
@@ -40,13 +39,13 @@
       ],
       [
         {
-          "title": "E-Bikes",
+          "title": "Bikes",
           "links": [
-            "E-Mountain",
-            "E-Trekking",
-            "E-City",
-            "E-Road",
-            "E-Cargo"
+            "Mountain",
+            "Trekking",
+            "City",
+            "Road",
+            "Cargo"
           ]
         }
       ],
