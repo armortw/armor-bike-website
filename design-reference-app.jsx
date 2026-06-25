@@ -92,7 +92,7 @@
   function scrollToProducts() {
     window.requestAnimationFrame(() => {
       const target = document.getElementById("products");
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (target) target.scrollIntoView({ behavior: "auto", block: "start" });
     });
   }
 
@@ -238,7 +238,7 @@
                 onMouseEnter={() => setOpenId(item.id)}
                 onFocus={() => setOpenId(item.id)}
                 onClick={() => {
-                  setOpenId(item.id);
+                  setOpenId(null);
                   onSelectCategory(item);
                 }}
                 type="button"
@@ -256,9 +256,18 @@
         {openCategory && (
           <MegaMenu
             category={openCategory}
-            onSelectCategory={onSelectCategory}
-            onSelectMegaGroup={onSelectMegaGroup}
-            onSelectMegaLink={onSelectMegaLink}
+            onSelectCategory={(category) => {
+              setOpenId(null);
+              onSelectCategory(category);
+            }}
+            onSelectMegaGroup={(category, groupTitle) => {
+              setOpenId(null);
+              onSelectMegaGroup(category, groupTitle);
+            }}
+            onSelectMegaLink={(category, link) => {
+              setOpenId(null);
+              onSelectMegaLink(category, link);
+            }}
           />
         )}
       </header>

@@ -1843,6 +1843,7 @@
     const [phase, setPhase] = useState('checking');
     const [phaseLabel, setPhaseLabel] = useState('');
     const [deployUrl, setDeployUrl] = useState('');
+    const [deployStamp, setDeployStamp] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
@@ -1863,6 +1864,25 @@
     };
 
     const step = (label) => setPhaseLabel(label);
+
+    const normalizeSiteUrl = (url) => (url || GITHUB_DEFAULTS.siteUrl).replace(/\/$/, '');
+    const finishPublish = (url) => {
+      setDeployUrl(normalizeSiteUrl(url));
+      setDeployStamp(Date.now().toString(36));
+      setPhase('done');
+    };
+    const deployLink = (path = '/') => {
+      if (!deployUrl) return '#';
+      try {
+        const url = new URL(path, deployUrl.replace(/\/$/, '') + '/');
+        url.searchParams.set('deploy', deployStamp || Date.now().toString(36));
+        return url.href;
+      } catch (_) {
+        const cleanPath = path.startsWith('/') ? path : '/' + path;
+        const joiner = cleanPath.includes('?') ? '&' : '?';
+        return deployUrl.replace(/\/$/, '') + cleanPath + joiner + 'deploy=' + (deployStamp || Date.now().toString(36));
+      }
+    };
 
     const toBase64 = (str) => {
       const bytes = new TextEncoder().encode(str);
@@ -1934,9 +1954,10 @@
             const t = await res.text();
             throw new Error(t || ('雲端發布失敗 (' + res.status + ')'));
           }
-          const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : GITHUB_DEFAULTS.siteUrl;
-          setDeployUrl(normalizedUrl.replace(/\/$/, ''));
-          setPhase('done');
+          const result = await res.json().catch(() => ({}));
+          const responseUrl = result.siteUrl || siteUrl || GITHUB_DEFAULTS.siteUrl;
+          const normalizedUrl = responseUrl.startsWith('http') ? responseUrl : `https://${responseUrl}`;
+          finishPublish(normalizedUrl);
           return;
         }
 
@@ -2008,8 +2029,7 @@
         } catch (_) {}
 
         const normalizedUrl = siteUrl ? (siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`) : `https://github.com/${repo}`;
-        setDeployUrl(normalizedUrl.replace(/\/$/, ''));
-        setPhase('done');
+        finishPublish(normalizedUrl);
       } catch (err) {
         setErrMsg(err.message);
         setPhase('error');
@@ -2056,11 +2076,11 @@
         e('div', { style: { textAlign: 'center', padding: '16px 0 8px' } },
           e('div', { style: { fontSize: 48, marginBottom: 10 } }, '🎉'),
           e('p', { style: { fontSize: 18, fontWeight: 800, color: '#166534', margin: '0 0 4px' } }, '已提交到 GitHub！'),
-          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署，約 30 秒後上線。')
+          e('p', { style: { fontSize: 13, color: '#64748b', margin: 0 } }, 'Cloudflare Pages 正在自動部署。按鈕會以最新部署參數開啟，避免讀到舊快取。')
         ),
         e('div', { style: { display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20, flexWrap: 'wrap' } },
-          e('a', { href: deployUrl, target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
-          e('a', { href: deployUrl ? deployUrl.replace(/\/?$/, '/admin.html') : '#', target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ 後台管理'),
+          e('a', { href: deployLink('/'), target: '_blank', style: { ...S.btnPrimary, textDecoration: 'none' } }, '🌐 前台網站'),
+          e('a', { href: deployLink('/admin.html'), target: '_blank', style: { ...S.btnGhost, textDecoration: 'none' } }, '⚙ 後台管理'),
           e('button', { onClick: onClose, style: S.btnGhost }, '關閉')
         )
       ),
