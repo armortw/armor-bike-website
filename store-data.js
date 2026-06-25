@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 06:48 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqt55o20_3wvo83 */
+/* ARMOR BIKE Storefront — published 2026-06-25 06:51 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqt59bcw_f6mykv */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1406,7 +1406,7 @@
         "spec": "ALLOY COLORFUL HUB\nF: ID 5.2*14G*36H*100*108MM,\nW/BLACK Q.R.\nR:ID 5.2*14G*36H*135*145MM,\n120 SOUNDS, W/BLACK Q.R.\n",
         "badge": "",
         "note": "",
-        "leaf": "Hubs & Freewheels",
+        "leaf": "Hubs",
         "colors": [],
         "images": [
           {
@@ -1420,7 +1420,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:26:18.491Z",
-        "updatedAt": "2026-06-25T03:53:38.832Z",
+        "updatedAt": "2026-06-25T06:51:03.465Z",
         "updatedBy": "alicia"
       },
       {
@@ -1429,7 +1429,7 @@
         "spec": "ALLOY BLACK HUB,\nF: 3/8\"*36H*100*108MM,\nW/BLACK Q.R.\nR: 3/8\"*36H*135*145MM,\nW/BLACK Q.R.\nW/120 SOUNDS",
         "badge": "",
         "note": "",
-        "leaf": "Hubs & Freewheels",
+        "leaf": "Hubs",
         "colors": [],
         "images": [
           {
@@ -1443,7 +1443,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:28:45.882Z",
-        "updatedAt": "2026-06-25T03:54:06.032Z",
+        "updatedAt": "2026-06-25T06:51:27.505Z",
         "updatedBy": "alicia"
       },
       {
@@ -3175,7 +3175,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqt55o20_3wvo83";
+  var publishId = "pub_mqt59bcw_f6mykv";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
