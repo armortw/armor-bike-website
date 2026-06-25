@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 04:03 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 04:07 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1465,6 +1465,52 @@
         "createdAt": "2026-06-24T11:16:02.677Z",
         "updatedAt": "2026-06-24T11:16:02.677Z",
         "updatedBy": "VICKY"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3106",
+        "spec": "PP/TPR, 135MM, BLACK GRIP,\nOPEN END, SINGLE ALLOY LOCKRING,\nW/PLUG",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360052/dlleoqnsdyry0jka25wh.jpg",
+            "alt": "D2801 (VK26-3106)"
+          }
+        ],
+        "productId": "prd_mqsz9jhs_7qjje9",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-25T04:03:55.504Z",
+        "updatedAt": "2026-06-25T04:03:55.504Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3107",
+        "spec": "PP/TPR, 135MM, BLACK GRIP,\nOPEN END, SINGLE ALLOY LOCKRING,\nW/PLUG",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360321/gbwdavninrtkzmnmyunn.jpg",
+            "alt": "D2103 (VK26-3107)"
+          }
+        ],
+        "productId": "prd_mqszbk1c_t3lxpc",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-06-25T04:05:29.520Z",
+        "updatedAt": "2026-06-25T04:05:29.520Z",
+        "updatedBy": "alicia"
       }
     ]
   },
