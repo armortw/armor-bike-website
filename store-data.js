@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 04:08 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 04:13 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1442,29 +1442,6 @@
         "createdAt": "2026-06-24T11:28:45.882Z",
         "updatedAt": "2026-06-25T03:54:06.032Z",
         "updatedBy": "alicia"
-      },
-      {
-        "manufacturer": "ARMOR",
-        "name": "TIRE ",
-        "spec": "TIRE 20 X 2.125  \nCOLOR: BLACK\nW/O LOGO",
-        "badge": "",
-        "note": "",
-        "leaf": "",
-        "colors": [],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782299753/hedkbh7rgv7fcbmme34i.jpg",
-            "alt": "J-1622"
-          }
-        ],
-        "productId": "prd_mqrz9ed1_k4mxkl",
-        "sourceKey": "",
-        "ownerId": "1782299556148",
-        "ownerUsername": "VICKY",
-        "ownerName": "VICKY",
-        "createdAt": "2026-06-24T11:16:02.677Z",
-        "updatedAt": "2026-06-24T11:16:02.677Z",
-        "updatedBy": "VICKY"
       },
       {
         "manufacturer": "ARMOR",
