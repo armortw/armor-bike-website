@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 08:03 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqt7tb34_8ervyg */
+/* ARMOR BIKE Storefront — published 2026-06-25 09:27 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqtatksr_tdzq7z */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1517,12 +1517,14 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "TIRE ",
+        "name": "VK26-48001",
         "spec": "TIRE 20 X 2.125  \nCOLOR: BLACK\nW/O LOGO",
         "badge": "",
         "note": "",
-        "leaf": "",
-        "colors": [],
+        "leaf": "Tires",
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782299753/hedkbh7rgv7fcbmme34i.jpg",
@@ -1530,12 +1532,12 @@
           }
         ],
         "productId": "prd_mqrz9ed1_k4mxkl",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrz9ed1_k4mxkl",
         "ownerId": "1782299556148",
         "ownerUsername": "VICKY",
         "ownerName": "VICKY",
         "createdAt": "2026-06-24T11:16:02.677Z",
-        "updatedAt": "2026-06-24T11:16:02.677Z",
+        "updatedAt": "2026-06-25T09:27:19.394Z",
         "updatedBy": "VICKY"
       },
       {
@@ -3175,7 +3177,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqt7tb34_8ervyg";
+  var publishId = "pub_mqtatksr_tdzq7z";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
