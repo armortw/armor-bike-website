@@ -1,4 +1,4 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 03:19 UTC */
+/* ARMOR BIKE Storefront — published 2026-06-25 03:21 UTC */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1188,7 +1188,7 @@
         "spec": "MATERIAL: PP+STICKY RUBBER (NON-SLIDE) 126MM,\nBLACK GRIP, ONE INSIDE MATT BLACK LOCK RING,\nOPEN END W/BLACK PLUG  ",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Grips",
         "colors": [],
         "images": [
           {
@@ -1202,8 +1202,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:39:48.900Z",
-        "updatedAt": "2026-06-24T03:44:32.700Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-06-25T03:21:26.166Z",
+        "updatedBy": "donald"
       },
       {
         "manufacturer": "ARMOR",
@@ -1384,7 +1384,7 @@
         "spec": "BODY: NYLON\nAXLE: CNC MACHINED CR-MO\nBEARING: 1 x BEARINGS + 1 DU\nSIZE: 112*115  MM \nFINISH: SINGLE COLOR AVAIL.",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "Flat Pedals",
         "colors": [],
         "images": [
           {
@@ -1393,12 +1393,12 @@
           }
         ],
         "productId": "prd_mqrq0y28_isl6id",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrq0y28_isl6id",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:57:31.760Z",
-        "updatedAt": "2026-06-24T06:57:31.760Z",
+        "updatedAt": "2026-06-25T03:19:42.017Z",
         "updatedBy": "donald"
       },
       {
