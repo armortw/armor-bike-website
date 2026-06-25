@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 06:51 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqt59bcw_f6mykv */
+/* ARMOR BIKE Storefront — published 2026-06-25 08:03 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqt7tb34_8ervyg */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -3175,7 +3175,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqt59bcw_f6mykv";
+  var publishId = "pub_mqt7tb34_8ervyg";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
