@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-25 09:27 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqtatksr_tdzq7z */
+/* ARMOR BIKE Storefront — published 2026-06-26 03:07 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqucpc7m_of3art */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2643,6 +2643,31 @@
         "createdAt": "2026-06-24T10:38:57.813Z",
         "updatedAt": "2026-06-24T10:38:57.813Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-008",
+        "spec": "Material: ABS+PMMA\nLED: 3535 LED\nBrightness: 400 lumens\nBattery: 1800mAh li-ion battery\nCharging port: TYPE-C\nSize: 96*34*27mm\n",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [
+          "#111827"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782443243/kjprlvr9sdbizc6ot1bd.png",
+            "alt": "2026-06-26-3ee895e2-8427-40f4-aa56-5fa21c345e7f"
+          }
+        ],
+        "productId": "prd_mqucoy0r_w85w4k",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-26T03:07:35.355Z",
+        "updatedAt": "2026-06-26T03:07:35.355Z",
+        "updatedBy": "jessica"
       }
     ]
   },
@@ -3177,7 +3202,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqtatksr_tdzq7z";
+  var publishId = "pub_mqucpc7m_of3art";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
