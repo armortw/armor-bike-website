@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-26 03:07 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqucpc7m_of3art */
+/* ARMOR BIKE Storefront — published 2026-06-26 03:29 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mqudh2ex_6tcom1 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2668,6 +2668,31 @@
         "createdAt": "2026-06-26T03:07:35.355Z",
         "updatedAt": "2026-06-26T03:07:35.355Z",
         "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-009",
+        "spec": "Material: Aluminum alloy+Nylon+POM\nColor: Black\nBrightness: 1600 lumens\nCharging port: TYPE-C\nSize: 65*49*56mm\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Front Lights",
+        "colors": [
+          "#111827"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782444554/okuxlh7wfvieyc8da2cp.png",
+            "alt": "2026-06-26-3f547d7f-1a73-46d0-b9d2-577167a8a624"
+          }
+        ],
+        "productId": "prd_mqudgup8_7eu3f5",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-26T03:29:17.420Z",
+        "updatedAt": "2026-06-26T03:29:17.420Z",
+        "updatedBy": "jessica"
       }
     ]
   },
@@ -3202,7 +3227,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqucpc7m_of3art";
+  var publishId = "pub_mqudh2ex_6tcom1";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
