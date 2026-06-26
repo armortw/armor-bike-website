@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-26 03:29 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mqudh2ex_6tcom1 */
+/* ARMOR BIKE Storefront — published 2026-06-26 04:11 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mquezob3_yvj2it */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2693,6 +2693,31 @@
         "createdAt": "2026-06-26T03:29:17.420Z",
         "updatedAt": "2026-06-26T03:29:17.420Z",
         "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "LE26-010",
+        "spec": "FRONT LIGHT\nCharging port: USB-C\nColor: Black\nMax Lumens: 400LM\n\nREAR LIGHT\nMax Lumens: 30LM(RED)  \n",
+        "badge": "",
+        "note": "",
+        "leaf": "Light Sets",
+        "colors": [
+          "#111827"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782447102/btwvicjrl9sksbauufsa.png",
+            "alt": "2026-06-26-e1d310be-80c4-4dad-a7db-8d23c3a44149"
+          }
+        ],
+        "productId": "prd_mquezgxz_outxgi",
+        "sourceKey": "",
+        "ownerId": "1782186185801",
+        "ownerUsername": "jessica",
+        "ownerName": "jessica",
+        "createdAt": "2026-06-26T04:11:45.670Z",
+        "updatedAt": "2026-06-26T04:11:45.670Z",
+        "updatedBy": "jessica"
       }
     ]
   },
@@ -3227,7 +3252,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mqudh2ex_6tcom1";
+  var publishId = "pub_mquezob3_yvj2it";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
