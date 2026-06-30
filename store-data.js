@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 09:09 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0fdtch_o2vs35 */
+/* ARMOR BIKE Storefront — published 2026-06-30 09:51 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0gvtuc_jv0nqc */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1639,7 +1639,8 @@
             "Chain Locks",
             "Cable Lock",
             "Foldng Lock",
-            "U lock"
+            "U lock",
+            "DISC BRAKE LOCK"
           ]
         }
       ],
@@ -2768,6 +2769,29 @@
         "createdAt": "2026-06-30T07:27:56.395Z",
         "updatedAt": "2026-06-30T07:27:56.395Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "AM26-C810101",
+        "spec": "ALARM DISC BRAKE\nALLOY MATERIAL \n5.5MM \nW/2 SPARE KEYS",
+        "badge": "",
+        "note": "",
+        "leaf": "DISC BRAKE LOCK",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813081/mq9lqcx4skvgtstknc0x.png",
+            "alt": "C810101"
+          }
+        ],
+        "productId": "prd_mr0gvppo_02khq5",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T09:51:26.700Z",
+        "updatedAt": "2026-06-30T09:51:26.700Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3302,7 +3326,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0fdtch_o2vs35";
+  var publishId = "pub_mr0gvtuc_jv0nqc";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
