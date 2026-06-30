@@ -60,6 +60,7 @@
 
   .header-inner {
     width: min(var(--site-max), 100%);
+    min-width: 0;
     height: var(--header-height);
     margin: 0 auto;
     display: grid;
@@ -74,6 +75,7 @@
     align-items: center;
     gap: 12px;
     width: fit-content;
+    max-width: 100%;
     min-width: 0;
   }
 
@@ -99,6 +101,7 @@
   .main-nav {
     height: var(--header-height);
     display: flex;
+    min-width: 0;
     align-items: center;
     justify-content: center;
     gap: clamp(24px, 3.4vw, 52px);
@@ -167,6 +170,7 @@
 
   .header-tools {
     display: flex;
+    min-width: 0;
     align-items: center;
     justify-content: flex-end;
     gap: 24px;
@@ -218,46 +222,80 @@
   .mobile-menu {
     display: none;
     position: absolute;
-    left: 12px;
-    right: 12px;
-    top: var(--header-height);
-    max-height: calc(100vh - var(--header-height) - 16px);
+    right: max(12px, var(--page-gutter));
+    left: auto;
+    top: calc(var(--header-height) + 8px);
+    width: min(390px, calc(100vw - 24px));
+    max-height: min(52vh, 390px);
     overflow: auto;
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    border-radius: 0 0 10px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    border-radius: 10px;
     background:
-      radial-gradient(circle at 18% 0%, rgba(255,255,255,0.98), transparent 36%),
-      linear-gradient(135deg, rgba(244,252,255,0.96), rgba(218,241,255,0.92));
-    box-shadow: 0 28px 70px rgba(0, 38, 112, 0.22), 0 10px 26px rgba(43, 64, 181, 0.16);
-    backdrop-filter: blur(30px) saturate(1.65);
+      radial-gradient(circle at 16% 0%, rgba(255,255,255,0.98), transparent 40%),
+      linear-gradient(135deg, rgba(244,252,255,0.97), rgba(218,241,255,0.94));
+    box-shadow: 0 20px 52px rgba(0, 38, 112, 0.2), 0 8px 20px rgba(0, 156, 224, 0.13);
+    backdrop-filter: blur(28px) saturate(1.55);
     overscroll-behavior: contain;
   }
 
   .mobile-menu-inner {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    padding: 14px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
   }
 
-  .mobile-menu-card {
-    min-width: 0;
-    border: 1px solid rgba(0, 128, 188, 0.16);
+  .mobile-menu-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 0 0 2px;
+    scrollbar-width: none;
+  }
+
+  .mobile-menu-tabs::-webkit-scrollbar { display: none; }
+
+  .mobile-menu-tab {
+    flex: 0 0 auto;
+    min-height: 36px;
+    border: 1px solid rgba(0, 128, 188, 0.18);
     border-radius: 8px;
-    background: rgba(255,255,255,0.58);
-    overflow: hidden;
+    padding: 0 11px;
+    background: rgba(255,255,255,0.62);
+    color: #082033;
+    font-size: 13px;
+    font-weight: 900;
+    white-space: nowrap;
+    cursor: pointer;
   }
 
-  .mobile-menu-card.active { border-color: rgba(43, 64, 181, 0.46); box-shadow: inset 4px 0 0 #2b40b5; }
+  .mobile-menu-tab.active {
+    border-color: rgba(0, 0, 147, 0.42);
+    background: #000093;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(0, 0, 147, 0.18);
+  }
+
+  .mobile-menu-current {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(0, 128, 188, 0.14);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.55);
+  }
 
   .mobile-menu-button,
   .mobile-menu-group-title,
   .mobile-menu-link {
-    width: 100%;
     border: 0;
     background: transparent;
     text-align: left;
     cursor: pointer;
+  }
+
+  .mobile-menu-button,
+  .mobile-menu-group-title {
+    width: 100%;
   }
 
   .mobile-menu-button {
@@ -265,47 +303,78 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding: 12px 13px;
+    padding: 10px 12px;
     color: #06121e;
     font-size: 15px;
     font-weight: 950;
   }
 
   .mobile-menu-button small {
-    color: #2b40b5;
+    color: #006ea7;
     font-size: 11px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
-  .mobile-menu-groups { display: grid; gap: 10px; padding: 0 13px 13px; }
-  .mobile-menu-group { min-width: 0; }
+  .mobile-menu-groups {
+    display: grid;
+    gap: 7px;
+    padding: 0 10px 10px;
+  }
+
+  .mobile-menu-group {
+    min-width: 0;
+    padding-top: 7px;
+    border-top: 1px solid rgba(0, 128, 188, 0.12);
+  }
+
+  .mobile-menu-group:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
 
   .mobile-menu-group-title {
-    padding: 7px 0;
+    padding: 5px 0;
     color: #002f48;
     font-size: 12px;
     font-weight: 950;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
+  }
+
+  .mobile-menu-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .mobile-menu-link {
-    min-height: 30px;
-    padding: 6px 8px;
-    border-radius: 6px;
+    width: auto;
+    min-height: 28px;
+    padding: 5px 9px;
+    border: 1px solid rgba(0, 128, 188, 0.13);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.5);
     color: rgba(0, 43, 68, 0.84);
-    font-size: 13px;
-    font-weight: 760;
+    font-size: 12px;
+    font-weight: 780;
   }
 
   .mobile-menu-link:hover,
   .mobile-menu-link:focus-visible,
   .mobile-menu-group-title:hover,
-  .mobile-menu-group-title:focus-visible {
-    color: #2b40b5;
-    background: rgba(255,255,255,0.58);
+  .mobile-menu-group-title:focus-visible,
+  .mobile-menu-tab:hover,
+  .mobile-menu-tab:focus-visible {
+    color: #000093;
+    background: rgba(255,255,255,0.74);
+  }
+
+  .mobile-menu-tab.active:hover,
+  .mobile-menu-tab.active:focus-visible {
+    color: #ffffff;
+    background: #000093;
   }
 
   .mega-panel {
@@ -543,7 +612,7 @@
   .empty { min-height: 70vh; display: grid; place-items: center; text-align: center; padding: var(--page-gutter); }
   .empty > div { width: min(520px, 100%); border: 1px dashed rgba(0,156,224,.34); border-radius: 10px; padding: 34px; background: rgba(255,255,255,.82); box-shadow: var(--shadow-card); }
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1440px) {
     .header-inner {
       grid-template-columns: minmax(200px, 300px) minmax(0, 1fr) 132px;
       gap: 16px;
@@ -559,7 +628,7 @@
     .cart-badge { min-width: 18px; height: 18px; font-size: 11px; }
   }
 
-  @media (max-width: 1050px) {
+  @media (max-width: 1320px) {
     :root { --header-height: 76px; }
     .header-inner {
       grid-template-columns: minmax(0, 1fr) auto;
