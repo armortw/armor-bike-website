@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 09:54 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0h068q_u38cxk */
+/* ARMOR BIKE Storefront — published 2026-06-30 10:01 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0h869v_dx9ezg */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2815,6 +2815,29 @@
         "createdAt": "2026-06-30T09:53:33.666Z",
         "updatedAt": "2026-06-30T09:53:33.666Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "AM26-C81013",
+        "spec": "FINGERPRINT ALARM DISC LOCK\nALLOY MATERIAL\nDIA:7MM\nBATTERY TYPE:3.7V LI-ON ,BATTERY CAPACITY:150MAH/3.7V\n360 DEGREE SMART FINGERPRINT RECONGITION\nANTI-THEFT 110DB ALARM VOLUME",
+        "badge": "",
+        "note": "",
+        "leaf": "DISC BRAKE LOCK",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813658/escj8hwoqcktzgpflu3l.png",
+            "alt": "C810103"
+          }
+        ],
+        "productId": "prd_mr0h823d_82fa6w",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T10:01:02.616Z",
+        "updatedAt": "2026-06-30T10:01:02.616Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3349,7 +3372,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0h068q_u38cxk";
+  var publishId = "pub_mr0h869v_dx9ezg";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
