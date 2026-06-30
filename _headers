@@ -1,3 +1,16 @@
+# Cloudflare Pages cache policy for clean routes
+/
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/Product/
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/Product/index.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/product-page-app.jsx
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /store-data.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
