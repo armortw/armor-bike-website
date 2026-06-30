@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 07:21 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0bic7h_mph7zr */
+/* ARMOR BIKE Storefront — published 2026-06-30 07:23 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0bllv8_n8vom3 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2725,7 +2725,7 @@
         "spec": "U LOCK \nSTEEL +PVC SHACKLS\n180MMX245MM OR 180MMX320MM\nW/2 SPARE KEY ",
         "badge": "",
         "note": "",
-        "leaf": "",
+        "leaf": "U lock",
         "colors": [],
         "images": [
           {
@@ -2738,12 +2738,12 @@
           }
         ],
         "productId": "prd_mr0bi8v5_bfehi3",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0bi8v5_bfehi3",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T07:21:00.257Z",
-        "updatedAt": "2026-06-30T07:21:00.257Z",
+        "updatedAt": "2026-06-30T07:23:31.398Z",
         "updatedBy": "rita"
       }
     ]
@@ -3279,7 +3279,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0bic7h_mph7zr";
+  var publishId = "pub_mr0bllv8_n8vom3";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
