@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 07:10 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0b4f4s_ysvp41 */
+/* ARMOR BIKE Storefront — published 2026-06-30 07:21 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0bic7h_mph7zr */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2718,6 +2718,33 @@
         "createdAt": "2026-06-26T04:11:45.670Z",
         "updatedAt": "2026-06-26T04:11:45.670Z",
         "updatedBy": "jessica"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81108",
+        "spec": "U LOCK \nSTEEL +PVC SHACKLS\n180MMX245MM OR 180MMX320MM\nW/2 SPARE KEY ",
+        "badge": "",
+        "note": "",
+        "leaf": "",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804032/bnj5gvhwo9t3izltfnuc.png",
+            "alt": "PC5001(1)"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804055/dx9rc518edegys2t6fzs.png",
+            "alt": "PC5001(2)"
+          }
+        ],
+        "productId": "prd_mr0bi8v5_bfehi3",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T07:21:00.257Z",
+        "updatedAt": "2026-06-30T07:21:00.257Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3252,7 +3279,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0b4f4s_ysvp41";
+  var publishId = "pub_mr0bic7h_mph7zr";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
