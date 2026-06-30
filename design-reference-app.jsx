@@ -192,12 +192,6 @@
     if (name === "cart") {
       return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" {...common}></path><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle></svg>;
     }
-    if (name === "menu") {
-      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16" {...common}></path><path d="M4 12h16" {...common}></path><path d="M4 17h16" {...common}></path></svg>;
-    }
-    if (name === "close") {
-      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12" {...common}></path><path d="M18 6L6 18" {...common}></path></svg>;
-    }
     if (name === "truck") {
       return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3z" {...common}></path><path d="M14 10h4l3 3v3h-7z" {...common}></path><circle cx="7" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>;
     }
@@ -218,7 +212,6 @@
 
   function Header({ selectedCategory, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
     const [openId, setOpenId] = React.useState(null);
-    const [menuOpen, setMenuOpen] = React.useState(false);
     const navItems = categories.length ? categories : [
       { id: "bikes", label: "Bikes", mega: [] },
       { id: "parts", label: "Parts", mega: [] },
@@ -229,29 +222,14 @@
     ];
     const selectedId = selectedCategory && selectedCategory.id;
     const openCategory = navItems.find((item) => item.id === openId);
-    const selectCategory = (category) => {
-      setOpenId(null);
-      setMenuOpen(false);
-      onSelectCategory(category);
-    };
-    const selectMegaGroup = (category, groupTitle) => {
-      setOpenId(null);
-      setMenuOpen(false);
-      onSelectMegaGroup(category, groupTitle);
-    };
-    const selectMegaLink = (category, link) => {
-      setOpenId(null);
-      setMenuOpen(false);
-      onSelectMegaLink(category, link);
-    };
 
     return (
-      <header className={`header ${menuOpen ? "menu-open" : ""}`} onMouseLeave={() => setOpenId(null)}>
+      <header className="header" onMouseLeave={() => setOpenId(null)}>
         <div className="header-inner">
           <a className="brand" href="#top" aria-label="ARMOR BIKE home">
             <img
               className="brand-logo-mark"
-              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782812454/hu6yu8efbexuhis3ulii.png"
+              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187548/tlocousnxawpnq8qjkvo.png"
               alt="ARMOR BIKE logo mark"
             />
             <img
@@ -267,7 +245,10 @@
                 key={item.id}
                 onMouseEnter={() => setOpenId(item.id)}
                 onFocus={() => setOpenId(item.id)}
-                onClick={() => selectCategory(item)}
+                onClick={() => {
+                  setOpenId(null);
+                  onSelectCategory(item);
+                }}
                 type="button"
               >
                 {item.label}
@@ -275,69 +256,31 @@
             ))}
           </nav>
           <div className="header-tools">
-            <button className={`icon-button menu-toggle ${menuOpen ? "active" : ""}`} type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-controls="mobile-menu" aria-expanded={menuOpen} onClick={() => { setOpenId(null); setMenuOpen((value) => !value); }}>{icon(menuOpen ? "close" : "menu")}</button>
-            <button className="icon-button utility-search" type="button" aria-label="Search">{icon("search")}</button>
-            <button className="icon-button utility-account" type="button" aria-label="Account">{icon("user")}</button>
-            <button className="icon-button utility-cart" type="button" aria-label="Cart">{icon("cart")}<span className="cart-badge">2</span></button>
+            <button className="icon-button" type="button" aria-label="Search">{icon("search")}</button>
+            <button className="icon-button" type="button" aria-label="Account">{icon("user")}</button>
+            <button className="icon-button" type="button" aria-label="Cart">{icon("cart")}<span className="cart-badge">2</span></button>
           </div>
         </div>
-        {!menuOpen && openCategory && (
+        {openCategory && (
           <MegaMenu
             category={openCategory}
-            onSelectCategory={selectCategory}
-            onSelectMegaGroup={selectMegaGroup}
-            onSelectMegaLink={selectMegaLink}
-          />
-        )}
-        {menuOpen && (
-          <MobileMenu
-            navItems={navItems}
-            selectedId={selectedId}
-            onSelectCategory={selectCategory}
-            onSelectMegaGroup={selectMegaGroup}
-            onSelectMegaLink={selectMegaLink}
+            onSelectCategory={(category) => {
+              setOpenId(null);
+              onSelectCategory(category);
+            }}
+            onSelectMegaGroup={(category, groupTitle) => {
+              setOpenId(null);
+              onSelectMegaGroup(category, groupTitle);
+            }}
+            onSelectMegaLink={(category, link) => {
+              setOpenId(null);
+              onSelectMegaLink(category, link);
+            }}
           />
         )}
       </header>
     );
   }
-
-  function MobileMenu({ navItems, selectedId, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
-    return (
-      <div className="mobile-menu" id="mobile-menu">
-        <div className="mobile-menu-inner">
-          {navItems.map((item) => {
-            const groups = (Array.isArray(item.mega) ? item.mega : []).flat().filter(Boolean).slice(0, 4);
-            return (
-              <div className={`mobile-menu-card ${selectedId === item.id ? "active" : ""}`} key={item.id}>
-                <button className="mobile-menu-button" type="button" onClick={() => onSelectCategory(item)}>
-                  <span>{item.label}</span>
-                  <small>Explore</small>
-                </button>
-                {groups.length > 0 && (
-                  <div className="mobile-menu-groups">
-                    {groups.map((group) => (
-                      <div className="mobile-menu-group" key={group.title}>
-                        <button className="mobile-menu-group-title" type="button" onClick={() => onSelectMegaGroup(item, group.title)}>
-                          {group.title}
-                        </button>
-                        {(group.links || []).slice(0, 4).map((link) => (
-                          <button className="mobile-menu-link" type="button" onClick={() => onSelectMegaLink(item, link)} key={link}>
-                            {link}
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
-
 
   function MegaMenu({ category, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
     const mega = Array.isArray(category.mega) ? category.mega : [];
