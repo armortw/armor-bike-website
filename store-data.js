@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 07:23 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0bllv8_n8vom3 */
+/* ARMOR BIKE Storefront — published 2026-06-30 07:28 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0br9le_291b8x */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2745,6 +2745,29 @@
         "createdAt": "2026-06-30T07:21:00.257Z",
         "updatedAt": "2026-06-30T07:23:31.398Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81307",
+        "spec": "JOINT LOCK\n18MMX800MM\nW/2 SPARE KEY\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804471/bz6jdsbgbshxe2m13yvl.png",
+            "alt": "PC7006"
+          }
+        ],
+        "productId": "prd_mr0br5yj_38ek7d",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T07:27:56.395Z",
+        "updatedAt": "2026-06-30T07:27:56.395Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3279,7 +3302,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0bllv8_n8vom3";
+  var publishId = "pub_mr0br9le_291b8x";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
