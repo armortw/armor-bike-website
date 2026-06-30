@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 09:08 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0fc4nc_jlekv9 */
+/* ARMOR BIKE Storefront — published 2026-06-30 09:09 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0fdtch_o2vs35 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2768,29 +2768,6 @@
         "createdAt": "2026-06-30T07:27:56.395Z",
         "updatedAt": "2026-06-30T07:27:56.395Z",
         "updatedBy": "rita"
-      },
-      {
-        "manufacturer": "ARMOR",
-        "name": "CO25-81313",
-        "spec": "U LOCK\nSTEEL\nSIZE:94X103MM\nW/O BRACKET",
-        "badge": "",
-        "note": "",
-        "leaf": "U lock",
-        "colors": [],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782810481/r769x50qlzrluwjiuygh.jpg",
-            "alt": "TY3370"
-          }
-        ],
-        "productId": "prd_mr0c1kdf_hghek9",
-        "sourceKey": "prd_mr0c1kdf_hghek9",
-        "ownerId": "1782120827997",
-        "ownerUsername": "rita",
-        "ownerName": "rita",
-        "createdAt": "2026-06-30T07:36:01.635Z",
-        "updatedAt": "2026-06-30T09:08:06.863Z",
-        "updatedBy": "rita"
       }
     ]
   },
@@ -3325,7 +3302,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0fc4nc_jlekv9";
+  var publishId = "pub_mr0fdtch_o2vs35";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
