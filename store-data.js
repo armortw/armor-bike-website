@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 10:03 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0hb7uv_3jh0cb */
+/* ARMOR BIKE Storefront — published 2026-06-30 10:29 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0i8d74_ooa6mp */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2838,6 +2838,29 @@
         "createdAt": "2026-06-30T10:01:02.616Z",
         "updatedAt": "2026-06-30T10:01:02.616Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-8133",
+        "spec": "CABLE LOCK - PUPPY\nMATERIAL:SILICONE \nSIZE:10MM X 600 MM \nW/2 STEEL KEY ",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782815340/qksnqr4wq84qi9peiz7b.png",
+            "alt": "CO25-8133"
+          }
+        ],
+        "productId": "prd_mr0i89qe_qb8zp5",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T10:29:12.134Z",
+        "updatedAt": "2026-06-30T10:29:12.134Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3383,7 +3406,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr0hb7uv_3jh0cb";
+  var publishId = "pub_mr0i8d74_ooa6mp";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
