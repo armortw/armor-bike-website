@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-06-30 09:51 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr0gvtuc_jv0nqc */
+/* ARMOR BIKE Storefront — published 2026-06-30 09:53 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr0gyko2_ydgwr5 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2792,6 +2792,29 @@
         "createdAt": "2026-06-30T09:51:26.700Z",
         "updatedAt": "2026-06-30T09:51:26.700Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "AM26-C810102",
+        "spec": "COMBINATION DISC BRAKE\nALLOY MATERIAL\nDIA :7MM \n",
+        "badge": "",
+        "note": "",
+        "leaf": "DISC BRAKE LOCK",
+        "colors": [],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813207/a48jtv37shr1ieirp9vc.png",
+            "alt": "C810102"
+          }
+        ],
+        "productId": "prd_mr0gyfoi_cmxnpx",
+        "sourceKey": "",
+        "ownerId": "1782120827997",
+        "ownerUsername": "rita",
+        "ownerName": "rita",
+        "createdAt": "2026-06-30T09:53:33.666Z",
+        "updatedAt": "2026-06-30T09:53:33.666Z",
+        "updatedBy": "rita"
       }
     ]
   },
@@ -3326,7 +3349,7 @@
     "alt": "CO25-81348 (3)"
   }
 ];
-  var publishId = "pub_mr0gvtuc_jv0nqc";
+  var publishId = "pub_mr0gyko2_ydgwr5";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
