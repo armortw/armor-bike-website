@@ -303,61 +303,36 @@
   }
 
   function MobileMenu({ navItems, selectedId, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
-    const fallbackId = (navItems[0] && navItems[0].id) || "";
-    const [activeId, setActiveId] = React.useState(selectedId || fallbackId);
-
-    React.useEffect(() => {
-      if (selectedId) {
-        setActiveId(selectedId);
-      }
-    }, [selectedId]);
-
-    const activeItem = navItems.find((item) => item.id === activeId) || navItems[0];
-    const groups = activeItem ? (Array.isArray(activeItem.mega) ? activeItem.mega : []).flat().filter(Boolean).slice(0, 3) : [];
-
     return (
       <div className="mobile-menu" id="mobile-menu">
         <div className="mobile-menu-inner">
-          <div className="mobile-menu-tabs" role="tablist" aria-label="Mobile categories">
-            {navItems.map((item) => (
-              <button
-                className={`mobile-menu-tab ${activeItem && activeItem.id === item.id ? "active" : ""}`}
-                type="button"
-                role="tab"
-                aria-selected={activeItem && activeItem.id === item.id}
-                onClick={() => setActiveId(item.id)}
-                key={item.id}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-          {activeItem && (
-            <div className="mobile-menu-current">
-              <button className="mobile-menu-button" type="button" onClick={() => onSelectCategory(activeItem)}>
-                <span>{activeItem.label}</span>
-                <small>View all</small>
-              </button>
-              {groups.length > 0 && (
-                <div className="mobile-menu-groups">
-                  {groups.map((group) => (
-                    <div className="mobile-menu-group" key={group.title}>
-                      <button className="mobile-menu-group-title" type="button" onClick={() => onSelectMegaGroup(activeItem, group.title)}>
-                        {group.title}
-                      </button>
-                      <div className="mobile-menu-links">
-                        {(group.links || []).slice(0, 5).map((link) => (
-                          <button className="mobile-menu-link" type="button" onClick={() => onSelectMegaLink(activeItem, link)} key={link}>
+          {navItems.map((item) => {
+            const groups = (Array.isArray(item.mega) ? item.mega : []).flat().filter(Boolean).slice(0, 4);
+            return (
+              <div className={`mobile-menu-card ${selectedId === item.id ? "active" : ""}`} key={item.id}>
+                <button className="mobile-menu-button" type="button" onClick={() => onSelectCategory(item)}>
+                  <span>{item.label}</span>
+                  <small>Explore</small>
+                </button>
+                {groups.length > 0 && (
+                  <div className="mobile-menu-groups">
+                    {groups.map((group) => (
+                      <div className="mobile-menu-group" key={group.title}>
+                        <button className="mobile-menu-group-title" type="button" onClick={() => onSelectMegaGroup(item, group.title)}>
+                          {group.title}
+                        </button>
+                        {(group.links || []).slice(0, 4).map((link) => (
+                          <button className="mobile-menu-link" type="button" onClick={() => onSelectMegaLink(item, link)} key={link}>
                             {link}
                           </button>
                         ))}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
