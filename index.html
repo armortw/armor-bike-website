@@ -92,9 +92,7 @@
     z-index: 90;
     height: var(--header-height);
     color: #ffffff;
-    background:
-      radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.34), transparent 34%),
-      linear-gradient(135deg, rgba(0, 156, 224, 0.74), rgba(0, 132, 201, 0.68) 52%, rgba(0, 111, 177, 0.72));
+    background: #2b40b5;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 12px 34px rgba(0, 82, 126, 0.22);
     backdrop-filter: blur(22px) saturate(1.35);
@@ -250,7 +248,7 @@
     display: grid;
     place-items: center;
     background: #ffffff;
-    color: var(--brand);
+    color: #2b40b5;
     font-size: 12px;
     font-weight: 900;
   }
@@ -1338,7 +1336,13 @@
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
-  <script src="store-data.js"></script>
-  <script type="text/babel" src="design-reference-app.jsx"></script>
+  <script>
+    (function () {
+      var deploy = new URLSearchParams(window.location.search).get("deploy") || Date.now().toString(36);
+      window.__ARMOR_DEPLOY_PARAM__ = deploy;
+      document.write('<script src="store-data.js?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
+      document.write('<script type="text/babel" src="design-reference-app.jsx?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
+    })();
+  </script>
 </body>
 </html>

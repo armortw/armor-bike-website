@@ -2289,21 +2289,21 @@
       e(Sidebar, { section, setSection, user, onLogout }),
       e('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' } },
         // topbar
-        e('div', { style: { background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 50 } },
-          e('span', { style: { fontSize: 13, color: '#94a3b8' } }, 'ARMOR BIKE  ·  後台管理系統'),
+        e('div', { style: { background: '#2b40b5', borderBottom: '1px solid rgba(255,255,255,.18)', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 50 } },
+          e('span', { style: { fontSize: 13, color: 'rgba(255,255,255,.82)', fontWeight: 700 } }, 'ARMOR BIKE  ·  後台管理系統'),
           e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
             saved ? e('span', { style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
-            e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px' } }, '📦 發布'),
-            e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none' } }, '👁 預覽前台'),
+            e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)' } }, '📦 發布'),
+            e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)' } }, '👁 預覽前台'),
             // ── user avatar button ──
             e('button', {
               onClick: () => setShowProfile(v => !v),
               title: user.name || user.username,
-              style: { display: 'flex', alignItems: 'center', gap: 8, background: showProfile ? '#f1f5f9' : 'none', border: '1px solid ' + (showProfile ? '#e2e8f0' : 'transparent'), borderRadius: 30, padding: '4px 10px 4px 4px', cursor: 'pointer', transition: 'background-color .12s, border-color .12s, color .12s, transform .12s, opacity .12s' }
+              style: { display: 'flex', alignItems: 'center', gap: 8, background: showProfile ? 'rgba(255,255,255,.18)' : 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 30, padding: '4px 10px 4px 4px', cursor: 'pointer', transition: 'background-color .12s, border-color .12s, color .12s, transform .12s, opacity .12s' }
             },
               e(UserAvatar, { user, size: 30, fontSize: 12 }),
-              e('span', { style: { fontSize: 13, fontWeight: 600, color: '#374151', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
-              e('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: '#94a3b8', strokeWidth: 2.5, strokeLinecap: 'round', style: { transition: 'transform .15s', transform: showProfile ? 'rotate(180deg)' : 'none', flexShrink: 0 } },
+              e('span', { style: { fontSize: 13, fontWeight: 700, color: '#ffffff', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
+              e('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'rgba(255,255,255,.76)', strokeWidth: 2.5, strokeLinecap: 'round', style: { transition: 'transform .15s', transform: showProfile ? 'rotate(180deg)' : 'none', flexShrink: 0 } },
                 e('polyline', { points: '6 9 12 15 18 9' })
               )
             )

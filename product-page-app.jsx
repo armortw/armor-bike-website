@@ -13,6 +13,18 @@
     return text(value).toLowerCase();
   }
 
+  function normalizeLabel(value) {
+    return text(value)
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "");
+  }
+
+  function findCategory(value) {
+    const key = normalizeLabel(value);
+    return categories.find((category) => normalizeLabel(category.id) === key || normalizeLabel(category.label) === key);
+  }
+
   function isPublishedProduct(product) {
     if (!product) return false;
     if (product.published === false || product.isPublished === false || product.visible === false) return false;
@@ -35,7 +47,20 @@
   }
 
   function productUrl(product) {
-    return "/Product/?id=" + encodeURIComponent(productKey(product));
+    const deploy = new URLSearchParams(window.location.search).get("deploy");
+    const suffix = deploy ? "&deploy=" + encodeURIComponent(deploy) : "";
+    return "/Product/?id=" + encodeURIComponent(productKey(product)) + suffix;
+  }
+
+  function homeCatalogUrl(category, leaf = "") {
+    const params = new URLSearchParams();
+    const target = category && category.id ? category : findCategory(category) || {};
+    if (target.id || target.label) params.set("category", target.id || target.label);
+    if (leaf) params.set("leaf", leaf);
+    const deploy = new URLSearchParams(window.location.search).get("deploy");
+    if (deploy) params.set("deploy", deploy);
+    const query = params.toString();
+    return "/" + (query ? "?" + query : "") + "#products";
   }
 
   function priceFor(product) {
@@ -95,29 +120,111 @@
   }
 
   function icon(name) {
-    const icons = {
-      left: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round"></path></svg>,
-      right: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"></path></svg>,
-      back: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"></path><path d="M20 12H9" strokeLinecap="round"></path></svg>
-    };
-    return icons[name] || null;
+    const common = { strokeLinecap: "round", strokeLinejoin: "round" };
+    if (name === "search") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" {...common}></circle><path d="M20 20l-4.2-4.2" {...common}></path></svg>;
+    }
+    if (name === "user") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.8" r="4" {...common}></circle><path d="M4 21c1.8-4.3 4.4-6.4 8-6.4s6.2 2.1 8 6.4" {...common}></path></svg>;
+    }
+    if (name === "cart") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" {...common}></path><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle></svg>;
+    }
+    if (name === "left") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" {...common}></path></svg>;
+    }
+    if (name === "right") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" {...common}></path></svg>;
+    }
+    if (name === "back") {
+      return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" {...common}></path><path d="M20 12H9" {...common}></path></svg>;
+    }
+    return null;
   }
 
-  function Header() {
+  function Header({ selectedCategory }) {
+    const [openId, setOpenId] = React.useState(null);
+    const navItems = categories.length ? categories : [
+      { id: "bikes", label: "Bikes", mega: [] },
+      { id: "parts", label: "Parts", mega: [] },
+      { id: "accessories", label: "Accessories", mega: [] },
+      { id: "electronics", label: "Electronics", mega: [] },
+      { id: "moresports", label: "More Sports", mega: [] },
+      { id: "sale", label: "SALE %", mega: [] }
+    ];
+    const selectedId = selectedCategory && selectedCategory.id;
+    const openCategory = navItems.find((item) => item.id === openId);
+    const openCatalog = (category, leaf = "") => {
+      setOpenId(null);
+      window.location.assign(homeCatalogUrl(category, leaf));
+    };
+
     return (
-      <header className="site-header">
+      <header className="header" onMouseLeave={() => setOpenId(null)}>
         <div className="header-inner">
           <a className="brand" href="/" aria-label="ARMOR BIKE home">
-            <img className="brand-mark" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187548/tlocousnxawpnq8qjkvo.png" alt="ARMOR BIKE logo mark" />
-            <img className="brand-type" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187520/jwnvywanec2ytbbfrqw0.png" alt="ARMOR BIKE" />
+            <img className="brand-logo-mark" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187548/tlocousnxawpnq8qjkvo.png" alt="ARMOR BIKE logo mark" />
+            <img className="brand-logo-type" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187520/jwnvywanec2ytbbfrqw0.png" alt="ARMOR BIKE" />
           </a>
-          <nav className="header-nav" aria-label="商品頁導覽">
-            <a href="/#products">Products</a>
-            <a href="/admin.html">Admin</a>
+          <nav className="main-nav" aria-label="Main navigation">
+            {navItems.map((item) => (
+              <button
+                className={`nav-button ${item.id === "sale" ? "sale" : ""} ${openId === item.id || selectedId === item.id ? "active" : ""}`}
+                key={item.id}
+                onMouseEnter={() => setOpenId(item.id)}
+                onFocus={() => setOpenId(item.id)}
+                onClick={() => openCatalog(item)}
+                type="button"
+              >
+                {item.label}
+              </button>
+            ))}
           </nav>
-          <a className="back-pill" href="/#products">{icon("back")}<span>Back to Catalog</span></a>
+          <div className="header-tools">
+            <button className="icon-button" type="button" aria-label="Search">{icon("search")}</button>
+            <a className="icon-button" href="/admin.html" aria-label="Account">{icon("user")}</a>
+            <a className="icon-button" href="/#products" aria-label="Cart">{icon("cart")}<span className="cart-badge">2</span></a>
+          </div>
         </div>
+        {openCategory && (
+          <MegaMenu
+            category={openCategory}
+            onSelectCategory={(category) => openCatalog(category)}
+            onSelectMegaGroup={(category, groupTitle) => openCatalog(category, groupTitle)}
+            onSelectMegaLink={(category, link) => openCatalog(category, link)}
+          />
+        )}
       </header>
+    );
+  }
+
+  function MegaMenu({ category, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
+    const mega = Array.isArray(category.mega) ? category.mega : [];
+    return (
+      <div className="mega-panel">
+        <div className="mega-inner">
+          <button className="mega-feature" type="button" onClick={() => onSelectCategory(category)}>
+            <strong>{category.label}<br />Collection</strong>
+            <span>Performance paths, product families and fast entry points from the live catalog.</span>
+          </button>
+          {mega.slice(0, 4).map((column, columnIndex) => (
+            <div className="mega-column" key={`${category.id}-${columnIndex}`}>
+              {(column || []).map((group) => (
+                <div className="mega-group" key={group.title}>
+                  <button className="mega-group-title" type="button" onClick={() => onSelectMegaGroup(category, group.title)}>
+                    {group.title}
+                  </button>
+                  {(group.links || []).slice(0, 8).map((link) => (
+                    <button className="mega-link" type="button" onClick={() => onSelectMegaLink(category, link)} key={link}>
+                      {link}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     );
   }
 
@@ -173,7 +280,7 @@
 
     return (
       <main className="page">
-        <Header />
+        <Header selectedCategory={category} />
         <div className="shell">
           <div className="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/#products">{categoryLabel}</a><span>/</span><span>{leaf}</span></div>
           <section className="hero">

@@ -80,6 +80,14 @@
     });
   }
 
+  function initialCatalogSelection(defaultCategory) {
+    const params = new URLSearchParams(window.location.search);
+    const requestedCategory = params.get("category") || params.get("cat") || "";
+    const requestedLeaf = params.get("leaf") || params.get("group") || "";
+    const category = requestedCategory ? (findCategory(requestedCategory) || defaultCategory) : defaultCategory;
+    return { category, leaf: requestedLeaf };
+  }
+
   function hasLeaf(items, leaf, fallbackLeaf = "") {
     return Boolean(text(leaf) && items.some((product) => sameLabel(text(product && product.leaf, fallbackLeaf), leaf)));
   }
@@ -610,9 +618,11 @@
   }
   function App() {
     const defaultCategory = React.useMemo(() => initialCategory(), []);
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(defaultCategory.id || defaultCategory.label);
-    const [displayLeaf, setDisplayLeaf] = React.useState("");
-    const [exactLeafFilter, setExactLeafFilter] = React.useState("");
+    const initialSelection = React.useMemo(() => initialCatalogSelection(defaultCategory), [defaultCategory]);
+    const initialLeaf = initialSelection.leaf || "";
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState((initialSelection.category && (initialSelection.category.id || initialSelection.category.label)) || defaultCategory.id || defaultCategory.label);
+    const [displayLeaf, setDisplayLeaf] = React.useState(initialLeaf);
+    const [exactLeafFilter, setExactLeafFilter] = React.useState(initialLeaf);
     const [manufacturerFilter, setManufacturerFilter] = React.useState("");
     const [inStockOnly, setInStockOnly] = React.useState(false);
 
@@ -630,6 +640,10 @@
     }, [baseProducts, exactLeafFilter, manufacturerFilter, inStockOnly]);
 
     const currentLeaf = displayLeaf || selectedCategory.leaf || "Featured";
+
+    React.useEffect(() => {
+      if (window.location.hash === "#products" || initialLeaf) scrollToProducts();
+    }, []);
 
     function selectCategory(category, options = {}) {
       const target = category && category.id ? category : findCategory(category) || fallbackCategory;
