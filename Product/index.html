@@ -468,10 +468,11 @@
     gap: clamp(16px, 1.8vw, 26px);
     align-items: stretch;
   }
-  .gallery, .details, .spec-panel, .related-card { border: 1px solid rgba(210,226,238,.92); border-radius: 10px; background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.86)); box-shadow: var(--shadow-card); }
+  .gallery, .details, .related-card { border: 1px solid rgba(210,226,238,.92); border-radius: 10px; background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94)); box-shadow: var(--shadow-card); }
+  .spec-panel { border: 1px solid rgba(178,220,244,.9); border-radius: 10px; background: linear-gradient(180deg, rgba(235,248,255,.96), rgba(220,242,253,.9)); box-shadow: var(--shadow-card); }
   .gallery { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto; }
-  .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 38%, rgba(0,156,224,.14), transparent 40%), linear-gradient(135deg, #f8fbfe, #edf4f9); }
-  .main-image::before { content: ""; position: absolute; inset: 8%; border: 1px solid rgba(0,156,224,.16); border-radius: 999px; transform: skewX(-10deg); }
+  .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: #ffffff; }
+  .main-image::before { content: ""; display: none; }
   .main-image img { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(84%, 780px); height: min(78%, 390px); max-width: none; max-height: calc(100% - 46px); object-fit: contain; object-position: center; display: block; filter: drop-shadow(0 22px 24px rgba(11,32,56,.12)); box-sizing: border-box; transform: translate(-50%, -50%); }
   .main-image img.is-portrait { width: auto; height: clamp(330px, 28vw, 455px); max-width: min(58%, 420px); max-height: calc(100% - 36px); object-fit: contain; }
   .main-image img.is-wide { max-width: 88%; max-height: 70%; }
