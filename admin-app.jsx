@@ -51,7 +51,7 @@
   };
 
   const CLOUDINARY_KEY = 'ARMOR_BIKE_CDN';
-  const CLOUDINARY_DEFAULTS = { cloudName: 'dvzdptb3i', uploadPreset: 'armor_unsigned' };
+  const CLOUDINARY_DEFAULTS = { cloudName: 'dvzdptb3i', uploadPreset: 'armor_unsigned', backgroundRemoval: true };
 
   const GITHUB_KEY = 'ARMOR_BIKE_GITHUB';
   const GITHUB_DEFAULTS = {
@@ -71,7 +71,8 @@
   const mergeCloudConfig = (c) => ({
     cloudinary: {
       cloudName: c?.cloudinary?.cloudName || CLOUDINARY_DEFAULTS.cloudName,
-      uploadPreset: c?.cloudinary?.uploadPreset || CLOUDINARY_DEFAULTS.uploadPreset
+      uploadPreset: c?.cloudinary?.uploadPreset || CLOUDINARY_DEFAULTS.uploadPreset,
+      backgroundRemoval: c?.cloudinary?.backgroundRemoval !== false
     },
     github: normalizeGithubConfig(c?.github || {}),
     source: c?.source || 'defaults'
@@ -101,6 +102,66 @@
     return cloudConfigState.github;
   };
 
+  const CLOUDINARY_BG_REMOVAL_TRANSFORM = 'e_background_removal/f_png';
+  const BG_REMOVAL_ATTEMPTS = 8;
+  const BG_REMOVAL_DELAY_MS = 1800;
+
+  function cloudinaryUrlWithTransform(url, transform) {
+    const clean = String(url || '').trim();
+    const marker = '/image/upload/';
+    const markerIndex = clean.indexOf(marker);
+    if (!clean || markerIndex < 0 || !transform) return clean;
+    const before = clean.slice(0, markerIndex + marker.length);
+    const after = clean.slice(markerIndex + marker.length);
+    if (after.startsWith(`${transform}/`)) return clean;
+    return `${before}${transform}/${after}`;
+  }
+
+  function cacheBustUrl(url, key) {
+    return `${url}${url.includes('?') ? '&' : '?'}${key}`;
+  }
+
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function canLoadImage(url) {
+    return new Promise(resolve => {
+      const probe = new Image();
+      const done = (ok) => {
+        probe.onload = null;
+        probe.onerror = null;
+        resolve(ok);
+      };
+      probe.onload = () => done(true);
+      probe.onerror = () => done(false);
+      probe.src = url;
+    });
+  }
+
+  async function waitForCloudinaryBackgroundRemoval(url) {
+    for (let attempt = 0; attempt < BG_REMOVAL_ATTEMPTS; attempt += 1) {
+      const ready = await canLoadImage(cacheBustUrl(url, `bgremove_check=${Date.now()}_${attempt}`));
+      if (ready) return true;
+      await delay(BG_REMOVAL_DELAY_MS);
+    }
+    return false;
+  }
+
+  async function applyCloudinaryBackgroundRemoval(img) {
+    const cfg = loadCldConfig();
+    const originalUrl = img?.url || '';
+    if (cfg.backgroundRemoval === false || !originalUrl) return img;
+    const removedUrl = cloudinaryUrlWithTransform(originalUrl, CLOUDINARY_BG_REMOVAL_TRANSFORM);
+    if (!removedUrl || removedUrl === originalUrl) return img;
+
+    const ready = await waitForCloudinaryBackgroundRemoval(removedUrl);
+    if (!ready) {
+      console.warn('Cloudinary background removal was not ready or not enabled; keeping original image.', originalUrl);
+      return { ...img, originalUrl, backgroundRemoval: 'fallback' };
+    }
+    return { ...img, url: removedUrl, originalUrl, backgroundRemoval: 'cloudinary_ai' };
+  }
   // ── cross-origin config sync (users + GitHub token + Cloudinary) ───────────
   // localStorage is per-origin (localhost / 192.168.x / pages.dev don't share it),
   // so settings move between devices via this one-blob export/import.
@@ -697,7 +758,7 @@
     }
     const pathPart = imageUrl.split('?')[0].split('#')[0];
     const guessName = pathPart.split('/').pop().replace(/\.[^.]+$/, '') || d.original_filename || d.public_id;
-    return { url: d.secure_url, alt: guessName };
+    return applyCloudinaryBackgroundRemoval({ url: d.secure_url, alt: guessName });
   }
 
   function PresetErrorMsg() {
@@ -711,8 +772,9 @@
   }
 
   // ── Cloudinary Upload Button ───────────────────────────────────────────────
-  function CloudinaryUploadButton({ multiple = true, onComplete, children, style }) {
+  function CloudinaryUploadButton({ multiple = true, backgroundRemoval = true, onComplete, children, style }) {
     const [showSetup, setShowSetup] = useState(false);
+    const [processing, setProcessing] = useState(false);
 
     const openWidget = (cfg) => {
       const config = cfg || loadCldConfig();
@@ -727,20 +789,35 @@
         resourceType: 'image',
         maxFileSize: 10000000,
         styles: { palette: { window: '#FFFFFF', windowBorder: '#e2e8f0', tabIcon: BRAND, link: BRAND, action: BRAND, inProgress: BRAND, complete: '#16a34a', error: '#dc2626', textDark: '#16181d', textLight: '#ffffff', menuIcons: '#64748b', sourceBg: '#f8fafc' } }
-      }, (error, result) => {
+      }, async (error, result) => {
         if (error) { console.error('Cloudinary error:', error); return; }
         if (result.event === 'success') {
           collected.push({ url: result.info.secure_url, alt: result.info.original_filename || result.info.public_id });
         }
         if (result.event === 'close' && collected.length > 0) {
-          onComplete([...collected]);
+          setProcessing(true);
+          try {
+            const processed = backgroundRemoval ? await Promise.all(collected.map(applyCloudinaryBackgroundRemoval)) : [...collected];
+            const fallbackCount = backgroundRemoval ? processed.filter(img => img.backgroundRemoval === 'fallback').length : 0;
+            if (fallbackCount > 0) {
+              alert('部分圖片尚未完成去背，或 Cloudinary 帳號未啟用背景移除功能。系統已先保留原圖，避免前台破圖。');
+            }
+            onComplete(processed);
+          } finally {
+            setProcessing(false);
+          }
         }
       });
       widget.open();
     };
 
+    const btnStyle = style || S.btnGhost;
     return e(React.Fragment, null,
-      e('button', { onClick: () => openWidget(), style: style || S.btnGhost }, children || '透過 Cloudinary 上傳'),
+      e('button', {
+        onClick: () => openWidget(),
+        disabled: processing,
+        style: { ...btnStyle, opacity: processing ? 0.72 : btnStyle.opacity, cursor: processing ? 'wait' : btnStyle.cursor }
+      }, processing ? (backgroundRemoval ? '自動去背處理中…' : '圖片處理中…') : (children || '透過 Cloudinary 上傳')),
       showSetup && e(CloudinarySetupModal, { onClose: () => setShowSetup(false), onSaved: () => { setShowSetup(false); openWidget(loadCldConfig()); } })
     );
   }
@@ -800,7 +877,7 @@
           e(Input, {
             value: urlInput,
             onChange: ev => { setUrlInput(ev.target.value); setErrMsg(''); },
-            placeholder: '貼上任意圖片 URL，自動上傳至 Cloudinary…',
+            placeholder: '貼上任意圖片 URL，自動上傳至 Cloudinary 並嘗試去背…',
             onKeyDown: ev => ev.key === 'Enter' && !uploading && addByUrl(),
             disabled: uploading,
           }),
@@ -808,7 +885,7 @@
             onClick: addByUrl,
             disabled: uploading || !urlInput.trim(),
             style: { ...S.btnPrimary, whiteSpace: 'nowrap', padding: '9px 14px', opacity: uploading ? 0.7 : 1 }
-          }, uploading ? '上傳中…' : '☁️ 上傳')
+          }, uploading ? '上傳與去背中…' : '☁️ 上傳 + 去背')
         ),
         e(CloudinaryUploadButton, {
           multiple: true,
@@ -817,7 +894,7 @@
         }, '📁 本機上傳')
       ),
       (errMsg || presetErr) && e('p', { style: { margin: '6px 0 0', fontSize: 12, color: '#dc2626' } }, presetErr ? e(PresetErrorMsg) : errMsg),
-      images.length === 0 && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, '尚無圖片 — 貼上 URL 自動轉存至 Cloudinary，或點擊「本機上傳」。第一張圖片為主圖。')
+      images.length === 0 && e('p', { style: { margin: '10px 0 0', fontSize: 12, color: '#94a3b8' } }, '尚無圖片 — 貼上 URL 或本機上傳後會自動轉存至 Cloudinary 並嘗試去背。第一張圖片為主圖。')
     );
   }
 
@@ -1249,7 +1326,7 @@
               ? e('span', { style: { fontSize: 11, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', padding: '2px 8px', borderRadius: 10 } }, '✓ 已設定')
               : e('span', { style: { fontSize: 11, fontWeight: 700, background: '#fef9c3', color: '#92400e', padding: '2px 8px', borderRadius: 10 } }, '未設定')
           ),
-          e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，只儲存 URL，無容量限制。'),
+          e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，會自動嘗試 Cloudinary AI 去背，只儲存 URL，無容量限制。'),
           e(CloudinaryUploadButton, {
             multiple: true,
             onComplete: (newImgs) => setData({ ...data, images: [...images, ...newImgs.map(img => ({ ...img, id: Date.now() + Math.random(), source: 'cloudinary' }))] }),
@@ -1267,7 +1344,7 @@
         // URL input
         e('div', { style: S.card },
           e('h3', { style: { margin: '0 0 6px', fontSize: 15, fontWeight: 700 } }, '🔗 貼上 URL，自動轉存至 Cloudinary'),
-          e('p', { style: { margin: '0 0 14px', fontSize: 12, color: '#64748b' } }, '支援任意圖片網址，包含無副檔名的 URL，Cloudinary 會自動識別格式。'),
+          e('p', { style: { margin: '0 0 14px', fontSize: 12, color: '#64748b' } }, '支援任意圖片網址，Cloudinary 會自動識別格式並嘗試去背。'),
           e(Field, { label: '圖片 URL' }, e(Input, { value: url, onChange: ev => { setUrl(ev.target.value); setUrlErr(''); }, placeholder: 'https://example.com/image（任意 URL 均可）', disabled: urlUploading })),
           e(Field, { label: 'Alt 文字（選填）' }, e(Input, { value: alt, onChange: ev => setAlt(ev.target.value), placeholder: '圖片描述（留空自動帶入）', disabled: urlUploading })),
           (urlErr || urlPresetErr) && e('p', { style: { margin: '0 0 10px', fontSize: 12, color: '#dc2626' } }, urlPresetErr ? e(PresetErrorMsg) : urlErr),
@@ -1275,7 +1352,7 @@
             onClick: addUrl,
             disabled: urlUploading || !url.trim(),
             style: { ...S.btnPrimary, opacity: urlUploading ? 0.7 : 1, marginTop: 14 }
-          }, urlUploading ? '上傳至 Cloudinary 中…' : '☁️ 上傳並新增')
+          }, urlUploading ? '上傳與去背中…' : '☁️ 上傳 + 去背並新增')
         )
       ),
       e('div', { style: { ...S.card } },
@@ -1613,7 +1690,7 @@
             ? e('span', { style: { fontSize: 12, fontWeight: 700, background: '#f0fdf4', color: '#16a34a', border: '1px solid #bbf7d0', padding: '3px 12px', borderRadius: 20 } }, '✓ 已設定完成')
             : e('span', { style: { fontSize: 12, fontWeight: 700, background: '#fef9c3', color: '#92400e', border: '1px solid #fde68a', padding: '3px 12px', borderRadius: 20 } }, '⚠ 尚未設定')
         ),
-        e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，CMS 只儲存 URL 字串。無 localStorage 容量問題，支援 50 萬+ 筆產品。'),
+        e('p', { style: { margin: '0 0 22px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，CMS 只儲存 URL 字串。商品圖片會自動嘗試 Cloudinary AI 去背；若未啟用或逾時，系統會保留原圖避免前台破圖。'),
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 } },
           e(Field, { label: 'Cloud Name（雲端名稱）' },
             e(Input, { value: cfg.cloudName || '', readOnly: true, placeholder: CLOUDINARY_DEFAULTS.cloudName })
@@ -1638,7 +1715,7 @@
           e('li', null, '前往 ', e('strong', null, 'Settings（設定）→ Upload（上傳）→ Upload presets（上傳預設）'), ' → 點擊 Add upload preset（新增上傳預設）'),
           e('li', null, '將 ', e('strong', null, 'Signing Mode（簽署模式）'), ' 設為 ', e('code', { style: { background: '#f1f5f9', padding: '2px 7px', borderRadius: 4, fontWeight: 700, fontSize: 13 } }, 'Unsigned'), ' 然後儲存'),
           e('li', null, 'Cloud Name 與 Preset Name 會由雲端設定自動載入。'),
-          e('li', null, '完成！產品管理與圖片庫頁面的上傳按鈕會直接把圖片傳至 Cloudinary。')
+          e('li', null, '完成！產品管理與圖片庫頁面的上傳按鈕會直接把圖片傳至 Cloudinary，並自動嘗試去背。')
         )
       )
     );
@@ -1728,6 +1805,7 @@
                 e('div', { style: { fontSize: 12, fontWeight: 700, color: '#64748b', marginBottom: 8 } }, '或直接上傳新圖片（同時加入 Library 與 Hero）：'),
                 e(CloudinaryUploadButton, {
                   multiple: true,
+                  backgroundRemoval: false,
                   onComplete: (imgs) => {
                     const newLib = imgs.map(img => ({ id: Date.now() + Math.random(), url: img.url, alt: img.alt, source: 'cloudinary' }));
                     const newSlides = imgs.map(img => ({ id: Date.now() + Math.random(), url: img.url, alt: img.alt }));

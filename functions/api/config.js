@@ -1,7 +1,8 @@
 const DEFAULTS = {
   cloudinary: {
     cloudName: 'dvzdptb3i',
-    uploadPreset: 'armor_unsigned'
+    uploadPreset: 'armor_unsigned',
+    backgroundRemoval: true
   },
   github: {
     repo: 'armortw/armor-bike-website',
@@ -31,7 +32,8 @@ export async function onRequestGet({ env }) {
 
   const cloudinary = {
     cloudName: env.CLOUDINARY_CLOUD_NAME || DEFAULTS.cloudinary.cloudName,
-    uploadPreset: env.CLOUDINARY_UPLOAD_PRESET || DEFAULTS.cloudinary.uploadPreset
+    uploadPreset: env.CLOUDINARY_UPLOAD_PRESET || DEFAULTS.cloudinary.uploadPreset,
+    backgroundRemoval: env.CLOUDINARY_BACKGROUND_REMOVAL === 'false' ? false : DEFAULTS.cloudinary.backgroundRemoval
   };
 
   return json({ github, cloudinary });
