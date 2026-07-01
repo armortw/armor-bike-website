@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-01 08:07 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr1sm3ra_ourhqr */
+/* ARMOR BIKE Storefront — published 2026-07-01 09:09 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr1uu6vw_qji16j */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -310,16 +310,20 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782294819/qed2rl78mcityikn5ywx.jpg",
             "alt": "MACH 1  29 CKD"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782896987/tkkvakeuzimgwi7cdcsx.png",
+            "alt": "qed2rl78mcityikn5ywx-Photoroom"
           }
         ],
         "productId": "prd_mqrwblpy_7xfgw1",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrwblpy_7xfgw1",
         "ownerId": "1781828327951",
         "ownerUsername": "anna",
         "ownerName": "anna",
         "createdAt": "2026-06-24T09:53:46.677Z",
-        "updatedAt": "2026-06-24T09:53:46.677Z",
-        "updatedBy": "anna"
+        "updatedAt": "2026-07-01T09:09:51.917Z",
+        "updatedBy": "donald"
       }
     ],
     "accent": false
@@ -3406,7 +3410,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr1sm3ra_ourhqr";
+  var publishId = "pub_mr1uu6vw_qji16j";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
