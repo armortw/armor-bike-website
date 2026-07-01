@@ -216,37 +216,22 @@
     );
   }
 
-  function MobileMenu({ navItems, selectedId, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
+  function MobileMenu({ navItems, selectedId, onSelectCategory }) {
     return (
       <div className="mobile-menu" id="mobile-menu">
         <div className="mobile-menu-inner">
-          {navItems.map((item) => {
-            const groups = (Array.isArray(item.mega) ? item.mega : []).flat().filter(Boolean).slice(0, 4);
-            return (
-              <div className={`mobile-menu-card ${selectedId === item.id ? "active" : ""}`} key={item.id}>
-                <button className="mobile-menu-button" type="button" onClick={() => onSelectCategory(item)}>
-                  <span>{item.label}</span>
-                  <small>Explore</small>
-                </button>
-                {groups.length > 0 && (
-                  <div className="mobile-menu-groups">
-                    {groups.map((group) => (
-                      <div className="mobile-menu-group" key={group.title}>
-                        <button className="mobile-menu-group-title" type="button" onClick={() => onSelectMegaGroup(item, group.title)}>
-                          {group.title}
-                        </button>
-                        {(group.links || []).slice(0, 4).map((link) => (
-                          <button className="mobile-menu-link" type="button" onClick={() => onSelectMegaLink(item, link)} key={link}>
-                            {link}
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          <div className="mobile-menu-tabs" aria-label="Mobile categories">
+            {navItems.map((item) => (
+              <button
+                className={`mobile-menu-tab ${selectedId === item.id ? "active" : ""}`}
+                type="button"
+                onClick={() => onSelectCategory(item)}
+                key={item.id}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     );
