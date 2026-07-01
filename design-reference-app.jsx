@@ -742,8 +742,6 @@
         />
         <Hero onExplore={scrollToProducts} />
         <CategoryStrip onSelectCategory={selectCategory} />
-        <Services />
-        <PromoRow onSelectCategory={selectCategory} onSelectMegaLink={selectMegaLink} />
         <Catalog
           category={selectedCategory}
           currentLeaf={currentLeaf}
