@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARMOR BIKE | Hero Six Cards Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #009ce0;
+    --brand-deep: #006bb6;
+    --header: #000093;
+    --ink: #071422;
+    --muted: #607083;
+    --paper: #eef3f7;
+    --line: rgba(194, 216, 232, .82);
+    --header-height: 76px;
+    --site-max: 1660px;
+    --page-gutter: clamp(16px, 2.6vw, 48px);
+    --font-display: "Orbitron", "Arial Black", Arial, sans-serif;
+    --font-body: "Inter", Arial, sans-serif;
+    --shadow-card: 0 18px 46px rgba(8, 28, 50, .12), 0 8px 22px rgba(0, 156, 224, .08);
+    --shadow-float: 0 28px 70px rgba(0, 42, 82, .18), 0 14px 32px rgba(0, 156, 224, .14);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
+  body {
+    color: var(--ink);
+    font-family: var(--font-body);
+    background:
+      radial-gradient(circle at 10% 4%, rgba(0, 156, 224, .18), transparent 30%),
+      radial-gradient(circle at 88% 10%, rgba(255, 209, 5, .13), transparent 28%),
+      linear-gradient(180deg, #e8eef4 0%, #f8fafc 55%, #ffffff 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, a { transition: transform 180ms cubic-bezier(.2,.9,.2,1), opacity 180ms cubic-bezier(.2,.9,.2,1), background-color 180ms cubic-bezier(.2,.9,.2,1), border-color 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms cubic-bezier(.2,.9,.2,1), color 180ms cubic-bezier(.2,.9,.2,1); }
+  a:focus-visible, button:focus-visible { outline: 3px solid rgba(0, 184, 255, .42); outline-offset: 3px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    height: var(--header-height);
+    color: #fff;
+    background: var(--header);
+    border-bottom: 1px solid rgba(255,255,255,.45);
+    box-shadow: 0 12px 34px rgba(0, 40, 120, .25);
+  }
+  .header-inner {
+    width: min(var(--site-max), 100%);
+    height: var(--header-height);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(230px, 360px) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    padding: 0 var(--page-gutter);
+  }
+  .brand { display: inline-flex; align-items: center; gap: 12px; width: fit-content; min-width: 0; }
+  .brand-logo-mark, .brand-logo-type { display: block; width: auto; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(0, 55, 90, .18)); flex: 0 0 auto; }
+  .brand-logo-mark { height: 54px; max-width: 66px; }
+  .brand-logo-type { height: 42px; max-width: 210px; }
+  .main-nav { display: flex; justify-content: center; align-items: center; gap: clamp(18px, 2.7vw, 42px); min-width: 0; }
+  .nav-link {
+    position: relative;
+    color: rgba(255,255,255,.9);
+    font-size: 17px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    width: 64px;
+    height: 4px;
+    border-radius: 99px;
+    background: #dff7ff;
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  .nav-link:hover, .nav-link:focus-visible, .nav-link.active { color: #fff; transform: translateY(-1px); }
+  .nav-link:hover::after, .nav-link:focus-visible::after, .nav-link.active::after { opacity: 1; }
+  .nav-link.sale { color: #ffd105; }
+  .header-tools { display: flex; align-items: center; gap: 10px; }
+  .icon-button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(255,255,255,.08);
+    color: #fff;
+  }
+  .icon-button:hover, .icon-button:focus-visible { background: rgba(255,255,255,.17); transform: translateY(-2px); }
+  .icon-button svg { width: 23px; height: 23px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .page { min-height: 100vh; padding-top: var(--header-height); }
+  .stage {
+    width: min(var(--site-max), 100%);
+    margin: 0 auto;
+    padding: clamp(18px, 2.2vw, 32px) var(--page-gutter) 58px;
+  }
+  .hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+    gap: clamp(14px, 1.8vw, 24px);
+    align-items: start;
+  }
+  .hero-frame {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(188, 214, 232, .82);
+    border-radius: 10px;
+    background: linear-gradient(135deg, #07151f, #0d2432);
+    box-shadow: 0 24px 72px rgba(3, 25, 48, .22), 0 12px 32px rgba(0, 156, 224, .1);
+    aspect-ratio: 1536 / 498;
+  }
+  .hero-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, .1), transparent 38%, rgba(0, 156, 224, .06)),
+      linear-gradient(180deg, rgba(255,255,255,.05), transparent 26%);
+  }
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+  }
+  .hero-actions {
+    position: absolute;
+    left: clamp(16px, 3.2vw, 52px);
+    bottom: clamp(16px, 2.3vw, 34px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-action {
+    min-height: 42px;
+    border: 1px solid rgba(0, 156, 224, .72);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+    box-shadow: 0 18px 34px rgba(0, 156, 224, .23);
+    font-size: 13px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+  .hero-action:hover, .hero-action:focus-visible { transform: translateY(-2px); }
+  .hero-action svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .speed-panel {
+    min-width: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 12px;
+    border: 1px solid rgba(190, 214, 232, .9);
+    border-radius: 10px;
+    padding: 14px;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.9), rgba(239,248,253,.76)),
+      radial-gradient(circle at 15% 10%, rgba(0, 156, 224, .16), transparent 34%);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(18px) saturate(1.24);
+  }
+  .speed-panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .speed-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #005f9f;
+    font-size: 12px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+  .speed-kicker::before {
+    content: "";
+    width: 28px;
+    height: 3px;
+    border-radius: 99px;
+    background: var(--brand);
+  }
+  .speed-panel-head span:last-child {
+    color: #68798a;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .speed-grid {
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .speed-card {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(198, 222, 237, .86);
+    border-radius: 8px;
+    background: #f8fbfe;
+    box-shadow: 0 12px 30px rgba(7, 28, 48, .09), 0 6px 16px rgba(0, 156, 224, .08);
+    clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%);
+  }
+  .speed-card:nth-child(even) { clip-path: polygon(0 0, 91% 0, 100% 100%, 9% 100%); }
+  .speed-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,.2), transparent 42%, rgba(0,156,224,.12));
+    opacity: .86;
+  }
+  .speed-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+  .speed-card:hover, .speed-card:focus-visible {
+    z-index: 3;
+    border-color: rgba(0, 156, 224, .68);
+    box-shadow: var(--shadow-float);
+    transform: translateY(-5px);
+  }
+
+  .support-row {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .support-item {
+    min-height: 70px;
+    border: 1px solid rgba(204, 222, 235, .86);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,.86);
+    box-shadow: 0 12px 28px rgba(8, 32, 54, .07);
+  }
+  .support-item svg { width: 28px; height: 28px; color: var(--brand); stroke: currentColor; stroke-width: 2.1; fill: none; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+  .support-item strong { display: block; color: #122133; font-size: 13px; font-weight: 950; text-transform: uppercase; }
+  .support-item span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 650; }
+
+  @media (max-width: 1180px) {
+    :root { --header-height: 74px; }
+    .header-inner { grid-template-columns: minmax(210px, 300px) 1fr auto; gap: 18px; }
+    .brand-logo-mark { height: 48px; max-width: 58px; }
+    .brand-logo-type { height: 36px; max-width: 172px; }
+    .main-nav { gap: 20px; }
+    .nav-link { font-size: 15px; }
+    .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(304px, 360px); }
+    .speed-panel { padding: 12px; }
+    .speed-grid { gap: 10px; }
+  }
+
+  @media (max-width: 980px) {
+    .main-nav { display: none; }
+    .header-inner { grid-template-columns: minmax(0, 1fr) auto; }
+    .hero-layout { grid-template-columns: 1fr; }
+    .speed-panel { grid-template-rows: auto auto; }
+    .speed-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(96px, 1fr));
+    }
+    .support-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 680px) {
+    :root { --header-height: 68px; --page-gutter: 14px; }
+    .stage { padding-top: 14px; padding-bottom: 42px; }
+    .brand-logo-mark { height: 42px; max-width: 50px; }
+    .brand-logo-type { height: 31px; max-width: 128px; }
+    .header-tools { gap: 6px; }
+    .icon-button { width: 36px; height: 36px; }
+    .hero-frame { border-radius: 8px; }
+    .hero-actions { left: 12px; bottom: 12px; }
+    .hero-action { min-height: 36px; padding: 0 12px; font-size: 12px; }
+    .speed-panel { padding: 10px; }
+    .speed-panel-head { align-items: flex-start; flex-direction: column; gap: 6px; }
+    .speed-panel-head span:last-child { white-space: normal; }
+    .speed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, 92px); gap: 9px; }
+    .support-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 420px) {
+    .brand-logo-type { display: none; }
+    .icon-button:first-child { display: none; }
+    .speed-grid { grid-template-rows: repeat(3, 84px); }
+  }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="ARMOR BIKE home">
+        <img class="brand-logo-mark" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782812454/hu6yu8efbexuhis3ulii.png" alt="ARMOR BIKE logo mark">
+        <img class="brand-logo-type" src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187520/jwnvywanec2ytbbfrqw0.png" alt="ARMOR BIKE">
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="nav-link active" href="/?category=bikes#products">Bikes</a>
+        <a class="nav-link" href="/?category=parts#products">Parts</a>
+        <a class="nav-link" href="/?category=accessories#products">Accessories</a>
+        <a class="nav-link" href="/?category=electronics#products">Electronics</a>
+        <a class="nav-link" href="/?category=moresports#products">More Sports</a>
+        <a class="nav-link sale" href="/?category=sale#products">SALE %</a>
+      </nav>
+      <div class="header-tools" aria-label="Tools">
+        <a class="icon-button" href="/#products" aria-label="Search products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+        </a>
+        <a class="icon-button" href="/admin.html" aria-label="Account">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.8" r="4"></circle><path d="M4 21c1.8-4.3 4.4-6.4 8-6.4s6.2 2.1 8 6.4"></path></svg>
+        </a>
+        <a class="icon-button" href="/#products" aria-label="Cart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8"></path><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="stage" aria-label="ARMOR BIKE hero with category sidebar">
+      <div class="hero-layout">
+        <div class="hero-frame">
+          <img class="hero-image" src="uploads/reference-dark-hero-full.png" alt="ARMOR BIKE cyclist riding through a mountain road hero banner">
+          <h1 class="sr-only">Ride Beyond Limits</h1>
+          <div class="hero-actions">
+            <a class="hero-action" href="/?category=bikes#products">
+              Explore Collection
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <aside class="speed-panel" aria-label="Featured category shortcuts">
+          <div class="speed-panel-head">
+            <span class="speed-kicker">Shop by Ride</span>
+            <span>6 category cards</span>
+          </div>
+          <div class="speed-grid">
+            <a class="speed-card" href="/?category=bikes#products" aria-label="Bikes">
+              <img src="uploads/reference-card-bikes.png" alt="">
+            </a>
+            <a class="speed-card" href="/?category=parts#products" aria-label="Parts">
+              <img src="uploads/reference-card-parts.png" alt="">
+            </a>
+            <a class="speed-card" href="/?category=accessories#products" aria-label="Accessories">
+              <img src="uploads/reference-card-accessories.png" alt="">
+            </a>
+            <a class="speed-card" href="/?category=electronics#products" aria-label="Electronics">
+              <img src="uploads/reference-card-electronics.png" alt="">
+            </a>
+            <a class="speed-card" href="/?category=moresports#products" aria-label="More Sports">
+              <img src="uploads/reference-card-more-sports.png" alt="">
+            </a>
+            <a class="speed-card" href="/?category=sale#products" aria-label="Sale">
+              <img src="uploads/reference-card-sale.png" alt="">
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <div class="support-row" aria-label="Store benefits">
+        <div class="support-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3z"></path><path d="M14 11h3.8l2.2 2.6V17h-6z"></path><circle cx="7" cy="18.5" r="1.5"></circle><circle cx="17.5" cy="18.5" r="1.5"></circle></svg>
+          <div><strong>Free Shipping</strong><span>On orders over $100</span></div>
+        </div>
+        <div class="support-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-2.8 8.1-7 10-4.2-1.9-7-5.4-7-10V6z"></path><path d="M8.5 12l2.2 2.2 4.8-5"></path></svg>
+          <div><strong>2-Year Warranty</strong><span>On selected products</span></div>
+        </div>
+        <div class="support-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6"></path><path d="M18 3v5h-5"></path><path d="M20 12a8 8 0 0 1-13.7 5.6"></path><path d="M6 21v-5h5"></path></svg>
+          <div><strong>Easy Returns</strong><span>30 days return policy</span></div>
+        </div>
+        <div class="support-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><path d="M4 14h4v5H4z"></path><path d="M16 14h4v5h-4z"></path><path d="M15 21h-3"></path></svg>
+          <div><strong>Expert Support</strong><span>We're here to help</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
