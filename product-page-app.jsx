@@ -67,21 +67,45 @@
     return text(product && product.price, "Contact for price");
   }
 
+  function imageUrlFrom(entry) {
+    if (!entry) return "";
+    if (typeof entry === "string") return text(entry);
+    const fields = ["url", "secure_url", "src", "href", "image", "imageUrl", "imageURL", "mainImage", "mainImageUrl", "featuredImage", "featuredImageUrl", "thumbnail", "thumbnailUrl", "cdnUrl", "cloudinaryUrl", "preview"];
+    for (const field of fields) {
+      const value = entry[field];
+      if (value) return typeof value === "string" ? text(value) : imageUrlFrom(value);
+    }
+    return "";
+  }
+
+  function imageAltFrom(entry, product) {
+    if (entry && typeof entry === "object") {
+      return text(entry.alt || entry.altText || entry.title || entry.caption, text(product && product.name, "Product image"));
+    }
+    return text(product && product.name, "Product image");
+  }
+
   function productImages(product) {
     const records = [];
     const seen = new Set();
     const append = (entry) => {
-      const url = text(entry && entry.url ? entry.url : entry);
+      const url = imageUrlFrom(entry);
       if (!url || seen.has(url)) return;
       seen.add(url);
-      records.push({ url, alt: text(entry && entry.alt, text(product && product.name, "Product image")) });
+      records.push({ url, alt: imageAltFrom(entry, product) });
     };
     if (Array.isArray(product && product.images)) product.images.forEach(append);
-    append(product && product.image);
+    ["image", "imageUrl", "imageURL", "mainImage", "mainImageUrl", "featuredImage", "featuredImageUrl", "thumbnail", "thumbnailUrl", "cdnUrl", "cloudinaryUrl", "preview"].forEach((field) => append(product && product[field]));
     if (!records.length) append(fallbackImage);
     return records;
   }
 
+  function handleImageError(event) {
+    const img = event.currentTarget;
+    if (!img || img.dataset.fallbackApplied === "true") return;
+    img.dataset.fallbackApplied = "true";
+    img.src = fallbackImage;
+  }
   function normalizeProductColor(entry) {
     const raw = text(entry && (entry.hex || entry.color || entry.value || entry.label) ? (entry.hex || entry.color || entry.value || entry.label) : entry);
     if (!raw) return "";
@@ -271,14 +295,16 @@
   function ProductPage() {
     const [record, setRecord] = React.useState(findRecordFromUrl);
     const [imageIndex, setImageIndex] = React.useState(0);
+    const [imageFit, setImageFit] = React.useState("");
 
     React.useEffect(() => {
-      const onPopState = () => { setRecord(findRecordFromUrl()); setImageIndex(0); };
+      const onPopState = () => { setRecord(findRecordFromUrl()); setImageIndex(0); setImageFit(""); };
       window.addEventListener("popstate", onPopState);
       return () => window.removeEventListener("popstate", onPopState);
     }, []);
 
-    React.useEffect(() => { setImageIndex(0); }, [record && productKey(record.product)]);
+    React.useEffect(() => { setImageIndex(0); setImageFit(""); }, [record && productKey(record.product)]);
+    React.useEffect(() => { setImageFit(""); }, [imageIndex]);
 
     if (!record) {
       return <main className="page"><Header /><section className="empty"><div><h1>No Product</h1><p className="lead">目前沒有已上架商品。</p><div className="action-row"><a className="primary-action" href="/">返回首頁</a></div></div></section></main>;
@@ -299,6 +325,17 @@
       setImageIndex((current) => (nextIndex + images.length) % images.length);
     }
 
+    function handleMainImageLoad(event) {
+      const img = event.currentTarget;
+      const ratio = img && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 1;
+      const nextFit = ratio < 0.48 ? "is-portrait" : ratio > 2.15 ? "is-wide" : "";
+      setImageFit((current) => current === nextFit ? current : nextFit);
+    }
+
+    function handleMainImageError(event) {
+      handleImageError(event);
+      setImageFit("");
+    }
     function openProduct(nextRecord, event) {
       event.preventDefault();
       window.history.pushState(null, "", productUrl(nextRecord.product));
@@ -327,10 +364,10 @@
             <div className="gallery">
               <div className="main-image">
                 <span className="image-count">{imageIndex + 1} / {images.length}</span>
-                <img src={activeImage.url} alt={text(activeImage.alt, product.name)} />
+                <img className={imageFit} src={activeImage.url} alt={text(activeImage.alt, product.name)} onLoad={handleMainImageLoad} onError={handleMainImageError} />
                 {images.length > 1 && <React.Fragment><button className="gallery-arrow prev" type="button" aria-label="Previous product image" onClick={() => showImage(imageIndex - 1)}>{icon("left")}</button><button className="gallery-arrow next" type="button" aria-label="Next product image" onClick={() => showImage(imageIndex + 1)}>{icon("right")}</button></React.Fragment>}
               </div>
-              {images.length > 1 && <div className="thumbs" aria-label="Product thumbnails">{images.map((image, index) => <button className={"thumb " + (index === imageIndex ? "active" : "")} type="button" aria-label={"Show image " + (index + 1)} aria-pressed={index === imageIndex} key={image.url + index} onClick={() => showImage(index)}><img src={image.url} alt="" /></button>)}</div>}
+              {images.length > 1 && <div className="thumbs" aria-label="Product thumbnails">{images.map((image, index) => <button className={"thumb " + (index === imageIndex ? "active" : "")} type="button" aria-label={"Show image " + (index + 1)} aria-pressed={index === imageIndex} key={image.url + index} onClick={() => showImage(index)}><img src={image.url} alt="" onError={handleImageError} /></button>)}</div>}
             </div>
             <aside className="details">
               <div><div className="eyebrow">{categoryLabel}</div><h1>{text(product.name, "ARMOR Product")}</h1><p className="lead">{specText}</p><div className="meta-row"><span className="meta-chip">{leaf}</span><span className="meta-chip">{text(product.manufacturer, "ARMOR")}</span><span className="meta-chip">{available ? "Published / Available" : "Published"}</span>{badge && <span className="tag-pill">{badge}</span>}</div>{swatches.length > 0 && <div className="color-row" aria-label="Product colors">{swatches.map((hex) => <span className="detail-color" style={{ background: hex }} title={hex.toUpperCase()} key={hex}></span>)}</div>}</div>
@@ -339,7 +376,7 @@
           </section>
           <section className="lower-grid">
             <div className="spec-panel"><h2 className="section-title">Product Details</h2><div className="spec-list">{specs.map(([label, value]) => <div className="spec-row" key={label}><span>{label}</span><strong>{value}</strong></div>)}</div></div>
-            <div className="related"><div className="related-head"><h2 className="section-title">Related Products</h2><p>{categoryLabel} / {leaf}</p></div><div className="related-grid">{related.map((item) => { const image = productImages(item.product)[0]; return <a className="related-card" href={productUrl(item.product)} key={productKey(item.product)} onClick={(event) => openProduct(item, event)}><span className="related-image"><img src={image.url} alt={image.alt} /></span><span className="related-info"><strong>{text(item.product.name, "ARMOR Product")}</strong><span>{priceFor(item.product)}</span></span></a>; })}</div></div>
+            <div className="related"><div className="related-head"><h2 className="section-title">Related Products</h2><p>{categoryLabel} / {leaf}</p></div><div className="related-grid">{related.map((item) => { const image = productImages(item.product)[0]; return <a className="related-card" href={productUrl(item.product)} key={productKey(item.product)} onClick={(event) => openProduct(item, event)}><span className="related-image"><img src={image.url} alt={image.alt} onError={handleImageError} /></span><span className="related-info"><strong>{text(item.product.name, "ARMOR Product")}</strong><span>{priceFor(item.product)}</span></span></a>; })}</div></div>
           </section>
         </div>
       </main>

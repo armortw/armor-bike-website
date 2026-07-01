@@ -472,7 +472,9 @@
   .gallery { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto; }
   .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 38%, rgba(0,156,224,.14), transparent 40%), linear-gradient(135deg, #f8fbfe, #edf4f9); }
   .main-image::before { content: ""; position: absolute; inset: 8%; border: 1px solid rgba(0,156,224,.16); border-radius: 999px; transform: skewX(-10deg); }
-  .main-image img { position: relative; z-index: 1; width: min(86%, 920px); height: min(82%, 520px); object-fit: contain; display: block; filter: drop-shadow(0 28px 28px rgba(11,32,56,.13)); }
+  .main-image img { position: relative; z-index: 1; width: auto; height: auto; max-width: min(86%, 920px); max-height: 82%; object-fit: contain; display: block; filter: drop-shadow(0 28px 28px rgba(11,32,56,.13)); box-sizing: border-box; }
+  .main-image img.is-portrait { width: auto; height: clamp(460px, 38vw, 590px); max-width: min(64%, 520px); max-height: calc(100% - 44px); object-fit: contain; }
+  .main-image img.is-wide { max-width: 92%; max-height: 74%; }
   .image-count { position: absolute; left: 18px; top: 18px; z-index: 2; border: 1px solid rgba(0,156,224,.2); border-radius: 999px; padding: 8px 12px; color: #0b5f92; background: rgba(255,255,255,.74); backdrop-filter: blur(14px); font-size: 12px; font-weight: 900; }
   .gallery-arrow { position: absolute; top: 50%; z-index: 3; width: 44px; height: 52px; border: 1px solid rgba(199,221,236,.86); border-radius: 8px; display: grid; place-items: center; color: #0078b8; background: rgba(255,255,255,.82); box-shadow: 0 16px 32px rgba(0,72,112,.14); cursor: pointer; transform: translateY(-50%); }
   .gallery-arrow:hover { color: #fff; background: var(--brand); border-color: rgba(0,156,224,.7); }
@@ -554,7 +556,7 @@
     .mobile-menu { display: block; }
   }
 
-  @media (max-width: 1180px) { .hero { --product-main-view-height: clamp(400px, 58vw, 560px); } .hero, .lower-grid { grid-template-columns: 1fr; } .related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 1180px) { .hero { --product-main-view-height: clamp(400px, 58vw, 560px); } .hero, .lower-grid { grid-template-columns: 1fr; } .main-image img.is-portrait { height: clamp(360px, 52vw, 516px); } .related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 760px) {
     :root { --header-height: 68px; --page-gutter: 16px; }
     .header-inner { grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "brand tools"; gap: 10px; align-content: center; }
@@ -565,13 +567,14 @@
     .shell { padding-top: 20px; }
     .hero { --product-main-view-height: 340px; }
     .main-image { height: var(--product-main-view-height); }
+    .main-image img.is-portrait { height: 300px; max-width: 72%; }
     .thumbs { height: 96px; gap: 8px; padding: 10px; }
     .thumb { flex-basis: 82px; height: 74px; }
     .thumb img { height: 66px; padding: 6px; }
     .related-grid { grid-template-columns: 1fr 1fr; }
     .spec-row { grid-template-columns: 1fr; gap: 4px; }
   }
-  @media (max-width: 520px) { .hero { --product-main-view-height: 300px; } .brand-logo-type { max-width: 112px; } .utility-search { display: none; } .details { padding: 20px; } h1 { font-size: 31px; } .thumbs { height: 88px; } .thumb { flex-basis: 76px; height: 66px; } .thumb img { height: 60px; } .related-grid { grid-template-columns: 1fr; } .action-row { display: grid; grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .hero { --product-main-view-height: 300px; } .brand-logo-type { max-width: 112px; } .utility-search { display: none; } .details { padding: 20px; } h1 { font-size: 31px; } .main-image img.is-portrait { height: 265px; max-width: 76%; } .thumbs { height: 88px; } .thumb { flex-basis: 76px; height: 66px; } .thumb img { height: 60px; } .related-grid { grid-template-columns: 1fr; } .action-row { display: grid; grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
