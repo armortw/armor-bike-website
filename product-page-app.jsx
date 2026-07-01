@@ -334,7 +334,7 @@
             </div>
             <aside className="details">
               <div><div className="eyebrow">{categoryLabel}</div><h1>{text(product.name, "ARMOR Product")}</h1><p className="lead">{specText}</p><div className="meta-row"><span className="meta-chip">{leaf}</span><span className="meta-chip">{text(product.manufacturer, "ARMOR")}</span><span className="meta-chip">{available ? "Published / Available" : "Published"}</span>{badge && <span className="tag-pill">{badge}</span>}</div>{swatches.length > 0 && <div className="color-row" aria-label="Product colors">{swatches.map((hex) => <span className="detail-color" style={{ background: hex }} title={hex.toUpperCase()} key={hex}></span>)}</div>}</div>
-              <div><span className="price-label">Product Price</span><strong className="price-value">{priceFor(product)}</strong><div className="action-row"><a className="primary-action" href="/#products">Back to Collection {icon("right")}</a><a className="secondary-action" href="/admin.html">Open Admin</a></div></div>
+              <div><span className="price-label">Product Price</span><strong className="price-value">{priceFor(product)}</strong><div className="action-row"><a className="primary-action" href="/#products">Back to Collection {icon("right")}</a></div></div>
             </aside>
           </section>
           <section className="lower-grid">
