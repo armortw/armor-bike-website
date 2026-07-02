@@ -23,6 +23,8 @@
     --font-display: "Orbitron", "Arial Black", Arial, sans-serif;
     --font-body: "Inter", Arial, sans-serif;
     --header-height: 115px;
+    --logo-vertical-padding: 12px;
+    --logo-height: calc(var(--header-height) - 24px);
     --site-max: 1600px;
     --page-gutter: clamp(16px, 3.06vw, 58px);
   }
@@ -75,6 +77,7 @@
     gap: 12px;
     width: fit-content;
     min-width: 0;
+    height: var(--logo-height);
   }
 
   .brand-logo-mark,
@@ -87,12 +90,12 @@
   }
 
   .brand-logo-mark {
-    height: 58px;
-    max-width: 72px;
+    height: var(--logo-height);
+    max-width: 96px;
   }
 
   .brand-logo-type {
-    height: 48px;
+    height: min(56px, var(--logo-height));
     max-width: 230px;
   }
 
@@ -540,7 +543,9 @@
   }
 
   @media (max-width: 1500px) {
-    :root { --header-height: 115px; }
+    :root { --header-height: 115px;
+    --logo-vertical-padding: 12px;
+    --logo-height: calc(var(--header-height) - 24px); }
     .header-inner {
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-areas: "brand tools";
@@ -548,7 +553,9 @@
       column-gap: 12px;
       align-content: center;
     }
-    .brand { grid-area: brand; }
+    .brand { grid-area: brand; height: var(--logo-height); }
+    .brand-logo-mark { height: var(--logo-height); max-width: 96px; }
+    .brand-logo-type { height: min(56px, var(--logo-height)); max-width: 230px; }
     .header-tools { grid-area: tools; gap: 8px; }
     .main-nav { display: none; }
     .menu-toggle { display: grid; }

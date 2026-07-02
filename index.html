@@ -29,6 +29,8 @@
     --site-max: 1760px;
     --page-gutter: clamp(20px, 3.6vw, 72px);
     --header-height: 115px;
+    --logo-vertical-padding: 12px;
+    --logo-height: calc(var(--header-height) - 24px);
   }
 
   html,
@@ -112,6 +114,7 @@
     gap: 12px;
     width: fit-content;
     min-width: 0;
+    height: var(--logo-height);
   }
 
   .brand-logo-mark,
@@ -124,12 +127,12 @@
   }
 
   .brand-logo-mark {
-    height: 58px;
-    max-width: 72px;
+    height: var(--logo-height);
+    max-width: 96px;
   }
 
   .brand-logo-type {
-    height: 48px;
+    height: min(56px, var(--logo-height));
     max-width: 230px;
   }
 
@@ -1313,7 +1316,9 @@
       padding: 10px 16px 0;
     }
 
-    .brand { grid-area: brand; }
+    .brand { grid-area: brand; height: var(--logo-height); }
+    .brand-logo-mark { height: var(--logo-height); max-width: 96px; }
+    .brand-logo-type { height: min(56px, var(--logo-height)); max-width: 230px; }
     .header-tools { grid-area: tools; }
     .main-nav {
       grid-area: nav;
@@ -1373,7 +1378,9 @@
 
 
   @media (max-width: 1500px) {
-    :root { --header-height: 115px; }
+    :root { --header-height: 115px;
+    --logo-vertical-padding: 12px;
+    --logo-height: calc(var(--header-height) - 24px); }
     .header { height: var(--header-height); min-height: 0; }
     .header-inner {
       height: var(--header-height);
@@ -1384,7 +1391,9 @@
       padding: 0 18px;
       gap: 12px;
     }
-    .brand { grid-area: brand; }
+    .brand { grid-area: brand; height: var(--logo-height); }
+    .brand-logo-mark { height: var(--logo-height); max-width: 96px; }
+    .brand-logo-type { height: min(56px, var(--logo-height)); max-width: 230px; }
     .header-tools { grid-area: tools; gap: 8px; }
     .main-nav { display: none; }
     .menu-toggle { display: grid; }
