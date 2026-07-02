@@ -219,6 +219,14 @@
   function Header({ selectedCategory, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
     const [openId, setOpenId] = React.useState(null);
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [isScrolled, setIsScrolled] = React.useState(false);
+
+    React.useEffect(() => {
+      const updateScrolled = () => setIsScrolled(window.scrollY > 8);
+      updateScrolled();
+      window.addEventListener("scroll", updateScrolled, { passive: true });
+      return () => window.removeEventListener("scroll", updateScrolled);
+    }, []);
     const navItems = categories.length ? categories : [
       { id: "bikes", label: "Bikes", mega: [] },
       { id: "parts", label: "Parts", mega: [] },
@@ -246,7 +254,7 @@
     };
 
     return (
-      <header className={`header ${menuOpen ? "menu-open" : ""}`} onMouseLeave={() => setOpenId(null)}>
+      <header className={`header ${menuOpen ? "menu-open" : ""} ${isScrolled ? "is-scrolled" : ""}`} onMouseLeave={() => setOpenId(null)}>
         <div className="header-inner">
           <a className="brand" href="#top" aria-label="ARMOR BIKE home">
             <img
