@@ -251,7 +251,7 @@
           <a className="brand" href="#top" aria-label="ARMOR BIKE home">
             <img
               className="brand-logo-mark"
-              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782812454/hu6yu8efbexuhis3ulii.png"
+              src="https://res.cloudinary.com/dvzdptb3i/image/upload/v1782983166/t3sdrech4xlejtnlauog.png"
               alt="ARMOR BIKE logo mark"
             />
             <img
