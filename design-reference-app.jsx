@@ -231,10 +231,120 @@
     return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-2 9H8L6 3H3" strokeLinecap="round" strokeLinejoin="round"></path><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg>;
   }
 
-  function Header({ selectedCategory, onSelectCategory, onSelectMegaGroup, onSelectMegaLink }) {
+
+  const FRONT_WISHLIST_KEY = "wishlist";
+  const FRONT_CART_KEY = "cart";
+
+  function emptyFrontLists() {
+    return { [FRONT_WISHLIST_KEY]: [], [FRONT_CART_KEY]: [] };
+  }
+
+  function frontListItems(lists, key) {
+    const data = lists && lists[key];
+    return Array.isArray(data) ? data : [];
+  }
+
+  function nextFrontLists(lists, key, item) {
+    const current = frontListItems(lists, key);
+    return {
+      ...emptyFrontLists(),
+      ...(lists || {}),
+      [key]: [item, ...current.filter((entry) => String(entry.id) !== String(item.id))].slice(0, 80)
+    };
+  }
+
+  function frontProductItem(product, category) {
+    const image = (productImages(product)[0] || {}).url || "";
+    return {
+      id: productKey(product),
+      name: text(product && product.name, "ARMOR Product"),
+      spec: text(product && (product.spec || product.note || product.leaf), ""),
+      category: text(category && category.label, ""),
+      leaf: text((product && product.leaf) || (category && category.leaf), ""),
+      image,
+      url: productUrl(product)
+    };
+  }
+
+  function frontCatalogItems() {
+    return categories.flatMap((category) => productsForCategory(category).map((product) => frontProductItem(product, category)));
+  }
+
+  const utilityLabels = {
+    search: "商品搜尋",
+    wishlist: "心願清單",
+    account: "前台會員",
+    cart: "購物車"
+  };
+
+  function FrontUtilityPanel({ type, items = [], onClear, onClose }) {
+    const [query, setQuery] = React.useState("");
+    const catalog = React.useMemo(() => frontCatalogItems(), []);
+    const listItems = Array.isArray(items) ? items : [];
+    const q = text(query).toLowerCase();
+    const results = type === "search"
+      ? catalog.filter((item) => !q || [item.name, item.spec, item.category, item.leaf].some((value) => text(value).toLowerCase().includes(q))).slice(0, 10)
+      : listItems;
+    const title = utilityLabels[type] || "前台工具";
+    const canClear = (type === "wishlist" || type === "cart") && listItems.length > 0;
+
+    return (
+      <div className="front-panel-backdrop" role="presentation" onClick={onClose}>
+        <aside className="front-panel" role="dialog" aria-modal="true" aria-label={title} onClick={(event) => event.stopPropagation()}>
+          <div className="front-panel-head">
+            <strong>{title}</strong>
+            <button className="front-panel-close" type="button" aria-label="關閉" onClick={onClose}>{icon("close")}</button>
+          </div>
+          {type === "account" ? (
+            <div className="front-panel-empty account">
+              <strong>前台會員中心</strong>
+              <span>前台使用者入口已與後台管理權限分開。</span>
+            </div>
+          ) : (
+            <React.Fragment>
+              {type === "search" && (
+                <input
+                  className="front-search-input"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="搜尋商品名稱、分類或規格"
+                  autoFocus
+                />
+              )}
+              {results.length ? (
+                <div className="front-panel-list">
+                  {results.map((item, index) => (
+                    <a className="front-panel-item" href={item.url || "#"} onClick={onClose} key={`${item.id || item.name}-${index}`}>
+                      {item.image ? <img src={item.image} alt={item.name} /> : <span className="front-panel-thumb"></span>}
+                      <span>
+                        <strong>{item.name}</strong>
+                        <small>{[item.category, item.leaf, item.spec].filter(Boolean).join(" / ")}</small>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div className="front-panel-empty">
+                  <strong>{type === "search" ? "沒有符合的商品" : "目前沒有項目"}</strong>
+                  <span>{type === "search" ? "請調整關鍵字後再搜尋。" : "商品加入後會顯示在這裡。"}</span>
+                </div>
+              )}
+              {canClear && (
+                <div className="front-panel-actions">
+                  <button type="button" onClick={onClear}>全部清除</button>
+                </div>
+              )}
+            </React.Fragment>
+          )}
+        </aside>
+      </div>
+    );
+  }
+  function Header({ selectedCategory, onSelectCategory, onSelectMegaGroup, onSelectMegaLink, frontLists = emptyFrontLists(), onClearFrontList = () => {} }) {
     const [openId, setOpenId] = React.useState(null);
     const [menuOpen, setMenuOpen] = React.useState(false);
     const [isScrolled, setIsScrolled] = React.useState(false);
+    const [utilityPanel, setUtilityPanel] = React.useState(null);
 
     React.useEffect(() => {
       const updateScrolled = () => setIsScrolled(window.scrollY > 8);
@@ -242,6 +352,13 @@
       window.addEventListener("scroll", updateScrolled, { passive: true });
       return () => window.removeEventListener("scroll", updateScrolled);
     }, []);
+    const wishlistCount = frontListItems(frontLists, FRONT_WISHLIST_KEY).length;
+    const cartCount = frontListItems(frontLists, FRONT_CART_KEY).length;
+    const openUtility = (panel) => {
+      setOpenId(null);
+      setMenuOpen(false);
+      setUtilityPanel((current) => current === panel ? null : panel);
+    };
     const navItems = categories.length ? categories : [
       { id: "bikes", label: "Bikes", mega: [] },
       { id: "parts", label: "Parts", mega: [] },
@@ -298,10 +415,11 @@
             ))}
           </nav>
           <div className="header-tools">
-            <button className={`icon-button menu-toggle ${menuOpen ? "active" : ""}`} type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-controls="mobile-menu" aria-expanded={menuOpen} onClick={() => { setOpenId(null); setMenuOpen((value) => !value); }}>{icon(menuOpen ? "close" : "menu")}</button>
-            <button className="icon-button utility-search" type="button" aria-label="Search">{icon("search")}</button>
-            <button className="icon-button utility-account" type="button" aria-label="Account">{icon("user")}</button>
-            <button className="icon-button utility-cart" type="button" aria-label="Cart">{icon("cart")}<span className="cart-badge">2</span></button>
+            <button className={`icon-button menu-toggle ${menuOpen ? "active" : ""}`} type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-controls="mobile-menu" aria-expanded={menuOpen} onClick={() => { setOpenId(null); setUtilityPanel(null); setMenuOpen((value) => !value); }}>{icon(menuOpen ? "close" : "menu")}</button>
+            <button className="icon-button utility-search" type="button" aria-label="搜尋商品" aria-expanded={utilityPanel === "search"} onClick={() => openUtility("search")}>{icon("search")}</button>
+            <button className="icon-button utility-wishlist" type="button" aria-label="心願清單" aria-expanded={utilityPanel === "wishlist"} onClick={() => openUtility("wishlist")}>{icon("heart")}{wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}</button>
+            <button className="icon-button utility-account" type="button" aria-label="前台會員" aria-expanded={utilityPanel === "account"} onClick={() => openUtility("account")}>{icon("user")}</button>
+            <button className="icon-button utility-cart" type="button" aria-label="購物車" aria-expanded={utilityPanel === "cart"} onClick={() => openUtility("cart")}>{icon("cart")}{cartCount > 0 && <span className="cart-badge">{cartCount}</span>}</button>
           </div>
         </div>
         {!menuOpen && openCategory && (
@@ -321,7 +439,14 @@
             onSelectMegaLink={selectMegaLink}
           />
         )}
-      </header>
+        {utilityPanel && (
+          <FrontUtilityPanel
+            type={utilityPanel}
+            items={utilityPanel === "wishlist" ? frontListItems(frontLists, FRONT_WISHLIST_KEY) : utilityPanel === "cart" ? frontListItems(frontLists, FRONT_CART_KEY) : []}
+            onClear={() => onClearFrontList(utilityPanel)}
+            onClose={() => setUtilityPanel(null)}
+          />
+        )}      </header>
     );
   }
 
@@ -540,7 +665,8 @@
     colorFilter,
     onSelectLeaf,
     onSelectColor,
-    onClearFilters
+    onClearFilters,
+    onAddFrontItem
   }) {
     return (
       <section className="catalog" id="products">
@@ -563,7 +689,7 @@
           />
           <div className="product-grid">
             {visibleProducts.length ? visibleProducts.map((product, index) => (
-              <ProductCard product={product} index={index} key={`${text(product.productId || product.sourceKey || product.name, "product")}-${index}`} />
+              <ProductCard product={product} category={category} index={index} onAddFrontItem={onAddFrontItem} key={`${text(product.productId || product.sourceKey || product.name, "product")}-${index}`} />
             )) : (
               <div className="empty-catalog">
                 <strong>No listed products in this section yet.</strong>
@@ -576,7 +702,7 @@
     );
   }
 
-  function ProductCard({ product, index }) {
+  function ProductCard({ product, category, index, onAddFrontItem }) {
     const badge = badgeFor(product, index);
     const badgeClass = badge.toLowerCase().includes("sale") ? "sale" : badge.toLowerCase().includes("hot") ? "hot" : "";
     const images = productImages(product);
@@ -613,7 +739,7 @@
       >
         <div className="product-media">
           {badge && <span className={`badge ${badgeClass}`}>{badge}</span>}
-          <span className="heart-button">{icon("heart")}</span>
+          <button className="heart-button" type="button" aria-label="加入心願清單" onClick={(event) => { event.stopPropagation(); onAddFrontItem(FRONT_WISHLIST_KEY, product, category); }}>{icon("heart")}</button>
           <img src={activeImage.url} alt={text(activeImage.alt, text(product.name, "Product"))} onClick={(event) => { event.stopPropagation(); goToProduct(product); }} />
           {hasMultipleImages && (
             <React.Fragment>
@@ -655,7 +781,7 @@
             <div className="product-swatches">
               {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: colorBackground(color) }} title={colorLabel(color)} key={`${product.name}-${color}`}></span>)}
             </div>
-            <span className="cart-button">{icon("cart")}</span>
+            <button className="cart-button" type="button" aria-label="加入購物車" onClick={(event) => { event.stopPropagation(); onAddFrontItem(FRONT_CART_KEY, product, category); }}>{icon("cart")}</button>
           </div>
         </div>
       </article>
@@ -668,7 +794,7 @@
     const [selectedCategoryId, setSelectedCategoryId] = React.useState((initialSelection.category && (initialSelection.category.id || initialSelection.category.label)) || defaultCategory.id || defaultCategory.label);
     const [displayLeaf, setDisplayLeaf] = React.useState(initialLeaf);
     const [exactLeafFilter, setExactLeafFilter] = React.useState(initialLeaf);
-    const [colorFilter, setColorFilter] = React.useState("");
+    const [colorFilter, setColorFilter] = React.useState(\
 
     const selectedCategory = React.useMemo(() => {
       return categories.find((category) => category.id === selectedCategoryId) || defaultCategory || fallbackCategory;
@@ -686,6 +812,16 @@
 
     React.useEffect(() => {
       if (window.location.hash === "#products" || initialLeaf) scrollToProducts();
+    }, []);
+
+    const addFrontItem = React.useCallback((key, product, category) => {
+      const item = frontProductItem(product, category);
+      setFrontLists((current) => nextFrontLists(current, key, item));
+    }, []);
+
+    const clearFrontList = React.useCallback((key) => {
+      if (key !== FRONT_WISHLIST_KEY && key !== FRONT_CART_KEY) return;
+      setFrontLists((current) => ({ ...emptyFrontLists(), ...current, [key]: [] }));
     }, []);
 
     function selectCategory(category, options = {}) {
@@ -733,6 +869,8 @@
           onSelectCategory={selectCategory}
           onSelectMegaGroup={selectMegaGroup}
           onSelectMegaLink={selectMegaLink}
+          frontLists={frontLists}
+          onClearFrontList={clearFrontList}
         />
         <Hero onExplore={scrollToProducts} />
         <CategoryStrip onSelectCategory={selectCategory} />
@@ -746,6 +884,7 @@
           onSelectLeaf={selectFilterLeaf}
           onSelectColor={selectColor}
           onClearFilters={clearFilters}
+          onAddFrontItem={addFrontItem}
         />
       </main>
     );

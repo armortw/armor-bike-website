@@ -8,13 +8,21 @@
   const LEGACY_CMS_KEY = 'ARMOR_BIKE_CMS';
   const AUTH_KEY = 'ARMOR_BIKE_AUTH';
   const USERS_KEY = 'ARMOR_BIKE_USERS';
+  const USERS_DELETED_KEY = 'ARMOR_BIKE_USERS_DELETED';
 
   // ── storage ──────────────────────────────────────────────────────────────
   const clearLegacyCMS = () => { try { localStorage.removeItem(LEGACY_CMS_KEY); } catch {} };
   const loadAuth = () => { try { const r = localStorage.getItem(AUTH_KEY); return r ? JSON.parse(r) : null; } catch { return null; } };
   const saveAuth = (u) => u ? localStorage.setItem(AUTH_KEY, JSON.stringify(u)) : localStorage.removeItem(AUTH_KEY);
-  const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); return r ? JSON.parse(r) : []; } catch { return []; } };
-  const saveUsers = (u) => localStorage.setItem(USERS_KEY, JSON.stringify(u));
+  const userNameKey = (u) => String((typeof u === 'string' ? u : u?.username) || '').trim();
+  const stripUserSource = (u) => {
+    const { source, ...rest } = u || {};
+    return rest;
+  };
+  const loadUsers = () => { try { const r = localStorage.getItem(USERS_KEY); const data = r ? JSON.parse(r) : []; return Array.isArray(data) ? data : []; } catch { return []; } };
+  const saveUsers = (u) => localStorage.setItem(USERS_KEY, JSON.stringify((u || []).map(stripUserSource).filter(x => userNameKey(x))));
+  const loadDeletedUsers = () => { try { const r = localStorage.getItem(USERS_DELETED_KEY); const data = r ? JSON.parse(r) : []; return Array.isArray(data) ? data.map(userNameKey).filter(Boolean) : []; } catch { return []; } };
+  const saveDeletedUsers = (u) => localStorage.setItem(USERS_DELETED_KEY, JSON.stringify(Array.from(new Set((u || []).map(userNameKey).filter(Boolean)))));
 
   // ── shared accounts baked into the deployed site (cms-users.js → window.CMS_USERS) ──
   // Passwords are stored as SHA-256 hashes (not plaintext), so any browser can sign in
@@ -26,13 +34,20 @@
   const bakedUsers = () => Array.isArray(window.CMS_USERS) ? window.CMS_USERS : [];
   // Every account known to this browser (local working copy + baked shared accounts).
   const allUsers = () => {
-    const local = loadUsers();
-    const names = new Set(local.map(u => u.username));
-    return [...local, ...bakedUsers().filter(u => !names.has(u.username))];
+    const deleted = new Set(loadDeletedUsers());
+    const local = loadUsers()
+      .filter(u => userNameKey(u) && !deleted.has(userNameKey(u)))
+      .map(u => ({ ...u, source: '本機' }));
+    const names = new Set(local.map(userNameKey));
+    const baked = bakedUsers()
+      .filter(u => userNameKey(u) && !names.has(userNameKey(u)) && !deleted.has(userNameKey(u)))
+      .map(u => ({ ...u, source: '雲端' }));
+    return [...local, ...baked];
   };
   // Verify against localStorage plaintext (unpublished/local) OR baked hashed accounts.
   const verifyLogin = async (username, password) => {
     username = (username || '').trim();
+    if (loadDeletedUsers().includes(username)) return null;
     const local = loadUsers().find(x => x.username === username && x.password === password);
     if (local) return local;
     const h = await sha256Hex(username + ':' + password);
@@ -43,9 +58,12 @@
   // Build cms-users.js content from the current accounts (hashing plaintext passwords).
   const buildCmsUsersJS = async (users) => {
     const out = [];
-    for (const u of (users || [])) {
-      const hash = u.passwordHash || (u.password ? await sha256Hex((u.username || '') + ':' + u.password) : '');
-      out.push({ id: u.id, username: u.username, passwordHash: hash, role: u.role || 'editor', name: u.name || u.username });
+    for (const raw of (users || [])) {
+      const u = stripUserSource(raw);
+      const username = userNameKey(u);
+      if (!username) continue;
+      const hash = u.passwordHash || (u.password ? await sha256Hex(username + ':' + u.password) : '');
+      out.push({ id: u.id, username, passwordHash: hash, role: u.role || 'editor', name: u.name || username });
     }
     return '/* ARMOR BIKE — admin accounts (SHA-256 hashed passwords). Auto-generated on publish. */\nwindow.CMS_USERS = ' + JSON.stringify(out, null, 2) + ';\n';
   };
@@ -104,17 +122,22 @@
   // ── cross-origin config sync (users + GitHub token + Cloudinary) ───────────
   // localStorage is per-origin (localhost / 192.168.x / pages.dev don't share it),
   // so settings move between devices via this one-blob export/import.
-  const exportConfigBlob = () => JSON.stringify({ v: 1, exported: new Date().toISOString(), users: loadUsers(), github: loadGithubConfig(), cloudinary: loadCldConfig() }, null, 2);
+  const exportConfigBlob = () => JSON.stringify({ v: 1, exported: new Date().toISOString(), users: allUsers().map(stripUserSource), deletedUsers: loadDeletedUsers(), github: loadGithubConfig(), cloudinary: loadCldConfig() }, null, 2);
   const importConfigBlob = (txt) => {
     const d = JSON.parse(txt);
-    let total = loadUsers().length;
+    let total = allUsers().length;
+    if (Array.isArray(d.deletedUsers)) {
+      saveDeletedUsers([...loadDeletedUsers(), ...d.deletedUsers]);
+    }
     if (Array.isArray(d.users)) {
       // merge by username (incoming wins for duplicates) so no account on either side is lost
       const cur = loadUsers();
-      const inNames = new Set(d.users.map(u => u.username));
-      const merged = [...cur.filter(u => !inNames.has(u.username)), ...d.users];
+      const incoming = d.users.map(stripUserSource).filter(u => userNameKey(u));
+      const inNames = new Set(incoming.map(userNameKey));
+      const merged = [...cur.filter(u => !inNames.has(userNameKey(u))), ...incoming];
       saveUsers(merged);
-      total = merged.length;
+      saveDeletedUsers(loadDeletedUsers().filter(name => !inNames.has(name)));
+      total = allUsers().length;
     }
     if (d.github && typeof d.github === 'object') saveGithubConfig(d.github);
     if (d.cloudinary && typeof d.cloudinary === 'object') saveCldConfig(d.cloudinary);
@@ -191,6 +214,75 @@
     ].join('\n');
   }
 
+
+  const normalizeDeployUrlForCheck = (url) => (url || GITHUB_DEFAULTS.siteUrl).replace(/\/$/, '');
+
+  async function waitForStoreDataPublish(siteUrl, publishId, timeoutMs = 90000) {
+    const baseUrl = normalizeDeployUrlForCheck(siteUrl);
+    const marker = `ARMOR_BIKE_PUBLISH_ID:${publishId}`;
+    const deadline = Date.now() + timeoutMs;
+    let lastError = '';
+    while (Date.now() < deadline) {
+      try {
+        const target = `${baseUrl}/store-data.js?deploy=${encodeURIComponent(publishId)}&check=${Date.now()}`;
+        const res = await fetch(target, { cache: 'no-store' });
+        if (res.ok) {
+          const online = await res.text();
+          if (online.includes(marker) || online.includes(`var publishId = ${JSON.stringify(publishId)}`)) return true;
+          lastError = '線上圖片庫仍是上一版';
+        } else {
+          lastError = `線上圖片庫讀取失敗 (${res.status})`;
+        }
+      } catch (err) {
+        lastError = err.message || '線上圖片庫暫時無法讀取';
+      }
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+    throw new Error(lastError || 'Cloudflare Pages 尚未完成圖片庫部署');
+  }
+
+  async function publishImageLibraryData(nextData, user) {
+    const cloud = await loadCloudConfig();
+    const github = cloud.github || {};
+    if (!github.publishConfigured) {
+      throw new Error('Cloudflare 尚未啟用雲端發布密鑰，請使用「發布」寫入雲端。');
+    }
+    const publishId = makePublishId('img');
+    const scopedData = {
+      categories: [],
+      images: nextData.images || [],
+      badges: [],
+      hero: [],
+      imageDeletions: nextData.imageDeletions || []
+    };
+    const res = await fetch('/api/publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        files: [{
+          path: 'store-data.js',
+          content: generateStoreJS(scopedData, publishId),
+          message: 'Deploy: update image library',
+          mergeStrategy: 'owned-products',
+          data: scopedData,
+          contentChanges: { imagesChanged: true },
+          publisher: {
+            id: ownerKey(user),
+            username: user?.username || '',
+            name: ownerName(user),
+            role: user?.role || 'editor'
+          }
+        }]
+      })
+    });
+    if (!res.ok) {
+      const t = await res.text();
+      throw new Error(t || `圖片庫雲端保存失敗 (${res.status})`);
+    }
+    const result = await res.json().catch(() => ({}));
+    await waitForStoreDataPublish(result.siteUrl || github.siteUrl || GITHUB_DEFAULTS.siteUrl, publishId);
+    return publishId;
+  }
   // ── shared styles ─────────────────────────────────────────────────────────
   const S = {
     heading: { fontSize: 26, fontWeight: 800, color: '#16181d', margin: '0 0 24px', letterSpacing: '-0.02em' },
@@ -357,7 +449,7 @@
       { label: '分類數', value: data.categories.length, color: BRAND },
       { label: '產品數', value: totalProducts, color: '#16a34a' },
       { label: '圖片數', value: (data.images || []).length, color: '#f97316' },
-      { label: '使用者', value: loadUsers().length, color: '#7c3aed' },
+      { label: '使用者', value: allUsers().length, color: '#7c3aed' },
     ];
     return e('div', null,
       e('h1', { style: S.heading }, '總覽'),
@@ -1342,18 +1434,65 @@
 
   // ── Users ─────────────────────────────────────────────────────────────────
   function UsersManager() {
-    const [users, setU] = useState(loadUsers);
+    const [users, setU] = useState(allUsers);
     const [showAdd, setShowAdd] = useState(false);
     const [af, setAf] = useState({ username: '', password: '', name: '', role: 'editor' });
-    const [editId, setEditId] = useState(null);
+    const [editKey, setEditKey] = useState(null);
     const [ef, setEf] = useState({});
 
-    const save = (u) => { saveUsers(u); setU(u); };
+    const cleanUsers = (items) => (items || []).map(stripUserSource).filter(u => userNameKey(u));
+    const save = (items) => {
+      const clean = cleanUsers(items);
+      const present = new Set(clean.map(userNameKey));
+      saveDeletedUsers(loadDeletedUsers().filter(name => !present.has(name)));
+      saveUsers(clean);
+      setU(clean.map(u => ({ ...u, source: '本機' })));
+    };
+    const refresh = () => setU(allUsers());
+    const sourceLabel = (u) => u.source || (u.passwordHash && !u.password ? '雲端' : '本機');
+    const sourceStyle = (u) => {
+      const cloud = sourceLabel(u) === '雲端';
+      return { background: cloud ? '#eef6ff' : '#f8fafc', color: cloud ? BRAND : '#475569', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 800 };
+    };
+    const addUser = () => {
+      const username = userNameKey(af);
+      if (!username || !af.password) return;
+      if (users.some(u => userNameKey(u) === username)) { alert('帳號已存在'); return; }
+      save([...users, { id: Date.now(), ...af, username }]);
+      setAf({ username: '', password: '', name: '', role: 'editor' });
+      setShowAdd(false);
+    };
+    const deleteUser = (u) => {
+      const username = userNameKey(u);
+      if (!username || !confirm('確定刪除此使用者嗎？')) return;
+      saveDeletedUsers([...loadDeletedUsers(), username]);
+      const next = users.filter(x => userNameKey(x) !== username);
+      saveUsers(cleanUsers(next));
+      setU(next);
+    };
+    const saveEdit = (u) => {
+      const original = userNameKey(u);
+      const username = userNameKey(ef);
+      if (!username) return;
+      if (users.some(x => userNameKey(x) !== original && userNameKey(x) === username)) { alert('帳號已存在'); return; }
+      save(users.map(x => userNameKey(x) === original ? { ...x, ...ef, username } : x));
+      setEditKey(null);
+    };
 
     return e('div', null,
-      e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
+      e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 24, flexWrap: 'wrap' } },
         e('h1', { style: S.heading }, '使用者管理'),
-        e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ 新增使用者')
+        e('div', { style: { display: 'flex', gap: 10, flexWrap: 'wrap' } },
+          e('button', { onClick: refresh, style: S.btnGhost }, '重新讀取雲端帳號'),
+          e('button', { onClick: () => setShowAdd(v => !v), style: S.btnPrimary }, '+ 新增使用者')
+        )
+      ),
+      e('div', { style: { ...S.card, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, marginBottom: 16, background: '#f8fbff' } },
+        e('div', null,
+          e('strong', { style: { display: 'block', marginBottom: 4 } }, '同步帳號清單'),
+          e('span', { style: { color: '#64748b', fontSize: 13 } }, '此處會合併顯示本機帳號與已發布到 cms-users.js 的雲端帳號。')
+        ),
+        e('span', { style: { background: '#eff6ff', color: BRAND, padding: '5px 12px', borderRadius: 20, fontSize: 12, fontWeight: 900 } }, users.length + ' 個帳號')
       ),
       showAdd && e('div', { style: S.card },
         e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 } },
@@ -1363,31 +1502,33 @@
           e(Field, { label: '角色' }, e(Select, { value: af.role, onChange: ev => setAf({ ...af, role: ev.target.value }) }, e('option', { value: 'editor' }, '編輯者'), e('option', { value: 'admin' }, '管理員'))),
         ),
         e('div', { style: { display: 'flex', gap: 10 } },
-          e('button', { onClick: () => { if (!af.username || !af.password) return; save([...users, { id: Date.now(), ...af }]); setAf({ username: '', password: '', name: '', role: 'editor' }); setShowAdd(false); }, style: S.btnPrimary }, '新增使用者'),
+          e('button', { onClick: addUser, style: S.btnPrimary }, '新增使用者'),
           e('button', { onClick: () => setShowAdd(false), style: S.btnGhost }, '取消')
         )
       ),
       e('div', { style: S.card },
         e('table', { style: { width: '100%', borderCollapse: 'collapse' } },
-          e('thead', null, e('tr', null, ['帳號', '姓名', '角色', '操作'].map(h => e('th', { key: h, style: S.th }, h)))),
+          e('thead', null, e('tr', null, ['帳號', '姓名', '角色', '來源', '操作'].map(h => e('th', { key: h, style: S.th }, h)))),
           e('tbody', null,
-            users.map((u, i) => editId === u.id
-              ? e('tr', { key: u.id },
+            users.map((u, i) => editKey === userNameKey(u)
+              ? e('tr', { key: userNameKey(u) || u.id || i },
                   e('td', { style: S.td }, e(Input, { value: ef.username, onChange: ev => setEf({ ...ef, username: ev.target.value }), style: { ...S.input, padding: '6px 10px' } })),
                   e('td', { style: S.td }, e(Input, { value: ef.name, onChange: ev => setEf({ ...ef, name: ev.target.value }), style: { ...S.input, padding: '6px 10px' } })),
                   e('td', { style: S.td }, e(Select, { value: ef.role, onChange: ev => setEf({ ...ef, role: ev.target.value }), style: { ...S.input, padding: '6px 10px' } }, e('option', { value: 'editor' }, '編輯者'), e('option', { value: 'admin' }, '管理員'))),
+                  e('td', { style: S.td }, e('span', { style: sourceStyle(u) }, sourceLabel(u))),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => { save(users.map(x => x.id === u.id ? { ...x, ...ef } : x)); setEditId(null); }, style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '✓ 儲存'), ' ',
-                    e('button', { onClick: () => setEditId(null), style: S.btnSm }, '✕')
+                    e('button', { onClick: () => saveEdit(u), style: { ...S.btnSm, background: '#dcfce7', color: '#16a34a' } }, '儲存'), ' ',
+                    e('button', { onClick: () => setEditKey(null), style: S.btnSm }, '取消')
                   )
                 )
-              : e('tr', { key: u.id, style: { background: i % 2 ? '#f8fafc' : '#fff' } },
+              : e('tr', { key: userNameKey(u) || u.id || i, style: { background: i % 2 ? '#f8fafc' : '#fff' } },
                   e('td', { style: S.td }, e('code', { style: { fontWeight: 700, fontSize: 13 } }, u.username)),
-                  e('td', { style: S.td }, u.name),
+                  e('td', { style: S.td }, u.name || u.username),
                   e('td', { style: S.td }, e('span', { style: { background: u.role === 'admin' ? '#eff6ff' : '#f0fdf4', color: u.role === 'admin' ? BRAND : '#16a34a', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 800 } }, roleLabel(u.role))),
+                  e('td', { style: S.td }, e('span', { style: sourceStyle(u) }, sourceLabel(u))),
                   e('td', { style: S.td },
-                    e('button', { onClick: () => { setEditId(u.id); setEf({ username: u.username, name: u.name, role: u.role }); }, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'), ' ',
-                    e('button', { onClick: () => { if (confirm('確定刪除此使用者嗎？')) save(users.filter(x => x.id !== u.id)); }, style: S.btnDanger }, '🗑')
+                    e('button', { onClick: () => { setEditKey(userNameKey(u)); setEf({ username: u.username, name: u.name || u.username, role: u.role || 'editor' }); }, style: { ...S.btnSm, display: 'inline-flex', alignItems: 'center', gap: 5 } }, e(IconPencil, { size: 15 }), '編輯'), ' ',
+                    e('button', { onClick: () => deleteUser(u), style: S.btnDanger }, '刪除')
                   )
                 )
             )
@@ -1396,7 +1537,6 @@
       )
     );
   }
-
   // ── User Avatar ───────────────────────────────────────────────────────────
   function UserAvatar({ user, size = 32, fontSize = 13 }) {
     const initials = (user.name || user.username || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
