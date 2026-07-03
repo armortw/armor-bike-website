@@ -661,6 +661,17 @@
   .mega-column + .mega-column {
     border-left: 0;
     padding-left: 0;
+    position: relative;
+  }
+
+  .mega-column + .mega-column::before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(0, 95, 145, 0.28) 16%, rgba(0, 95, 145, 0.28) 84%, transparent);
   }
 
   .mega-group + .mega-group { margin-top: 22px; }
