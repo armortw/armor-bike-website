@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 05:51 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr4imxp6_64tan8 */
+/* ARMOR BIKE Storefront — published 2026-07-03 06:01 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr4izgv0_jx8i5f */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2085,8 +2085,13 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:16:57.915Z",
-        "updatedAt": "2026-06-23T09:46:03.255Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:54:29.688Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#a6202f",
+          "#111827",
+          "#13225c"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -2126,13 +2131,21 @@
           }
         ],
         "productId": "prd_mqp4izgv_22skyx",
-        "sourceKey": "",
+        "sourceKey": "prd_mqp4izgv_22skyx",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:20:09.487Z",
-        "updatedAt": "2026-06-22T11:20:09.487Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:54:56.895Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#18a34a",
+          "#009ce0",
+          "#111827",
+          "#e4427a",
+          "#c8d2df",
+          "#7c3aed"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -2164,13 +2177,20 @@
           }
         ],
         "productId": "prd_mqp4mopc_o47wb6",
-        "sourceKey": "",
+        "sourceKey": "prd_mqp4mopc_o47wb6",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:23:02.160Z",
-        "updatedAt": "2026-06-22T11:23:02.160Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:55:25.892Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827",
+          "#57585e",
+          "#7c3aed",
+          "#009ce0",
+          "#e60012"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -2198,13 +2218,20 @@
           }
         ],
         "productId": "prd_mqp4s1zg_9xjdwb",
-        "sourceKey": "",
+        "sourceKey": "prd_mqp4s1zg_9xjdwb",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:27:12.652Z",
-        "updatedAt": "2026-06-22T11:27:12.652Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:55:49.178Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827",
+          "#c4de98",
+          "#009ce0",
+          "#e60012",
+          "#ffffff"
+        ]
       },
       {
         "manufacturer": "ARMOR ",
@@ -2225,8 +2252,12 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-22T11:31:35.892Z",
-        "updatedAt": "2026-06-22T11:32:35.925Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:55:59.967Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827",
+          "#ffd105"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -2259,8 +2290,14 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-23T04:22:45.110Z",
-        "updatedAt": "2026-06-23T09:43:56.546Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-03T05:56:19.313Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#009ce0",
+          "#fcc5de",
+          "#94dd8b",
+          "#f5a9c5"
+        ]
       },
       {
         "manufacturer": "ARMOR ",
@@ -2292,7 +2329,9 @@
             "alt": "WeChat 圖片_20260623113631"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#ffffff"
+        ],
         "leaf": "MINI",
         "productId": "prd_mqrdso0d_vamyza",
         "sourceKey": "armor ::vk8145::size: 70x48x32 mm , 2x500mah 3.7v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg::",
@@ -2300,8 +2339,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:15:10.092Z",
-        "updatedAt": "2026-06-24T01:15:10.092Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:27.002Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2317,7 +2356,9 @@
             "alt": "VK 8149"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "MINI",
         "productId": "prd_mqrebkck_ic723m",
         "sourceKey": "armor ::vk-8149 ::size:74x54x30mm , 500mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg::",
@@ -2325,8 +2366,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:29:51.812Z",
-        "updatedAt": "2026-06-24T01:29:51.812Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:31.512Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2342,7 +2383,9 @@
             "alt": "VK-8146"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#c8d2df"
+        ],
         "leaf": "MINI",
         "productId": "prd_mqrebw1s_5kjlqc",
         "sourceKey": "armor ::vk-8146::size: 70x50x30mm 600mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg::",
@@ -2350,8 +2393,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:30:06.976Z",
-        "updatedAt": "2026-06-24T01:30:06.976Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:40.926Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2367,7 +2410,9 @@
             "alt": "VK-8302"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "BIG",
         "productId": "prd_mqrec4yf_7xib7p",
         "sourceKey": "armor ::vk-8302 ::size: 66x50x134mm , 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg::",
@@ -2375,8 +2420,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:30:18.519Z",
-        "updatedAt": "2026-06-24T01:30:18.519Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:47.635Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2392,7 +2437,9 @@
             "alt": "EP 2"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "BIG",
         "productId": "prd_mqrecgyi_j8u0a2",
         "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
@@ -2400,8 +2447,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:30:34.074Z",
-        "updatedAt": "2026-06-24T01:30:34.074Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:52.232Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2417,7 +2464,9 @@
             "alt": "VK-8152"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "BIG",
         "productId": "prd_mqreco9g_8t4lys",
         "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
@@ -2425,8 +2474,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T01:30:43.540Z",
-        "updatedAt": "2026-06-24T01:30:43.540Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:56:56.572Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2466,7 +2515,9 @@
             "alt": "去4"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "MINI",
         "productId": "prd_mqrkgsua_rxplva",
         "sourceKey": "armor ::vk-8146::size: 70x50x30mm 600mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg::",
@@ -2474,8 +2525,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T04:21:53.794Z",
-        "updatedAt": "2026-06-24T04:21:53.794Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:57:02.040Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2491,7 +2542,9 @@
             "alt": "EP 2"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "BIG",
         "productId": "prd_mqrkjpe5_l24q05",
         "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
@@ -2499,8 +2552,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T04:24:09.293Z",
-        "updatedAt": "2026-06-24T04:24:09.293Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:57:07.864Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -2516,7 +2569,9 @@
             "alt": "VK-8152"
           }
         ],
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "leaf": "BIG",
         "productId": "prd_mqrkjg5f_0rr1ae",
         "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
@@ -2524,8 +2579,8 @@
         "ownerUsername": "joanne",
         "ownerName": "joanne",
         "createdAt": "2026-06-24T04:23:57.315Z",
-        "updatedAt": "2026-06-24T04:24:18.158Z",
-        "updatedBy": "joanne"
+        "updatedAt": "2026-07-03T05:57:13.172Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2534,7 +2589,9 @@
         "badge": "",
         "note": "",
         "leaf": "Front Lights",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782275360/z5w97zxwzgryxlgeq2be.png",
@@ -2542,13 +2599,13 @@
           }
         ],
         "productId": "prd_mqrkqj6w_a98ueo",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrkqj6w_a98ueo",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T04:29:27.848Z",
-        "updatedAt": "2026-06-24T04:29:27.848Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:18.785Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2557,7 +2614,10 @@
         "badge": "",
         "note": "",
         "leaf": "Rear Lights",
-        "colors": [],
+        "colors": [
+          "#111827",
+          "#e60012"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279489/i6j2xd28q0o0ptkxuiuf.png",
@@ -2570,8 +2630,8 @@
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:38:14.209Z",
-        "updatedAt": "2026-06-24T05:39:37.604Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:32.135Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2580,7 +2640,9 @@
         "badge": "",
         "note": "",
         "leaf": "Front Lights",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279832/kgtzdy1l9bq8blqpj9n7.png",
@@ -2588,13 +2650,13 @@
           }
         ],
         "productId": "prd_mqrneam6_pgb8md",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrneam6_pgb8md",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:43:55.710Z",
-        "updatedAt": "2026-06-24T05:43:55.710Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:37.395Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2628,7 +2690,9 @@
         "badge": "",
         "note": "",
         "leaf": "Front Lights",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782280387/h2eeu80zfjfp0uinbasa.png",
@@ -2636,13 +2700,13 @@
           }
         ],
         "productId": "prd_mqrnqati_eghg7y",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrnqati_eghg7y",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T05:53:15.846Z",
-        "updatedAt": "2026-06-24T05:53:15.846Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:45.653Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2651,7 +2715,9 @@
         "badge": "",
         "note": "",
         "leaf": "Light Sets",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782281361/zquzlxe84rmwpyzm90sz.png",
@@ -2659,13 +2725,13 @@
           }
         ],
         "productId": "prd_mqrob67x_68gbyv",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrob67x_68gbyv",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T06:09:29.661Z",
-        "updatedAt": "2026-06-24T06:09:29.661Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:50.627Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2674,7 +2740,9 @@
         "badge": "",
         "note": "",
         "leaf": "Frame Locks",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782295104/rscbvlvcbrlpsmi1d1yj.png",
@@ -2687,8 +2755,8 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T09:58:31.939Z",
-        "updatedAt": "2026-06-24T10:00:27.201Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:57:54.932Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2697,7 +2765,9 @@
         "badge": "",
         "note": "",
         "leaf": "Rear Lights",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782295348/eytoar7lsupboiz5arad.png",
@@ -2705,13 +2775,13 @@
           }
         ],
         "productId": "prd_mqrwmu4j_ru0kat",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrwmu4j_ru0kat",
         "ownerId": "1782186185801",
         "ownerUsername": "jessica",
         "ownerName": "jessica",
         "createdAt": "2026-06-24T10:02:30.780Z",
-        "updatedAt": "2026-06-24T10:02:30.780Z",
-        "updatedBy": "jessica"
+        "updatedAt": "2026-07-03T05:57:58.614Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2719,8 +2789,12 @@
         "spec": "CHAIN LOCK\n6MMX1200MM\nW/2 SPARE KEY ",
         "badge": "",
         "note": "",
-        "leaf": "",
-        "colors": [],
+        "leaf": "Chain Locks",
+        "colors": [
+          "#111827",
+          "#f97316",
+          "#56b245"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ivdggglypptqdhg6ouyz.png",
@@ -2736,13 +2810,13 @@
           }
         ],
         "productId": "prd_mqrxu8bp_hcjn0f",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrxu8bp_hcjn0f",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T10:36:15.397Z",
-        "updatedAt": "2026-06-24T10:36:15.397Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:59:37.696Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2750,8 +2824,12 @@
         "spec": "CHAIN LOCK\n4-DIGIT RESETTABLE COMBINATION\n6MMX1200MM",
         "badge": "",
         "note": "",
-        "leaf": "",
-        "colors": [],
+        "leaf": "Chain Locks",
+        "colors": [
+          "#111827",
+          "#205b8d",
+          "#e60012"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/i25v9laob4myljyl9rwz.png",
@@ -2767,13 +2845,13 @@
           }
         ],
         "productId": "prd_mqrxxpn9_bg04p5",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrxxpn9_bg04p5",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-24T10:38:57.813Z",
-        "updatedAt": "2026-06-24T10:38:57.813Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:59:22.020Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2857,7 +2935,11 @@
         "badge": "",
         "note": "",
         "leaf": "U lock",
-        "colors": [],
+        "colors": [
+          "#2196d4",
+          "#958380",
+          "#c5c1bf"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804032/bnj5gvhwo9t3izltfnuc.png",
@@ -2874,8 +2956,8 @@
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T07:21:00.257Z",
-        "updatedAt": "2026-06-30T07:23:31.398Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:58:54.044Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2884,7 +2966,9 @@
         "badge": "",
         "note": "",
         "leaf": "Cable Lock",
-        "colors": [],
+        "colors": [
+          "#776e6b"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804471/bz6jdsbgbshxe2m13yvl.png",
@@ -2892,13 +2976,13 @@
           }
         ],
         "productId": "prd_mr0br5yj_38ek7d",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0br5yj_38ek7d",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T07:27:56.395Z",
-        "updatedAt": "2026-06-30T07:27:56.395Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T05:59:51.713Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2907,7 +2991,13 @@
         "badge": "",
         "note": "",
         "leaf": "DISC BRAKE LOCK",
-        "colors": [],
+        "colors": [
+          "#b7bb1b",
+          "#ffd105",
+          "#e60012",
+          "#006ee0",
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813081/mq9lqcx4skvgtstknc0x.png",
@@ -2915,13 +3005,13 @@
           }
         ],
         "productId": "prd_mr0gvppo_02khq5",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0gvppo_02khq5",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T09:51:26.700Z",
-        "updatedAt": "2026-06-30T09:51:26.700Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T06:00:29.332Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2930,7 +3020,11 @@
         "badge": "",
         "note": "",
         "leaf": "DISC BRAKE LOCK",
-        "colors": [],
+        "colors": [
+          "#344680",
+          "#111827",
+          "#ffd105"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813207/a48jtv37shr1ieirp9vc.png",
@@ -2938,13 +3032,13 @@
           }
         ],
         "productId": "prd_mr0gyfoi_cmxnpx",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0gyfoi_cmxnpx",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T09:53:33.666Z",
-        "updatedAt": "2026-06-30T09:53:33.666Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T06:01:00.343Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2953,7 +3047,10 @@
         "badge": "",
         "note": "",
         "leaf": "DISC BRAKE LOCK",
-        "colors": [],
+        "colors": [
+          "#111827",
+          "#f97316"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813658/escj8hwoqcktzgpflu3l.png",
@@ -2961,13 +3058,13 @@
           }
         ],
         "productId": "prd_mr0h823d_82fa6w",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0h823d_82fa6w",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T10:01:02.616Z",
-        "updatedAt": "2026-06-30T10:01:02.616Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-03T06:01:09.411Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -2991,6 +3088,212 @@
         "createdAt": "2026-06-30T10:29:12.134Z",
         "updatedAt": "2026-06-30T10:29:12.134Z",
         "updatedBy": "rita"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK8145",
+        "spec": "SIZE: 70X48X32 mm , 2X500mAH 3.7V ",
+        "price": "USD 17.00 / SET ",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
+            "alt": "EP 1"
+          }
+        ],
+        "colors": [
+          "#ffffff"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr4io5ex_oupvof",
+        "sourceKey": "armor ::vk8145::size: 70x48x32 mm , 2x500mah 3.7v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:52:37.737Z",
+        "updatedAt": "2026-07-03T05:52:37.737Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8149 ",
+        "spec": "SIZE:74X54X30MM , 500mAH X 2 7.4V ",
+        "price": "USD 15.70 /PCE ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+            "alt": "VK 8149"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr4iocvz_cjglc2",
+        "sourceKey": "armor ::vk-8149 ::size:74x54x30mm , 500mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:52:47.423Z",
+        "updatedAt": "2026-07-03T05:52:47.423Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8302 ",
+        "spec": "SIZE: 66X50X134mm , 2000mAHX2 7.4V ",
+        "price": "USD 9.70/ SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+            "alt": "VK-8302"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr4ioisk_935mt7",
+        "sourceKey": "armor ::vk-8302 ::size: 66x50x134mm , 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:52:55.076Z",
+        "updatedAt": "2026-07-03T05:52:55.076Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr4ioo4a_gzb5x5",
+        "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:53:01.977Z",
+        "updatedAt": "2026-07-03T05:53:01.977Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr4iosph_fygond",
+        "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:53:07.925Z",
+        "updatedAt": "2026-07-03T05:53:07.925Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-8148",
+        "spec": "CABLE LOCK  DIA:18MMX1000MM  W/PP MESH MATERIAL",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png",
+            "alt": "CO25-8164 PK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png",
+            "alt": "BLK COLOR"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png",
+            "alt": "CO25-8164BL"
+          }
+        ],
+        "colors": [
+          "#d2658e",
+          "#111827",
+          "#33519b"
+        ],
+        "productId": "prd_mr4ipb7m_5974qi",
+        "sourceKey": "armor::co25-8148::cable lock  dia:18mmx1000mm  w/pp mesh material::https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:53:31.906Z",
+        "updatedAt": "2026-07-03T05:53:31.906Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81348",
+        "spec": "CABLE LOCK  10MMX1200MM W/WOVEN KNIT COVER  ",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/agmzbzhs0d1r7wwjyrry.png",
+            "alt": "PC2124 BLUE-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/rpb3xjjhiapxo1gmolbf.png",
+            "alt": "PC2124-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125935/mavevycdws5zgytnya1z.png",
+            "alt": "PC2124 RED-Photoroom"
+          }
+        ],
+        "colors": [
+          "#1488d1",
+          "#c23740",
+          "#111827",
+          "#ffffff"
+        ],
+        "productId": "prd_mr4iq0e5_dpn2hi",
+        "sourceKey": "armor::co25-81348::cable lock  10mmx1200mm w/woven knit cover  ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/agmzbzhs0d1r7wwjyrry.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/rpb3xjjhiapxo1gmolbf.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125935/mavevycdws5zgytnya1z.png::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-03T05:54:04.541Z",
+        "updatedAt": "2026-07-03T05:54:04.541Z",
+        "updatedBy": "admin"
       }
     ]
   },
@@ -3536,7 +3839,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr4imxp6_64tan8";
+  var publishId = "pub_mr4izgv0_jx8i5f";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
