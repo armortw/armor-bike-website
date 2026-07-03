@@ -794,8 +794,8 @@
     const [selectedCategoryId, setSelectedCategoryId] = React.useState((initialSelection.category && (initialSelection.category.id || initialSelection.category.label)) || defaultCategory.id || defaultCategory.label);
     const [displayLeaf, setDisplayLeaf] = React.useState(initialLeaf);
     const [exactLeafFilter, setExactLeafFilter] = React.useState(initialLeaf);
-    const [colorFilter, setColorFilter] = React.useState(\
-
+    const [colorFilter, setColorFilter] = React.useState("");
+    const [frontLists, setFrontLists] = React.useState(() => emptyFrontLists());
     const selectedCategory = React.useMemo(() => {
       return categories.find((category) => category.id === selectedCategoryId) || defaultCategory || fallbackCategory;
     }, [defaultCategory, selectedCategoryId]);
