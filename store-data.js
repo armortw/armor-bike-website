@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 01:47 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr49xfgi_q2mai3 */
+/* ARMOR BIKE Storefront — published 2026-07-03 01:49 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr49zpeq_jdfk3n */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -594,13 +594,16 @@
           }
         ],
         "productId": "prd_mqpz7s64_31ghl0",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpz7s64_31ghl0",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:39:14.907Z",
-        "updatedAt": "2026-06-23T01:39:14.907Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:49:36.446Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -3415,7 +3418,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr49xfgi_q2mai3";
+  var publishId = "pub_mr49zpeq_jdfk3n";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
