@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 02:43 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr4bwyyl_3vj5qe */
+/* ARMOR BIKE Storefront — published 2026-07-03 05:51 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr4imxp6_64tan8 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1432,7 +1432,9 @@
         "badge": "New",
         "note": "",
         "leaf": "Flat Pedals",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283784/joj1kcbcaj5hknzc0wkt.jpg",
@@ -1449,8 +1451,8 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:49:57.580Z",
-        "updatedAt": "2026-06-24T06:53:26.154Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T05:48:41.582Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1459,7 +1461,9 @@
         "badge": "New",
         "note": "",
         "leaf": "Flat Pedals",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283961/v73yhkhtlpj0qeag4tfb.jpg",
@@ -1471,13 +1475,13 @@
           }
         ],
         "productId": "prd_mqrpv206_o8fbud",
-        "sourceKey": "",
+        "sourceKey": "prd_mqrpv206_o8fbud",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:52:56.934Z",
-        "updatedAt": "2026-06-24T06:52:56.934Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T05:48:46.340Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1486,7 +1490,9 @@
         "badge": "",
         "note": "",
         "leaf": "Flat Pedals",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782284211/fhocswzru2o1svlrfmzs.jpg",
@@ -1499,8 +1505,8 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:57:31.760Z",
-        "updatedAt": "2026-06-25T03:23:17.566Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T05:48:50.253Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1509,7 +1515,9 @@
         "badge": "",
         "note": "",
         "leaf": "Hubs",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782300205/rvpqciy51z8yat17uapa.png",
@@ -1522,8 +1530,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:26:18.491Z",
-        "updatedAt": "2026-06-25T06:51:03.465Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:49:15.407Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1532,7 +1540,9 @@
         "badge": "",
         "note": "",
         "leaf": "Hubs",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782300518/wjjmkvxousnad3cgncyd.jpg",
@@ -1545,8 +1555,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:28:45.882Z",
-        "updatedAt": "2026-06-25T06:51:27.505Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:49:00.381Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1555,7 +1565,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360052/dlleoqnsdyry0jka25wh.jpg",
@@ -1563,13 +1575,13 @@
           }
         ],
         "productId": "prd_mqsz9jhs_7qjje9",
-        "sourceKey": "",
+        "sourceKey": "prd_mqsz9jhs_7qjje9",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:03:55.504Z",
-        "updatedAt": "2026-06-25T04:03:55.504Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:49:04.313Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1578,7 +1590,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360321/gbwdavninrtkzmnmyunn.jpg",
@@ -1586,13 +1600,13 @@
           }
         ],
         "productId": "prd_mqszbk1c_t3lxpc",
-        "sourceKey": "",
+        "sourceKey": "prd_mqszbk1c_t3lxpc",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:05:29.520Z",
-        "updatedAt": "2026-06-25T04:05:29.520Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:49:21.374Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1601,7 +1615,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360783/uwqkobqord097tj5vyrc.jpg",
@@ -1609,13 +1625,13 @@
           }
         ],
         "productId": "prd_mqszlk3t_wv781m",
-        "sourceKey": "",
+        "sourceKey": "prd_mqszlk3t_wv781m",
         "ownerId": "1781828095910",
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:13:16.168Z",
-        "updatedAt": "2026-06-25T04:13:16.168Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:49:25.164Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1649,7 +1665,13 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827",
+          "#ce2329",
+          "#468c84",
+          "#3faec1",
+          "#617482"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362270/agudhle76rlkye3ng7wq.png",
@@ -1674,8 +1696,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:20:23.035Z",
-        "updatedAt": "2026-06-25T04:39:17.546Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:50:19.801Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1684,7 +1706,13 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#004890",
+          "#fe4f7a",
+          "#f97316",
+          "#e60012",
+          "#ffd105"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782361497/j09jp4csocpohaclkgmg.png",
@@ -1697,8 +1725,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:25:12.202Z",
-        "updatedAt": "2026-06-25T04:39:56.274Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T05:51:32.945Z",
+        "updatedBy": "admin"
       }
     ]
   },
@@ -3508,7 +3536,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr4bwyyl_3vj5qe";
+  var publishId = "pub_mr4imxp6_64tan8";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
