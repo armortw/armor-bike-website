@@ -246,7 +246,6 @@
           <div className="product-name">{txt(product.name, 'Armor Bike Product')}</div>
           <div className="product-maker">{maker(product)}</div>
           <div className="price">{productPrice(product)}</div>
-          <div className="rating-row">★★★★★ <span style={{ color: '#7a8796' }}>({index + 7})</span></div>
           <div className="card-actions">
             <div className="colors">
               <span className="color-dot" style={{ background: '#111827' }}></span>

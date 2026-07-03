@@ -650,10 +650,7 @@
         </div>
         <div className="product-info">
           <div className="product-name">{text(product.name, "ARMOR Product")}</div>
-          <div className="product-maker">{text(product.manufacturer, "ARMOR")}</div>
           <div className="product-spec">{text(product.spec || product.note || product.leaf, "Performance cycling equipment")}</div>
-          <div className="product-price">{priceFor(product)}</div>
-          <div className="rating">***** <span>({index + 8})</span></div>
           <div className="card-actions">
             <div className="product-swatches">
               {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: color }} key={`${product.name}-${color}`}></span>)}
