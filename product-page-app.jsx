@@ -3,6 +3,19 @@
   const STORE = window.STORE || { categories: [] };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackImage = "/uploads/reference-promo-ebikes.png";
+  const CHAMELEON_VALUE = "__chameleon__";
+  const CHAMELEON_COLORS = ["#65a30d", "#14b8a6", "#7c3aed"];
+  const CHAMELEON_GRADIENT = "linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)";
+  function isChameleonColor(value) {
+    const raw = text(value);
+    return raw === "變色龍" || raw.toLowerCase() === "chameleon" || raw.toLowerCase() === CHAMELEON_VALUE;
+  }
+  function colorLabel(color) {
+    return isChameleonColor(color) ? "變色龍" : String(color || "").toUpperCase();
+  }
+  function colorBackground(color) {
+    return isChameleonColor(color) ? CHAMELEON_GRADIENT : color;
+  }
   function text(value, fallback = "") {
     return String(value || fallback).trim();
   }
@@ -107,6 +120,7 @@
   function normalizeProductColor(entry) {
     const raw = text(entry && (entry.hex || entry.color || entry.value || entry.label) ? (entry.hex || entry.color || entry.value || entry.label) : entry);
     if (!raw) return "";
+    if (isChameleonColor(raw)) return CHAMELEON_VALUE;
     const mapped = STORE.HEX && STORE.HEX[raw.toLowerCase()] ? STORE.HEX[raw.toLowerCase()] : raw;
     const compact = String(mapped).replace(/\s+/g, "");
     const short = compact.match(/^#?([0-9a-f]{3})$/i);
@@ -114,7 +128,6 @@
     const full = compact.match(/^#?([0-9a-f]{6})$/i);
     return full ? "#" + full[1].toLowerCase() : "";
   }
-
   function productColors(product) {
     const raw = product && (product.colors || product.colorOptions || product.color);
     const source = Array.isArray(raw) ? raw : text(raw).split(/[\n,;]+/).filter(Boolean);
@@ -126,9 +139,12 @@
       seen.add(hex);
       out.push(hex);
     });
+    const hasLegacyChameleon = CHAMELEON_COLORS.every((hex) => seen.has(hex));
+    if (seen.has(CHAMELEON_VALUE) || hasLegacyChameleon) {
+      return [CHAMELEON_VALUE, ...out.filter((color) => color !== CHAMELEON_VALUE && !CHAMELEON_COLORS.includes(color))];
+    }
     return out;
   }
-
   const records = categories.flatMap((category) => {
     const products = Array.isArray(category.products) ? category.products : [];
     return products.filter(isPublishedProduct).map((product) => ({ category, product }));
@@ -355,7 +371,7 @@
       ["Collection", leaf],
       ["Manufacturer", text(product.manufacturer, "ARMOR")],
       badge ? ["Product Tag", badge] : null,
-      swatches.length ? ["Colors", swatches.map((hex) => hex.toUpperCase()).join(" / ")] : null,
+      swatches.length ? ["Colors", swatches.map(colorLabel).join(" / ")] : null,
       ["Spec / Description", specText],
       ["Availability", available ? "In stock" : "Contact for availability"],
       ["Product ID", productKey(product)]
@@ -376,7 +392,7 @@
               {images.length > 1 && <div className="thumbs" aria-label="Product thumbnails">{images.map((image, index) => <button className={"thumb " + (index === imageIndex ? "active" : "")} type="button" aria-label={"Show image " + (index + 1)} aria-pressed={index === imageIndex} key={image.url + index} onClick={() => showImage(index)}><img src={image.url} alt="" onError={handleImageError} /></button>)}</div>}
             </div>
             <aside className="details">
-              <div><div className="eyebrow">{categoryLabel}</div><h1>{text(product.name, "ARMOR Product")}</h1><p className="lead">{specText}</p><div className="meta-row"><span className="meta-chip">{leaf}</span><span className="meta-chip">{text(product.manufacturer, "ARMOR")}</span><span className="meta-chip">{available ? "Published / Available" : "Published"}</span>{badge && <span className={"tag-pill " + (badge.toLowerCase().includes("hot") ? "hot" : "")}>{badge}</span>}</div>{swatches.length > 0 && <div className="color-row" aria-label="Product colors">{swatches.map((hex) => <span className="detail-color" style={{ background: hex }} title={hex.toUpperCase()} key={hex}></span>)}</div>}</div>
+              <div><div className="eyebrow">{categoryLabel}</div><h1>{text(product.name, "ARMOR Product")}</h1><p className="lead">{specText}</p><div className="meta-row"><span className="meta-chip">{leaf}</span><span className="meta-chip">{text(product.manufacturer, "ARMOR")}</span><span className="meta-chip">{available ? "Published / Available" : "Published"}</span>{badge && <span className={"tag-pill " + (badge.toLowerCase().includes("hot") ? "hot" : "")}>{badge}</span>}</div>{swatches.length > 0 && <div className="color-row" aria-label="Product colors">{swatches.map((color) => <span className="detail-color" style={{ background: colorBackground(color) }} title={colorLabel(color)} key={color}></span>)}</div>}</div>
               <div><span className="price-label">Product Price</span><strong className="price-value">{priceFor(product)}</strong><div className="action-row"><a className="primary-action" href="/#products">Back to Collection {icon("right")}</a></div></div>
             </aside>
           </section>

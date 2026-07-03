@@ -550,7 +550,16 @@
   // ── Products ──────────────────────────────────────────────────────────────
   const BADGE_OPTS = ['', 'New', 'Bestseller', 'Hot Deal', '-10%', '-13%', '-15%', '-18%', '-20%', '-24%', '-28%', '-30%', '-32%', '-36%'];
   const COLOR_PRESETS = ['#009ce0', '#111827', '#ffffff', '#c8d2df', '#18a34a', '#e60012', '#ffd105', '#f97316', '#7c3aed'];
-  const CHAMELEON_PRESET = { label: '變色龍', colors: ['#65a30d', '#14b8a6', '#7c3aed'] };
+  const CHAMELEON_VALUE = '__chameleon__';
+  const CHAMELEON_COLORS = ['#65a30d', '#14b8a6', '#7c3aed'];
+  const CHAMELEON_GRADIENT = 'linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)';
+  const CHAMELEON_PRESET = { label: '變色龍', value: CHAMELEON_VALUE, colors: CHAMELEON_COLORS, background: CHAMELEON_GRADIENT };
+  const isChameleonColor = (value) => {
+    const raw = String(value || '').trim();
+    return raw === '變色龍' || raw.toLowerCase() === 'chameleon' || raw.toLowerCase() === CHAMELEON_VALUE;
+  };
+  const colorLabel = (value) => isChameleonColor(value) ? CHAMELEON_PRESET.label : String(value || '').toUpperCase();
+  const colorBackground = (value) => isChameleonColor(value) ? CHAMELEON_PRESET.background : value;
   const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', colors: [], images: [] });
   const normalizeHexColor = (value) => {
     const raw = String(value || '').trim();
@@ -567,14 +576,18 @@
       ? value
       : String(value || '').split(/[\n,;]+/).map(s => s.trim()).filter(Boolean);
     const seen = new Set();
-    const out = [];
+    let out = [];
     source.forEach(entry => {
       const raw = typeof entry === 'object' && entry ? (entry.hex || entry.color || entry.value || entry.label) : entry;
-      const hex = normalizeHexColor(raw);
-      if (!hex || seen.has(hex)) return;
-      seen.add(hex);
-      out.push(hex);
+      const color = isChameleonColor(raw) ? CHAMELEON_VALUE : normalizeHexColor(raw);
+      if (!color || seen.has(color)) return;
+      seen.add(color);
+      out.push(color);
     });
+    const hasLegacyChameleon = CHAMELEON_COLORS.every(hex => seen.has(hex));
+    if (seen.has(CHAMELEON_VALUE) || hasLegacyChameleon) {
+      out = [CHAMELEON_VALUE, ...out.filter(color => color !== CHAMELEON_VALUE && !CHAMELEON_COLORS.includes(color))];
+    }
     return out;
   };
   const makeProductId = () => 'prd_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
@@ -880,9 +893,9 @@
       setMsg('已加入顏色 ' + hex.toUpperCase());
     };
     const addChameleonColor = () => {
-      update([...current, ...CHAMELEON_PRESET.colors]);
-      setDraft(CHAMELEON_PRESET.colors[0]);
-      setMsg('已加入變色龍色系。');
+      update([...current, CHAMELEON_PRESET.value]);
+      setDraft(COLOR_PRESETS[0]);
+      setMsg('已加入變色龍。');
     };
     const removeColor = (hex) => update(current.filter(c => c !== hex));
     const pickColor = async () => {
@@ -909,16 +922,16 @@
     return e('div', { style: { border: '1px solid #dbeafe', borderRadius: 12, background: '#f8fbff', padding: 14 } },
       e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12, minHeight: 28 } },
         current.length
-          ? current.map(hex => e('button', { key: hex, type: 'button', onClick: () => removeColor(hex), title: '移除 ' + hex.toUpperCase(), style: { display: 'inline-flex', alignItems: 'center', gap: 6, border: '1px solid #cbd5e1', borderRadius: 999, background: '#fff', padding: '5px 10px', cursor: 'pointer', fontSize: 12, fontWeight: 800, color: '#334155' } },
-              e('span', { style: { width: 18, height: 18, borderRadius: '50%', background: hex, border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } }),
-              hex.toUpperCase(),
+          ? current.map(color => e('button', { key: color, type: 'button', onClick: () => removeColor(color), title: '移除 ' + colorLabel(color), style: { display: 'inline-flex', alignItems: 'center', gap: 6, border: '1px solid #cbd5e1', borderRadius: 999, background: '#fff', padding: '5px 10px', cursor: 'pointer', fontSize: 12, fontWeight: 800, color: '#334155' } },
+              e('span', { style: { width: 18, height: 18, borderRadius: '50%', background: colorBackground(color), border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } }),
+              colorLabel(color),
               e('span', { style: { color: '#dc2626', fontWeight: 900 } }, '×')
             ))
           : e('span', { style: { color: '#b91c1c', fontSize: 12, fontWeight: 800 } }, '尚未設定顏色，請加入至少一個產品顏色。')
       ),
       e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 12 } },
         COLOR_PRESETS.map(hex => e('button', { key: hex, type: 'button', onClick: () => addColor(hex), title: hex.toUpperCase(), style: { width: 30, height: 30, borderRadius: '50%', background: hex, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer' } })),
-        e('button', { key: 'chameleon', type: 'button', onClick: addChameleonColor, title: CHAMELEON_PRESET.label + '色系', style: { minWidth: 64, height: 30, borderRadius: 999, background: 'linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)', border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer', color: '#fff', fontSize: 11, fontWeight: 900, textShadow: '0 1px 4px rgba(0,0,0,.35)' } }, CHAMELEON_PRESET.label)
+        e('button', { key: 'chameleon', type: 'button', onClick: addChameleonColor, title: CHAMELEON_PRESET.label + '色系', style: { minWidth: 64, height: 30, borderRadius: 999, background: CHAMELEON_PRESET.background, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer', color: '#fff', fontSize: 11, fontWeight: 900, textShadow: '0 1px 4px rgba(0,0,0,.35)' } }, CHAMELEON_PRESET.label)
       ),
       e('div', { style: { display: 'grid', gridTemplateColumns: '44px minmax(0,1fr) auto auto auto', gap: 8, alignItems: 'center' } },
         e('input', { type: 'color', value: normalizeHexColor(draft) || COLOR_PRESETS[0], onChange: ev => { setDraft(ev.target.value); addColor(ev.target.value); }, title: '選擇顏色', style: { width: 44, height: 38, padding: 2, border: '1px solid #cbd5e1', borderRadius: 8, background: '#fff', cursor: 'pointer' } }),
@@ -1035,7 +1048,7 @@
         e('div', { style: { fontSize: 13, fontWeight: 700, color: '#16181d', lineHeight: 1.35, marginBottom: 3 } }, p.name),
         e('div', { style: { fontSize: 12, color: '#64748b', marginBottom: 10, lineHeight: 1.55, whiteSpace: 'pre-line', maxHeight: 78, overflow: 'hidden' } }, p.spec),
         swatches.length > 0 ? e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 } },
-          swatches.slice(0, 6).map(hex => e('span', { key: hex, title: hex.toUpperCase(), style: { width: 16, height: 16, borderRadius: '50%', background: hex, border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } })),
+          swatches.slice(0, 6).map(color => e('span', { key: color, title: colorLabel(color), style: { width: 16, height: 16, borderRadius: '50%', background: colorBackground(color), border: '1px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' } })),
           swatches.length > 6 ? e('span', { style: { fontSize: 11, color: '#64748b', fontWeight: 800 } }, '+' + (swatches.length - 6)) : null
         ) : null,
         productOwnerLabel(p) ? e('div', { style: { fontSize: 11, color: '#64748b', marginBottom: 10 } }, '建立者：', productOwnerLabel(p)) : null,

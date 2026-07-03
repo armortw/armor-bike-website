@@ -4,6 +4,19 @@
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackCategory = { id: "products", label: "Products", leaf: "Featured", products: [], facets: [], mega: [] };
   const filterColors = ["#111827", "#009ce0", "#c8d2df", "#18a34a", "#e60012", "#ffd105"];
+  const CHAMELEON_VALUE = "__chameleon__";
+  const CHAMELEON_COLORS = ["#65a30d", "#14b8a6", "#7c3aed"];
+  const CHAMELEON_GRADIENT = "linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)";
+  function isChameleonColor(value) {
+    const raw = text(value);
+    return raw === "變色龍" || raw.toLowerCase() === "chameleon" || raw.toLowerCase() === CHAMELEON_VALUE;
+  }
+  function colorLabel(color) {
+    return isChameleonColor(color) ? "變色龍" : String(color || "").toUpperCase();
+  }
+  function colorBackground(color) {
+    return isChameleonColor(color) ? CHAMELEON_GRADIENT : color;
+  }
   function text(value, fallback = "") {
     return String(value || fallback).trim();
   }
@@ -11,6 +24,7 @@
   function normalizeProductColor(entry) {
     const raw = text(entry && (entry.hex || entry.color || entry.value || entry.label) ? (entry.hex || entry.color || entry.value || entry.label) : entry);
     if (!raw) return "";
+    if (isChameleonColor(raw)) return CHAMELEON_VALUE;
     const mapped = STORE.HEX && STORE.HEX[raw.toLowerCase()] ? STORE.HEX[raw.toLowerCase()] : raw;
     const compact = String(mapped).replace(/\s+/g, "");
     const short = compact.match(/^#?([0-9a-f]{3})$/i);
@@ -18,7 +32,6 @@
     const full = compact.match(/^#?([0-9a-f]{6})$/i);
     return full ? "#" + full[1].toLowerCase() : "";
   }
-
   function productColors(product) {
     const raw = product && (product.colors || product.colorOptions || product.color);
     const source = Array.isArray(raw) ? raw : text(raw).split(/[\n,;]+/).filter(Boolean);
@@ -30,9 +43,12 @@
       seen.add(hex);
       out.push(hex);
     });
+    const hasLegacyChameleon = CHAMELEON_COLORS.every((hex) => seen.has(hex));
+    if (seen.has(CHAMELEON_VALUE) || hasLegacyChameleon) {
+      return [CHAMELEON_VALUE, ...out.filter((color) => color !== CHAMELEON_VALUE && !CHAMELEON_COLORS.includes(color))];
+    }
     return out;
   }
-
   function normalizeLabel(value) {
     return text(value)
       .toLowerCase()
@@ -492,9 +508,9 @@
               <button
                 className={`color-filter ${sameLabel(colorFilter, color) ? "active" : ""}`}
                 type="button"
-                aria-label={`Filter color ${color.toUpperCase()}`}
+                aria-label={`Filter color ${colorLabel(color)}`}
                 aria-pressed={sameLabel(colorFilter, color)}
-                style={{ background: color }}
+                style={{ background: colorBackground(color) }}
                 key={color}
                 onClick={() => onSelectColor(color)}
               ></button>
@@ -637,7 +653,7 @@
           <div className="product-spec">{text(product.spec || product.note || product.leaf, "Performance cycling equipment")}</div>
           <div className="card-actions">
             <div className="product-swatches">
-              {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: color }} key={`${product.name}-${color}`}></span>)}
+              {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: colorBackground(color) }} title={colorLabel(color)} key={`${product.name}-${color}`}></span>)}
             </div>
             <span className="cart-button">{icon("cart")}</span>
           </div>
