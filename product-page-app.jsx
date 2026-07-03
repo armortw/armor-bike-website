@@ -17,7 +17,7 @@
     return isChameleonColor(color) ? CHAMELEON_GRADIENT : color;
   }
   function text(value, fallback = "") {
-    return String(value || fallback).trim();
+    return String(value || fallback).replace(/\\r\\n|\\n|\\r/g, "\n").trim();
   }
 
   function normalize(value) {
