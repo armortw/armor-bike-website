@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 01:49 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr49zpeq_jdfk3n */
+/* ARMOR BIKE Storefront — published 2026-07-03 01:59 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr4abzio_8ul4c6 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -624,8 +624,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:40:26.883Z",
-        "updatedAt": "2026-06-23T01:49:37.099Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:53:44.262Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -646,8 +649,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:41:14.638Z",
-        "updatedAt": "2026-06-23T01:49:32.298Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:55:09.682Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -668,8 +674,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:42:28.715Z",
-        "updatedAt": "2026-06-23T01:49:26.579Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:55:38.425Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -690,8 +699,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:48:08.005Z",
-        "updatedAt": "2026-06-23T01:49:19.698Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:55:28.508Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -712,8 +724,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:49:02.762Z",
-        "updatedAt": "2026-06-23T01:49:13.506Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:55:20.056Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -729,13 +744,16 @@
           }
         ],
         "productId": "prd_mqpzm2to_7wd4r8",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpzm2to_7wd4r8",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:50:21.900Z",
-        "updatedAt": "2026-06-23T01:50:21.900Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:56:03.109Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -751,13 +769,16 @@
           }
         ],
         "productId": "prd_mqpzn8t0_4i9e25",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpzn8t0_4i9e25",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:51:16.308Z",
-        "updatedAt": "2026-06-23T01:51:16.308Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:57:22.423Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -778,8 +799,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:53:25.954Z",
-        "updatedAt": "2026-06-23T01:53:35.146Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:55:13.958Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -795,13 +819,16 @@
           }
         ],
         "productId": "prd_mqpzra5e_jrcaav",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpzra5e_jrcaav",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:54:24.674Z",
-        "updatedAt": "2026-06-23T01:54:24.674Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:53:49.044Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -817,13 +844,16 @@
           }
         ],
         "productId": "prd_mqpzsjoi_8fr0oq",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpzsjoi_8fr0oq",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:55:23.682Z",
-        "updatedAt": "2026-06-23T01:55:23.682Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:56:09.904Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -844,8 +874,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:56:32.417Z",
-        "updatedAt": "2026-06-23T01:57:33.714Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:56:20.055Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -866,8 +899,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:57:14.146Z",
-        "updatedAt": "2026-06-23T01:57:40.698Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:54:01.830Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -888,8 +924,11 @@
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T01:58:34.889Z",
-        "updatedAt": "2026-06-23T02:00:41.313Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:56:28.434Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -905,13 +944,16 @@
           }
         ],
         "productId": "prd_mqpzywpe_s20kxb",
-        "sourceKey": "",
+        "sourceKey": "prd_mqpzywpe_s20kxb",
         "ownerId": "1782119477089",
         "ownerUsername": "Archie",
         "ownerName": "Archie",
         "createdAt": "2026-06-23T02:00:20.498Z",
-        "updatedAt": "2026-06-23T02:00:20.498Z",
-        "updatedBy": "Archie"
+        "updatedAt": "2026-07-03T01:56:35.046Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -936,8 +978,11 @@
         "ownerUsername": "ken",
         "ownerName": "ken",
         "createdAt": "2026-06-23T03:37:01.153Z",
-        "updatedAt": "2026-06-23T04:09:46.001Z",
-        "updatedBy": "ken"
+        "updatedAt": "2026-07-03T01:53:55.214Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR ",
@@ -962,8 +1007,11 @@
         "ownerUsername": "ken",
         "ownerName": "ken",
         "createdAt": "2026-06-23T04:05:32.002Z",
-        "updatedAt": "2026-06-23T04:10:08.113Z",
-        "updatedBy": "ken"
+        "updatedAt": "2026-07-03T01:56:44.240Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -988,8 +1036,11 @@
         "ownerUsername": "ken",
         "ownerName": "ken",
         "createdAt": "2026-06-23T04:06:27.191Z",
-        "updatedAt": "2026-06-23T04:09:53.255Z",
-        "updatedBy": "ken"
+        "updatedAt": "2026-07-03T01:56:53.714Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1010,8 +1061,11 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:06:02.219Z",
-        "updatedAt": "2026-06-23T04:09:48.763Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:54:17.759Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#303030"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1027,13 +1081,16 @@
           }
         ],
         "productId": "prd_mqq4nn6f_3kqk65",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4nn6f_3kqk65",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:11:33.015Z",
-        "updatedAt": "2026-06-23T04:11:33.015Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:57:33.144Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1049,13 +1106,16 @@
           }
         ],
         "productId": "prd_mqq4prvn_1jhy15",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4prvn_1jhy15",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:13:12.419Z",
-        "updatedAt": "2026-06-23T04:13:12.419Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:57:40.434Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1071,13 +1131,16 @@
           }
         ],
         "productId": "prd_mqq4s2d4_5va3s3",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4s2d4_5va3s3",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:14:59.320Z",
-        "updatedAt": "2026-06-23T04:14:59.320Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:56:58.099Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1093,13 +1156,16 @@
           }
         ],
         "productId": "prd_mqq4tl3k_9typj5",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4tl3k_9typj5",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:16:10.256Z",
-        "updatedAt": "2026-06-23T04:16:10.256Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:57:03.298Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1115,13 +1181,16 @@
           }
         ],
         "productId": "prd_mqq4vb9h_45abma",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4vb9h_45abma",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:17:30.821Z",
-        "updatedAt": "2026-06-23T04:17:30.821Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:57:09.181Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1137,13 +1206,16 @@
           }
         ],
         "productId": "prd_mqq4yz7s_vhhs1y",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq4yz7s_vhhs1y",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:20:21.832Z",
-        "updatedAt": "2026-06-23T04:20:21.832Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:54:42.161Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#ff6947"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1163,13 +1235,16 @@
           }
         ],
         "productId": "prd_mqq5bk86_ayvvb0",
-        "sourceKey": "",
+        "sourceKey": "prd_mqq5bk86_ayvvb0",
         "ownerId": "1782119625138",
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:30:08.934Z",
-        "updatedAt": "2026-06-23T04:30:08.934Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:57:48.690Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#111827"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1190,8 +1265,11 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-23T04:31:45.405Z",
-        "updatedAt": "2026-06-23T06:07:09.402Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:58:03.784Z",
+        "updatedBy": "admin",
+        "colors": [
+          "#d81878"
+        ]
       },
       {
         "manufacturer": "ARMOR",
@@ -1200,7 +1278,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272196/vbgzfes2x1zya9yfyaw0.png",
@@ -1213,8 +1293,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:39:48.900Z",
-        "updatedAt": "2026-06-25T03:21:26.166Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:58:11.154Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1223,7 +1303,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272593/mtj63jd6yibk45yrmoxg.png",
@@ -1236,8 +1318,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:43:24.764Z",
-        "updatedAt": "2026-06-25T03:52:27.168Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T01:58:28.917Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1246,7 +1328,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#787878"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272770/ctsvc93rp5e0tudbpq7i.jpg",
@@ -1259,8 +1343,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:46:22.092Z",
-        "updatedAt": "2026-06-25T03:52:42.360Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T01:58:55.423Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1269,7 +1353,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273719/mhperpoqirhd79qcqtva.jpg",
@@ -1282,8 +1368,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:03:37.054Z",
-        "updatedAt": "2026-06-25T03:52:55.865Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T01:58:16.042Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1292,7 +1378,9 @@
         "badge": "",
         "note": "",
         "leaf": "Grips",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273954/qcbult4ugweyip1dumey.jpg",
@@ -1305,8 +1393,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:06:48.269Z",
-        "updatedAt": "2026-06-25T03:53:14.232Z",
-        "updatedBy": "alicia"
+        "updatedAt": "2026-07-03T01:58:21.656Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -1315,7 +1403,9 @@
         "badge": "New",
         "note": "",
         "leaf": "Flat Pedals",
-        "colors": [],
+        "colors": [
+          "#111827"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283551/gqqbbk47zy1fvd1eqebf.jpg",
@@ -1332,8 +1422,8 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:46:16.365Z",
-        "updatedAt": "2026-06-24T06:53:12.536Z",
-        "updatedBy": "donald"
+        "updatedAt": "2026-07-03T01:55:00.460Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR",
@@ -3418,7 +3508,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr49zpeq_jdfk3n";
+  var publishId = "pub_mr4abzio_8ul4c6";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
