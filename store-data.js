@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 06:01 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr4izgv0_jx8i5f */
+/* ARMOR BIKE Storefront — published 2026-07-03 06:09 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr4j9kdo_ba3xfx */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1404,6 +1404,7 @@
         "note": "",
         "leaf": "Flat Pedals",
         "colors": [
+          "__chameleon__",
           "#111827"
         ],
         "images": [
@@ -1422,7 +1423,7 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:46:16.365Z",
-        "updatedAt": "2026-07-03T01:55:00.460Z",
+        "updatedAt": "2026-07-03T06:08:55.385Z",
         "updatedBy": "admin"
       },
       {
@@ -1433,6 +1434,7 @@
         "note": "",
         "leaf": "Flat Pedals",
         "colors": [
+          "__chameleon__",
           "#111827"
         ],
         "images": [
@@ -1451,7 +1453,7 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:49:57.580Z",
-        "updatedAt": "2026-07-03T05:48:41.582Z",
+        "updatedAt": "2026-07-03T06:09:00.382Z",
         "updatedBy": "admin"
       },
       {
@@ -1462,6 +1464,7 @@
         "note": "",
         "leaf": "Flat Pedals",
         "colors": [
+          "__chameleon__",
           "#111827"
         ],
         "images": [
@@ -1480,7 +1483,7 @@
         "ownerUsername": "donald",
         "ownerName": "donald",
         "createdAt": "2026-06-24T06:52:56.934Z",
-        "updatedAt": "2026-07-03T05:48:46.340Z",
+        "updatedAt": "2026-07-03T06:09:04.615Z",
         "updatedBy": "admin"
       },
       {
@@ -1516,6 +1519,7 @@
         "note": "",
         "leaf": "Hubs",
         "colors": [
+          "__chameleon__",
           "#111827"
         ],
         "images": [
@@ -1530,7 +1534,7 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T11:26:18.491Z",
-        "updatedAt": "2026-07-03T05:49:15.407Z",
+        "updatedAt": "2026-07-03T06:09:09.628Z",
         "updatedBy": "admin"
       },
       {
@@ -3839,7 +3843,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr4izgv0_jx8i5f";
+  var publishId = "pub_mr4j9kdo_ba3xfx";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
