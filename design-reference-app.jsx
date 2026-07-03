@@ -3,6 +3,7 @@
   const STORE = window.STORE || { categories: [], map: {}, HEX: {} };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackCategory = { id: "products", label: "Products", leaf: "Featured", products: [], facets: [], mega: [] };
+  const filterColors = ["#111827", "#009ce0", "#c8d2df", "#18a34a", "#e60012", "#ffd105"];
   function text(value, fallback = "") {
     return String(value || fallback).trim();
   }
@@ -505,7 +506,7 @@
         <div className="filter-group">
           <div className="filter-title"><span>Color</span><span>+</span></div>
           <div className="color-grid">
-            {colors.map((color) => <span className="swatch" style={{ background: color }} key={color}></span>)}
+            {filterColors.map((color) => <span className="swatch" style={{ background: color }} key={color}></span>)}
           </div>
         </div>
         <div className="filter-group">
