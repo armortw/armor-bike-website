@@ -3,8 +3,6 @@
   const STORE = window.STORE || { categories: [], map: {}, HEX: {} };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackCategory = { id: "products", label: "Products", leaf: "Featured", products: [], facets: [], mega: [] };
-  const colors = ["#111827", "#009ce0", "#c8d2df", "#18a34a", "#e60012", "#ffd105"];
-
   function text(value, fallback = "") {
     return String(value || fallback).trim();
   }
@@ -31,7 +29,7 @@
       seen.add(hex);
       out.push(hex);
     });
-    return out.length ? out : colors;
+    return out;
   }
 
   function normalizeLabel(value) {

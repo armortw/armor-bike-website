@@ -3,8 +3,6 @@
   const STORE = window.STORE || { categories: [] };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackImage = "/uploads/reference-promo-ebikes.png";
-  const fallbackColors = ["#111827", "#009ce0", "#c8d2df"];
-
   function text(value, fallback = "") {
     return String(value || fallback).trim();
   }
@@ -128,7 +126,7 @@
       seen.add(hex);
       out.push(hex);
     });
-    return out.length ? out : fallbackColors;
+    return out;
   }
 
   const records = categories.flatMap((category) => {
