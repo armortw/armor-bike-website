@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 01:59 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr4abzio_8ul4c6 */
+/* ARMOR BIKE Storefront — published 2026-07-03 02:43 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr4bwyyl_3vj5qe */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -280,7 +280,7 @@
         "manufacturer": "ARMOR",
         "name": "29 MEN ",
         "spec": "29\" STEEL FRAME, SUSPENSION FORK ",
-        "badge": "",
+        "badge": "29\" STEEL FRAME & SUSPENSION FORR",
         "note": "29",
         "leaf": "Hardtail",
         "images": [
@@ -295,7 +295,7 @@
         "ownerUsername": "anna",
         "ownerName": "anna",
         "createdAt": "2026-06-23T07:25:06.824Z",
-        "updatedAt": "2026-07-03T01:47:28.139Z",
+        "updatedAt": "2026-07-03T02:43:28.773Z",
         "updatedBy": "admin",
         "colors": [
           "#181818"
@@ -3508,7 +3508,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr4abzio_8ul4c6";
+  var publishId = "pub_mr4bwyyl_3vj5qe";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
