@@ -517,11 +517,11 @@
 
   .mega-panel {
     position: absolute;
-    left: 50px;
-    right: 50px;
+    left: 50%;
+    right: auto;
     top: var(--header-height);
-    width: auto;
-    transform: none;
+    width: min(1380px, calc(100vw - 100px));
+    transform: translateX(-50%);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.72);
     border-radius: 0 0 8px 8px;
@@ -561,17 +561,18 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(260px, 1fr) repeat(4, minmax(130px, 180px));
+    grid-template-columns: minmax(280px, 320px) repeat(4, minmax(130px, 1fr));
     column-gap: 50px;
     row-gap: 24px;
     justify-content: stretch;
-    padding: 28px 0 32px;
+    padding: 26px 36px 30px;
   }
 
   .mega-feature {
     width: 100%;
-    min-height: 228px;
-    padding: 22px;
+    min-height: 204px;
+    aspect-ratio: 16 / 9;
+    padding: 20px;
     border: 0;
     border-radius: 8px;
     color: inherit;
