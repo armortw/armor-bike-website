@@ -4,42 +4,42 @@ window.CMS_USERS = [
     "id": 1782299556148,
     "username": "VICKY",
     "passwordHash": "1c8f1d7858b140419c7f3abf51cef6ab9597c2ca813d7470baa6d24f5774181b",
-    "role": "admin",
+    "role": "editor",
     "name": "VICKY"
   },
   {
     "id": 1782119625138,
     "username": "donald",
     "passwordHash": "65d4ea08d6a6c5067c873aa53dcece3d8dbcfc1d234017d305aecbeb26545c31",
-    "role": "admin",
+    "role": "editor",
     "name": "donald"
   },
   {
     "id": 1,
     "username": "joanne",
     "passwordHash": "3c17ff23360d0b6f2ca19c7e197610b88b138cd52adab0d7007dbbed0b16361f",
-    "role": "admin",
+    "role": "editor",
     "name": "joanne"
   },
   {
     "id": 1782186185801,
     "username": "jessica",
     "passwordHash": "ffbf96a9e1e2fc0c73c92ee16dffe4b542f3e72b8357e915493caa06b379be5a",
-    "role": "admin",
+    "role": "editor",
     "name": "jessica"
   },
   {
     "id": 1782119477089,
     "username": "Archie",
     "passwordHash": "56ed1baf6b4b9aa7b74625e203f78c024407137554d03d54d6c99b8a64adc099",
-    "role": "admin",
+    "role": "editor",
     "name": "Archie"
   },
   {
     "id": 1782120827997,
     "username": "rita",
     "passwordHash": "fd2ab3e9682a7183a6795e7941bd92fa55c1e4761040bbcde675aab1c731ca73",
-    "role": "admin",
+    "role": "editor",
     "name": "rita"
   },
   {
