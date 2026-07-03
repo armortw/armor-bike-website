@@ -601,17 +601,22 @@
     colorFilter,
     onSelectLeaf,
     onSelectColor,
-    onClearFilters
+    onClearFilters,
+    isOpen,
+    onClose
   }) {
     const leafProducts = exactLeafFilter ? filterByLeaf(products, exactLeafFilter, category.leaf || category.label) : products;
     const leaves = makeCounts(products, "leaf", category.leaf || category.label || "Products");
     const colorOptions = Array.from(new Set(leafProducts.flatMap((product) => productColors(product)))).slice(0, 8);
     const colors = colorOptions.length ? colorOptions : filterColors;
     return (
-      <aside className="filter-panel" aria-label="Product filters">
+      <aside className={`filter-panel ${isOpen ? "is-open" : ""}`} id="product-filter-panel" aria-label="Product filters">
         <div className="filter-head">
           <strong>FILTER</strong>
-          <button type="button" onClick={onClearFilters}>Clear All</button>
+          <div className="filter-head-actions">
+            <button type="button" onClick={onClearFilters}>Clear All</button>
+            <button className="filter-close" type="button" aria-label="Close filters" onClick={onClose}>{icon("close")}</button>
+          </div>
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Category</span><span>+</span></div>
@@ -668,6 +673,21 @@
     onClearFilters,
     onAddFrontItem
   }) {
+    const [filterOpen, setFilterOpen] = React.useState(false);
+    const closeFilter = React.useCallback(() => setFilterOpen(false), []);
+    const selectLeafFromFilter = React.useCallback((leaf) => {
+      onSelectLeaf(leaf);
+      setFilterOpen(false);
+    }, [onSelectLeaf]);
+    const selectColorFromFilter = React.useCallback((color) => {
+      onSelectColor(color);
+      setFilterOpen(false);
+    }, [onSelectColor]);
+    const clearFromFilter = React.useCallback(() => {
+      onClearFilters();
+      setFilterOpen(false);
+    }, [onClearFilters]);
+
     return (
       <section className="catalog" id="products">
         <div className="catalog-top">
@@ -675,17 +695,23 @@
             <div className="crumbs"><span>Home</span><span>/</span><span>{category.label}</span><span>/</span><span>{currentLeaf || "Featured"}</span></div>
             <h2>{category.label} <span>({visibleProducts.length} products)</span></h2>
           </div>
-          <button className="sort" type="button">Sort by: Featured</button>
+          <div className="catalog-actions">
+            <button className="filter-toggle" type="button" aria-controls="product-filter-panel" aria-expanded={filterOpen} onClick={() => setFilterOpen(true)}>FILTER</button>
+            <button className="sort" type="button">Sort by: Featured</button>
+          </div>
         </div>
+        {filterOpen && <button className="filter-drawer-backdrop" type="button" aria-label="Close filters" onClick={closeFilter}></button>}
         <div className="catalog-layout">
           <FilterPanel
             category={category}
             products={baseProducts}
             exactLeafFilter={exactLeafFilter}
             colorFilter={colorFilter}
-            onSelectLeaf={onSelectLeaf}
-            onSelectColor={onSelectColor}
-            onClearFilters={onClearFilters}
+            onSelectLeaf={selectLeafFromFilter}
+            onSelectColor={selectColorFromFilter}
+            onClearFilters={clearFromFilter}
+            isOpen={filterOpen}
+            onClose={closeFilter}
           />
           <div className="product-grid">
             {visibleProducts.length ? visibleProducts.map((product, index) => (

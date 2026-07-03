@@ -1681,6 +1681,194 @@
     .product-grid { grid-template-columns: 1fr; }
     .product-card { height: 360px; }
   }
+
+  .catalog-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .filter-toggle,
+  .filter-drawer-backdrop,
+  .filter-close {
+    display: none;
+  }
+
+  .filter-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @keyframes mobileMenuSlideInRight {
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: 0;
+      left: auto;
+      z-index: 180;
+      width: min(320px, 82vw);
+      max-height: none;
+      border-radius: 14px 0 0 14px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      animation: mobileMenuSlideInRight 180ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .mobile-menu-inner {
+      padding: 12px;
+    }
+
+    .mobile-menu-tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .catalog-top {
+      align-items: flex-start;
+    }
+
+    .catalog-actions {
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .filter-toggle {
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0, 122, 195, 0.28);
+      border-radius: 8px;
+      padding: 0 14px;
+      background: #007ac3;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 122, 195, 0.18);
+    }
+
+    .filter-toggle:hover,
+    .filter-toggle:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(0, 122, 195, 0.22);
+    }
+
+    .filter-drawer-backdrop {
+      position: fixed;
+      inset: var(--header-height) 0 0;
+      z-index: 150;
+      display: block;
+      border: 0;
+      padding: 0;
+      background: rgba(6, 18, 48, 0.16);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      cursor: pointer;
+    }
+
+    .filter-panel {
+      position: fixed;
+      left: 0;
+      top: var(--header-height);
+      bottom: 0;
+      z-index: 170;
+      width: min(320px, 86vw);
+      max-height: none;
+      display: block;
+      overflow: auto;
+      border-radius: 0 12px 12px 0;
+      transform: translateX(calc(-100% - 16px));
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 190ms cubic-bezier(.2,.9,.2,1), opacity 150ms cubic-bezier(.2,.9,.2,1);
+      overscroll-behavior: contain;
+    }
+
+    .filter-panel.is-open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .filter-head {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      grid-column: auto;
+      height: 48px;
+      background: #ffffff;
+    }
+
+    .filter-close {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 122, 195, 0.2);
+      border-radius: 8px;
+      padding: 0;
+      background: #ffffff;
+      color: #003da6;
+      cursor: pointer;
+    }
+
+    .filter-close svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .filter-group {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .filter-group + .filter-group {
+      border-left: 0;
+    }
+
+    .filter-options,
+    .color-grid {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+
+    .filter-row {
+      width: 100%;
+      flex: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mobile-menu {
+      top: var(--header-height);
+      width: min(284px, 82vw);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .mobile-menu-tabs {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-panel {
+      width: min(292px, 88vw);
+    }
+  }
 </style>
 </head>
 <body>

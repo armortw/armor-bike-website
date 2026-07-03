@@ -795,6 +795,49 @@
     .spec-row { grid-template-columns: 1fr; gap: 4px; }
   }
   @media (max-width: 520px) { .hero { --product-main-view-height: 250px; } .brand-logo-type { max-width: 112px; } .utility-search { display: none; } .details { padding: 16px; gap: 16px; } h1 { font-size: 27px; } .lead { font-size: 14px; line-height: 1.48; } .price-value { font-size: 28px; } .main-image img.is-portrait { height: 218px; max-width: 66%; } .thumbs { height: 76px; } .thumb { flex-basis: 68px; height: 58px; } .thumb img { height: 50px; } .related-grid { grid-template-columns: 1fr; } .action-row { display: grid; grid-template-columns: 1fr; } }
+
+  @keyframes mobileMenuSlideInRight {
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: 0;
+      left: auto;
+      z-index: 180;
+      width: min(320px, 82vw);
+      max-height: none;
+      border-radius: 14px 0 0 14px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      animation: mobileMenuSlideInRight 180ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .mobile-menu-inner {
+      padding: 12px;
+    }
+
+    .mobile-menu-tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mobile-menu {
+      top: var(--header-height);
+      width: min(284px, 82vw);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .mobile-menu-tabs {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
