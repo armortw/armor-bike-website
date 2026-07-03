@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Card Style References</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #009ce0;
+    --brand-deep: #003da6;
+    --gold: #e7c314;
+    --ink: #07111d;
+    --muted: #718096;
+    --line: #dbe6ef;
+    --paper: #f3f7fb;
+    --image: url("https://res.cloudinary.com/dvzdptb3i/image/upload/v1782199439/x6gb5xkmyhft5ibk73tu.png");
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background:
+      radial-gradient(circle at 12% 0%, rgba(0,156,224,.13), transparent 30%),
+      linear-gradient(180deg, #f7fbff 0%, #edf4fa 48%, #ffffff 100%);
+    color: var(--ink);
+    font-family: Inter, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: min(1500px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 38px 0 56px;
+  }
+
+  .topline {
+    margin: 0 0 22px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .topline h1 {
+    margin: 0;
+    font-family: Orbitron, Arial, sans-serif;
+    font-size: clamp(26px, 3.4vw, 48px);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .topline span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .slot {
+    min-width: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .slot-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #496174;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .slot-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,156,224,.42), transparent);
+  }
+
+  .card {
+    position: relative;
+    min-height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 22px 54px rgba(9, 30, 54, .12), 0 7px 18px rgba(0, 122, 195, .09);
+  }
+
+  .media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 270px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .media::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,156,224,.12), transparent 62%);
+    opacity: .9;
+  }
+
+  .photo {
+    position: relative;
+    z-index: 1;
+    width: 88%;
+    height: 230px;
+    background: var(--image) center / contain no-repeat;
+  }
+
+  .badge, .heart, .cart {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+  }
+
+  .badge {
+    left: 16px;
+    top: 16px;
+    min-width: 42px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .heart {
+    right: 16px;
+    top: 16px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(214,226,237,.8);
+    border-radius: 9px;
+    background: rgba(255,255,255,.92);
+    color: #71849a;
+    box-shadow: 0 10px 24px rgba(9,30,54,.08);
+  }
+
+  .heart svg, .cart svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .info {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 22px;
+  }
+
+  .name {
+    margin: 0;
+    font-family: Orbitron, Arial, sans-serif;
+    font-size: 22px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .spec {
+    min-height: 40px;
+    color: currentColor;
+    opacity: .78;
+    font-size: 13px;
+    line-height: 1.48;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #f4b400;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .rating span { color: currentColor; opacity: .66; }
+
+  .actions {
+    min-height: 40px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .swatches:empty { display: none; }
+
+  .cart {
+    right: 18px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,156,224,.2);
+    background: #fff;
+    color: var(--brand-deep);
+    box-shadow: 0 16px 34px rgba(0,72,112,.18);
+  }
+
+  .card-a { background: #007ac3; color: #fff; }
+  .card-a .info { min-height: 238px; background: #007ac3; }
+  .card-a .info::before {
+    content: "";
+    width: 58px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--gold);
+  }
+
+  .card-b {
+    background: rgba(255,255,255,.58);
+    border: 1px solid rgba(188,217,235,.72);
+    backdrop-filter: blur(24px) saturate(1.35);
+  }
+  .card-b .media { background: linear-gradient(180deg, #fff 0%, #eef9ff 100%); }
+  .card-b .info {
+    margin: -20px 16px 16px;
+    min-height: 222px;
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 10px;
+    background: rgba(255,255,255,.72);
+    color: #082033;
+    box-shadow: 0 18px 40px rgba(0,72,112,.1);
+    backdrop-filter: blur(20px) saturate(1.4);
+  }
+
+  .card-c {
+    background: #fff;
+    border: 1px solid #d9e6ef;
+  }
+  .card-c .media { min-height: 292px; background: #fff; }
+  .card-c .info {
+    min-height: 218px;
+    padding-left: 34px;
+    color: #091827;
+    background: linear-gradient(90deg, rgba(0,156,224,.08), #fff 34%);
+  }
+  .card-c .info::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 22px;
+    bottom: 72px;
+    width: 5px;
+    border-radius: 99px;
+    background: var(--brand-deep);
+  }
+  .card-c .spec {
+    width: fit-content;
+    max-width: 100%;
+    border: 1px solid rgba(0,156,224,.3);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: #f4fbff;
+    opacity: 1;
+  }
+
+  .card-d {
+    background: #07111d;
+    color: #fff;
+  }
+  .card-d .media { background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%); }
+  .card-d .info {
+    min-height: 242px;
+    background:
+      linear-gradient(135deg, rgba(0,156,224,.2), transparent 36%),
+      #07111d;
+  }
+  .card-d .name { color: #fff; }
+  .card-d .info::before {
+    content: "Performance";
+    width: fit-content;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: rgba(231,195,20,.14);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .card-e {
+    background: #fff;
+    border: 1px solid rgba(0,61,166,.16);
+  }
+  .card-e .media {
+    min-height: 285px;
+    background:
+      linear-gradient(116deg, rgba(0,61,166,.08) 0 34%, transparent 34% 100%),
+      #fff;
+  }
+  .card-e .info {
+    min-height: 222px;
+    color: #0b1825;
+    background:
+      linear-gradient(116deg, #003da6 0 18px, transparent 18px),
+      linear-gradient(180deg, #f8fbfd, #fff);
+  }
+  .card-e .name { color: var(--brand-deep); }
+  .card-e .cart { background: var(--brand-deep); color: #fff; }
+
+  .card-f {
+    background: #fff;
+    border: 1px solid #e4edf4;
+    box-shadow: 0 14px 30px rgba(9,30,54,.08);
+  }
+  .card-f .media {
+    min-height: 306px;
+    background: #fff;
+  }
+  .card-f .media::before { inset: 34px; opacity: .55; }
+  .card-f .info {
+    min-height: 196px;
+    color: #07111d;
+    background: #fff;
+    border-top: 1px solid #e7eef5;
+  }
+  .card-f .name {
+    width: fit-content;
+    border-bottom: 4px solid var(--gold);
+    padding-bottom: 6px;
+  }
+  .card-f .spec { opacity: .72; }
+  .card-f .cart { background: #f7fbff; }
+
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 680px) {
+    .page { width: min(430px, calc(100% - 24px)); padding-top: 22px; }
+    .topline { display: grid; gap: 8px; }
+    .grid { grid-template-columns: 1fr; }
+    .card { min-height: 500px; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <h1>Product Card Concepts</h1>
+      <span>Six visual directions</span>
+    </div>
+    <section class="grid" aria-label="Product card visual concepts">
+      <div class="slot"><div class="slot-label">Concept 01 Solid Blue</div><article class="card card-a"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+      <div class="slot"><div class="slot-label">Concept 02 Frost Glass</div><article class="card card-b"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+      <div class="slot"><div class="slot-label">Concept 03 Technical Rail</div><article class="card card-c"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+      <div class="slot"><div class="slot-label">Concept 04 Night Race</div><article class="card card-d"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+      <div class="slot"><div class="slot-label">Concept 05 Edge Cut</div><article class="card card-e"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+      <div class="slot"><div class="slot-label">Concept 06 Clean Retail</div><article class="card card-f"><div class="media"><span class="badge">NEW</span><span class="heart"><svg viewBox="0 0 24 24"><path d="M20.4 6.8c-1.5-2.1-4.7-2.2-6.3-.2L12 9.1 9.9 6.6c-1.6-2-4.8-1.9-6.3.2-1.5 2-.9 4.8 1 6.5L12 20l7.4-6.7c1.9-1.7 2.5-4.5 1-6.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="photo"></div></div><div class="info"><h2 class="name">29 MEN</h2><div class="spec">29&quot; steel frame, suspension fork</div><div class="rating">***** <span>(8)</span></div><div class="actions"><div class="swatches"></div></div><span class="cart"><svg viewBox="0 0 24 24"><path d="M5.2 5.8h15.2l-2.1 9.4H7.7L5.2 2.8H2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span></div></article></div>
+    </section>
+  </main>
+</body>
+</html>
