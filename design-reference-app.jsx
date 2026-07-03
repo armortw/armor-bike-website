@@ -457,19 +457,15 @@
     category,
     products,
     exactLeafFilter,
-    manufacturerFilter,
-    inStockOnly,
+    colorFilter,
     onSelectLeaf,
-    onSelectManufacturer,
-    onToggleAvailability,
+    onSelectColor,
     onClearFilters
   }) {
     const leafProducts = exactLeafFilter ? filterByLeaf(products, exactLeafFilter, category.leaf || category.label) : products;
-    const manufacturerProducts = manufacturerFilter ? leafProducts.filter((product) => sameLabel(product.manufacturer, manufacturerFilter)) : leafProducts;
-    const manufacturers = makeCounts(leafProducts, "manufacturer", "ARMOR");
     const leaves = makeCounts(products, "leaf", category.leaf || category.label || "Products");
-    const price = parsePrices(products);
-    const availableCount = manufacturerProducts.filter(isAvailableProduct).length;
+    const colorOptions = Array.from(new Set(leafProducts.flatMap((product) => productColors(product)))).slice(0, 8);
+    const colors = colorOptions.length ? colorOptions : filterColors;
     return (
       <aside className="filter-panel" aria-label="Product filters">
         <div className="filter-head">
@@ -478,42 +474,33 @@
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Category</span><span>+</span></div>
-          {leaves.length ? leaves.map((item) => (
-            <FilterRow
-              item={item}
-              active={sameLabel(exactLeafFilter, item.label)}
-              key={item.label}
-              onClick={() => onSelectLeaf(item.label)}
-            />
-          )) : <div className="filter-empty">No category items</div>}
-        </div>
-        <div className="filter-group">
-          <div className="filter-title"><span>Price Range</span><span>+</span></div>
-          <div className="range-track"></div>
-          <div className="range-labels"><span>USD {price.min}</span><span>USD {price.max || 199}+</span></div>
-        </div>
-        <div className="filter-group">
-          <div className="filter-title"><span>Brand</span><span>+</span></div>
-          {manufacturers.length ? manufacturers.map((item) => (
-            <FilterRow
-              item={item}
-              active={sameLabel(manufacturerFilter, item.label)}
-              key={item.label}
-              onClick={() => onSelectManufacturer(item.label)}
-            />
-          )) : <div className="filter-empty">No brands</div>}
+          <div className="filter-options">
+            {leaves.length ? leaves.map((item) => (
+              <FilterRow
+                item={item}
+                active={sameLabel(exactLeafFilter, item.label)}
+                key={item.label}
+                onClick={() => onSelectLeaf(item.label)}
+              />
+            )) : <div className="filter-empty">No category items</div>}
+          </div>
         </div>
         <div className="filter-group">
           <div className="filter-title"><span>Color</span><span>+</span></div>
           <div className="color-grid">
-            {filterColors.map((color) => <span className="swatch" style={{ background: color }} key={color}></span>)}
+            {colors.map((color) => (
+              <button
+                className={`color-filter ${sameLabel(colorFilter, color) ? "active" : ""}`}
+                type="button"
+                aria-label={`Filter color ${color.toUpperCase()}`}
+                aria-pressed={sameLabel(colorFilter, color)}
+                style={{ background: color }}
+                key={color}
+                onClick={() => onSelectColor(color)}
+              ></button>
+            ))}
           </div>
         </div>
-        <div className="filter-group">
-          <div className="filter-title"><span>Availability</span><span>+</span></div>
-          <FilterRow item={{ label: "In stock", count: availableCount }} active={inStockOnly} onClick={onToggleAvailability} />
-        </div>
-        <button className="apply-button" type="button" onClick={scrollToProducts}>APPLY FILTERS</button>
       </aside>
     );
   }
@@ -534,11 +521,9 @@
     baseProducts,
     visibleProducts,
     exactLeafFilter,
-    manufacturerFilter,
-    inStockOnly,
+    colorFilter,
     onSelectLeaf,
-    onSelectManufacturer,
-    onToggleAvailability,
+    onSelectColor,
     onClearFilters
   }) {
     return (
@@ -555,11 +540,9 @@
             category={category}
             products={baseProducts}
             exactLeafFilter={exactLeafFilter}
-            manufacturerFilter={manufacturerFilter}
-            inStockOnly={inStockOnly}
+            colorFilter={colorFilter}
             onSelectLeaf={onSelectLeaf}
-            onSelectManufacturer={onSelectManufacturer}
-            onToggleAvailability={onToggleAvailability}
+            onSelectColor={onSelectColor}
             onClearFilters={onClearFilters}
           />
           <div className="product-grid">
@@ -669,8 +652,7 @@
     const [selectedCategoryId, setSelectedCategoryId] = React.useState((initialSelection.category && (initialSelection.category.id || initialSelection.category.label)) || defaultCategory.id || defaultCategory.label);
     const [displayLeaf, setDisplayLeaf] = React.useState(initialLeaf);
     const [exactLeafFilter, setExactLeafFilter] = React.useState(initialLeaf);
-    const [manufacturerFilter, setManufacturerFilter] = React.useState("");
-    const [inStockOnly, setInStockOnly] = React.useState(false);
+    const [colorFilter, setColorFilter] = React.useState("");
 
     const selectedCategory = React.useMemo(() => {
       return categories.find((category) => category.id === selectedCategoryId) || defaultCategory || fallbackCategory;
@@ -680,10 +662,9 @@
 
     const visibleProducts = React.useMemo(() => {
       let items = exactLeafFilter ? filterByLeaf(baseProducts, exactLeafFilter, selectedCategory.leaf || selectedCategory.label) : baseProducts;
-      if (manufacturerFilter) items = items.filter((product) => sameLabel(product.manufacturer, manufacturerFilter));
-      if (inStockOnly) items = items.filter(isAvailableProduct);
+      if (colorFilter) items = items.filter((product) => productColors(product).some((color) => sameLabel(color, colorFilter)));
       return items;
-    }, [baseProducts, exactLeafFilter, manufacturerFilter, inStockOnly]);
+    }, [baseProducts, exactLeafFilter, colorFilter]);
 
     const currentLeaf = displayLeaf || selectedCategory.leaf || "Featured";
 
@@ -696,8 +677,7 @@
       setSelectedCategoryId(target.id || target.label);
       setDisplayLeaf(options.leaf || "");
       setExactLeafFilter(options.exactLeaf || "");
-      setManufacturerFilter("");
-      setInStockOnly(false);
+      setColorFilter("");
       if (options.scroll !== false) scrollToProducts();
     }
 
@@ -714,25 +694,19 @@
       const nextLeaf = sameLabel(exactLeafFilter, leaf) ? "" : leaf;
       setDisplayLeaf(nextLeaf);
       setExactLeafFilter(nextLeaf);
-      setManufacturerFilter("");
+      setColorFilter("");
       scrollToProducts();
     }
 
-    function selectManufacturer(manufacturer) {
-      setManufacturerFilter((current) => sameLabel(current, manufacturer) ? "" : manufacturer);
-      scrollToProducts();
-    }
-
-    function toggleAvailability() {
-      setInStockOnly((current) => !current);
+    function selectColor(color) {
+      setColorFilter((current) => sameLabel(current, color) ? "" : color);
       scrollToProducts();
     }
 
     function clearFilters() {
       setDisplayLeaf("");
       setExactLeafFilter("");
-      setManufacturerFilter("");
-      setInStockOnly(false);
+      setColorFilter("");
       scrollToProducts();
     }
 
@@ -752,11 +726,9 @@
           baseProducts={baseProducts}
           visibleProducts={visibleProducts}
           exactLeafFilter={exactLeafFilter}
-          manufacturerFilter={manufacturerFilter}
-          inStockOnly={inStockOnly}
+          colorFilter={colorFilter}
           onSelectLeaf={selectFilterLeaf}
-          onSelectManufacturer={selectManufacturer}
-          onToggleAvailability={toggleAvailability}
+          onSelectColor={selectColor}
           onClearFilters={clearFilters}
         />
       </main>

@@ -805,22 +805,24 @@
     max-width: 1468px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 230px minmax(0, 1fr);
-    gap: 24px;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 20px;
     align-items: start;
   }
 
   .filter-panel {
+    position: sticky;
+    top: calc(var(--header-height) + 18px);
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 10px;
     background: #ffffff;
     box-shadow: var(--shadow-card);
     overflow: hidden;
   }
 
   .filter-head {
-    height: 54px;
-    padding: 0 16px;
+    height: 46px;
+    padding: 0 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -845,15 +847,24 @@
   }
 
   .filter-group {
-    padding: 13px 16px 14px;
+    padding: 12px 14px;
     border-bottom: 1px solid var(--line);
   }
 
+  .filter-group:last-child {
+    border-bottom: 0;
+  }
+
   .filter-title {
-    margin-bottom: 11px;
+    margin-bottom: 9px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .filter-options {
+    display: grid;
+    gap: 7px;
   }
 
   .filter-row {
@@ -862,7 +873,7 @@
     grid-template-columns: 17px minmax(0, 1fr) auto;
     align-items: center;
     gap: 8px;
-    min-height: 26px;
+    min-height: 28px;
     border: 0;
     padding: 0;
     background: transparent;
@@ -911,12 +922,25 @@
     gap: 8px;
   }
 
-  .swatch {
-    width: 22px;
-    height: 22px;
+  .swatch,
+  .color-filter {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     border: 2px solid #ffffff;
     box-shadow: 0 0 0 1px #ccd6e2;
+  }
+
+  .color-filter {
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .color-filter:hover,
+  .color-filter:focus-visible,
+  .color-filter.active {
+    box-shadow: 0 0 0 2px var(--brand), 0 8px 18px rgba(0, 156, 224, 0.22);
+    transform: translateY(-1px);
   }
 
   .range-track {
@@ -1185,16 +1209,6 @@
     background: #007ac3;
   }
 
-  .product-info::before {
-    content: "";
-    width: 58px;
-    height: 4px;
-    flex: 0 0 auto;
-    margin-bottom: 7px;
-    border-radius: 99px;
-    background: var(--yellow);
-  }
-
   .product-name {
     min-height: 0;
     color: #ffffff;
@@ -1356,8 +1370,40 @@
     .services { grid-template-columns: 1fr 1fr; padding: 10px 14px; }
     .service { border-left: 0; padding: 10px 12px; }
     .promo-row { grid-template-columns: 1fr; }
-    .catalog-layout { grid-template-columns: 1fr; }
-    .filter-panel { position: static; }
+    .catalog-layout { grid-template-columns: 1fr; gap: 16px; }
+    .filter-panel {
+      position: static;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(150px, .7fr);
+      border-radius: 10px;
+    }
+    .filter-head { grid-column: 1 / -1; height: 42px; }
+    .filter-group { min-width: 0; padding: 10px 12px 12px; border-bottom: 0; }
+    .filter-group + .filter-group { border-left: 1px solid var(--line); }
+    .filter-options,
+    .color-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .filter-options::-webkit-scrollbar,
+    .color-grid::-webkit-scrollbar { display: none; }
+    .filter-row {
+      width: auto;
+      flex: 0 0 auto;
+      min-height: 30px;
+      grid-template-columns: 14px auto auto;
+      padding: 0 10px;
+      border: 1px solid rgba(203, 213, 225, .8);
+      border-radius: 999px;
+      background: #f8fbfe;
+      font-size: 12px;
+    }
+    .filter-row:hover,
+    .filter-row:focus-visible { transform: translateY(-1px); }
     .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
@@ -1422,6 +1468,19 @@
       flex-direction: column;
     }
     .sort { width: fit-content; }
+    .filter-panel { display: block; }
+    .filter-head { height: 38px; padding: 0 10px; }
+    .filter-head strong,
+    .filter-title { font-size: 11px; }
+    .filter-head button { font-size: 11px; }
+    .filter-group { padding: 8px 10px 9px; border-bottom: 1px solid var(--line); }
+    .filter-group + .filter-group { border-left: 0; }
+    .filter-title { margin-bottom: 7px; }
+    .filter-row { min-height: 28px; padding: 0 8px; font-size: 11px; }
+    .check { width: 11px; height: 11px; }
+    .filter-count { display: none; }
+    .color-filter,
+    .swatch { width: 25px; height: 25px; }
     .product-grid { grid-template-columns: 1fr; }
     .product-card { height: 360px; }
   }

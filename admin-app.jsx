@@ -218,9 +218,9 @@
 
   // ── Modal ─────────────────────────────────────────────────────────────────
   function Modal({ title, onClose, children, width = 520 }) {
-    return e('div', { style: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200 }, onClick: onClose },
-      e('div', { style: { background: '#fff', borderRadius: 14, padding: 32, width, maxWidth: '92vw', maxHeight: '90vh', overflowY: 'auto' }, onClick: ev => ev.stopPropagation() },
-        e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 } },
+    return e('div', { style: { position: 'fixed', inset: 0, background: 'rgba(15,23,42,.58)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', zIndex: 10000, padding: '28px 16px', boxSizing: 'border-box', overflowY: 'auto' }, onClick: onClose },
+      e('div', { style: { background: '#fff', borderRadius: 14, padding: 32, width, maxWidth: '96vw', maxHeight: 'calc(100vh - 56px)', overflowY: 'auto', boxShadow: '0 34px 90px rgba(15,23,42,.32)', position: 'relative' }, onClick: ev => ev.stopPropagation() },
+        e('div', { style: { position: 'sticky', top: -32, zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '-32px -32px 22px', padding: '22px 32px 16px', background: '#fff', borderBottom: '1px solid #e2e8f0', borderRadius: '14px 14px 0 0' } },
           e('h3', { style: { margin: 0, fontSize: 18, fontWeight: 800 } }, title),
           e('button', { onClick: onClose, style: { background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#94a3b8', lineHeight: 1 } }, '×')
         ),
@@ -228,7 +228,6 @@
       )
     );
   }
-
   // ── FirstTimeSetup ────────────────────────────────────────────────────────
   function FirstTimeSetup({ onSetup, onCancel }) {
     const [username, setUsername] = useState('');
@@ -632,6 +631,8 @@
     const miss = [];
     if (!f.manufacturer || !f.manufacturer.trim()) miss.push('Manufacturer (品牌)');
     if (!f.name || !f.name.trim()) miss.push('產品名稱');
+    if (!f.leaf || !String(f.leaf).trim()) miss.push('大型選單子項目');
+    if (normalizeProductColors(f.colors || f.colorOptions || f.color).length === 0) miss.push('顏色選項');
     return miss;
   };
 
@@ -907,7 +908,7 @@
               hex.toUpperCase(),
               e('span', { style: { color: '#dc2626', fontWeight: 900 } }, '×')
             ))
-          : e('span', { style: { color: '#94a3b8', fontSize: 12, fontWeight: 700 } }, '尚未設定顏色，前台會使用預設色票。')
+          : e('span', { style: { color: '#b91c1c', fontSize: 12, fontWeight: 800 } }, '尚未設定顏色，請加入至少一個產品顏色。')
       ),
       e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 12 } },
         COLOR_PRESETS.map(hex => e('button', { key: hex, type: 'button', onClick: () => addColor(hex), title: hex.toUpperCase(), style: { width: 30, height: 30, borderRadius: '50%', background: hex, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer' } }))
@@ -949,8 +950,8 @@
           ),
           e('p', { style: { margin: '6px 0 0', color: '#64748b', fontSize: 12, lineHeight: 1.6 } }, '支援 Enter 分行；儲存與發布後會保留換行內容。')
         ),
-        e(Field, { label: '大型選單子項目' }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
-          e('option', { value: '' }, leaves.length ? '（不指定）' : '（此分類尚無大型選單子項目）'),
+        e(Field, { label: req('大型選單子項目') }, e(Select, { value: form.leaf || '', onChange: ev => setForm({ ...form, leaf: ev.target.value }) },
+          e('option', { value: '' }, leaves.length ? '請選擇大型選單子項目' : '此分類尚無大型選單子項目，請先至大型選單新增'),
           leaves.map((m, i) => e('option', { key: i, value: m.link }, (m.group ? m.group + ' › ' : '') + m.link))
         )),
         e(Field, { label: '商品標籤' },
@@ -960,7 +961,7 @@
           )
         ),
         e('div', { style: { gridColumn: '1 / -1' } },
-          e(Field, { label: '顏色選項' },
+          e(Field, { label: req('顏色選項') },
             e(ColorPaletteEditor, { colors: form.colors || form.colorOptions || form.color || [], images: imgs, onChange: colors => setForm({ ...form, colors }) })
           )
         ),
@@ -1100,6 +1101,23 @@
       deletedBy: user?.username || '',
       deletedAt: new Date().toISOString()
     });
+    const editingProduct = editIdx === null ? null : products[editIdx];
+
+    const saveNewProduct = () => {
+      const m = missingProductFields(af);
+      if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; }
+      save([...products, stampProductForSave(af, user)]);
+      setAf(emptyProduct());
+      setShowAdd(false);
+    };
+
+    const saveEditedProduct = () => {
+      const m = missingProductFields(ef);
+      if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; }
+      if (!editingProduct || !canManageProduct(editingProduct, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; }
+      save(products.map((x, j) => j === editIdx ? stampProductForSave(ef, user, editingProduct) : x));
+      setEditIdx(null);
+    };
 
     return e('div', null,
       e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 } },
@@ -1110,21 +1128,21 @@
           ),
           e('span', { style: { fontSize: 13, color: '#64748b' } }, `${products.length} 項產品`)
         ),
-        e('button', { onClick: () => { setShowAdd(v => !v); setEditIdx(null); }, style: S.btnPrimary }, '+ 新增產品')
+        e('button', { onClick: () => { setShowAdd(true); setEditIdx(null); }, style: S.btnPrimary }, '+ 新增產品')
       ),
-      showAdd && e(ProductForm, { form: af, setForm: setAf, cat, badges: productBadges, onSave: () => { const m = missingProductFields(af); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } save([...products, stampProductForSave(af, user)]); setAf(emptyProduct()); setShowAdd(false); }, onCancel: () => setShowAdd(false), saveLabel: '新增產品' }),
+      showAdd && e(Modal, { title: '新增產品', onClose: () => setShowAdd(false), width: 960 },
+        e(ProductForm, { form: af, setForm: setAf, cat, badges: productBadges, onSave: saveNewProduct, onCancel: () => setShowAdd(false), saveLabel: '新增產品' })
+      ),
+      editingProduct && e(Modal, { title: '編輯產品', onClose: () => setEditIdx(null), width: 960 },
+        e(ProductForm, { form: ef, setForm: setEf, cat, badges: productBadges, onSave: saveEditedProduct, onCancel: () => setEditIdx(null), saveLabel: '儲存變更' })
+      ),
       e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 18 } },
-        products.map((p, i) => editIdx === i
-          ? e('div', { key: i, style: { gridColumn: '1/-1' } },
-              e(ProductForm, { form: ef, setForm: setEf, cat, badges: productBadges, onSave: () => { const m = missingProductFields(ef); if (m.length) { alert('無法儲存，請填寫必填欄位：\n• ' + m.join('\n• ')); return; } if (!canManageProduct(p, user)) { alert('只能編輯自己上傳的產品。'); setEditIdx(null); return; } save(products.map((x, j) => j === i ? stampProductForSave(ef, user, p) : x)); setEditIdx(null); }, onCancel: () => setEditIdx(null), saveLabel: '儲存變更' })
-            )
-          : e(ProductCardView, {
-              key: p.productId || i, p,
-              canManage: canManageProduct(p, user),
-              onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p), colors: normalizeProductColors(p.colors || p.colorOptions || p.color) }); setShowAdd(false); },
-              onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('確定刪除這個產品嗎？')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
-            })
-        )
+        products.map((p, i) => e(ProductCardView, {
+          key: p.productId || i, p,
+          canManage: canManageProduct(p, user),
+          onEdit: () => { if (!canManageProduct(p, user)) return; setEditIdx(i); setEf({ ...p, images: getImages(p), colors: normalizeProductColors(p.colors || p.colorOptions || p.color) }); setShowAdd(false); },
+          onDelete: () => { if (!canManageProduct(p, user)) return; if (confirm('確定刪除這個產品嗎？')) save(products.filter((_, j) => j !== i), [deletionFor(p)]); }
+        }))
       ),
       e(ProductsSopGuide)
     );
