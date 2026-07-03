@@ -550,6 +550,7 @@
   // ── Products ──────────────────────────────────────────────────────────────
   const BADGE_OPTS = ['', 'New', 'Bestseller', 'Hot Deal', '-10%', '-13%', '-15%', '-18%', '-20%', '-24%', '-28%', '-30%', '-32%', '-36%'];
   const COLOR_PRESETS = ['#009ce0', '#111827', '#ffffff', '#c8d2df', '#18a34a', '#e60012', '#ffd105', '#f97316', '#7c3aed'];
+  const CHAMELEON_PRESET = { label: '變色龍', colors: ['#65a30d', '#14b8a6', '#7c3aed'] };
   const emptyProduct = () => ({ manufacturer: '', name: '', spec: '', badge: '', note: '', leaf: '', colors: [], images: [] });
   const normalizeHexColor = (value) => {
     const raw = String(value || '').trim();
@@ -878,6 +879,11 @@
       setDraft(hex);
       setMsg('已加入顏色 ' + hex.toUpperCase());
     };
+    const addChameleonColor = () => {
+      update([...current, ...CHAMELEON_PRESET.colors]);
+      setDraft(CHAMELEON_PRESET.colors[0]);
+      setMsg('已加入變色龍色系。');
+    };
     const removeColor = (hex) => update(current.filter(c => c !== hex));
     const pickColor = async () => {
       if (!window.EyeDropper) { setMsg('此瀏覽器不支援吸管，請使用 Chrome / Edge 或直接輸入色碼。'); return; }
@@ -911,7 +917,8 @@
           : e('span', { style: { color: '#b91c1c', fontSize: 12, fontWeight: 800 } }, '尚未設定顏色，請加入至少一個產品顏色。')
       ),
       e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 12 } },
-        COLOR_PRESETS.map(hex => e('button', { key: hex, type: 'button', onClick: () => addColor(hex), title: hex.toUpperCase(), style: { width: 30, height: 30, borderRadius: '50%', background: hex, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer' } }))
+        COLOR_PRESETS.map(hex => e('button', { key: hex, type: 'button', onClick: () => addColor(hex), title: hex.toUpperCase(), style: { width: 30, height: 30, borderRadius: '50%', background: hex, border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer' } })),
+        e('button', { key: 'chameleon', type: 'button', onClick: addChameleonColor, title: CHAMELEON_PRESET.label + '色系', style: { minWidth: 64, height: 30, borderRadius: 999, background: 'linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)', border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1', cursor: 'pointer', color: '#fff', fontSize: 11, fontWeight: 900, textShadow: '0 1px 4px rgba(0,0,0,.35)' } }, CHAMELEON_PRESET.label)
       ),
       e('div', { style: { display: 'grid', gridTemplateColumns: '44px minmax(0,1fr) auto auto auto', gap: 8, alignItems: 'center' } },
         e('input', { type: 'color', value: normalizeHexColor(draft) || COLOR_PRESETS[0], onChange: ev => { setDraft(ev.target.value); addColor(ev.target.value); }, title: '選擇顏色', style: { width: 44, height: 38, padding: 2, border: '1px solid #cbd5e1', borderRadius: 8, background: '#fff', cursor: 'pointer' } }),

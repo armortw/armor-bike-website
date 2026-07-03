@@ -21,7 +21,7 @@
     --text: #101721;
     --muted: #687586;
     --line: #dce5ef;
-    --sale: #e60012;
+    --sale: #c40202;
     --yellow: #ffd105;
     --shadow-float: 0 26px 70px rgba(0, 32, 64, 0.18), 0 10px 28px rgba(0, 156, 224, 0.12);
     --shadow-card: 0 16px 34px rgba(11, 31, 54, 0.08), 0 4px 12px rgba(0, 156, 224, 0.07);
@@ -341,7 +341,7 @@
     position: absolute;
     left: 50%;
     top: var(--header-height);
-    width: min(calc(100vw - 48px), var(--site-max));
+    width: calc(100vw - 100px);
     transform: translateX(-50%);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.72);
@@ -382,11 +382,11 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 280px repeat(4, minmax(150px, 180px));
+    grid-template-columns: minmax(250px, 1.1fr) repeat(4, minmax(140px, 1fr));
     column-gap: 50px;
     row-gap: 24px;
-    justify-content: center;
-    padding: 28px 30px 32px;
+    justify-content: stretch;
+    padding: 28px 50px 32px;
   }
 
   .mega-feature {
@@ -473,8 +473,8 @@
     padding: 0;
     background: transparent;
     color: #002f48;
-    font-size: 20px;
-    line-height: 1.12;
+    font-size: 16px;
+    line-height: 1.18;
     text-transform: uppercase;
     font-weight: 900;
     text-shadow: 0 1px 0 rgba(255,255,255,0.76);
