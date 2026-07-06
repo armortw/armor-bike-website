@@ -58,9 +58,7 @@
   }
 
   function productUrl(product) {
-    const deploy = new URLSearchParams(window.location.search).get("deploy");
-    const suffix = deploy ? "&deploy=" + encodeURIComponent(deploy) : "";
-    return "/Product/?id=" + encodeURIComponent(productKey(product)) + suffix;
+    return "/Product/?id=" + encodeURIComponent(productKey(product));
   }
 
   function homeCatalogUrl(category, leaf = "") {
@@ -68,8 +66,6 @@
     const target = category && category.id ? category : findCategory(category) || {};
     if (target.id || target.label) params.set("category", target.id || target.label);
     if (leaf) params.set("leaf", leaf);
-    const deploy = new URLSearchParams(window.location.search).get("deploy");
-    if (deploy) params.set("deploy", deploy);
     const query = params.toString();
     return "/" + (query ? "?" + query : "") + "#products";
   }

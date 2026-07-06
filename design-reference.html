@@ -1962,6 +1962,27 @@
       transform: translateX(0);
     }
   }
+
+  @media (max-width: 1500px) {
+    .header.menu-open .mobile-menu,
+    .mobile-menu.is-open {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu {
+      visibility: hidden;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .header.menu-open .mobile-menu,
+    .mobile-menu.is-open {
+      transform: translateX(0);
+    }
+  }
 </style>
 </head>
 <body>
@@ -1971,7 +1992,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
   <script>
     (function () {
-      var deploy = new URLSearchParams(window.location.search).get("deploy") || Date.now().toString(36);
+      var deploy = Date.now().toString(36);
       window.__ARMOR_DEPLOY_PARAM__ = deploy;
       document.write('<script src="store-data.js?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
       document.write('<script type="text/babel" src="design-reference-app.jsx?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
