@@ -886,6 +886,33 @@
       transform: translateX(0);
     }
   }
+
+  @media (max-width: 1500px) {
+    html.drawer-open .header,
+    .header.menu-open {
+      z-index: 10000;
+      overflow: visible;
+    }
+
+    html.drawer-open .mobile-menu,
+    .header.menu-open .mobile-menu,
+    .mobile-menu.is-open {
+      display: block !important;
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+  }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      top: 100% !important;
+      bottom: auto !important;
+      height: calc(100vh - var(--header-height)) !important;
+      max-height: calc(100vh - var(--header-height)) !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -901,5 +928,34 @@
     document.write('<script type="text/babel" src="/product-page-app.jsx?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
   })();
 </script>
+  <script>
+    (function () {
+      function toggleMenu(force) {
+        document.documentElement.classList.toggle("drawer-open", force);
+      }
+
+      document.addEventListener("click", function (event) {
+        var menuButton = event.target.closest && event.target.closest(".menu-toggle");
+        if (menuButton) {
+          setTimeout(function () {
+            var header = document.querySelector(".header");
+            var current = document.documentElement.classList.contains("drawer-open");
+            var reactOpen = Boolean(
+              (header && header.classList.contains("menu-open")) ||
+              menuButton.classList.contains("active") ||
+              menuButton.getAttribute("aria-expanded") === "true"
+            );
+            toggleMenu(reactOpen || !current);
+          }, 0);
+          return;
+        }
+        if (event.target.closest && event.target.closest(".mobile-menu-tab")) toggleMenu(false);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") toggleMenu(false);
+      });
+    })();
+  </script>
 </body>
 </html>

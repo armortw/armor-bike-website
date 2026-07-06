@@ -2014,6 +2014,42 @@
       transform: translateX(0);
     }
   }
+
+  @media (max-width: 1500px) {
+    html.drawer-open .header,
+    .header.menu-open {
+      z-index: 10000;
+      overflow: visible;
+    }
+
+    html.drawer-open .mobile-menu,
+    .header.menu-open .mobile-menu,
+    .mobile-menu.is-open {
+      display: block !important;
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
+    html.filter-drawer-open .filter-panel,
+    .filter-panel.is-open {
+      display: block !important;
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+  }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      top: 100% !important;
+      bottom: auto !important;
+      height: calc(100vh - var(--header-height)) !important;
+      max-height: calc(100vh - var(--header-height)) !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -2027,6 +2063,56 @@
       window.__ARMOR_DEPLOY_PARAM__ = deploy;
       document.write('<script src="store-data.js?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
       document.write('<script type="text/babel" src="design-reference-app.jsx?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
+    })();
+  </script>
+  <script>
+    (function () {
+      function toggleClass(name, force) {
+        document.documentElement.classList.toggle(name, force);
+      }
+
+      document.addEventListener("click", function (event) {
+        var menuButton = event.target.closest && event.target.closest(".menu-toggle");
+        if (menuButton) {
+          setTimeout(function () {
+            var header = document.querySelector(".header");
+            var current = document.documentElement.classList.contains("drawer-open");
+            var reactOpen = Boolean(
+              (header && header.classList.contains("menu-open")) ||
+              menuButton.classList.contains("active") ||
+              menuButton.getAttribute("aria-expanded") === "true"
+            );
+            toggleClass("drawer-open", reactOpen || !current);
+          }, 0);
+          return;
+        }
+
+        if (event.target.closest && event.target.closest(".mobile-menu-tab")) {
+          toggleClass("drawer-open", false);
+        }
+
+        var filterButton = event.target.closest && event.target.closest(".filter-toggle");
+        if (filterButton) {
+          setTimeout(function () {
+            var current = document.documentElement.classList.contains("filter-drawer-open");
+            var panel = document.querySelector(".filter-panel");
+            var reactOpen = Boolean((panel && panel.classList.contains("is-open")) || filterButton.getAttribute("aria-expanded") === "true");
+            toggleClass("filter-drawer-open", reactOpen || !current);
+          }, 0);
+          return;
+        }
+
+        if (event.target.closest && event.target.closest(".filter-close, .filter-drawer-backdrop, .filter-row, .color-filter")) {
+          toggleClass("filter-drawer-open", false);
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          toggleClass("drawer-open", false);
+          toggleClass("filter-drawer-open", false);
+        }
+      });
     })();
   </script>
 </body>
