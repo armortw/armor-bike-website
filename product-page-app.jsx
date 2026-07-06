@@ -360,15 +360,14 @@
             onSelectMegaLink={(category, link) => openCatalog(category, link)}
           />
         )}
-        {menuOpen && (
-          <MobileMenu
+        <MobileMenu
             navItems={navItems}
             selectedId={selectedId}
             onSelectCategory={(category) => openCatalog(category)}
             onSelectMegaGroup={(category, groupTitle) => openCatalog(category, groupTitle)}
             onSelectMegaLink={(category, link) => openCatalog(category, link)}
-          />
-        )}
+          isOpen={menuOpen}
+        />
         {utilityPanel && (
           <FrontUtilityPanel
             type={utilityPanel}
@@ -380,9 +379,9 @@
     );
   }
 
-  function MobileMenu({ navItems, selectedId, onSelectCategory }) {
+  function MobileMenu({ navItems, selectedId, onSelectCategory, isOpen }) {
     return (
-      <div className="mobile-menu" id="mobile-menu">
+      <div className={`mobile-menu ${isOpen ? "is-open" : ""}`} id="mobile-menu" aria-hidden={!isOpen}>
         <div className="mobile-menu-inner">
           <div className="mobile-menu-tabs" aria-label="Mobile categories">
             {navItems.map((item) => (

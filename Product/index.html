@@ -838,6 +838,33 @@
       grid-template-columns: 1fr;
     }
   }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      display: block;
+      transform: translateX(calc(100% + 18px));
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms cubic-bezier(.2,.9,.2,1);
+      animation: none;
+    }
+
+    .mobile-menu.is-open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mobile-menu {
+      transform: translateX(calc(100% + 14px));
+    }
+
+    .mobile-menu.is-open {
+      transform: translateX(0);
+    }
+  }
 </style>
 </head>
 <body>

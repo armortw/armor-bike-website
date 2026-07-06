@@ -1869,6 +1869,99 @@
       width: min(292px, 88vw);
     }
   }
+
+  @media (max-width: 1500px) {
+    .mobile-menu {
+      display: block;
+      transform: translateX(calc(100% + 18px));
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms cubic-bezier(.2,.9,.2,1);
+      animation: none;
+    }
+
+    .mobile-menu.is-open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .catalog-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .filter-toggle {
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0, 122, 195, 0.28);
+      border-radius: 8px;
+      padding: 0 14px;
+      background: #007ac3;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 122, 195, 0.18);
+    }
+
+    .filter-drawer-backdrop {
+      position: fixed;
+      inset: var(--header-height) 0 0;
+      z-index: 150;
+      display: block;
+      border: 0;
+      padding: 0;
+      background: rgba(6, 18, 48, 0.16);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      cursor: pointer;
+    }
+
+    .filter-panel {
+      position: fixed;
+      left: 0;
+      top: var(--header-height);
+      bottom: 0;
+      z-index: 170;
+      width: min(320px, 86vw);
+      max-height: none;
+      display: block;
+      overflow: auto;
+      border-radius: 0 12px 12px 0;
+      transform: translateX(calc(-100% - 18px));
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms cubic-bezier(.2,.9,.2,1);
+      overscroll-behavior: contain;
+    }
+
+    .filter-panel.is-open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .mobile-menu {
+      transform: translateX(calc(100% + 14px));
+    }
+
+    .mobile-menu.is-open {
+      transform: translateX(0);
+    }
+
+    .filter-panel {
+      transform: translateX(calc(-100% - 14px));
+    }
+
+    .filter-panel.is-open {
+      transform: translateX(0);
+    }
+  }
 </style>
 </head>
 <body>
