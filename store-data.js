@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-03 07:41 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr4mjm69_mmiaw1 */
+/* ARMOR BIKE Storefront — published 2026-07-06 02:17 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mr8latby_axs0mv */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -3077,7 +3077,14 @@
         "badge": "",
         "note": "",
         "leaf": "Cable Lock",
-        "colors": [],
+        "colors": [
+          "#a3a378",
+          "#ffd105",
+          "#e60012",
+          "#ffffff",
+          "#c8d2df",
+          "#ffcede"
+        ],
         "images": [
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782815340/qksnqr4wq84qi9peiz7b.png",
@@ -3085,13 +3092,13 @@
           }
         ],
         "productId": "prd_mr0i89qe_qb8zp5",
-        "sourceKey": "",
+        "sourceKey": "prd_mr0i89qe_qb8zp5",
         "ownerId": "1782120827997",
         "ownerUsername": "rita",
         "ownerName": "rita",
         "createdAt": "2026-06-30T10:29:12.134Z",
-        "updatedAt": "2026-06-30T10:29:12.134Z",
-        "updatedBy": "rita"
+        "updatedAt": "2026-07-06T02:17:05.518Z",
+        "updatedBy": "admin"
       },
       {
         "manufacturer": "ARMOR ",
@@ -3297,6 +3304,184 @@
         "ownerName": "administrator",
         "createdAt": "2026-07-03T05:54:04.541Z",
         "updatedAt": "2026-07-03T05:54:04.541Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8149 ",
+        "spec": "SIZE:74X54X30MM , 500mAH X 2 7.4V ",
+        "price": "USD 15.70 /PCE ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+            "alt": "VK 8149"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr8l78gn_p67xh5",
+        "sourceKey": "armor ::vk-8149 ::size:74x54x30mm , 500mah x 2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:14:32.086Z",
+        "updatedAt": "2026-07-06T02:14:32.086Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8302 ",
+        "spec": "SIZE: 66X50X134mm , 2000mAHX2 7.4V ",
+        "price": "USD 9.70/ SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+            "alt": "VK-8302"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr8l7f5e_fj19e7",
+        "sourceKey": "armor ::vk-8302 ::size: 66x50x134mm , 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:14:40.754Z",
+        "updatedAt": "2026-07-06T02:14:40.754Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8150",
+        "spec": "SIZE: 90X97X150mm 1500mAH X3 ",
+        "price": "",
+        "oldPrice": "",
+        "badge": "Hot Deal",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+            "alt": "EP 2"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr8l7kf5_g5czpw",
+        "sourceKey": "armor ::vk-8150::size: 90x97x150mm 1500mah x3 ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:14:47.585Z",
+        "updatedAt": "2026-07-06T02:14:47.585Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR ",
+        "name": "VK-8152",
+        "spec": "SIZE:66X46X160mm 2000mAHX2 7.4V ",
+        "price": "USD 10.90/SET ",
+        "oldPrice": "",
+        "badge": "",
+        "note": "",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+            "alt": "VK-8152"
+          }
+        ],
+        "colors": [
+          "#111827"
+        ],
+        "leaf": "MINI",
+        "productId": "prd_mr8l7sor_et0j3h",
+        "sourceKey": "armor ::vk-8152::size:66x46x160mm 2000mahx2 7.4v ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:14:58.299Z",
+        "updatedAt": "2026-07-06T02:14:58.299Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-8148",
+        "spec": "CABLE LOCK  DIA:18MMX1000MM  W/PP MESH MATERIAL",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png",
+            "alt": "CO25-8164 PK"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png",
+            "alt": "BLK COLOR"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png",
+            "alt": "CO25-8164BL"
+          }
+        ],
+        "colors": [
+          "#d36b8e",
+          "#111827",
+          "#284591"
+        ],
+        "productId": "prd_mr8l8fop_crn8pw",
+        "sourceKey": "armor::co25-8148::cable lock  dia:18mmx1000mm  w/pp mesh material::https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:15:28.105Z",
+        "updatedAt": "2026-07-06T02:15:28.105Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "CO25-81348",
+        "spec": "CABLE LOCK  10MMX1200MM W/WOVEN KNIT COVER  ",
+        "badge": "",
+        "note": "",
+        "leaf": "Cable Lock",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/agmzbzhs0d1r7wwjyrry.png",
+            "alt": "PC2124 BLUE-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/rpb3xjjhiapxo1gmolbf.png",
+            "alt": "PC2124-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125935/mavevycdws5zgytnya1z.png",
+            "alt": "PC2124 RED-Photoroom"
+          }
+        ],
+        "colors": [
+          "#187ec9",
+          "#111827",
+          "#c43d41"
+        ],
+        "productId": "prd_mr8l90pv_6bj8vg",
+        "sourceKey": "armor::co25-81348::cable lock  10mmx1200mm w/woven knit cover  ::https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/agmzbzhs0d1r7wwjyrry.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/rpb3xjjhiapxo1gmolbf.png|https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125935/mavevycdws5zgytnya1z.png::",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-06T02:15:55.363Z",
+        "updatedAt": "2026-07-06T02:15:55.363Z",
         "updatedBy": "admin"
       }
     ]
@@ -3843,7 +4028,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr4mjm69_mmiaw1";
+  var publishId = "pub_mr8latby_axs0mv";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
