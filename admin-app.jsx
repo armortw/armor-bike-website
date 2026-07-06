@@ -423,7 +423,7 @@
       ...(user.role === 'admin' ? [{ id: 'users', icon: '◉', label: '使用者' }] : []),
       { id: 'settings', icon: '⚙', label: '設定' },
     ];
-    return e('aside', { style: { width: 230, background: '#0f172a', minHeight: '100vh', display: 'flex', flexDirection: 'column', flexShrink: 0 } },
+    return e('aside', { style: { width: 230, background: '#0f172a', height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', flexShrink: 0, overflowY: 'auto' } },
       e('div', { style: { padding: '22px 20px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' } },
         e('div', { style: { fontSize: 17, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' } }, 'ARMOR BIKE'),
         e('div', { style: { fontSize: 11, color: '#475569', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' } }, '後台管理')
@@ -2463,11 +2463,11 @@
       settings: e(SettingsManager, { data }),
     };
 
-    return e('div', { style: { display: 'flex', minHeight: '100vh', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif' } },
+    return e('div', { style: { display: 'flex', height: '100vh', minHeight: '100vh', overflow: 'hidden', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif' } },
       e(Sidebar, { section, setSection, user, onLogout }),
-      e('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' } },
+      e('div', { style: { flex: 1, minWidth: 0, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' } },
         // topbar
-        e('div', { style: { background: '#2b40b5', borderBottom: '1px solid rgba(255,255,255,.18)', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 50 } },
+        e('div', { style: { background: '#2b40b5', borderBottom: '1px solid rgba(255,255,255,.18)', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 120 } },
           e('span', { style: { fontSize: 13, color: 'rgba(255,255,255,.82)', fontWeight: 700 } }, 'ARMOR BIKE  ·  後台管理系統'),
           e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
             saved ? e('span', { style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
@@ -2488,7 +2488,7 @@
           )
         ),
         // content
-        e('div', { style: { flex: 1, overflowY: 'auto', padding: '28px 32px' } }, sections[section] || sections.dashboard)
+        e('div', { style: { flex: 1, minHeight: 0, overflowY: 'auto', padding: '28px 32px' } }, sections[section] || sections.dashboard)
       ),
       showPublish && e(PublishModal, { data, user, onClose: () => setShowPublish(false), goToSettings: () => { setShowPublish(false); setSection('settings'); } }),
       showProfile && e(UserProfilePanel, { user, onLogout, onClose: () => setShowProfile(false), onUpdateUser })

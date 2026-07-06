@@ -18,9 +18,20 @@
     return isChameleonColor(color) ? CHAMELEON_GRADIENT : color;
   }
   function text(value, fallback = "") {
-    return String(value || fallback).replace(/\\r\\n|\\n|\\r/g, "\n").trim();
+    return String(value || fallback)
+      .replace(/\r\n|\r|\n/g, "\n")
+      .replace(/\\r\\n|\\n|\\r/g, "\n")
+      .trim();
   }
 
+  function lineBreaks(value, fallback = "") {
+    const valueText = text(value, fallback);
+    const lines = valueText ? valueText.split(/\n/) : [];
+    if (!lines.length) return fallback;
+    return lines.map((line, index) => (
+      <React.Fragment key={index}>{index > 0 && <br />}{line}</React.Fragment>
+    ));
+  }
   function normalizeProductColor(entry) {
     const raw = text(entry && (entry.hex || entry.color || entry.value || entry.label) ? (entry.hex || entry.color || entry.value || entry.label) : entry);
     if (!raw) return "";
@@ -801,7 +812,7 @@
         </div>
         <div className="product-info">
           <div className="product-name">{text(product.name, "ARMOR Product")}</div>
-          <div className="product-spec">{text(product.spec || product.note || product.leaf, "Performance cycling equipment")}</div>
+          <div className="product-spec">{lineBreaks(product.spec || product.note || product.leaf, "Performance cycling equipment")}</div>
           <div className="card-actions">
             <div className="product-swatches">
               {productColors(product).slice(0, 4).map((color) => <span className="product-dot" style={{ background: colorBackground(color) }} title={colorLabel(color)} key={`${product.name}-${color}`}></span>)}
