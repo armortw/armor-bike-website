@@ -686,7 +686,7 @@
   .gallery { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto; background: #ffffff; border: 0; box-shadow: none; }
   .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: #ffffff; }
   .main-image::before { content: none; }
-  .main-image img { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(84%, 780px); height: min(78%, 390px); max-width: none; max-height: calc(100% - 46px); object-fit: contain; object-position: center; display: block; filter: drop-shadow(0 22px 24px rgba(11,32,56,.12)); box-sizing: border-box; transform: translate(-50%, -50%); }
+  .main-image img { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(84%, 780px); height: min(78%, 390px); max-width: none; max-height: calc(100% - 46px); object-fit: contain; object-position: center; display: block; filter: none; box-sizing: border-box; transform: translate(-50%, -50%); }
   .main-image img.is-portrait { width: auto; height: clamp(330px, 28vw, 455px); max-width: min(58%, 420px); max-height: calc(100% - 36px); object-fit: contain; }
   .main-image img.is-wide { max-width: 88%; max-height: 70%; }
   .image-count { position: absolute; left: 14px; top: 14px; z-index: 2; border: 1px solid rgba(0,156,224,.2); border-radius: 999px; padding: 8px 12px; color: #0b5f92; background: rgba(255,255,255,.74); backdrop-filter: blur(14px); font-size: 12px; font-weight: 900; }
