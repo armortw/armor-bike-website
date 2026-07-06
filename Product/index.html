@@ -683,9 +683,9 @@
     align-items: stretch;
   }
   .gallery, .details, .spec-panel, .related-card { border: 1px solid rgba(210,226,238,.92); border-radius: 10px; background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.86)); box-shadow: var(--shadow-card); }
-  .gallery { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto; }
-  .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 38%, rgba(0,156,224,.14), transparent 40%), linear-gradient(135deg, #f8fbfe, #edf4f9); }
-  .main-image::before { content: ""; position: absolute; inset: 8%; border: 1px solid rgba(0,156,224,.16); border-radius: 999px; transform: skewX(-10deg); }
+  .gallery { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto; background: #ffffff; }
+  .main-image { position: relative; height: var(--product-main-view-height); min-height: 0; display: grid; place-items: center; overflow: hidden; background: #ffffff; }
+  .main-image::before { content: none; }
   .main-image img { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(84%, 780px); height: min(78%, 390px); max-width: none; max-height: calc(100% - 46px); object-fit: contain; object-position: center; display: block; filter: drop-shadow(0 22px 24px rgba(11,32,56,.12)); box-sizing: border-box; transform: translate(-50%, -50%); }
   .main-image img.is-portrait { width: auto; height: clamp(330px, 28vw, 455px); max-width: min(58%, 420px); max-height: calc(100% - 36px); object-fit: contain; }
   .main-image img.is-wide { max-width: 88%; max-height: 70%; }
@@ -694,7 +694,7 @@
   .gallery-arrow:hover { color: #fff; background: var(--brand); border-color: rgba(0,156,224,.7); }
   .gallery-arrow.prev { left: 14px; } .gallery-arrow.next { right: 14px; }
   svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2.4; fill: none; }
-  .thumbs { height: 94px; display: flex; gap: 9px; padding: 10px; overflow-x: auto; overflow-y: hidden; background: rgba(255,255,255,.76); border-top: 1px solid rgba(210,226,238,.92); scrollbar-width: thin; }
+  .thumbs { height: 94px; display: flex; gap: 9px; padding: 10px; overflow-x: auto; overflow-y: hidden; background: #ffffff; border-top: 1px solid rgba(210,226,238,.92); scrollbar-width: thin; }
   .thumb { flex: 0 0 82px; height: 72px; min-height: 0; border: 1px solid rgba(212,225,235,.95); border-radius: 8px; background: linear-gradient(180deg, #fff, #f5f8fb); cursor: pointer; overflow: hidden; }
   .thumb img { width: 100%; height: 64px; object-fit: contain; display: block; padding: 6px; }
   .thumb:hover, .thumb.active { border-color: rgba(0,156,224,.62); box-shadow: 0 10px 24px rgba(0,156,224,.13); transform: translateY(-2px); }
