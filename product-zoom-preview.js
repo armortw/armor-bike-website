@@ -2,6 +2,7 @@
   "use strict";
 
   var DESIRED_ZOOM_SCALE = 2;
+  var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
   var lightboxApi = null;
 
@@ -31,15 +32,37 @@
     return { left: left, top: top, width: width, height: height };
   }
 
+  function containedImageRect(container, image) {
+    var box = container.getBoundingClientRect();
+    var naturalWidth = image.naturalWidth || box.width;
+    var naturalHeight = image.naturalHeight || box.height;
+    var imageRatio = naturalWidth / Math.max(naturalHeight, 1);
+    var boxRatio = box.width / Math.max(box.height, 1);
+    var width = box.width;
+    var height = box.height;
+    var left = box.left;
+    var top = box.top;
+
+    if (boxRatio > imageRatio) {
+      width = height * imageRatio;
+      left += (box.width - width) / 2;
+    } else {
+      height = width / imageRatio;
+      top += (box.height - height) / 2;
+    }
+
+    return { left: left, top: top, width: width, height: height };
+  }
+
   function safeBackgroundUrl(url) {
     return String(url || "").replace(/(["\\])/g, "\\$1");
   }
 
-  function supportedZoomScale(image, imageRect) {
+  function supportedZoomScale(image, imageRect, desiredScale) {
     if (!image || !image.naturalWidth || !image.naturalHeight) return 0;
     var horizontalScale = image.naturalWidth / Math.max(imageRect.width, 1);
     var verticalScale = image.naturalHeight / Math.max(imageRect.height, 1);
-    return Math.min(DESIRED_ZOOM_SCALE, horizontalScale, verticalScale);
+    return Math.min(desiredScale || DESIRED_ZOOM_SCALE, horizontalScale, verticalScale);
   }
 
   function getLightbox() {
@@ -56,14 +79,151 @@
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>' +
       '</button>' +
       '<div class="product-lightbox-stage">' +
-        '<img class="product-lightbox-image" alt="">' +
+        '<div class="product-lightbox-view">' +
+          '<img class="product-lightbox-image" alt="">' +
+          '<button class="product-lightbox-zoom-toggle" type="button" aria-label="啟用大圖移動放大" aria-pressed="false" title="移動放大">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.1-4.1"></path><path d="M11 8v6M8 11h6"></path></svg>' +
+          '</button>' +
+        '</div>' +
+        '<aside class="product-lightbox-thumbs" aria-label="其他商品圖片"></aside>' +
       '</div>';
     document.body.appendChild(overlay);
 
     var previewImage = overlay.querySelector(".product-lightbox-image");
     var closeButton = overlay.querySelector(".product-lightbox-close");
     var stage = overlay.querySelector(".product-lightbox-stage");
+    var view = overlay.querySelector(".product-lightbox-view");
+    var zoomButton = overlay.querySelector(".product-lightbox-zoom-toggle");
+    var thumbnailRail = overlay.querySelector(".product-lightbox-thumbs");
     var lastFocused = null;
+    var galleryItems = [];
+    var activeIndex = 0;
+    var zoomLocked = false;
+    var lastPointer = null;
+
+    function absoluteImageUrl(image) {
+      if (!image) return "";
+      return image.currentSrc || image.src || image.getAttribute("src") || "";
+    }
+
+    function collectGallery(sourceImage) {
+      var items = [];
+      var seen = new Set();
+      var fallbackAlt = sourceImage.alt || "商品圖片";
+
+      function append(image, index) {
+        var url = absoluteImageUrl(image);
+        if (!url || seen.has(url)) return;
+        seen.add(url);
+        items.push({ url: url, alt: image.alt || fallbackAlt + " " + (index + 1) });
+      }
+
+      document.querySelectorAll(".thumb img").forEach(append);
+      append(sourceImage, items.length);
+      return items;
+    }
+
+    function updateThumbnailState(focusActive) {
+      thumbnailRail.querySelectorAll(".product-lightbox-thumb").forEach(function (button, index) {
+        var isActive = index === activeIndex;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+        if (isActive && focusActive) button.focus({ preventScroll: true });
+      });
+    }
+
+    function renderThumbnails() {
+      thumbnailRail.replaceChildren();
+      galleryItems.forEach(function (item, index) {
+        var button = document.createElement("button");
+        var image = document.createElement("img");
+        button.className = "product-lightbox-thumb";
+        button.type = "button";
+        button.setAttribute("aria-label", "顯示商品圖片 " + (index + 1));
+        button.setAttribute("aria-pressed", "false");
+        image.src = item.url;
+        image.alt = "";
+        image.loading = "lazy";
+        image.draggable = false;
+        button.appendChild(image);
+        button.addEventListener("click", function () {
+          showImage(index, true);
+        });
+        thumbnailRail.appendChild(button);
+      });
+      stage.classList.toggle("is-single-image", galleryItems.length <= 1);
+    }
+
+    function updateZoomControl(canMagnify) {
+      zoomButton.disabled = !canMagnify;
+      zoomButton.setAttribute("aria-pressed", String(canMagnify && zoomLocked));
+      zoomButton.setAttribute("aria-label", zoomLocked ? "關閉大圖移動放大" : "啟用大圖移動放大");
+      zoomButton.title = canMagnify ? (zoomLocked ? "關閉移動放大" : "移動放大") : "原圖解析度不足";
+    }
+
+    function setZoomLocked(nextLocked) {
+      zoomLocked = Boolean(nextLocked) && !zoomButton.disabled;
+      view.classList.toggle("is-zoom-locked", zoomLocked);
+      view.classList.toggle("is-zooming", zoomLocked);
+      updateZoomControl(!zoomButton.disabled);
+      if (!zoomLocked) {
+        lastPointer = null;
+        previewImage.style.transformOrigin = "50% 50%";
+      }
+    }
+
+    function measureZoomQuality() {
+      if (!previewImage.complete || !previewImage.naturalWidth) return null;
+      var imageRect = containedImageRect(view, previewImage);
+      var scale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_DESIRED_ZOOM_SCALE);
+      var canMagnify = scale >= MIN_USEFUL_ZOOM_SCALE;
+      view.dataset.zoomScale = scale.toFixed(2);
+      view.dataset.zoomQuality = canMagnify ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "low";
+      view.style.setProperty("--lightbox-zoom-scale", canMagnify ? scale.toFixed(3) : "1");
+      if (!canMagnify && zoomLocked) setZoomLocked(false);
+      updateZoomControl(canMagnify);
+      return { rect: imageRect, scale: scale, canMagnify: canMagnify };
+    }
+
+    function updatePan(clientX, clientY, allowClamp) {
+      var quality = measureZoomQuality();
+      if (!quality || !quality.canMagnify) {
+        view.classList.remove("is-zooming");
+        return false;
+      }
+
+      var imageRect = quality.rect;
+      var viewRect = view.getBoundingClientRect();
+      var outside =
+        clientX < imageRect.left ||
+        clientX > imageRect.left + imageRect.width ||
+        clientY < imageRect.top ||
+        clientY > imageRect.top + imageRect.height;
+      if (outside && !allowClamp) {
+        view.classList.remove("is-zooming");
+        return false;
+      }
+
+      var targetX = clamp(clientX, imageRect.left, imageRect.left + imageRect.width);
+      var targetY = clamp(clientY, imageRect.top, imageRect.top + imageRect.height);
+      var originX = clamp((targetX - viewRect.left) / Math.max(viewRect.width, 1), 0, 1);
+      var originY = clamp((targetY - viewRect.top) / Math.max(viewRect.height, 1), 0, 1);
+      previewImage.style.transformOrigin = (originX * 100).toFixed(2) + "% " + (originY * 100).toFixed(2) + "%";
+      view.classList.add("is-zooming");
+      lastPointer = { x: clientX, y: clientY };
+      return true;
+    }
+
+    function showImage(index, focusThumbnail) {
+      if (!galleryItems.length) return;
+      activeIndex = (index + galleryItems.length) % galleryItems.length;
+      setZoomLocked(false);
+      view.classList.remove("is-zooming");
+      previewImage.style.transformOrigin = "50% 50%";
+      previewImage.src = galleryItems[activeIndex].url;
+      previewImage.alt = galleryItems[activeIndex].alt;
+      updateThumbnailState(focusThumbnail);
+    }
 
     function open(sourceImage) {
       if (!sourceImage) return;
@@ -71,11 +231,13 @@
       if (!source) return;
 
       lastFocused = document.activeElement;
-      previewImage.src = source;
-      previewImage.alt = sourceImage.alt || "商品完整圖片";
+      galleryItems = collectGallery(sourceImage);
+      activeIndex = Math.max(0, galleryItems.findIndex(function (item) { return item.url === source; }));
+      renderThumbnails();
       overlay.classList.add("is-open");
       overlay.setAttribute("aria-hidden", "false");
       document.body.classList.add("product-lightbox-open");
+      showImage(activeIndex, false);
       window.requestAnimationFrame(function () {
         closeButton.focus({ preventScroll: true });
       });
@@ -86,21 +248,83 @@
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("product-lightbox-open");
+      setZoomLocked(false);
       if (lastFocused && typeof lastFocused.focus === "function") {
         lastFocused.focus({ preventScroll: true });
       }
     }
 
     closeButton.addEventListener("click", close);
+    zoomButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var quality = measureZoomQuality();
+      if (!quality || !quality.canMagnify) return;
+      setZoomLocked(!zoomLocked);
+      if (zoomLocked) {
+        updatePan(quality.rect.left + quality.rect.width / 2, quality.rect.top + quality.rect.height / 2, true);
+      }
+    });
+
+    view.addEventListener("pointerenter", function (event) {
+      if (event.pointerType === "mouse") updatePan(event.clientX, event.clientY, false);
+    });
+    view.addEventListener("pointermove", function (event) {
+      if (event.pointerType === "mouse") {
+        updatePan(event.clientX, event.clientY, zoomLocked);
+        return;
+      }
+      if (zoomLocked) {
+        event.preventDefault();
+        updatePan(event.clientX, event.clientY, true);
+      }
+    }, { passive: false });
+    view.addEventListener("pointerdown", function (event) {
+      if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
+      if (event.pointerType !== "mouse" && zoomLocked) {
+        updatePan(event.clientX, event.clientY, true);
+      }
+    });
+    view.addEventListener("pointerleave", function (event) {
+      if (event.pointerType === "mouse" && !zoomLocked) view.classList.remove("is-zooming");
+    });
+    view.addEventListener("click", function (event) {
+      if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
+      close();
+    });
+    previewImage.addEventListener("load", function () {
+      previewImage.draggable = false;
+      var quality = measureZoomQuality();
+      if (zoomLocked && quality && quality.canMagnify) {
+        updatePan(quality.rect.left + quality.rect.width / 2, quality.rect.top + quality.rect.height / 2, true);
+      }
+    });
+    window.addEventListener("resize", function () {
+      var quality = measureZoomQuality();
+      if (zoomLocked && lastPointer && quality && quality.canMagnify) {
+        updatePan(lastPointer.x, lastPointer.y, true);
+      } else if (!zoomLocked) {
+        view.classList.remove("is-zooming");
+      }
+    }, { passive: true });
+
     overlay.addEventListener("click", function (event) {
-      if (event.target === overlay || event.target === stage) close();
+      if (event.target === overlay) close();
     });
     document.addEventListener("keydown", function (event) {
       if (!overlay.classList.contains("is-open")) return;
       if (event.key === "Escape") close();
+      if (event.key === "ArrowLeft" && galleryItems.length > 1) showImage(activeIndex - 1, true);
+      if (event.key === "ArrowRight" && galleryItems.length > 1) showImage(activeIndex + 1, true);
       if (event.key === "Tab") {
+        var focusable = [closeButton, zoomButton].concat(Array.from(thumbnailRail.querySelectorAll(".product-lightbox-thumb"))).filter(function (element) {
+          return !element.disabled;
+        });
+        var currentIndex = focusable.indexOf(document.activeElement);
+        var nextIndex = event.shiftKey ? currentIndex - 1 : currentIndex + 1;
+        if (nextIndex < 0) nextIndex = focusable.length - 1;
+        if (nextIndex >= focusable.length) nextIndex = 0;
         event.preventDefault();
-        closeButton.focus({ preventScroll: true });
+        focusable[nextIndex].focus({ preventScroll: true });
       }
     });
 
