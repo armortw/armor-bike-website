@@ -217,9 +217,10 @@
     function showImage(index, focusThumbnail) {
       if (!galleryItems.length) return;
       activeIndex = (index + galleryItems.length) % galleryItems.length;
-      setZoomLocked(false);
-      view.classList.remove("is-zooming");
-      previewImage.style.transformOrigin = "50% 50%";
+      if (!zoomLocked) {
+        view.classList.remove("is-zooming");
+        previewImage.style.transformOrigin = "50% 50%";
+      }
       previewImage.src = galleryItems[activeIndex].url;
       previewImage.alt = galleryItems[activeIndex].alt;
       updateThumbnailState(focusThumbnail);
@@ -266,11 +267,13 @@
     });
 
     view.addEventListener("pointerenter", function (event) {
-      if (event.pointerType === "mouse") updatePan(event.clientX, event.clientY, false);
+      if (event.pointerType === "mouse" && updatePan(event.clientX, event.clientY, zoomLocked)) {
+        setZoomLocked(true);
+      }
     });
     view.addEventListener("pointermove", function (event) {
       if (event.pointerType === "mouse") {
-        updatePan(event.clientX, event.clientY, zoomLocked);
+        if (updatePan(event.clientX, event.clientY, zoomLocked)) setZoomLocked(true);
         return;
       }
       if (zoomLocked) {
@@ -284,9 +287,6 @@
         updatePan(event.clientX, event.clientY, true);
       }
     });
-    view.addEventListener("pointerleave", function (event) {
-      if (event.pointerType === "mouse" && !zoomLocked) view.classList.remove("is-zooming");
-    });
     view.addEventListener("click", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
       close();
@@ -295,7 +295,11 @@
       previewImage.draggable = false;
       var quality = measureZoomQuality();
       if (zoomLocked && quality && quality.canMagnify) {
-        updatePan(quality.rect.left + quality.rect.width / 2, quality.rect.top + quality.rect.height / 2, true);
+        var target = lastPointer || {
+          x: quality.rect.left + quality.rect.width / 2,
+          y: quality.rect.top + quality.rect.height / 2
+        };
+        updatePan(target.x, target.y, true);
       }
     });
     window.addEventListener("resize", function () {
