@@ -11,6 +11,18 @@
 /product-page-app.jsx
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 
+/product-zoom-preview
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/product-zoom-preview.html
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/product-zoom-preview.js
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/product-zoom-preview.css
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
 /store-data.js
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
 

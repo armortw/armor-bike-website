@@ -162,15 +162,19 @@
       zoomButton.title = canMagnify ? (zoomLocked ? "關閉移動放大" : "移動放大") : "原圖解析度不足";
     }
 
+    function resetPan() {
+      lastPointer = null;
+      previewImage.style.setProperty("--lightbox-pan-x", "0px");
+      previewImage.style.setProperty("--lightbox-pan-y", "0px");
+    }
+
     function setZoomLocked(nextLocked) {
       zoomLocked = Boolean(nextLocked) && !zoomButton.disabled;
       view.classList.toggle("is-zoom-locked", zoomLocked);
       view.classList.toggle("is-zooming", zoomLocked);
       updateZoomControl(!zoomButton.disabled);
       if (!zoomLocked) {
-        lastPointer = null;
-        previewImage.style.setProperty("--lightbox-pan-x", "0px");
-        previewImage.style.setProperty("--lightbox-pan-y", "0px");
+        resetPan();
       }
     }
 
@@ -225,11 +229,8 @@
     function showImage(index, focusThumbnail) {
       if (!galleryItems.length) return;
       activeIndex = (index + galleryItems.length) % galleryItems.length;
-      if (!zoomLocked) {
-        view.classList.remove("is-zooming");
-        previewImage.style.setProperty("--lightbox-pan-x", "0px");
-        previewImage.style.setProperty("--lightbox-pan-y", "0px");
-      }
+      resetPan();
+      view.classList.toggle("is-zooming", zoomLocked);
       previewImage.src = galleryItems[activeIndex].url;
       previewImage.alt = galleryItems[activeIndex].alt;
       updateThumbnailState(focusThumbnail);
@@ -246,6 +247,7 @@
       renderThumbnails();
       overlay.classList.add("is-open");
       overlay.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("product-lightbox-open");
       document.body.classList.add("product-lightbox-open");
       showImage(activeIndex, false);
       window.requestAnimationFrame(function () {
@@ -257,6 +259,7 @@
       if (!overlay.classList.contains("is-open")) return;
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
+      document.documentElement.classList.remove("product-lightbox-open");
       document.body.classList.remove("product-lightbox-open");
       setZoomLocked(false);
       if (lastFocused && typeof lastFocused.focus === "function") {
@@ -296,13 +299,6 @@
         updatePan(event.clientX, event.clientY, true);
       }
     });
-    overlay.addEventListener("pointermove", function (event) {
-      if (event.pointerType !== "mouse" || !zoomLocked || view.contains(event.target)) return;
-      updatePan(event.clientX, event.clientY, true);
-    });
-    overlay.addEventListener("pointerenter", function (event) {
-      if (event.pointerType === "mouse" && zoomLocked) updatePan(event.clientX, event.clientY, true);
-    });
     view.addEventListener("click", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
       close();
@@ -326,36 +322,6 @@
         view.classList.remove("is-zooming");
       }
     }, { passive: true });
-    function snapPanToExit() {
-      if (!zoomLocked) return;
-      var viewRect = view.getBoundingClientRect();
-      var reference = lastPointer || {
-        x: viewRect.left + viewRect.width / 2,
-        y: viewRect.top + viewRect.height / 2
-      };
-      var distances = [
-        { edge: "left", value: Math.abs(reference.x) },
-        { edge: "right", value: Math.abs(window.innerWidth - reference.x) },
-        { edge: "top", value: Math.abs(reference.y) },
-        { edge: "bottom", value: Math.abs(window.innerHeight - reference.y) }
-      ];
-      distances.sort(function (first, second) { return first.value - second.value; });
-      var targetX = clamp(reference.x, viewRect.left, viewRect.right);
-      var targetY = clamp(reference.y, viewRect.top, viewRect.bottom);
-      if (distances[0].edge === "left") targetX = viewRect.left;
-      if (distances[0].edge === "right") targetX = viewRect.right;
-      if (distances[0].edge === "top") targetY = viewRect.top;
-      if (distances[0].edge === "bottom") targetY = viewRect.bottom;
-      updatePan(targetX, targetY, true);
-    }
-    overlay.addEventListener("pointerleave", function (event) {
-      if (event.pointerType === "mouse") snapPanToExit();
-    });
-    window.addEventListener("mouseout", function (event) {
-      if (!zoomLocked || event.relatedTarget || event.toElement) return;
-      snapPanToExit();
-    }, { passive: true });
-
     overlay.addEventListener("click", function (event) {
       if (event.target === overlay) close();
     });
