@@ -168,7 +168,8 @@
       updateZoomControl(!zoomButton.disabled);
       if (!zoomLocked) {
         lastPointer = null;
-        previewImage.style.transformOrigin = "50% 50%";
+        previewImage.style.setProperty("--lightbox-pan-x", "0px");
+        previewImage.style.setProperty("--lightbox-pan-y", "0px");
       }
     }
 
@@ -204,11 +205,14 @@
         return false;
       }
 
-      var targetX = clamp(clientX, imageRect.left, imageRect.left + imageRect.width);
-      var targetY = clamp(clientY, imageRect.top, imageRect.top + imageRect.height);
-      var originX = clamp((targetX - viewRect.left) / Math.max(viewRect.width, 1), 0, 1);
-      var originY = clamp((targetY - viewRect.top) / Math.max(viewRect.height, 1), 0, 1);
-      previewImage.style.transformOrigin = (originX * 100).toFixed(2) + "% " + (originY * 100).toFixed(2) + "%";
+      var progressX = clamp((clientX - viewRect.left) / Math.max(viewRect.width, 1), 0, 1);
+      var progressY = clamp((clientY - viewRect.top) / Math.max(viewRect.height, 1), 0, 1);
+      var maxPanX = Math.max(0, (imageRect.width * quality.scale - viewRect.width) / 2);
+      var maxPanY = Math.max(0, (imageRect.height * quality.scale - viewRect.height) / 2);
+      var panX = maxPanX * (1 - progressX * 2);
+      var panY = maxPanY * (1 - progressY * 2);
+      previewImage.style.setProperty("--lightbox-pan-x", panX.toFixed(2) + "px");
+      previewImage.style.setProperty("--lightbox-pan-y", panY.toFixed(2) + "px");
       view.classList.add("is-zooming");
       lastPointer = { x: clientX, y: clientY };
       return true;
@@ -219,7 +223,8 @@
       activeIndex = (index + galleryItems.length) % galleryItems.length;
       if (!zoomLocked) {
         view.classList.remove("is-zooming");
-        previewImage.style.transformOrigin = "50% 50%";
+        previewImage.style.setProperty("--lightbox-pan-x", "0px");
+        previewImage.style.setProperty("--lightbox-pan-y", "0px");
       }
       previewImage.src = galleryItems[activeIndex].url;
       previewImage.alt = galleryItems[activeIndex].alt;
@@ -287,6 +292,10 @@
         updatePan(event.clientX, event.clientY, true);
       }
     });
+    overlay.addEventListener("pointermove", function (event) {
+      if (event.pointerType !== "mouse" || !zoomLocked || view.contains(event.target)) return;
+      updatePan(event.clientX, event.clientY, true);
+    });
     view.addEventListener("click", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
       close();
@@ -309,6 +318,15 @@
       } else if (!zoomLocked) {
         view.classList.remove("is-zooming");
       }
+    }, { passive: true });
+    window.addEventListener("mouseout", function (event) {
+      if (!zoomLocked || event.relatedTarget || event.toElement) return;
+      var viewRect = view.getBoundingClientRect();
+      updatePan(
+        clamp(event.clientX, viewRect.left, viewRect.right),
+        clamp(event.clientY, viewRect.top, viewRect.bottom),
+        true
+      );
     }, { passive: true });
 
     overlay.addEventListener("click", function (event) {
