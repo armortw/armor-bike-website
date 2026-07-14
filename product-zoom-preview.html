@@ -929,6 +929,8 @@
     var deploy = Date.now().toString(36);
     window.__ARMOR_DEPLOY_PARAM__ = deploy;
     window.__ARMOR_PRODUCT_PAGE_BASE__ = "/product-zoom-preview.html";
+    window.__ARMOR_TEST_PRODUCT_IDS__ = ["prd_mqrwblpy_7xfgw1", "prd_mqp4evng_fo79jg"];
+    window.__ARMOR_DEFAULT_PRODUCT_ID__ = window.__ARMOR_TEST_PRODUCT_IDS__[0];
     document.write('<script src="/store-data.js?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
     document.write('<script type="text/babel" src="/product-page-app.jsx?deploy=' + encodeURIComponent(deploy) + '"><\/script>');
   })();

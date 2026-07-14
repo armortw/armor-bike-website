@@ -158,11 +158,18 @@
     return products.filter(isPublishedProduct).map((product) => ({ category, product }));
   });
 
+  function findRecordById(targetId) {
+    const id = normalize(targetId);
+    if (!id) return null;
+    return records.find(({ product }) => [product.productId, product.sourceKey, product.name].map(normalize).some((value) => value && value === id)) || null;
+  }
+
   function findRecordFromUrl() {
     const params = new URLSearchParams(window.location.search);
     const id = normalize(params.get("id") || params.get("product") || params.get("sku"));
-    if (!id) return records[0] || null;
-    return records.find(({ product }) => [product.productId, product.sourceKey, product.name].map(normalize).some((value) => value && value === id)) || records[0] || null;
+    const defaultId = normalize(window.__ARMOR_DEFAULT_PRODUCT_ID__);
+    if (!id) return findRecordById(defaultId) || records[0] || null;
+    return findRecordById(id) || findRecordById(defaultId) || records[0] || null;
   }
 
   function icon(name) {
@@ -471,7 +478,15 @@
     const available = isAvailableProduct(product);
     const swatches = productColors(product);
     const badge = text(product.badge);
-    const related = records.filter((item) => productKey(item.product) !== productKey(product)).filter((item) => item.category.id === category.id || text(item.product.leaf) === text(product.leaf)).slice(0, 4);
+    const testRelated = (Array.isArray(window.__ARMOR_TEST_PRODUCT_IDS__) ? window.__ARMOR_TEST_PRODUCT_IDS__ : []).map(findRecordById).filter(Boolean);
+    const catalogRelated = records.filter((item) => item.category.id === category.id || text(item.product.leaf) === text(product.leaf));
+    const relatedKeys = new Set([productKey(product)]);
+    const related = [...testRelated, ...catalogRelated].filter((item) => {
+      const key = productKey(item.product);
+      if (relatedKeys.has(key)) return false;
+      relatedKeys.add(key);
+      return true;
+    }).slice(0, 4);
 
     function showImage(nextIndex) {
       setImageIndex((current) => (nextIndex + images.length) % images.length);

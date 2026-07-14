@@ -5,10 +5,22 @@
   var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
   var LIGHTBOX_FALLBACK_ZOOM_SCALE = 2;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
+  var PAN_EDGE_SNAP_MIN = 28;
+  var PAN_EDGE_SNAP_MAX = 56;
   var lightboxApi = null;
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
+  }
+
+  function edgeSnappedProgress(position, start, length) {
+    var safeLength = Math.max(length, 1);
+    var edgeInset = clamp(safeLength * 0.045, PAN_EDGE_SNAP_MIN, PAN_EDGE_SNAP_MAX);
+    edgeInset = Math.min(edgeInset, safeLength / 3);
+    var relative = clamp(position - start, 0, safeLength);
+    if (relative <= edgeInset) return 0;
+    if (relative >= safeLength - edgeInset) return 1;
+    return (relative - edgeInset) / Math.max(safeLength - edgeInset * 2, 1);
   }
 
   function renderedImageRect(image) {
@@ -213,8 +225,8 @@
         return false;
       }
 
-      var progressX = clamp((clientX - viewRect.left) / Math.max(viewRect.width, 1), 0, 1);
-      var progressY = clamp((clientY - viewRect.top) / Math.max(viewRect.height, 1), 0, 1);
+      var progressX = edgeSnappedProgress(clientX, viewRect.left, viewRect.width);
+      var progressY = edgeSnappedProgress(clientY, viewRect.top, viewRect.height);
       var maxPanX = Math.max(0, (imageRect.width * quality.scale - viewRect.width) / 2);
       var maxPanY = Math.max(0, (imageRect.height * quality.scale - viewRect.height) / 2);
       var panX = maxPanX * (1 - progressX * 2);
