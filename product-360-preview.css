@@ -6,22 +6,12 @@
   perspective: 1500px;
   cursor: grab;
   touch-action: none;
-  background-color: #f7fbfe;
-  background-image:
-    linear-gradient(rgba(0, 61, 166, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 61, 166, 0.035) 1px, transparent 1px);
-  background-size: 34px 34px;
+  background: #ffffff;
   border: 1px solid rgba(0, 122, 195, 0.16);
 }
 
 .main-image.armor-360-stage::before {
-  content: "";
-  position: absolute;
-  inset: 8% 7%;
-  z-index: 0;
-  border: 1px solid rgba(0, 156, 224, 0.18);
-  clip-path: polygon(0 12%, 8% 12%, 8% 0, 92% 0, 92% 12%, 100% 12%, 100% 88%, 92% 88%, 92% 100%, 8% 100%, 8% 88%, 0 88%);
-  pointer-events: none;
+  content: none;
 }
 
 .main-image.armor-360-stage.is-dragging {
@@ -57,9 +47,6 @@
   pointer-events: none;
   transform:
     translate(-50%, -50%)
-    perspective(1300px)
-    rotateX(var(--armor-360-tilt-y))
-    rotateY(var(--armor-360-tilt-x))
     scale(var(--armor-360-image-scale));
   transform-origin: 50% 54%;
   transition:
@@ -73,52 +60,31 @@
   transition-duration: 70ms, 110ms;
 }
 
-.armor-360-hud {
+.armor-360-canvas {
   position: absolute;
   inset: 0;
-  z-index: 4;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: visible;
-  color: #009ce0;
-  pointer-events: none;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  outline: none;
 }
 
-.armor-360-hud * {
-  vector-effect: non-scaling-stroke;
+.armor-360-canvas:active {
+  cursor: grabbing;
 }
 
-.armor-360-hud .hud-orbit,
-.armor-360-hud .hud-radar,
-.armor-360-hud .hud-focus,
-.armor-360-hud .hud-scan,
-.armor-360-hud .hud-corners {
-  transform-box: view-box;
-  transform-origin: center;
+.main-image.armor-360-stage.armor-360-has-model > img.armor-360-frame,
+.main-image.armor-360-stage.armor-360-has-model > img.armor-360-source-image {
+  opacity: 0 !important;
+  visibility: hidden;
 }
 
-.armor-360-hud .hud-orbit {
-  animation: armorHudOrbit 18s linear infinite;
-}
-
-.armor-360-hud .hud-orbit-reverse {
-  animation: armorHudOrbitReverse 13s linear infinite;
-}
-
-.armor-360-hud .hud-radar {
-  animation: armorHudRadar 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-.armor-360-hud .hud-focus {
-  animation: armorHudFocus 2.8s ease-in-out infinite;
-}
-
-.armor-360-hud .hud-scan {
-  animation: armorHudScan 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-.armor-360-hud .hud-corners {
-  animation: armorHudCorners 3.2s ease-in-out infinite;
+.armor-360-stage.armor-360-has-model .armor-360-mode svg {
+  animation: armorModelModeSpin 7s linear infinite;
 }
 
 .armor-360-mode,
@@ -338,7 +304,12 @@
   height: 100vh !important;
   max-height: none;
   border: 0;
-  background-color: #f7fbfe;
+  background-color: #ffffff;
+}
+
+.armor-360-stage:fullscreen .armor-360-canvas {
+  width: 100vw;
+  height: 100vh;
 }
 
 .armor-360-stage:fullscreen > img.armor-360-frame {
@@ -347,35 +318,9 @@
   max-height: 82vh;
 }
 
-@keyframes armorHudOrbit {
+@keyframes armorModelModeSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-@keyframes armorHudOrbitReverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
-}
-
-@keyframes armorHudRadar {
-  0%, 100% { transform: rotate(-18deg); opacity: 0.16; }
-  50% { transform: rotate(18deg); opacity: 0.48; }
-}
-
-@keyframes armorHudFocus {
-  0%, 100% { transform: scale(0.96); opacity: 0.3; }
-  50% { transform: scale(1.025); opacity: 0.68; }
-}
-
-@keyframes armorHudScan {
-  0%, 100% { transform: translateY(-30%); opacity: 0; }
-  18%, 82% { opacity: 0.52; }
-  50% { transform: translateY(30%); opacity: 0.32; }
-}
-
-@keyframes armorHudCorners {
-  0%, 100% { transform: scale(0.985); opacity: 0.42; }
-  50% { transform: scale(1); opacity: 0.8; }
 }
 
 @media (max-width: 900px) {
@@ -392,18 +337,12 @@
 @media (max-width: 600px) {
   .main-image.armor-360-stage {
     height: clamp(310px, 86vw, 390px);
-    background-size: 26px 26px;
   }
 
   .main-image.armor-360-stage > img.armor-360-frame {
     width: min(88%, 560px);
     height: min(69%, 300px);
     max-height: calc(100% - 92px);
-  }
-
-  .armor-360-hud {
-    inset: 2% 0 10%;
-    height: 88% !important;
   }
 
   .armor-360-mode {
@@ -450,12 +389,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .armor-360-hud .hud-orbit,
-  .armor-360-hud .hud-orbit-reverse,
-  .armor-360-hud .hud-radar,
-  .armor-360-hud .hud-focus,
-  .armor-360-hud .hud-scan,
-  .armor-360-hud .hud-corners {
+  .armor-360-stage.armor-360-has-model .armor-360-mode svg {
     animation: none;
   }
 

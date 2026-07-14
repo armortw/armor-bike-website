@@ -124,45 +124,10 @@
     return '<svg viewBox="0 0 24 24" aria-hidden="true">' + icons[name] + '</svg>';
   }
 
-  function hudMarkup() {
-    return '' +
-      '<svg class="armor-360-hud" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">' +
-        '<g fill="none" stroke="currentColor">' +
-          '<g class="hud-orbit" opacity=".34">' +
-            '<ellipse cx="500" cy="325" rx="390" ry="226" stroke-width="1.2" stroke-dasharray="72 18 8 18"></ellipse>' +
-            '<path d="M126 260h38M836 390h38M447 100v30M553 520v30" stroke-width="2"></path>' +
-          '</g>' +
-          '<g class="hud-orbit hud-orbit-reverse" opacity=".24">' +
-            '<ellipse cx="500" cy="325" rx="316" ry="184" stroke-width="1" stroke-dasharray="10 20 44 16"></ellipse>' +
-            '<circle cx="184" cy="325" r="5" stroke-width="2"></circle>' +
-            '<circle cx="816" cy="325" r="5" stroke-width="2"></circle>' +
-          '</g>' +
-          '<g class="hud-radar" opacity=".28">' +
-            '<path d="M500 325L822 211"></path>' +
-            '<path d="M500 325L178 439"></path>' +
-          '</g>' +
-          '<g class="hud-focus" opacity=".42" stroke-width="1.4">' +
-            '<path d="M396 210h-54v54M604 210h54v54M396 440h-54v-54M604 440h54v-54"></path>' +
-            '<path d="M468 325h64M500 293v64" opacity=".54"></path>' +
-          '</g>' +
-          '<g class="hud-scan" opacity=".38">' +
-            '<path d="M176 325h648" stroke-width="1"></path>' +
-            '<path d="M226 319h548" stroke-width="5" opacity=".08"></path>' +
-          '</g>' +
-          '<g class="hud-corners" opacity=".62" stroke-width="2">' +
-            '<path d="M72 118V72h58M870 72h58v46M72 532v46h58M870 578h58v-46"></path>' +
-          '</g>' +
-          '<path d="M82 325h52M866 325h52" opacity=".6" stroke-width="2"></path>' +
-          '<path d="M500 64v28M500 558v28" opacity=".5" stroke-width="2"></path>' +
-        '</g>' +
-      '</svg>';
-  }
-
   function createExperience() {
     var experience = document.createElement("div");
     experience.className = "armor-360-experience";
     experience.innerHTML = '' +
-      hudMarkup() +
       '<div class="armor-360-mode">' + svgIcon("rotate") + '<span>360&deg;</span></div>' +
       '<div class="armor-360-frame-count" aria-hidden="true">01 / 01</div>' +
       '<div class="armor-360-toolbar" role="group" aria-label="360 product image controls">' +
@@ -325,6 +290,7 @@
     }
 
     function updateFrameControls() {
+      if (stage.classList.contains("armor-360-has-model")) return;
       var multiple = frames.length > 1;
       scrubber.max = String(Math.max(0, frames.length - 1));
       scrubber.disabled = !multiple;

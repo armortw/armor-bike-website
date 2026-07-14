@@ -3,6 +3,7 @@
 
   var DESIRED_ZOOM_SCALE = 2;
   var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
+  var LIGHTBOX_FALLBACK_ZOOM_SCALE = 2;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
   var lightboxApi = null;
 
@@ -176,14 +177,17 @@
     function measureZoomQuality() {
       if (!previewImage.complete || !previewImage.naturalWidth) return null;
       var imageRect = containedImageRect(view, previewImage);
-      var scale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_DESIRED_ZOOM_SCALE);
-      var canMagnify = scale >= MIN_USEFUL_ZOOM_SCALE;
+      var nativeScale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_DESIRED_ZOOM_SCALE);
+      var hasNativeDetail = nativeScale >= MIN_USEFUL_ZOOM_SCALE;
+      var scale = hasNativeDetail ? nativeScale : LIGHTBOX_FALLBACK_ZOOM_SCALE;
+      var canMagnify = scale > 1;
       view.dataset.zoomScale = scale.toFixed(2);
-      view.dataset.zoomQuality = canMagnify ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "low";
+      view.dataset.nativeZoomScale = nativeScale.toFixed(2);
+      view.dataset.zoomQuality = hasNativeDetail ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "upscaled";
       view.style.setProperty("--lightbox-zoom-scale", canMagnify ? scale.toFixed(3) : "1");
       if (!canMagnify && zoomLocked) setZoomLocked(false);
       updateZoomControl(canMagnify);
-      return { rect: imageRect, scale: scale, canMagnify: canMagnify };
+      return { rect: imageRect, scale: scale, nativeScale: nativeScale, canMagnify: canMagnify };
     }
 
     function updatePan(clientX, clientY, allowClamp) {
@@ -296,6 +300,9 @@
       if (event.pointerType !== "mouse" || !zoomLocked || view.contains(event.target)) return;
       updatePan(event.clientX, event.clientY, true);
     });
+    overlay.addEventListener("pointerenter", function (event) {
+      if (event.pointerType === "mouse" && zoomLocked) updatePan(event.clientX, event.clientY, true);
+    });
     view.addEventListener("click", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
       close();
@@ -319,14 +326,34 @@
         view.classList.remove("is-zooming");
       }
     }, { passive: true });
+    function snapPanToExit() {
+      if (!zoomLocked) return;
+      var viewRect = view.getBoundingClientRect();
+      var reference = lastPointer || {
+        x: viewRect.left + viewRect.width / 2,
+        y: viewRect.top + viewRect.height / 2
+      };
+      var distances = [
+        { edge: "left", value: Math.abs(reference.x) },
+        { edge: "right", value: Math.abs(window.innerWidth - reference.x) },
+        { edge: "top", value: Math.abs(reference.y) },
+        { edge: "bottom", value: Math.abs(window.innerHeight - reference.y) }
+      ];
+      distances.sort(function (first, second) { return first.value - second.value; });
+      var targetX = clamp(reference.x, viewRect.left, viewRect.right);
+      var targetY = clamp(reference.y, viewRect.top, viewRect.bottom);
+      if (distances[0].edge === "left") targetX = viewRect.left;
+      if (distances[0].edge === "right") targetX = viewRect.right;
+      if (distances[0].edge === "top") targetY = viewRect.top;
+      if (distances[0].edge === "bottom") targetY = viewRect.bottom;
+      updatePan(targetX, targetY, true);
+    }
+    overlay.addEventListener("pointerleave", function (event) {
+      if (event.pointerType === "mouse") snapPanToExit();
+    });
     window.addEventListener("mouseout", function (event) {
       if (!zoomLocked || event.relatedTarget || event.toElement) return;
-      var viewRect = view.getBoundingClientRect();
-      updatePan(
-        clamp(event.clientX, viewRect.left, viewRect.right),
-        clamp(event.clientY, viewRect.top, viewRect.bottom),
-        true
-      );
+      snapPanToExit();
     }, { passive: true });
 
     overlay.addEventListener("click", function (event) {

@@ -9,6 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
 <style>
   :root {
     --brand: #009ce0;
@@ -964,6 +972,9 @@
   </script>
 <script>
   document.write('<script src="/product-360-preview.js?deploy=' + encodeURIComponent(window.__ARMOR_360_DEPLOY__) + '"><\/script>');
+</script>
+<script type="module">
+  import('/product-360-model.js?deploy=' + encodeURIComponent(window.__ARMOR_360_DEPLOY__));
 </script>
 </body>
 </html>
