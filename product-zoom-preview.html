@@ -914,7 +914,10 @@
     }
   }
 </style>
-<link rel="stylesheet" href="/product-zoom-preview.css">
+<script>
+  window.__ARMOR_ZOOM_DEPLOY__ = Date.now().toString(36);
+  document.write('<link rel="stylesheet" href="/product-zoom-preview.css?deploy=' + encodeURIComponent(window.__ARMOR_ZOOM_DEPLOY__) + '">');
+</script>
 </head>
 <body>
 <div id="root"></div>
@@ -959,6 +962,8 @@
       });
     })();
   </script>
-<script src="/product-zoom-preview.js"></script>
+<script>
+  document.write('<script src="/product-zoom-preview.js?deploy=' + encodeURIComponent(window.__ARMOR_ZOOM_DEPLOY__) + '"><\/script>');
+</script>
 </body>
 </html>
