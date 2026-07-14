@@ -1,0 +1,466 @@
+.main-image.armor-360-stage {
+  --armor-360-tilt-x: 0deg;
+  --armor-360-tilt-y: 0deg;
+  --armor-360-image-scale: 1;
+  isolation: isolate;
+  perspective: 1500px;
+  cursor: grab;
+  touch-action: none;
+  background-color: #f7fbfe;
+  background-image:
+    linear-gradient(rgba(0, 61, 166, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 61, 166, 0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  border: 1px solid rgba(0, 122, 195, 0.16);
+}
+
+.main-image.armor-360-stage::before {
+  content: "";
+  position: absolute;
+  inset: 8% 7%;
+  z-index: 0;
+  border: 1px solid rgba(0, 156, 224, 0.18);
+  clip-path: polygon(0 12%, 8% 12%, 8% 0, 92% 0, 92% 12%, 100% 12%, 100% 88%, 92% 88%, 92% 100%, 8% 100%, 8% 88%, 0 88%);
+  pointer-events: none;
+}
+
+.main-image.armor-360-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.main-image.armor-360-stage .image-count,
+.main-image.armor-360-stage .gallery-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.armor-360-experience {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.armor-360-experience button,
+.armor-360-experience input {
+  pointer-events: auto;
+}
+
+.main-image.armor-360-stage > img.armor-360-source-image {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.main-image.armor-360-stage > img.armor-360-frame {
+  z-index: 3;
+  opacity: 1;
+  pointer-events: none;
+  transform:
+    translate(-50%, -50%)
+    perspective(1300px)
+    rotateX(var(--armor-360-tilt-y))
+    rotateY(var(--armor-360-tilt-x))
+    scale(var(--armor-360-image-scale));
+  transform-origin: 50% 54%;
+  transition:
+    transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 160ms ease-out;
+  will-change: transform, opacity;
+}
+
+.main-image.armor-360-stage.is-dragging > img.armor-360-frame,
+.main-image.armor-360-stage.is-auto-spinning > img.armor-360-frame {
+  transition-duration: 70ms, 110ms;
+}
+
+.armor-360-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible;
+  color: #009ce0;
+  pointer-events: none;
+}
+
+.armor-360-hud * {
+  vector-effect: non-scaling-stroke;
+}
+
+.armor-360-hud .hud-orbit,
+.armor-360-hud .hud-radar,
+.armor-360-hud .hud-focus,
+.armor-360-hud .hud-scan,
+.armor-360-hud .hud-corners {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+.armor-360-hud .hud-orbit {
+  animation: armorHudOrbit 18s linear infinite;
+}
+
+.armor-360-hud .hud-orbit-reverse {
+  animation: armorHudOrbitReverse 13s linear infinite;
+}
+
+.armor-360-hud .hud-radar {
+  animation: armorHudRadar 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.armor-360-hud .hud-focus {
+  animation: armorHudFocus 2.8s ease-in-out infinite;
+}
+
+.armor-360-hud .hud-scan {
+  animation: armorHudScan 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.armor-360-hud .hud-corners {
+  animation: armorHudCorners 3.2s ease-in-out infinite;
+}
+
+.armor-360-mode,
+.armor-360-frame-count {
+  position: absolute;
+  top: 14px;
+  z-index: 7;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(0, 122, 195, 0.28);
+  border-radius: 6px;
+  padding: 0 11px;
+  color: #003da6;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow:
+    0 14px 30px rgba(0, 61, 166, 0.08),
+    0 4px 10px rgba(0, 156, 224, 0.06);
+  backdrop-filter: blur(16px) saturate(135%);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.armor-360-mode {
+  left: 14px;
+  letter-spacing: 0.08em;
+}
+
+.armor-360-frame-count {
+  right: 14px;
+  min-width: 70px;
+  justify-content: center;
+  letter-spacing: 0.04em;
+}
+
+.armor-360-mode svg,
+.armor-360-frame-count svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.9;
+}
+
+.armor-360-toolbar {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  z-index: 8;
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(0, 122, 195, 0.23);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(247, 252, 255, 0.84);
+  box-shadow:
+    0 18px 42px rgba(0, 61, 166, 0.11),
+    0 5px 14px rgba(0, 156, 224, 0.08);
+  backdrop-filter: blur(18px) saturate(145%);
+}
+
+.armor-360-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.armor-360-control {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 1px solid rgba(0, 122, 195, 0.25);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #006bb6;
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 160ms ease-out;
+}
+
+.armor-360-control svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.armor-360-control:hover,
+.armor-360-control[aria-pressed="true"] {
+  color: #ffffff;
+  background: #007ac3;
+  border-color: #007ac3;
+  transform: translateY(-2px);
+}
+
+.armor-360-control:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.armor-360-control:focus-visible,
+.armor-360-scrubber:focus-visible {
+  outline: 3px solid rgba(231, 195, 20, 0.74);
+  outline-offset: 2px;
+}
+
+.armor-360-control:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.armor-360-scrubber-wrap {
+  position: relative;
+  min-width: 0;
+  height: 34px;
+  display: grid;
+  align-items: center;
+}
+
+.armor-360-scrubber-wrap::before {
+  content: "";
+  position: absolute;
+  right: 4px;
+  left: 4px;
+  top: 50%;
+  height: 16px;
+  opacity: 0.32;
+  transform: translateY(-50%);
+  background-image: repeating-linear-gradient(90deg, #007ac3 0 1px, transparent 1px 11px);
+  pointer-events: none;
+}
+
+.armor-360-scrubber {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.armor-360-scrubber::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 0;
+  background: rgba(0, 122, 195, 0.28);
+}
+
+.armor-360-scrubber::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  margin-top: -7.5px;
+  appearance: none;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background: #007ac3;
+  box-shadow: 0 0 0 1px #007ac3, 0 8px 18px rgba(0, 61, 166, 0.22);
+}
+
+.armor-360-scrubber::-moz-range-track {
+  height: 3px;
+  background: rgba(0, 122, 195, 0.28);
+}
+
+.armor-360-scrubber::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background: #007ac3;
+  box-shadow: 0 0 0 1px #007ac3, 0 8px 18px rgba(0, 61, 166, 0.22);
+}
+
+.armor-360-scrubber:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.armor-360-stage.is-loading > img.armor-360-frame {
+  opacity: 0.38;
+}
+
+.armor-360-stage.is-auto-spinning .hud-radar {
+  animation-duration: 2.8s;
+}
+
+.thumb.armor-360-frame-active {
+  border-color: #007ac3;
+  box-shadow: 0 0 0 2px rgba(0, 122, 195, 0.15), 0 10px 24px rgba(0, 156, 224, 0.13);
+}
+
+.armor-360-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.armor-360-stage:fullscreen {
+  width: 100vw;
+  height: 100vh !important;
+  max-height: none;
+  border: 0;
+  background-color: #f7fbfe;
+}
+
+.armor-360-stage:fullscreen > img.armor-360-frame {
+  width: min(82vw, 1500px);
+  height: min(76vh, 920px);
+  max-height: 82vh;
+}
+
+@keyframes armorHudOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes armorHudOrbitReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes armorHudRadar {
+  0%, 100% { transform: rotate(-18deg); opacity: 0.16; }
+  50% { transform: rotate(18deg); opacity: 0.48; }
+}
+
+@keyframes armorHudFocus {
+  0%, 100% { transform: scale(0.96); opacity: 0.3; }
+  50% { transform: scale(1.025); opacity: 0.68; }
+}
+
+@keyframes armorHudScan {
+  0%, 100% { transform: translateY(-30%); opacity: 0; }
+  18%, 82% { opacity: 0.52; }
+  50% { transform: translateY(30%); opacity: 0.32; }
+}
+
+@keyframes armorHudCorners {
+  0%, 100% { transform: scale(0.985); opacity: 0.42; }
+  50% { transform: scale(1); opacity: 0.8; }
+}
+
+@media (max-width: 900px) {
+  .main-image.armor-360-stage {
+    --product-main-view-height: clamp(330px, 66vw, 470px);
+    height: var(--product-main-view-height);
+  }
+
+  .armor-360-toolbar {
+    gap: 9px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-image.armor-360-stage {
+    height: clamp(310px, 86vw, 390px);
+    background-size: 26px 26px;
+  }
+
+  .main-image.armor-360-stage > img.armor-360-frame {
+    width: min(88%, 560px);
+    height: min(69%, 300px);
+    max-height: calc(100% - 92px);
+  }
+
+  .armor-360-hud {
+    inset: 2% 0 10%;
+    height: 88% !important;
+  }
+
+  .armor-360-mode {
+    left: 10px;
+  }
+
+  .armor-360-mode,
+  .armor-360-frame-count {
+    top: 10px;
+    min-height: 30px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .armor-360-frame-count {
+    right: 10px;
+    min-width: 58px;
+  }
+
+  .armor-360-toolbar {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    min-height: 50px;
+    grid-template-columns: auto minmax(72px, 1fr) auto;
+    gap: 7px;
+    padding: 6px;
+  }
+
+  .armor-360-toolbar-group {
+    gap: 5px;
+  }
+
+  .armor-360-control {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .armor-360-control svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armor-360-hud .hud-orbit,
+  .armor-360-hud .hud-orbit-reverse,
+  .armor-360-hud .hud-radar,
+  .armor-360-hud .hud-focus,
+  .armor-360-hud .hud-scan,
+  .armor-360-hud .hud-corners {
+    animation: none;
+  }
+
+  .main-image.armor-360-stage > img.armor-360-frame,
+  .armor-360-control {
+    transition-duration: 0ms;
+  }
+}
