@@ -5,23 +5,38 @@
   var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
   var LIGHTBOX_FALLBACK_ZOOM_SCALE = 2;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
-  var PAN_EDGE_SNAP_MIN = 28;
-  var PAN_EDGE_SNAP_MAX = 56;
+  var PAN_EDGE_SNAP_RATIO = 0.14;
+  var PAN_EDGE_SNAP_MIN = 56;
+  var PAN_EDGE_SNAP_MAX = 240;
   var EXIT_CORNER_TOLERANCE = 18;
+  var DRAG_THRESHOLD = 5;
   var lightboxApi = null;
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
   }
 
+  function panEdgeInset(length) {
+    var safeLength = Math.max(length, 1);
+    return Math.min(clamp(safeLength * PAN_EDGE_SNAP_RATIO, PAN_EDGE_SNAP_MIN, PAN_EDGE_SNAP_MAX), safeLength / 3);
+  }
+
   function edgeSnappedProgress(position, start, length) {
     var safeLength = Math.max(length, 1);
-    var edgeInset = clamp(safeLength * 0.045, PAN_EDGE_SNAP_MIN, PAN_EDGE_SNAP_MAX);
-    edgeInset = Math.min(edgeInset, safeLength / 3);
+    var edgeInset = panEdgeInset(safeLength);
     var relative = clamp(position - start, 0, safeLength);
     if (relative <= edgeInset) return 0;
     if (relative >= safeLength - edgeInset) return 1;
     return (relative - edgeInset) / Math.max(safeLength - edgeInset * 2, 1);
+  }
+
+  function positionForPanProgress(progress, start, length) {
+    var safeLength = Math.max(length, 1);
+    var edgeInset = panEdgeInset(safeLength);
+    var safeProgress = clamp(progress, 0, 1);
+    if (safeProgress <= 0) return start;
+    if (safeProgress >= 1) return start + safeLength;
+    return start + edgeInset + safeProgress * Math.max(safeLength - edgeInset * 2, 1);
   }
 
   function renderedImageRect(image) {
@@ -114,6 +129,9 @@
     var activeIndex = 0;
     var zoomLocked = false;
     var lastPointer = null;
+    var dragState = null;
+    var suppressCloseClick = false;
+    var suppressExitSnap = false;
 
     function absoluteImageUrl(image) {
       if (!image) return "";
@@ -239,6 +257,86 @@
       return true;
     }
 
+    function readCurrentPan() {
+      var imageStyle = window.getComputedStyle(previewImage);
+      return {
+        x: Number.parseFloat(imageStyle.getPropertyValue("--lightbox-pan-x")) || 0,
+        y: Number.parseFloat(imageStyle.getPropertyValue("--lightbox-pan-y")) || 0
+      };
+    }
+
+    function dragPanForAxis(startPan, delta, maxPan, startPointer, minPointer, maxPointer, edgeInset) {
+      if (!maxPan || !delta) return clamp(startPan, -maxPan, maxPan);
+      if (delta < 0) {
+        var negativeTarget = startPointer > minPointer + edgeInset ? minPointer + edgeInset : minPointer;
+        var negativePointerRange = Math.max(startPointer - negativeTarget, 1);
+        var negativePanRange = startPan + maxPan;
+        return clamp(startPan + delta * (negativePanRange / negativePointerRange), -maxPan, maxPan);
+      }
+      var positiveTarget = startPointer < maxPointer - edgeInset ? maxPointer - edgeInset : maxPointer;
+      var positivePointerRange = Math.max(positiveTarget - startPointer, 1);
+      var positivePanRange = maxPan - startPan;
+      return clamp(startPan + delta * (positivePanRange / positivePointerRange), -maxPan, maxPan);
+    }
+
+    function updateDragPan(clientX, clientY) {
+      if (!dragState) return false;
+      var quality = measureZoomQuality();
+      if (!quality || !quality.canMagnify) return false;
+      var viewRect = view.getBoundingClientRect();
+      var maxPanX = Math.max(0, (quality.rect.width * quality.scale - viewRect.width) / 2);
+      var maxPanY = Math.max(0, (quality.rect.height * quality.scale - viewRect.height) / 2);
+      var deltaX = clientX - dragState.startX;
+      var deltaY = clientY - dragState.startY;
+      var panX = dragPanForAxis(
+        dragState.startPanX,
+        deltaX,
+        maxPanX,
+        dragState.startX,
+        viewRect.left,
+        viewRect.right,
+        panEdgeInset(viewRect.width)
+      );
+      var panY = dragPanForAxis(
+        dragState.startPanY,
+        deltaY,
+        maxPanY,
+        dragState.startY,
+        viewRect.top,
+        viewRect.bottom,
+        panEdgeInset(viewRect.height)
+      );
+      var progressX = maxPanX ? (1 - panX / maxPanX) / 2 : 0.5;
+      var progressY = maxPanY ? (1 - panY / maxPanY) / 2 : 0.5;
+
+      if (Math.hypot(deltaX, deltaY) >= DRAG_THRESHOLD) dragState.moved = true;
+      previewImage.style.setProperty("--lightbox-pan-x", panX.toFixed(2) + "px");
+      previewImage.style.setProperty("--lightbox-pan-y", panY.toFixed(2) + "px");
+      view.classList.add("is-zooming", "is-dragging");
+      lastPointer = {
+        x: positionForPanProgress(progressX, viewRect.left, viewRect.width),
+        y: positionForPanProgress(progressY, viewRect.top, viewRect.height)
+      };
+      return true;
+    }
+
+    function finishDrag(event) {
+      if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
+      var moved = dragState.moved;
+      var pointerId = dragState.pointerId;
+      dragState = null;
+      view.classList.remove("is-dragging");
+      if (view.hasPointerCapture && view.hasPointerCapture(pointerId)) {
+        view.releasePointerCapture(pointerId);
+      }
+      if (moved) {
+        suppressCloseClick = true;
+        suppressExitSnap = true;
+        window.setTimeout(function () { suppressCloseClick = false; }, 0);
+        window.setTimeout(function () { suppressExitSnap = false; }, 180);
+      }
+    }
+
     function exitBoundaryPoint(clientX, clientY) {
       var viewRect = view.getBoundingClientRect();
       var viewportWidth = document.documentElement.clientWidth || window.innerWidth;
@@ -271,6 +369,11 @@
     function snapPanAtViewportExit(event) {
       if (!overlay.classList.contains("is-open") || !zoomLocked) return;
       if (event.pointerType && event.pointerType !== "mouse") return;
+      if (suppressExitSnap) return;
+      if (dragState) {
+        updateDragPan(event.clientX, event.clientY);
+        return;
+      }
       var boundary = exitBoundaryPoint(event.clientX, event.clientY);
       updatePan(boundary.x, boundary.y, true);
     }
@@ -306,6 +409,9 @@
 
     function close() {
       if (!overlay.classList.contains("is-open")) return;
+      finishDrag();
+      suppressCloseClick = false;
+      suppressExitSnap = false;
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
       document.documentElement.classList.remove("product-lightbox-open");
@@ -328,11 +434,17 @@
     });
 
     view.addEventListener("pointerenter", function (event) {
+      suppressExitSnap = false;
       if (event.pointerType === "mouse" && updatePan(event.clientX, event.clientY, zoomLocked)) {
         setZoomLocked(true);
       }
     });
     view.addEventListener("pointermove", function (event) {
+      if (dragState && event.pointerId === dragState.pointerId) {
+        event.preventDefault();
+        updateDragPan(event.clientX, event.clientY);
+        return;
+      }
       if (event.pointerType === "mouse") {
         if (updatePan(event.clientX, event.clientY, zoomLocked)) setZoomLocked(true);
         return;
@@ -349,12 +461,32 @@
     }, true);
     view.addEventListener("pointerdown", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
-      if (event.pointerType !== "mouse" && zoomLocked) {
-        updatePan(event.clientX, event.clientY, true);
-      }
+      if (event.button !== 0) return;
+      var quality = measureZoomQuality();
+      if (!quality || !quality.canMagnify) return;
+      setZoomLocked(true);
+      var pan = readCurrentPan();
+      dragState = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        startPanX: pan.x,
+        startPanY: pan.y,
+        moved: false
+      };
+      view.classList.add("is-dragging");
+      if (view.setPointerCapture) view.setPointerCapture(event.pointerId);
     });
+    view.addEventListener("pointerup", finishDrag);
+    view.addEventListener("pointercancel", finishDrag);
     view.addEventListener("click", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
+      if (suppressCloseClick) {
+        suppressCloseClick = false;
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
       close();
     });
     previewImage.addEventListener("load", function () {

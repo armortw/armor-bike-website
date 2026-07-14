@@ -145,12 +145,17 @@ body.product-lightbox-open {
 }
 
 .product-lightbox-view.is-zoom-locked {
-  cursor: crosshair;
+  cursor: grab;
   touch-action: none;
 }
 
 .product-lightbox-view.is-zooming {
-  cursor: crosshair;
+  cursor: grab;
+}
+
+.product-lightbox-view.is-dragging,
+.product-lightbox-view.is-dragging .product-lightbox-image {
+  cursor: grabbing;
 }
 
 .product-lightbox-image {
@@ -162,7 +167,7 @@ body.product-lightbox-open {
   object-fit: contain;
   object-position: center;
   background: #ffffff;
-  cursor: default;
+  cursor: inherit;
   user-select: none;
   -webkit-user-drag: none;
   transform: scale(1);
