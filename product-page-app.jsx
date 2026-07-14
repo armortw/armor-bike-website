@@ -3,6 +3,7 @@
   const STORE = window.STORE || { categories: [] };
   const categories = Array.isArray(STORE.categories) ? STORE.categories : [];
   const fallbackImage = "/uploads/reference-promo-ebikes.png";
+  const productPageBase = text(window.__ARMOR_PRODUCT_PAGE_BASE__ || "/Product/");
   const CHAMELEON_VALUE = "__chameleon__";
   const CHAMELEON_COLORS = ["#65a30d", "#14b8a6", "#7c3aed"];
   const CHAMELEON_GRADIENT = "linear-gradient(135deg, #65a30d 0%, #14b8a6 48%, #7c3aed 100%)";
@@ -69,7 +70,7 @@
   }
 
   function productUrl(product) {
-    return "/Product/?id=" + encodeURIComponent(productKey(product));
+    return productPageBase + "?id=" + encodeURIComponent(productKey(product));
   }
 
   function homeCatalogUrl(category, leaf = "") {
