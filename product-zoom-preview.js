@@ -7,6 +7,7 @@
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
   var PAN_EDGE_SNAP_MIN = 28;
   var PAN_EDGE_SNAP_MAX = 56;
+  var EXIT_CORNER_TOLERANCE = 18;
   var lightboxApi = null;
 
   function clamp(value, min, max) {
@@ -238,6 +239,42 @@
       return true;
     }
 
+    function exitBoundaryPoint(clientX, clientY) {
+      var viewRect = view.getBoundingClientRect();
+      var viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+      var viewportHeight = document.documentElement.clientHeight || window.innerHeight;
+      var pointerX = Number.isFinite(clientX) ? clientX : (lastPointer ? lastPointer.x : viewRect.left + viewRect.width / 2);
+      var pointerY = Number.isFinite(clientY) ? clientY : (lastPointer ? lastPointer.y : viewRect.top + viewRect.height / 2);
+      var leftDistance = Math.abs(pointerX);
+      var rightDistance = Math.abs(viewportWidth - pointerX);
+      var topDistance = Math.abs(pointerY);
+      var bottomDistance = Math.abs(viewportHeight - pointerY);
+      var horizontalDistance = Math.min(leftDistance, rightDistance);
+      var verticalDistance = Math.min(topDistance, bottomDistance);
+      var snapHorizontal = horizontalDistance <= verticalDistance + EXIT_CORNER_TOLERANCE;
+      var snapVertical = verticalDistance <= horizontalDistance + EXIT_CORNER_TOLERANCE;
+      var targetX = clamp(pointerX, viewRect.left, viewRect.right);
+      var targetY = clamp(pointerY, viewRect.top, viewRect.bottom);
+
+      if (!snapHorizontal && lastPointer && (pointerX < viewRect.left || pointerX > viewRect.right)) {
+        targetX = clamp(lastPointer.x, viewRect.left, viewRect.right);
+      }
+      if (!snapVertical && lastPointer && (pointerY < viewRect.top || pointerY > viewRect.bottom)) {
+        targetY = clamp(lastPointer.y, viewRect.top, viewRect.bottom);
+      }
+      if (snapHorizontal) targetX = leftDistance <= rightDistance ? viewRect.left : viewRect.right;
+      if (snapVertical) targetY = topDistance <= bottomDistance ? viewRect.top : viewRect.bottom;
+
+      return { x: targetX, y: targetY };
+    }
+
+    function snapPanAtViewportExit(event) {
+      if (!overlay.classList.contains("is-open") || !zoomLocked) return;
+      if (event.pointerType && event.pointerType !== "mouse") return;
+      var boundary = exitBoundaryPoint(event.clientX, event.clientY);
+      updatePan(boundary.x, boundary.y, true);
+    }
+
     function showImage(index, focusThumbnail) {
       if (!galleryItems.length) return;
       activeIndex = (index + galleryItems.length) % galleryItems.length;
@@ -305,6 +342,11 @@
         updatePan(event.clientX, event.clientY, true);
       }
     }, { passive: false });
+    overlay.addEventListener("pointerleave", snapPanAtViewportExit);
+    window.addEventListener("pointerout", function (event) {
+      if (event.relatedTarget !== null) return;
+      snapPanAtViewportExit(event);
+    }, true);
     view.addEventListener("pointerdown", function (event) {
       if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
       if (event.pointerType !== "mouse" && zoomLocked) {
