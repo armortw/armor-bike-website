@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-06 02:17 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mr8latby_axs0mv */
+/* ARMOR BIKE Storefront — published 2026-07-15 02:44 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrlh7t88_ld4e0c */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1731,6 +1731,55 @@
         "createdAt": "2026-06-25T04:25:12.202Z",
         "updatedAt": "2026-07-03T05:51:32.945Z",
         "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK25-47136",
+        "spec": "CNC\nANODIZED\nSIZE\nAXLE",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Flat Pedals",
+        "colors": [
+          "#009ce0"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/qjz8dbjzhyh6q7pztwkb.png",
+            "alt": "IMG_9231"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/i45ljag6pzzlfoj8jac9.png",
+            "alt": "IMG_9233"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/qaz3pqusi52wu7vwvgzw.png",
+            "alt": "IMG_9229"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/aemlw6fmtq2wfg9x72uy.png",
+            "alt": "IMG_9227"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/zod9aeyzhuvsqcgldk7o.png",
+            "alt": "IMG_9239"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083406/tdxmhhagugbxyiqmnp6h.png",
+            "alt": "IMG_9238"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083406/egtyxygwzehdyycaccwo.png",
+            "alt": "IMG_9236"
+          }
+        ],
+        "productId": "prd_mrlh7nz4_s838xj",
+        "sourceKey": "",
+        "ownerId": "1782119625138",
+        "ownerUsername": "donald",
+        "ownerName": "donald",
+        "createdAt": "2026-07-15T02:43:54.015Z",
+        "updatedAt": "2026-07-15T02:43:54.015Z",
+        "updatedBy": "donald"
       }
     ]
   },
@@ -4028,7 +4077,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mr8latby_axs0mv";
+  var publishId = "pub_mrlh7t88_ld4e0c";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
