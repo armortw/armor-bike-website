@@ -4,6 +4,7 @@
   var DESIRED_ZOOM_SCALE = 2;
   var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
   var LIGHTBOX_FALLBACK_ZOOM_SCALE = 2;
+  var LIGHTBOX_MAX_VIEW_RATIO = 1.25;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
   var PAN_EDGE_SNAP_RATIO = 0.14;
   var PAN_EDGE_SNAP_MIN = 56;
@@ -212,13 +213,19 @@
     function measureZoomQuality() {
       if (!previewImage.complete || !previewImage.naturalWidth) return null;
       var imageRect = containedImageRect(view, previewImage);
+      var viewRect = view.getBoundingClientRect();
       var nativeScale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_DESIRED_ZOOM_SCALE);
       var hasNativeDetail = nativeScale >= MIN_USEFUL_ZOOM_SCALE;
-      var scale = hasNativeDetail ? nativeScale : LIGHTBOX_FALLBACK_ZOOM_SCALE;
+      var requestedScale = hasNativeDetail ? nativeScale : LIGHTBOX_FALLBACK_ZOOM_SCALE;
+      var widthScaleCap = viewRect.width * LIGHTBOX_MAX_VIEW_RATIO / Math.max(imageRect.width, 1);
+      var heightScaleCap = viewRect.height * LIGHTBOX_MAX_VIEW_RATIO / Math.max(imageRect.height, 1);
+      var viewportScaleCap = Math.min(widthScaleCap, heightScaleCap);
+      var scale = Math.max(1, Math.min(requestedScale, viewportScaleCap));
       var canMagnify = scale > 1;
       view.dataset.zoomScale = scale.toFixed(2);
       view.dataset.nativeZoomScale = nativeScale.toFixed(2);
-      view.dataset.zoomQuality = hasNativeDetail ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "upscaled";
+      view.dataset.viewportScaleCap = viewportScaleCap.toFixed(2);
+      view.dataset.zoomQuality = scale < requestedScale ? "viewport-limited" : (hasNativeDetail ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "upscaled");
       view.style.setProperty("--lightbox-zoom-scale", canMagnify ? scale.toFixed(3) : "1");
       if (!canMagnify && zoomLocked) setZoomLocked(false);
       updateZoomControl(canMagnify);
