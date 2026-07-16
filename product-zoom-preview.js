@@ -2,42 +2,15 @@
   "use strict";
 
   var DESIRED_ZOOM_SCALE = 2;
-  var LIGHTBOX_DESIRED_ZOOM_SCALE = 3.25;
-  var LIGHTBOX_FALLBACK_ZOOM_SCALE = 2;
-  var LIGHTBOX_MAX_VIEW_RATIO = 1.25;
+  var LIGHTBOX_ZOOM_LEVELS = [1, 1.25, 1.5, 2];
+  var LIGHTBOX_FALLBACK_MAX_SCALE = 1.25;
+  var LIGHTBOX_MAX_SCALE = 2;
   var MIN_USEFUL_ZOOM_SCALE = 1.2;
-  var PAN_EDGE_SNAP_RATIO = 0.14;
-  var PAN_EDGE_SNAP_MIN = 56;
-  var PAN_EDGE_SNAP_MAX = 240;
-  var EXIT_CORNER_TOLERANCE = 18;
   var DRAG_THRESHOLD = 5;
   var lightboxApi = null;
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
-  }
-
-  function panEdgeInset(length) {
-    var safeLength = Math.max(length, 1);
-    return Math.min(clamp(safeLength * PAN_EDGE_SNAP_RATIO, PAN_EDGE_SNAP_MIN, PAN_EDGE_SNAP_MAX), safeLength / 3);
-  }
-
-  function edgeSnappedProgress(position, start, length) {
-    var safeLength = Math.max(length, 1);
-    var edgeInset = panEdgeInset(safeLength);
-    var relative = clamp(position - start, 0, safeLength);
-    if (relative <= edgeInset) return 0;
-    if (relative >= safeLength - edgeInset) return 1;
-    return (relative - edgeInset) / Math.max(safeLength - edgeInset * 2, 1);
-  }
-
-  function positionForPanProgress(progress, start, length) {
-    var safeLength = Math.max(length, 1);
-    var edgeInset = panEdgeInset(safeLength);
-    var safeProgress = clamp(progress, 0, 1);
-    if (safeProgress <= 0) return start;
-    if (safeProgress >= 1) return start + safeLength;
-    return start + edgeInset + safeProgress * Math.max(safeLength - edgeInset * 2, 1);
   }
 
   function renderedImageRect(image) {
@@ -105,34 +78,51 @@
     overlay.setAttribute("aria-label", "商品圖片完整預覽");
     overlay.setAttribute("aria-hidden", "true");
     overlay.innerHTML =
-      '<button class="product-lightbox-close" type="button" aria-label="關閉商品圖片預覽" title="關閉">' +
-        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>' +
-      '</button>' +
       '<div class="product-lightbox-stage">' +
         '<div class="product-lightbox-view">' +
-          '<img class="product-lightbox-image" alt="">' +
-          '<button class="product-lightbox-zoom-toggle" type="button" aria-label="啟用大圖移動放大" aria-pressed="false" title="移動放大">' +
-            '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.1-4.1"></path><path d="M11 8v6M8 11h6"></path></svg>' +
-          '</button>' +
+          '<div class="product-lightbox-canvas" role="button" tabindex="0" aria-label="商品圖片完整顯示；點一下關閉預覽">' +
+            '<img class="product-lightbox-image" alt="">' +
+          '</div>' +
         '</div>' +
-        '<aside class="product-lightbox-thumbs" aria-label="其他商品圖片"></aside>' +
+        '<aside class="product-lightbox-rail" aria-label="商品圖片工具列">' +
+          '<div class="product-lightbox-rail-header">' +
+            '<button class="product-lightbox-close" type="button" aria-label="關閉商品圖片預覽" title="關閉">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>' +
+            '</button>' +
+          '</div>' +
+          '<div class="product-lightbox-thumbs" aria-label="其他商品圖片"></div>' +
+          '<div class="product-lightbox-controls" aria-label="圖片縮放控制">' +
+            '<output class="product-lightbox-zoom-value" aria-live="polite">100%</output>' +
+            '<button class="product-lightbox-control product-lightbox-zoom-out" type="button" aria-label="縮小商品圖片" title="縮小">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg>' +
+            '</button>' +
+            '<button class="product-lightbox-control product-lightbox-zoom-in" type="button" aria-label="放大商品圖片" title="放大">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>' +
+            '</button>' +
+            '<button class="product-lightbox-control product-lightbox-fit" type="button" aria-label="還原完整商品圖片" title="還原完整圖片">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5"></path><path d="M16 3h5v5"></path><path d="M8 21H3v-5"></path><path d="M16 21h5v-5"></path></svg>' +
+            '</button>' +
+          '</div>' +
+        '</aside>' +
       '</div>';
     document.body.appendChild(overlay);
 
     var previewImage = overlay.querySelector(".product-lightbox-image");
     var closeButton = overlay.querySelector(".product-lightbox-close");
     var stage = overlay.querySelector(".product-lightbox-stage");
-    var view = overlay.querySelector(".product-lightbox-view");
-    var zoomButton = overlay.querySelector(".product-lightbox-zoom-toggle");
+    var canvas = overlay.querySelector(".product-lightbox-canvas");
     var thumbnailRail = overlay.querySelector(".product-lightbox-thumbs");
+    var zoomOutButton = overlay.querySelector(".product-lightbox-zoom-out");
+    var zoomInButton = overlay.querySelector(".product-lightbox-zoom-in");
+    var fitButton = overlay.querySelector(".product-lightbox-fit");
+    var zoomValue = overlay.querySelector(".product-lightbox-zoom-value");
     var lastFocused = null;
     var galleryItems = [];
     var activeIndex = 0;
-    var zoomLocked = false;
-    var lastPointer = null;
+    var currentScale = 1;
+    var pan = { x: 0, y: 0 };
     var dragState = null;
     var suppressCloseClick = false;
-    var suppressExitSnap = false;
 
     function absoluteImageUrl(image) {
       if (!image) return "";
@@ -187,209 +177,146 @@
       stage.classList.toggle("is-single-image", galleryItems.length <= 1);
     }
 
-    function updateZoomControl(canMagnify) {
-      zoomButton.disabled = !canMagnify;
-      zoomButton.setAttribute("aria-pressed", String(canMagnify && zoomLocked));
-      zoomButton.setAttribute("aria-label", zoomLocked ? "關閉大圖移動放大" : "啟用大圖移動放大");
-      zoomButton.title = canMagnify ? (zoomLocked ? "關閉移動放大" : "移動放大") : "原圖解析度不足";
-    }
-
-    function resetPan() {
-      lastPointer = null;
+    function resetZoomState() {
+      currentScale = 1;
+      pan.x = 0;
+      pan.y = 0;
+      canvas.classList.remove("is-zoomed", "is-dragging");
       previewImage.style.setProperty("--lightbox-pan-x", "0px");
       previewImage.style.setProperty("--lightbox-pan-y", "0px");
+      previewImage.style.setProperty("--lightbox-zoom-scale", "1");
+      canvas.dataset.zoomScale = "1.00";
+      zoomValue.value = "100%";
+      zoomValue.textContent = "100%";
+      zoomOutButton.disabled = true;
+      fitButton.disabled = true;
+      canvas.setAttribute("aria-label", "商品圖片完整顯示；使用右側加號放大，點一下關閉預覽");
     }
 
-    function setZoomLocked(nextLocked) {
-      zoomLocked = Boolean(nextLocked) && !zoomButton.disabled;
-      view.classList.toggle("is-zoom-locked", zoomLocked);
-      view.classList.toggle("is-zooming", zoomLocked);
-      updateZoomControl(!zoomButton.disabled);
-      if (!zoomLocked) {
-        resetPan();
-      }
-    }
-
-    function measureZoomQuality() {
+    function measureImage() {
       if (!previewImage.complete || !previewImage.naturalWidth) return null;
-      var imageRect = containedImageRect(view, previewImage);
-      var viewRect = view.getBoundingClientRect();
-      var nativeScale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_DESIRED_ZOOM_SCALE);
-      var hasNativeDetail = nativeScale >= MIN_USEFUL_ZOOM_SCALE;
-      var requestedScale = hasNativeDetail ? nativeScale : LIGHTBOX_FALLBACK_ZOOM_SCALE;
-      var widthScaleCap = viewRect.width * LIGHTBOX_MAX_VIEW_RATIO / Math.max(imageRect.width, 1);
-      var heightScaleCap = viewRect.height * LIGHTBOX_MAX_VIEW_RATIO / Math.max(imageRect.height, 1);
-      var viewportScaleCap = Math.min(widthScaleCap, heightScaleCap);
-      var scale = Math.max(1, Math.min(requestedScale, viewportScaleCap));
-      var canMagnify = scale > 1;
-      view.dataset.zoomScale = scale.toFixed(2);
-      view.dataset.nativeZoomScale = nativeScale.toFixed(2);
-      view.dataset.viewportScaleCap = viewportScaleCap.toFixed(2);
-      view.dataset.zoomQuality = scale < requestedScale ? "viewport-limited" : (hasNativeDetail ? (scale < LIGHTBOX_DESIRED_ZOOM_SCALE ? "limited" : "full") : "upscaled");
-      view.style.setProperty("--lightbox-zoom-scale", canMagnify ? scale.toFixed(3) : "1");
-      if (!canMagnify && zoomLocked) setZoomLocked(false);
-      updateZoomControl(canMagnify);
-      return { rect: imageRect, scale: scale, nativeScale: nativeScale, canMagnify: canMagnify };
-    }
-
-    function updatePan(clientX, clientY, allowClamp) {
-      var quality = measureZoomQuality();
-      if (!quality || !quality.canMagnify) {
-        view.classList.remove("is-zooming");
-        return false;
-      }
-
-      var imageRect = quality.rect;
-      var viewRect = view.getBoundingClientRect();
-      var outside =
-        clientX < imageRect.left ||
-        clientX > imageRect.left + imageRect.width ||
-        clientY < imageRect.top ||
-        clientY > imageRect.top + imageRect.height;
-      if (outside && !allowClamp) {
-        view.classList.remove("is-zooming");
-        return false;
-      }
-
-      var progressX = edgeSnappedProgress(clientX, viewRect.left, viewRect.width);
-      var progressY = edgeSnappedProgress(clientY, viewRect.top, viewRect.height);
-      var maxPanX = Math.max(0, (imageRect.width * quality.scale - viewRect.width) / 2);
-      var maxPanY = Math.max(0, (imageRect.height * quality.scale - viewRect.height) / 2);
-      var panX = maxPanX * (1 - progressX * 2);
-      var panY = maxPanY * (1 - progressY * 2);
-      previewImage.style.setProperty("--lightbox-pan-x", panX.toFixed(2) + "px");
-      previewImage.style.setProperty("--lightbox-pan-y", panY.toFixed(2) + "px");
-      view.classList.add("is-zooming");
-      lastPointer = { x: clientX, y: clientY };
-      return true;
-    }
-
-    function readCurrentPan() {
-      var imageStyle = window.getComputedStyle(previewImage);
+      var imageRect = containedImageRect(canvas, previewImage);
+      var canvasRect = canvas.getBoundingClientRect();
+      var nativeScale = supportedZoomScale(previewImage, imageRect, LIGHTBOX_MAX_SCALE);
+      var maxScale = Math.min(
+        LIGHTBOX_MAX_SCALE,
+        Math.max(LIGHTBOX_FALLBACK_MAX_SCALE, nativeScale || 1)
+      );
       return {
-        x: Number.parseFloat(imageStyle.getPropertyValue("--lightbox-pan-x")) || 0,
-        y: Number.parseFloat(imageStyle.getPropertyValue("--lightbox-pan-y")) || 0
+        imageRect: imageRect,
+        canvasRect: canvasRect,
+        nativeScale: nativeScale,
+        maxScale: maxScale,
+        maxPanX: Math.max(0, (imageRect.width * currentScale - canvasRect.width) / 2),
+        maxPanY: Math.max(0, (imageRect.height * currentScale - canvasRect.height) / 2)
       };
     }
 
-    function dragPanForAxis(startPan, delta, maxPan, startPointer, minPointer, maxPointer, edgeInset) {
-      if (!maxPan || !delta) return clamp(startPan, -maxPan, maxPan);
-      if (delta < 0) {
-        var negativeTarget = startPointer > minPointer + edgeInset ? minPointer + edgeInset : minPointer;
-        var negativePointerRange = Math.max(startPointer - negativeTarget, 1);
-        var negativePanRange = startPan + maxPan;
-        return clamp(startPan + delta * (negativePanRange / negativePointerRange), -maxPan, maxPan);
+    function availableZoomLevels(metrics) {
+      var quality = metrics || measureImage();
+      if (!quality) return [1];
+      var levels = LIGHTBOX_ZOOM_LEVELS.filter(function (level) {
+        return level <= quality.maxScale + 0.01;
+      });
+      if (levels[levels.length - 1] < quality.maxScale - 0.08) {
+        levels.push(Number(quality.maxScale.toFixed(2)));
       }
-      var positiveTarget = startPointer < maxPointer - edgeInset ? maxPointer - edgeInset : maxPointer;
-      var positivePointerRange = Math.max(positiveTarget - startPointer, 1);
-      var positivePanRange = maxPan - startPan;
-      return clamp(startPan + delta * (positivePanRange / positivePointerRange), -maxPan, maxPan);
+      return levels;
+    }
+
+    function applyTransform() {
+      var metrics = measureImage();
+      if (!metrics) return;
+      var levels = availableZoomLevels(metrics);
+      currentScale = clamp(currentScale, 1, levels[levels.length - 1]);
+      metrics.maxPanX = Math.max(0, (metrics.imageRect.width * currentScale - metrics.canvasRect.width) / 2);
+      metrics.maxPanY = Math.max(0, (metrics.imageRect.height * currentScale - metrics.canvasRect.height) / 2);
+      pan.x = clamp(pan.x, -metrics.maxPanX, metrics.maxPanX);
+      pan.y = clamp(pan.y, -metrics.maxPanY, metrics.maxPanY);
+
+      var isZoomed = currentScale > 1.01;
+      canvas.classList.toggle("is-zoomed", isZoomed);
+      canvas.dataset.zoomScale = currentScale.toFixed(2);
+      canvas.dataset.nativeZoomScale = metrics.nativeScale.toFixed(2);
+      canvas.dataset.maxZoomScale = metrics.maxScale.toFixed(2);
+      previewImage.style.setProperty("--lightbox-pan-x", pan.x.toFixed(2) + "px");
+      previewImage.style.setProperty("--lightbox-pan-y", pan.y.toFixed(2) + "px");
+      previewImage.style.setProperty("--lightbox-zoom-scale", currentScale.toFixed(2));
+
+      var percentage = Math.round(currentScale * 100) + "%";
+      zoomValue.value = percentage;
+      zoomValue.textContent = percentage;
+      zoomOutButton.disabled = !isZoomed;
+      zoomInButton.disabled = currentScale >= levels[levels.length - 1] - 0.01;
+      fitButton.disabled = !isZoomed && Math.abs(pan.x) < 0.5 && Math.abs(pan.y) < 0.5;
+      canvas.setAttribute(
+        "aria-label",
+        isZoomed
+          ? "商品圖片已放大至 " + percentage + "；可拖曳查看細節，點一下關閉預覽"
+          : "商品圖片完整顯示；使用右側加號放大，點一下關閉預覽"
+      );
+    }
+
+    function setZoom(nextScale) {
+      finishDrag();
+      currentScale = nextScale;
+      pan.x = 0;
+      pan.y = 0;
+      applyTransform();
+    }
+
+    function changeZoom(direction) {
+      var levels = availableZoomLevels();
+      var target = currentScale;
+      if (direction > 0) {
+        for (var i = 0; i < levels.length; i += 1) {
+          if (levels[i] > currentScale + 0.01) {
+            target = levels[i];
+            break;
+          }
+        }
+      } else {
+        for (var j = levels.length - 1; j >= 0; j -= 1) {
+          if (levels[j] < currentScale - 0.01) {
+            target = levels[j];
+            break;
+          }
+        }
+      }
+      setZoom(target);
     }
 
     function updateDragPan(clientX, clientY) {
-      if (!dragState) return false;
-      var quality = measureZoomQuality();
-      if (!quality || !quality.canMagnify) return false;
-      var viewRect = view.getBoundingClientRect();
-      var maxPanX = Math.max(0, (quality.rect.width * quality.scale - viewRect.width) / 2);
-      var maxPanY = Math.max(0, (quality.rect.height * quality.scale - viewRect.height) / 2);
-      var deltaX = clientX - dragState.startX;
-      var deltaY = clientY - dragState.startY;
-      var panX = dragPanForAxis(
-        dragState.startPanX,
-        deltaX,
-        maxPanX,
-        dragState.startX,
-        viewRect.left,
-        viewRect.right,
-        panEdgeInset(viewRect.width)
-      );
-      var panY = dragPanForAxis(
-        dragState.startPanY,
-        deltaY,
-        maxPanY,
-        dragState.startY,
-        viewRect.top,
-        viewRect.bottom,
-        panEdgeInset(viewRect.height)
-      );
-      var progressX = maxPanX ? (1 - panX / maxPanX) / 2 : 0.5;
-      var progressY = maxPanY ? (1 - panY / maxPanY) / 2 : 0.5;
-
-      if (Math.hypot(deltaX, deltaY) >= DRAG_THRESHOLD) dragState.moved = true;
-      previewImage.style.setProperty("--lightbox-pan-x", panX.toFixed(2) + "px");
-      previewImage.style.setProperty("--lightbox-pan-y", panY.toFixed(2) + "px");
-      view.classList.add("is-zooming", "is-dragging");
-      lastPointer = {
-        x: positionForPanProgress(progressX, viewRect.left, viewRect.width),
-        y: positionForPanProgress(progressY, viewRect.top, viewRect.height)
-      };
-      return true;
+      if (!dragState) return;
+      pan.x = dragState.startPanX + clientX - dragState.startX;
+      pan.y = dragState.startPanY + clientY - dragState.startY;
+      if (Math.hypot(clientX - dragState.startX, clientY - dragState.startY) >= DRAG_THRESHOLD) {
+        dragState.moved = true;
+      }
+      applyTransform();
     }
 
     function finishDrag(event) {
-      if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
-      var moved = dragState.moved;
+      if (!dragState) return;
+      if (event && Number.isFinite(event.pointerId) && event.pointerId !== dragState.pointerId) return;
       var pointerId = dragState.pointerId;
+      var moved = dragState.moved;
       dragState = null;
-      view.classList.remove("is-dragging");
-      if (view.hasPointerCapture && view.hasPointerCapture(pointerId)) {
-        view.releasePointerCapture(pointerId);
+      canvas.classList.remove("is-dragging");
+      if (canvas.hasPointerCapture && canvas.hasPointerCapture(pointerId)) {
+        canvas.releasePointerCapture(pointerId);
       }
       if (moved) {
         suppressCloseClick = true;
-        suppressExitSnap = true;
         window.setTimeout(function () { suppressCloseClick = false; }, 0);
-        window.setTimeout(function () { suppressExitSnap = false; }, 180);
       }
-    }
-
-    function exitBoundaryPoint(clientX, clientY) {
-      var viewRect = view.getBoundingClientRect();
-      var viewportWidth = document.documentElement.clientWidth || window.innerWidth;
-      var viewportHeight = document.documentElement.clientHeight || window.innerHeight;
-      var pointerX = Number.isFinite(clientX) ? clientX : (lastPointer ? lastPointer.x : viewRect.left + viewRect.width / 2);
-      var pointerY = Number.isFinite(clientY) ? clientY : (lastPointer ? lastPointer.y : viewRect.top + viewRect.height / 2);
-      var leftDistance = Math.abs(pointerX);
-      var rightDistance = Math.abs(viewportWidth - pointerX);
-      var topDistance = Math.abs(pointerY);
-      var bottomDistance = Math.abs(viewportHeight - pointerY);
-      var horizontalDistance = Math.min(leftDistance, rightDistance);
-      var verticalDistance = Math.min(topDistance, bottomDistance);
-      var snapHorizontal = horizontalDistance <= verticalDistance + EXIT_CORNER_TOLERANCE;
-      var snapVertical = verticalDistance <= horizontalDistance + EXIT_CORNER_TOLERANCE;
-      var targetX = clamp(pointerX, viewRect.left, viewRect.right);
-      var targetY = clamp(pointerY, viewRect.top, viewRect.bottom);
-
-      if (!snapHorizontal && lastPointer && (pointerX < viewRect.left || pointerX > viewRect.right)) {
-        targetX = clamp(lastPointer.x, viewRect.left, viewRect.right);
-      }
-      if (!snapVertical && lastPointer && (pointerY < viewRect.top || pointerY > viewRect.bottom)) {
-        targetY = clamp(lastPointer.y, viewRect.top, viewRect.bottom);
-      }
-      if (snapHorizontal) targetX = leftDistance <= rightDistance ? viewRect.left : viewRect.right;
-      if (snapVertical) targetY = topDistance <= bottomDistance ? viewRect.top : viewRect.bottom;
-
-      return { x: targetX, y: targetY };
-    }
-
-    function snapPanAtViewportExit(event) {
-      if (!overlay.classList.contains("is-open") || !zoomLocked) return;
-      if (event.pointerType && event.pointerType !== "mouse") return;
-      if (suppressExitSnap) return;
-      if (dragState) {
-        updateDragPan(event.clientX, event.clientY);
-        return;
-      }
-      var boundary = exitBoundaryPoint(event.clientX, event.clientY);
-      updatePan(boundary.x, boundary.y, true);
     }
 
     function showImage(index, focusThumbnail) {
       if (!galleryItems.length) return;
       activeIndex = (index + galleryItems.length) % galleryItems.length;
-      resetPan();
-      view.classList.toggle("is-zooming", zoomLocked);
+      finishDrag();
+      resetZoomState();
       previewImage.src = galleryItems[activeIndex].url;
       previewImage.alt = galleryItems[activeIndex].alt;
       updateThumbnailState(focusThumbnail);
@@ -418,61 +345,30 @@
       if (!overlay.classList.contains("is-open")) return;
       finishDrag();
       suppressCloseClick = false;
-      suppressExitSnap = false;
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
       document.documentElement.classList.remove("product-lightbox-open");
       document.body.classList.remove("product-lightbox-open");
-      setZoomLocked(false);
+      resetZoomState();
       if (lastFocused && typeof lastFocused.focus === "function") {
         lastFocused.focus({ preventScroll: true });
       }
     }
 
     closeButton.addEventListener("click", close);
-    zoomButton.addEventListener("click", function (event) {
-      event.stopPropagation();
-      var quality = measureZoomQuality();
-      if (!quality || !quality.canMagnify) return;
-      setZoomLocked(!zoomLocked);
-      if (zoomLocked) {
-        updatePan(quality.rect.left + quality.rect.width / 2, quality.rect.top + quality.rect.height / 2, true);
-      }
-    });
+    zoomOutButton.addEventListener("click", function () { changeZoom(-1); });
+    zoomInButton.addEventListener("click", function () { changeZoom(1); });
+    fitButton.addEventListener("click", function () { setZoom(1); });
 
-    view.addEventListener("pointerenter", function (event) {
-      suppressExitSnap = false;
-      if (event.pointerType === "mouse" && updatePan(event.clientX, event.clientY, zoomLocked)) {
-        setZoomLocked(true);
-      }
-    });
-    view.addEventListener("pointermove", function (event) {
+    canvas.addEventListener("pointermove", function (event) {
       if (dragState && event.pointerId === dragState.pointerId) {
         event.preventDefault();
         updateDragPan(event.clientX, event.clientY);
-        return;
-      }
-      if (event.pointerType === "mouse") {
-        if (updatePan(event.clientX, event.clientY, zoomLocked)) setZoomLocked(true);
-        return;
-      }
-      if (zoomLocked) {
-        event.preventDefault();
-        updatePan(event.clientX, event.clientY, true);
       }
     }, { passive: false });
-    overlay.addEventListener("pointerleave", snapPanAtViewportExit);
-    window.addEventListener("pointerout", function (event) {
-      if (event.relatedTarget !== null) return;
-      snapPanAtViewportExit(event);
-    }, true);
-    view.addEventListener("pointerdown", function (event) {
-      if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
-      if (event.button !== 0) return;
-      var quality = measureZoomQuality();
-      if (!quality || !quality.canMagnify) return;
-      setZoomLocked(true);
-      var pan = readCurrentPan();
+    canvas.addEventListener("pointerdown", function (event) {
+      if (event.button !== 0 || currentScale <= 1.01) return;
+      event.preventDefault();
       dragState = {
         pointerId: event.pointerId,
         startX: event.clientX,
@@ -481,13 +377,15 @@
         startPanY: pan.y,
         moved: false
       };
-      view.classList.add("is-dragging");
-      if (view.setPointerCapture) view.setPointerCapture(event.pointerId);
+      canvas.classList.add("is-dragging");
+      if (canvas.setPointerCapture) canvas.setPointerCapture(event.pointerId);
     });
-    view.addEventListener("pointerup", finishDrag);
-    view.addEventListener("pointercancel", finishDrag);
-    view.addEventListener("click", function (event) {
-      if (event.target.closest && event.target.closest(".product-lightbox-zoom-toggle")) return;
+    canvas.addEventListener("pointerup", finishDrag);
+    canvas.addEventListener("pointercancel", finishDrag);
+    canvas.addEventListener("lostpointercapture", finishDrag);
+    window.addEventListener("pointerup", finishDrag, true);
+    window.addEventListener("pointercancel", finishDrag, true);
+    canvas.addEventListener("click", function (event) {
       if (suppressCloseClick) {
         suppressCloseClick = false;
         event.preventDefault();
@@ -496,25 +394,21 @@
       }
       close();
     });
-    previewImage.addEventListener("load", function () {
-      previewImage.draggable = false;
-      var quality = measureZoomQuality();
-      if (zoomLocked && quality && quality.canMagnify) {
-        var target = lastPointer || {
-          x: quality.rect.left + quality.rect.width / 2,
-          y: quality.rect.top + quality.rect.height / 2
-        };
-        updatePan(target.x, target.y, true);
+    canvas.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        close();
       }
     });
+    previewImage.addEventListener("load", function () {
+      previewImage.draggable = false;
+      resetZoomState();
+      applyTransform();
+    });
     window.addEventListener("resize", function () {
-      var quality = measureZoomQuality();
-      if (zoomLocked && lastPointer && quality && quality.canMagnify) {
-        updatePan(lastPointer.x, lastPointer.y, true);
-      } else if (!zoomLocked) {
-        view.classList.remove("is-zooming");
-      }
+      if (overlay.classList.contains("is-open")) applyTransform();
     }, { passive: true });
+    window.addEventListener("blur", finishDrag);
     overlay.addEventListener("click", function (event) {
       if (event.target === overlay) close();
     });
@@ -523,8 +417,14 @@
       if (event.key === "Escape") close();
       if (event.key === "ArrowLeft" && galleryItems.length > 1) showImage(activeIndex - 1, true);
       if (event.key === "ArrowRight" && galleryItems.length > 1) showImage(activeIndex + 1, true);
+      if (event.key === "+" || event.key === "=") changeZoom(1);
+      if (event.key === "-") changeZoom(-1);
+      if (event.key === "0") setZoom(1);
       if (event.key === "Tab") {
-        var focusable = [closeButton, zoomButton].concat(Array.from(thumbnailRail.querySelectorAll(".product-lightbox-thumb"))).filter(function (element) {
+        var focusable = [closeButton, canvas]
+          .concat(Array.from(thumbnailRail.querySelectorAll(".product-lightbox-thumb")))
+          .concat([zoomOutButton, zoomInButton, fitButton])
+          .filter(function (element) {
           return !element.disabled;
         });
         var currentIndex = focusable.indexOf(document.activeElement);
