@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-15 02:44 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrlh7t88_ld4e0c */
+/* ARMOR BIKE Storefront — published 2026-07-17 07:09 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrolkza3_6zm0no */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -328,6 +328,31 @@
         "ownerName": "anna",
         "createdAt": "2026-06-24T09:53:46.677Z",
         "updatedAt": "2026-07-03T01:47:49.755Z",
+        "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "test",
+        "spec": "",
+        "badge": "",
+        "note": "",
+        "leaf": "Hardtail",
+        "colors": [
+          "#009ffd"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784272142/atgycjssocsomngmmkf6.jpg",
+            "alt": "VK26-3501C_01_Angle_Blue"
+          }
+        ],
+        "productId": "prd_mrolkuoz_hsowod",
+        "sourceKey": "",
+        "ownerId": "1",
+        "ownerUsername": "admin",
+        "ownerName": "administrator",
+        "createdAt": "2026-07-17T07:09:26.243Z",
+        "updatedAt": "2026-07-17T07:09:26.243Z",
         "updatedBy": "admin"
       }
     ],
@@ -4077,7 +4102,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrlh7t88_ld4e0c";
+  var publishId = "pub_mrolkza3_6zm0no";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
