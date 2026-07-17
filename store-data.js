@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-17 07:18 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrolwenb_miq6up */
+/* ARMOR BIKE Storefront — published 2026-07-17 10:23 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mroshx5h_ahh9p1 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1813,6 +1813,35 @@
         "createdAt": "2026-07-15T02:43:54.015Z",
         "updatedAt": "2026-07-15T02:43:54.015Z",
         "updatedBy": "donald"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3501C-BLUE",
+        "spec": "ALLOY ANODIZED COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING\n",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Hubs",
+        "colors": [
+          "#009ce0"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784283764/whv7eli2apehkzvccsyo.png",
+            "alt": "VK26-3501C_01_Angle_Blue"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784283769/bqgwnjn6lwsnocdpwnvg.png",
+            "alt": "VK26-3501C_02_Front_Blue"
+          }
+        ],
+        "productId": "prd_mroshnd9_c52xqh",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-07-17T10:22:54.092Z",
+        "updatedAt": "2026-07-17T10:22:54.092Z",
+        "updatedBy": "alicia"
       }
     ]
   },
@@ -4110,7 +4139,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrolwenb_miq6up";
+  var publishId = "pub_mroshx5h_ahh9p1";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
