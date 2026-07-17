@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-17 07:13 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrolphdq_xryl9z */
+/* ARMOR BIKE Storefront — published 2026-07-17 07:18 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrolwenb_miq6up */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -348,6 +348,10 @@
           {
             "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784272375/xpb80hha9k0rbbhpdtuc.png",
             "alt": "VK26-3501C_01_Angle_Blue-Photoroom"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784272578/lxo32o3d71aaki9y9v2v.png",
+            "alt": "test"
           }
         ],
         "productId": "prd_mrolkuoz_hsowod",
@@ -356,7 +360,7 @@
         "ownerUsername": "admin",
         "ownerName": "administrator",
         "createdAt": "2026-07-17T07:09:26.243Z",
-        "updatedAt": "2026-07-17T07:12:59.333Z",
+        "updatedAt": "2026-07-17T07:16:34.622Z",
         "updatedBy": "admin"
       }
     ],
@@ -4106,7 +4110,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrolphdq_xryl9z";
+  var publishId = "pub_mrolwenb_miq6up";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
