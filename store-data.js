@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 05:58 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrstd3ga_fdspp4 */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:02 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsths8o_fb873h */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -385,6 +385,38 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T05:58:20.259Z",
         "updatedAt": "2026-07-20T05:58:20.259Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\" KID'S BIKE",
+        "spec": "MODEL: CB-1024\nSIZE: 12\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: EVA\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "Balance Bikes",
+        "colors": [
+          "#f2599c",
+          "#354871"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527231/crrgecqjfoqa0bwxtkrz.webp",
+            "alt": "12” CB-1024-12-1",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527237/pmsfxsjncnzv1ojtr9nv.webp",
+            "alt": "12” CB-1024-12",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsthowo_4cn2ax",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:02:00.408Z",
+        "updatedAt": "2026-07-20T06:02:00.408Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4168,7 +4200,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrstd3ga_fdspp4";
+  var publishId = "pub_mrsths8o_fb873h";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
