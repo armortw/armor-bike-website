@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 04:26 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsq2ljs_4tubdd */
+/* ARMOR BIKE Storefront — published 2026-07-20 05:58 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrstd3ga_fdspp4 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -333,7 +333,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "16\" KID'S BIKE - BOY",
-        "spec": "",
+        "spec": "MODEL: CB-1012\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
         "badge": "",
         "note": "",
         "leaf": "16\" Wheels",
@@ -353,12 +353,38 @@
           }
         ],
         "productId": "prd_mrsq2dxc_2ymozg",
-        "sourceKey": "",
+        "sourceKey": "prd_mrsq2dxc_2ymozg",
         "ownerId": "1781828237962",
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T04:26:07.488Z",
-        "updatedAt": "2026-07-20T04:26:07.488Z",
+        "updatedAt": "2026-07-20T05:54:14.097Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "16\" KID'S BIKE - BOY ",
+        "spec": "MODEL: CB-1023\nSIZE: 16\"/20\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#cb070d"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527078/wzgbylfzr8r8zb0iyujp.webp",
+            "alt": "16” CB-1023-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrstcz1f_fjd63k",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T05:58:20.259Z",
+        "updatedAt": "2026-07-20T05:58:20.259Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4142,7 +4168,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsq2ljs_4tubdd";
+  var publishId = "pub_mrstd3ga_fdspp4";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
