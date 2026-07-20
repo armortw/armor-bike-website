@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:02 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsths8o_fb873h */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:03 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrstjqyw_q6by00 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -417,6 +417,32 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:02:00.408Z",
         "updatedAt": "2026-07-20T06:02:00.408Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE",
+        "spec": "MODEL: CB-1025\nSIZE: 20\"\nFRAME: STEEL \nFORK: STEEL SUSPESION\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#db0411"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527393/r2j1gfvbgjxalhen4ogy.webp",
+            "alt": "20” CB-1025-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrstjm7c_bmaihs",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:03:30.216Z",
+        "updatedAt": "2026-07-20T06:03:30.216Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4200,7 +4226,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsths8o_fb873h";
+  var publishId = "pub_mrstjqyw_q6by00";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
