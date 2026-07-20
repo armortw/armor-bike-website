@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:11 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrstueed_aw72oy */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:14 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsty9up_97hhxp */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -421,7 +421,7 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "20\" KID'S BIKE",
+        "name": "20\" KID'S BIKE - BOY",
         "spec": "MODEL: CB-1025\nSIZE: 20\"\nFRAME: STEEL \nFORK: STEEL SUSPESION\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
         "badge": "",
         "note": "",
@@ -437,17 +437,17 @@
           }
         ],
         "productId": "prd_mrstjm7c_bmaihs",
-        "sourceKey": "",
+        "sourceKey": "prd_mrstjm7c_bmaihs",
         "ownerId": "1781828237962",
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:03:30.216Z",
-        "updatedAt": "2026-07-20T06:03:30.216Z",
+        "updatedAt": "2026-07-20T06:14:41.817Z",
         "updatedBy": "tatiana"
       },
       {
         "manufacturer": "ARMOR",
-        "name": "20\" KID'S BIKE",
+        "name": "20\" KID'S BIKE - BOY",
         "spec": "MODEL: CB-1026\nSIZE: 20\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
         "badge": "",
         "note": "",
@@ -463,12 +463,38 @@
           }
         ],
         "productId": "prd_mrstub33_jhhvb8",
-        "sourceKey": "",
+        "sourceKey": "prd_mrstub33_jhhvb8",
         "ownerId": "1781828237962",
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:11:49.023Z",
-        "updatedAt": "2026-07-20T06:11:49.023Z",
+        "updatedAt": "2026-07-20T06:14:50.171Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "16\" KID'S BIKE-GIRL",
+        "spec": "MODEL: CB-1027\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#60d4c8"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528047/csyofxkg0pdy1jy9gf4b.webp",
+            "alt": "16” CB-1027-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrstxoej_3b5d9k",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:14:26.251Z",
+        "updatedAt": "2026-07-20T06:14:26.251Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4252,7 +4278,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrstueed_aw72oy";
+  var publishId = "pub_mrsty9up_97hhxp";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
