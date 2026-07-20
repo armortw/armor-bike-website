@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:43 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsuzfar_29qt74 */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:47 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsv3z24_15205r */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -599,6 +599,58 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:43:41.946Z",
         "updatedAt": "2026-07-20T06:43:41.946Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE GIRL",
+        "spec": "MODEL: GS-1001\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#4e2376"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529979/hywkupahjh1b8lxxrgdo.webp",
+            "alt": "16” GS-1001-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsv2x69_0pahm5",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:46:30.513Z",
+        "updatedAt": "2026-07-20T06:46:30.513Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE GIRL",
+        "spec": "MODEL: GS-1002\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#ea9eb5"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530026/buudrrww7xf3jjsgmoty.webp",
+            "alt": "16” GS-1002-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsv3tm0_l8nj0t",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:47:12.552Z",
+        "updatedAt": "2026-07-20T06:47:12.552Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4382,7 +4434,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsuzfar_29qt74";
+  var publishId = "pub_mrsv3z24_15205r";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
