@@ -807,6 +807,153 @@
     return { url: d.secure_url, alt: guessName };
   }
 
+  const CLOUDINARY_IMAGE_MAX_BYTES = 9000000;
+  const CLOUDINARY_IMAGE_MAX_DIMENSION = 4096;
+  const CLOUDINARY_IMAGE_MIN_DIMENSION = 1200;
+
+  function imageBaseName(fileName) {
+    return String(fileName || '').replace(/\.[^.]+$/, '').trim() || 'armor-image-' + Date.now();
+  }
+
+  async function decodeLocalImage(file) {
+    if (typeof createImageBitmap === 'function') {
+      try {
+        const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+        return {
+          source: bitmap,
+          width: bitmap.width,
+          height: bitmap.height,
+          cleanup: () => bitmap.close && bitmap.close()
+        };
+      } catch (err) {
+        console.warn('ImageBitmap 解碼失敗，改用瀏覽器圖片解碼。', err);
+      }
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    try {
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('圖片無法讀取，請確認檔案沒有損毀。'));
+        img.src = objectUrl;
+      });
+      return {
+        source: image,
+        width: image.naturalWidth,
+        height: image.naturalHeight,
+        cleanup: () => URL.revokeObjectURL(objectUrl)
+      };
+    } catch (err) {
+      URL.revokeObjectURL(objectUrl);
+      throw err;
+    }
+  }
+
+  function canvasToWebp(canvas, quality) {
+    return new Promise((resolve, reject) => {
+      const handleBlob = (blob) => {
+        if (!blob) {
+          reject(new Error('瀏覽器無法完成 WebP 轉檔。'));
+          return;
+        }
+        if (blob.type !== "image/webp") {
+          reject(new Error('目前的瀏覽器不支援 WebP 轉檔。'));
+          return;
+        }
+        resolve(blob);
+      };
+      canvas.toBlob(handleBlob, "image/webp", quality);
+    });
+  }
+
+  async function convertImageToWebp(file) {
+    if (!file || !String(file.type || '').startsWith('image/')) {
+      throw new Error('請選擇圖片檔案。');
+    }
+
+    const decoded = await decodeLocalImage(file);
+    try {
+      if (!decoded.width || !decoded.height) throw new Error('無法取得圖片尺寸。');
+
+      let scale = Math.min(1, CLOUDINARY_IMAGE_MAX_DIMENSION / Math.max(decoded.width, decoded.height));
+      let quality = 0.9;
+
+      const render = async () => {
+        const width = Math.max(1, Math.round(decoded.width * scale));
+        const height = Math.max(1, Math.round(decoded.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d', { alpha: true });
+        if (!context) throw new Error('瀏覽器無法建立圖片轉檔畫布。');
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = 'high';
+        context.clearRect(0, 0, width, height);
+        context.drawImage(decoded.source, 0, 0, width, height);
+        return { blob: await canvasToWebp(canvas, quality), width, height };
+      };
+
+      let converted = await render();
+      let blob = converted.blob;
+      while (blob.size > CLOUDINARY_IMAGE_MAX_BYTES && Math.max(converted.width, converted.height) > CLOUDINARY_IMAGE_MIN_DIMENSION) {
+        scale *= 0.85;
+        quality = Math.max(0.7, quality - 0.04);
+        converted = await render();
+        blob = converted.blob;
+      }
+
+      if (blob.size > CLOUDINARY_IMAGE_MAX_BYTES) {
+        throw new Error('圖片轉成 WebP 後仍超過 9 MB，請先降低原圖尺寸後再試。');
+      }
+
+      const baseName = imageBaseName(file.name);
+      return {
+        blob,
+        fileName: baseName + '.webp',
+        alt: baseName,
+        width: converted.width,
+        height: converted.height,
+        originalBytes: file.size
+      };
+    } finally {
+      decoded.cleanup();
+    }
+  }
+
+  async function uploadLocalImageToCloudinary(file, config) {
+    let converted;
+    if (file.type === 'image/gif') {
+      if (file.size > CLOUDINARY_IMAGE_MAX_BYTES) {
+        throw new Error('超過 9 MB 的 GIF 動畫無法自動轉成動態 WebP，請先壓縮後再上傳。');
+      }
+      converted = { blob: file, fileName: file.name, alt: imageBaseName(file.name), originalBytes: file.size };
+    } else if (file.type === 'image/webp' && file.size <= CLOUDINARY_IMAGE_MAX_BYTES) {
+      converted = { blob: file, fileName: file.name, alt: imageBaseName(file.name), originalBytes: file.size };
+    } else {
+      converted = await convertImageToWebp(file);
+    }
+
+    const fd = new FormData();
+    fd.append("file", converted.blob, converted.fileName);
+    fd.append('upload_preset', config.uploadPreset);
+    const uploadUrl = 'https://api.cloudinary.com/v1_1/' + config.cloudName + '/image/upload';
+    const res = await fetch(uploadUrl, { method: 'POST', body: fd });
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok || d.error) {
+      const msg = (d.error && d.error.message) || 'Cloudinary 上傳失敗（HTTP ' + res.status + '）';
+      if (msg.toLowerCase().includes('whitelisted') || msg.toLowerCase().includes('unsigned')) {
+        throw new Error('PRESET_NOT_UNSIGNED');
+      }
+      throw new Error(msg);
+    }
+    return {
+      url: d.secure_url,
+      alt: converted.alt || d.original_filename || d.public_id,
+      format: d.format || (file.type === 'image/gif' ? 'gif' : 'webp')
+    };
+  }
   function PresetErrorMsg() {
     return e('span', null,
       'Upload Preset 未設為 Unsigned。請至 ',
@@ -820,38 +967,78 @@
   // ── Cloudinary Upload Button ───────────────────────────────────────────────
   function CloudinaryUploadButton({ multiple = true, onComplete, children, style }) {
     const [showSetup, setShowSetup] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [progress, setProgress] = useState('');
+    const [uploadError, setUploadError] = useState('');
+    const inputRef = useRef(null);
 
-    const openWidget = (cfg) => {
-      const config = cfg || loadCldConfig();
+    const openPicker = () => {
+      const config = loadCldConfig();
       if (!config.cloudName || !config.uploadPreset) { setShowSetup(true); return; }
-      if (!window.cloudinary) { alert('Cloudinary widget 尚未載入，請稍後再試。'); return; }
-      const collected = [];
-      const widget = window.cloudinary.createUploadWidget({
-        cloudName: config.cloudName,
-        uploadPreset: config.uploadPreset,
-        multiple,
-        sources: ['local', 'url', 'camera'],
-        resourceType: 'image',
-        maxFileSize: 10000000,
-        styles: { palette: { window: '#FFFFFF', windowBorder: '#e2e8f0', tabIcon: BRAND, link: BRAND, action: BRAND, inProgress: BRAND, complete: '#16a34a', error: '#dc2626', textDark: '#16181d', textLight: '#ffffff', menuIcons: '#64748b', sourceBg: '#f8fafc' } }
-      }, (error, result) => {
-        if (error) { console.error('Cloudinary error:', error); return; }
-        if (result.event === 'success') {
-          collected.push({ url: result.info.secure_url, alt: result.info.original_filename || result.info.public_id });
+      if (!uploading && inputRef.current) inputRef.current.click();
+    };
+
+    const uploadFiles = async (event) => {
+      const files = Array.from(event.target.files || []);
+      event.target.value = '';
+      if (!files.length) return;
+
+      const config = loadCldConfig();
+      if (!config.cloudName || !config.uploadPreset) { setShowSetup(true); return; }
+
+      setUploading(true);
+      setUploadError('');
+      const uploaded = [];
+      const failed = [];
+
+      for (let index = 0; index < files.length; index += 1) {
+        setProgress('正在轉換並上傳 ' + (index + 1) + '/' + files.length);
+        try {
+          uploaded.push(await uploadLocalImageToCloudinary(files[index], config));
+        } catch (err) {
+          failed.push(err.message || '未知錯誤');
+          if (err.message === 'PRESET_NOT_UNSIGNED') break;
         }
-        if (result.event === 'close' && collected.length > 0) {
-          onComplete([...collected]);
-        }
-      });
-      widget.open();
+      }
+
+      if (uploaded.length) onComplete(uploaded);
+      if (failed.length) {
+        setUploadError(failed[0] === 'PRESET_NOT_UNSIGNED' ? 'PRESET_NOT_UNSIGNED' : failed.length + ' 張圖片上傳失敗：' + failed[0]);
+      }
+      setProgress(uploaded.length ? '已完成 ' + uploaded.length + ' 張圖片' : '');
+      setUploading(false);
     };
 
     return e(React.Fragment, null,
-      e('button', { onClick: () => openWidget(), style: style || S.btnGhost }, children || '透過 Cloudinary 上傳'),
-      showSetup && e(CloudinarySetupModal, { onClose: () => setShowSetup(false), onSaved: () => { setShowSetup(false); openWidget(loadCldConfig()); } })
+      e('input', {
+        ref: inputRef,
+        type: "file",
+        accept: "image/*",
+        multiple,
+        onChange: uploadFiles,
+        style: { display: 'none' }
+      }),
+      e('button', {
+        type: 'button',
+        onClick: openPicker,
+        disabled: uploading,
+        title: 'JPG、PNG 等靜態圖片會先轉成 WebP；GIF 動畫保留原格式',
+        'aria-busy': uploading,
+        style: { ...(style || S.btnGhost), opacity: uploading ? 0.62 : 1, cursor: uploading ? 'wait' : 'pointer' }
+      }, uploading ? progress : (children || '透過 Cloudinary 上傳')),
+      !uploading && progress && e('span', { role: 'status', style: { display: 'block', marginTop: 6, color: '#15803d', fontSize: 12, fontWeight: 700 } }, progress),
+      uploadError && e('div', { role: 'alert', style: { marginTop: 8, maxWidth: 560, color: '#b91c1c', fontSize: 12, lineHeight: 1.55 } },
+        uploadError === 'PRESET_NOT_UNSIGNED' ? e(PresetErrorMsg) : uploadError
+      ),
+      showSetup && e(CloudinarySetupModal, {
+        onClose: () => setShowSetup(false),
+        onSaved: () => {
+          setShowSetup(false);
+          if (inputRef.current) inputRef.current.click();
+        }
+      })
     );
   }
-
   function ImagesEditor({ images, onChange }) {
     const [urlInput, setUrlInput] = useState('');
     const [uploading, setUploading] = useState(false);
