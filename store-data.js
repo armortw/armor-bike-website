@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:14 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsty9up_97hhxp */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:28 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsuflej_ol3viq */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -495,6 +495,32 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:14:26.251Z",
         "updatedAt": "2026-07-20T06:14:26.251Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12/14/16\" KID'S BIKE - BOY",
+        "spec": "MODEL: CB-1028\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#bc2b85"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528704/w968fj3llynfhwcazptj.webp",
+            "alt": "16” CB-1028-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsueuhk_lq7ec0",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:27:47.288Z",
+        "updatedAt": "2026-07-20T06:27:47.288Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4278,7 +4304,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsty9up_97hhxp";
+  var publishId = "pub_mrsuflej_ol3viq";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
