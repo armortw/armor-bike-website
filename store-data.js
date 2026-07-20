@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:30 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsui7n3_t55c7p */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:43 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsuzfar_29qt74 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -547,6 +547,58 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:30:21.005Z",
         "updatedAt": "2026-07-20T06:30:21.005Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" FOLDING BIKE",
+        "spec": "MODEL: FS-001-20\nSIZE: 20\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 6 SPEED\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Folding",
+        "colors": [
+          "#19adb6"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529731/luyjuoe5bnljdxhfg2w3.webp",
+            "alt": "FS-001-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsuxxb8_3hdx0o",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:42:37.412Z",
+        "updatedAt": "2026-07-20T06:42:37.412Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "14\" FOLDING BIKE",
+        "spec": "MODEL: FS-002-14\nSIZE: 14\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Folding",
+        "colors": [
+          "#f97902"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529814/ozgee3fl8kayosbc7gvy.webp",
+            "alt": "FS-002-14",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsuzb3u_66ox8o",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:43:41.946Z",
+        "updatedAt": "2026-07-20T06:43:41.946Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4330,7 +4382,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsui7n3_t55c7p";
+  var publishId = "pub_mrsuzfar_29qt74";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
