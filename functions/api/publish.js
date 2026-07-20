@@ -167,9 +167,9 @@ function mergeProducts(currentProducts, incomingProducts, publisher, deletions, 
   return Array.from(merged.values());
 }
 
-function mergeImages(currentImages, incomingImages) {
+function mergeImages(currentImages, incomingImages, imageDeletions = []) {
   const merged = new Map();
-  const keyFor = (img) => String((img && (img.id || img.url)) || '');
+  const keyFor = (img) => String((img && (img.url || img.id)) || '');
   for (const img of Array.isArray(currentImages) ? currentImages : []) {
     const key = keyFor(img);
     if (key) merged.set(key, img);
@@ -177,6 +177,13 @@ function mergeImages(currentImages, incomingImages) {
   for (const img of Array.isArray(incomingImages) ? incomingImages : []) {
     const key = keyFor(img);
     if (key) merged.set(key, img);
+  }
+  for (const deletion of Array.isArray(imageDeletions) ? imageDeletions : []) {
+    for (const [key, img] of merged) {
+      const sameUrl = deletion?.url && String(img?.url || '') === String(deletion.url);
+      const sameId = deletion?.id != null && String(img?.id || '') === String(deletion.id);
+      if (sameUrl || sameId) merged.delete(key);
+    }
   }
   return Array.from(merged.values());
 }
@@ -213,8 +220,11 @@ function mergeStoreDataContent(currentContent, incomingContent, incomingData, pu
     ? incomingData
     : parseStoreData(incomingContent);
   const deletions = Array.isArray(incoming.productDeletions) ? incoming.productDeletions : [];
+  const imageDeletions = Array.isArray(incoming.imageDeletions) ? incoming.imageDeletions : [];
   const categories = mergeCategories(current.categories, incoming.categories, publisher, deletions, contentChanges);
-  const images = contentChanges.imagesChanged ? (incoming.images || []) : mergeImages(current.images, incoming.images);
+  const images = contentChanges.imagesChanged
+    ? mergeImages(current.images, incoming.images, imageDeletions)
+    : (current.images || incoming.images || []);
   const badges = contentChanges.badgesChanged ? (incoming.badges || []) : (current.badges || incoming.badges || []);
   const hero = contentChanges.heroChanged ? (incoming.hero || []) : (current.hero || incoming.hero || []);
   let next = incomingContent || currentContent || '';
@@ -283,7 +293,12 @@ export async function onRequestPost({ request, env }) {
         headers,
         body: JSON.stringify(body)
       });
-      if (res.ok) return;
+      if (res.ok) {
+        return {
+          path: file.path,
+          images: file.path === 'store-data.js' ? parseStoreData(content).images : undefined
+        };
+      }
       const detail = await res.text();
       if (res.status === 409 && attempt < 2) continue;
       throw new Error(`Unable to publish ${file.path} (${res.status}): ${detail}`);
@@ -291,13 +306,16 @@ export async function onRequestPost({ request, env }) {
   }
 
   try {
-    for (const file of files) await commitFile(file);
+    const commits = [];
+    for (const file of files) commits.push(await commitFile(file));
+    const storeCommit = commits.find(commit => commit?.path === 'store-data.js');
     return json({
       ok: true,
       repo,
       branch,
       siteUrl: env.CLOUDFLARE_PAGES_URL || env.PUBLIC_SITE_URL || env.SITE_URL || DEFAULTS.siteUrl,
-      files: files.map(f => f.path)
+      files: files.map(f => f.path),
+      ...(storeCommit ? { images: storeCommit.images } : {})
     });
   } catch (err) {
     return text(err.message || 'Publish failed', 500);

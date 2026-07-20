@@ -144,12 +144,79 @@
     return { users: total };
   };
 
+  function stableImageId(url) {
+    let hash = 2166136261;
+    const value = String(url || '');
+    for (let i = 0; i < value.length; i += 1) {
+      hash ^= value.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return `ref-${(hash >>> 0).toString(36)}`;
+  }
+
+  function mergeLibraryImages(...groups) {
+    const merged = new Map();
+    groups.flat().forEach((raw) => {
+      if (!raw?.url) return;
+      const img = { ...raw, id: raw.id || stableImageId(raw.url) };
+      const key = String(img.url);
+      const current = merged.get(key);
+      if (!current) {
+        merged.set(key, img);
+        return;
+      }
+      const searchValues = (field) => Array.from(new Set([current[field], img[field]].filter(Boolean))).join(' / ');
+      merged.set(key, {
+        ...img,
+        ...current,
+        productName: searchValues('productName'),
+        categoryName: searchValues('categoryName')
+      });
+    });
+    return Array.from(merged.values());
+  }
+
+  function collectReferencedImages(data) {
+    const referenced = [];
+    (data.categories || []).forEach((category) => {
+      (category.products || []).forEach((product) => {
+        (product.images || []).forEach((img) => {
+          if (!img?.url) return;
+          referenced.push({
+            ...img,
+            id: img.id || stableImageId(img.url),
+            source: 'product-reference',
+            productName: product.name || product.productId || '',
+            categoryName: category.label || category.id || ''
+          });
+        });
+      });
+    });
+    (data.hero || []).forEach((img) => {
+      if (!img?.url) return;
+      referenced.push({ ...img, id: img.id || stableImageId(img.url), source: 'hero-reference', categoryName: 'Hero' });
+    });
+    return mergeLibraryImages(referenced);
+  }
+
+  function imageSearchText(img) {
+    const fileName = String(img?.url || '').split('?')[0].split('/').pop() || '';
+    return [img?.alt, fileName, img?.url, img?.productName, img?.categoryName]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+  }
+
   function getInitialData() {
+    const categories = JSON.parse(JSON.stringify(window.STORE.categories || []));
+    const hero = JSON.parse(JSON.stringify(window.STORE.hero || []));
+    const libraryImages = JSON.parse(JSON.stringify(window.STORE.images || []));
     return {
-      categories: JSON.parse(JSON.stringify(window.STORE.categories)),
-      images: JSON.parse(JSON.stringify(window.STORE.images || [])),
+      categories,
+      images: mergeLibraryImages(libraryImages, collectReferencedImages({ categories, hero })),
       badges: JSON.parse(JSON.stringify(window.STORE.badges || [])),
-      hero: JSON.parse(JSON.stringify(window.STORE.hero || []))
+      hero,
+      imageDeletions: []
     };
   }
 
@@ -281,7 +348,7 @@
     }
     const result = await res.json().catch(() => ({}));
     await waitForStoreDataPublish(result.siteUrl || github.siteUrl || GITHUB_DEFAULTS.siteUrl, publishId);
-    return publishId;
+    return Array.isArray(result.images) ? result.images : null;
   }
   // ── shared styles ─────────────────────────────────────────────────────────
   const S = {
@@ -423,20 +490,22 @@
       ...(user.role === 'admin' ? [{ id: 'users', icon: '◉', label: '使用者' }] : []),
       { id: 'settings', icon: '⚙', label: '設定' },
     ];
-    return e('aside', { style: { width: 230, background: '#0f172a', height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', flexShrink: 0, overflowY: 'auto' } },
-      e('div', { style: { padding: '22px 20px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' } },
-        e('div', { style: { fontSize: 17, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' } }, 'ARMOR BIKE'),
-        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' } }, '後台管理')
+    return e('aside', { className: 'admin-sidebar', style: { width: 230, background: '#0f172a', height: '100vh', maxHeight: '100vh', display: 'flex', flexDirection: 'column', flexShrink: 0, overflowY: 'auto' } },
+      e('div', { className: 'admin-sidebar-brand', style: { padding: '22px 20px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' } },
+        e('div', { className: 'admin-sidebar-title', style: { fontSize: 17, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' } }, 'ARMOR BIKE'),
+        e('div', { className: 'admin-sidebar-subtitle', style: { fontSize: 11, color: '#475569', marginTop: 2, letterSpacing: '0.06em', textTransform: 'uppercase' } }, '後台管理')
       ),
       e('nav', { style: { flex: 1, padding: '12px 10px' } },
         nav.map(item => e('button', {
-          key: item.id, onClick: () => setSection(item.id),
+          key: item.id, onClick: () => setSection(item.id), title: item.label, 'aria-label': item.label,
           style: { display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'left', padding: '9px 14px', background: section === item.id ? BRAND : 'none', border: 'none', borderRadius: 8, cursor: 'pointer', color: section === item.id ? '#fff' : '#94a3b8', fontSize: 13, fontWeight: section === item.id ? 700 : 500, marginBottom: 2 }
-        }, e('span', { style: { fontSize: 15 } }, item.icon), item.label))
+        }, e('span', { className: 'admin-nav-icon', style: { fontSize: 15 } }, item.icon), e('span', { className: 'admin-nav-label' }, item.label)))
       ),
-      e('div', { style: { padding: '14px 18px', borderTop: '1px solid rgba(255,255,255,.07)' } },
-        e('div', { style: { fontSize: 13, fontWeight: 600, color: '#e2e8f0' } }, user.name),
-        e('div', { style: { fontSize: 11, color: '#475569', marginTop: 1, letterSpacing: '0.05em' } }, roleLabel(user.role)),
+      e('div', { className: 'admin-sidebar-user', style: { padding: '14px 18px', borderTop: '1px solid rgba(255,255,255,.07)' } },
+        e('div', { className: 'admin-sidebar-user-info' },
+          e('div', { style: { fontSize: 13, fontWeight: 600, color: '#e2e8f0' } }, user.name),
+          e('div', { style: { fontSize: 11, color: '#475569', marginTop: 1, letterSpacing: '0.05em' } }, roleLabel(user.role))
+        ),
         e('button', { onClick: onLogout, style: { marginTop: 10, padding: '5px 12px', background: 'rgba(255,255,255,.06)', border: 'none', borderRadius: 6, color: '#64748b', fontSize: 12, cursor: 'pointer', width: '100%' } }, '登出')
       )
     );
@@ -1655,7 +1724,7 @@
   }
 
   // ── Image Library ─────────────────────────────────────────────────────────
-  function ImageLibrary({ data, setData }) {
+  function ImageLibrary({ data, setData, user }) {
     const images = data.images || [];
     const [url, setUrl] = useState('');
     const [alt, setAlt] = useState('');
@@ -1663,6 +1732,45 @@
     const [urlUploading, setUrlUploading] = useState(false);
     const [urlErr, setUrlErr] = useState('');
     const [urlPresetErr, setUrlPresetErr] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [saveStatus, setSaveStatus] = useState('idle');
+    const [saveError, setSaveError] = useState('');
+    const saveSequence = useRef(0);
+    const referencedUrls = useMemo(
+      () => new Set(collectReferencedImages(data).map(img => img.url)),
+      [data.categories, data.hero]
+    );
+    const normalizedSearch = searchQuery.trim().toLowerCase();
+    const filteredImages = normalizedSearch
+      ? images.filter(img => imageSearchText(img).includes(normalizedSearch))
+      : images;
+
+    async function saveLibraryImages(nextImages, additions = [], deletions = []) {
+      const requestId = ++saveSequence.current;
+      const nextData = { ...data, images: nextImages, imageDeletions: deletions };
+      setData(nextData);
+      setSaveStatus('saving');
+      setSaveError('');
+      try {
+        const cloudImages = await publishImageLibraryData({
+          images: additions,
+          imageDeletions: deletions
+        }, user);
+        if (requestId !== saveSequence.current) return;
+        const deletedUrls = new Set(deletions.map(item => String(item?.url || '')).filter(Boolean));
+        const deletedIds = new Set(deletions.map(item => String(item?.id ?? '')).filter(Boolean));
+        const persistedImages = (Array.isArray(cloudImages) ? cloudImages : nextImages)
+          .filter(img => !deletedUrls.has(String(img?.url || '')) && !deletedIds.has(String(img?.id ?? '')));
+        const completeImages = mergeLibraryImages(persistedImages, nextImages, collectReferencedImages(nextData));
+        window.STORE.images = persistedImages;
+        setData({ ...nextData, images: completeImages, imageDeletions: [] });
+        setSaveStatus('saved');
+      } catch (err) {
+        if (requestId !== saveSequence.current) return;
+        setSaveStatus('error');
+        setSaveError(err.message || '圖片庫同步失敗，請稍後再試。');
+      }
+    }
 
     const addUrl = async () => {
       const raw = url.trim();
@@ -1671,12 +1779,14 @@
       setUrlUploading(true);
       try {
         const img = await uploadToCloudinaryByUrl(raw);
-        setData({ ...data, images: [...images, { id: Date.now(), url: img.url, alt: alt.trim() || img.alt, source: 'cloudinary' }] });
+        const addition = { id: Date.now(), url: img.url, alt: alt.trim() || img.alt, source: 'cloudinary' };
+        await saveLibraryImages(mergeLibraryImages(images, [addition]), [addition]);
         setUrl(''); setAlt('');
       } catch (err) {
         if (err.message === 'NOCFG') {
           const guessAlt = alt.trim() || raw.split('?')[0].split('/').pop().replace(/\.[^.]+$/, '') || 'image';
-          setData({ ...data, images: [...images, { id: Date.now(), url: raw, alt: guessAlt, source: 'url' }] });
+          const addition = { id: Date.now(), url: raw, alt: guessAlt, source: 'url' };
+          await saveLibraryImages(mergeLibraryImages(images, [addition]), [addition]);
           setUrl(''); setAlt('');
         } else if (err.message === 'PRESET_NOT_UNSIGNED') {
           setUrlPresetErr(true);
@@ -1692,14 +1802,19 @@
       navigator.clipboard.writeText(img.url).then(() => { setCopied(img.id); setTimeout(() => setCopied(null), 1800); });
     };
 
-    const del = (id) => { if (confirm('確定刪除這張圖片嗎？')) setData({ ...data, images: images.filter(x => x.id !== id) }); };
+    const del = (img) => {
+      if (referencedUrls.has(img.url)) return;
+      if (!confirm('確定從圖片庫刪除這張圖片嗎？')) return;
+      const nextImages = images.filter(x => x.url !== img.url);
+      saveLibraryImages(nextImages, [], [{ id: img.id, url: img.url }]);
+    };
 
     const cldConfig = loadCldConfig();
     const isConfigured = !!(cldConfig.cloudName && cldConfig.uploadPreset);
 
     return e('div', null,
       e('h1', { style: S.heading }, '圖片庫'),
-      e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 24 } },
+      e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: 18, marginBottom: 24 } },
         // Cloudinary upload
         e('div', { style: S.card },
           e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 } },
@@ -1711,7 +1826,10 @@
           e('p', { style: { margin: '0 0 16px', fontSize: 13, color: '#64748b' } }, '圖片上傳至 Cloudinary CDN，只儲存 URL，無容量限制。'),
           e(CloudinaryUploadButton, {
             multiple: true,
-            onComplete: (newImgs) => setData({ ...data, images: [...images, ...newImgs.map(img => ({ ...img, id: Date.now() + Math.random(), source: 'cloudinary' }))] }),
+            onComplete: (newImgs) => {
+              const additions = newImgs.map(img => ({ ...img, id: Date.now() + Math.random(), source: 'cloudinary' }));
+              saveLibraryImages(mergeLibraryImages(images, additions), additions);
+            },
             style: { ...S.btnPrimary, width: '100%', padding: '12px', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }
           },
             e('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
@@ -1738,24 +1856,59 @@
         )
       ),
       e('div', { style: { ...S.card } },
-        e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 } },
-          e('span', { style: { fontWeight: 700, fontSize: 15 } }, `圖片庫  ·  ${images.length} 張圖片`),
+        e('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, marginBottom: 18, flexWrap: 'wrap' } },
+          e('div', null,
+            e('span', { style: { display: 'block', fontWeight: 800, fontSize: 15, color: '#172033' } }, `圖片庫  ·  ${images.length} 張圖片`),
+            normalizedSearch && e('span', { style: { display: 'block', marginTop: 4, color: '#64748b', fontSize: 12 } }, `找到 ${filteredImages.length} 張符合結果`),
+            saveStatus === 'saving' && e('span', { style: { display: 'block', marginTop: 4, color: '#9a6700', fontSize: 12, fontWeight: 700 } }, '儲存至雲端中'),
+            saveStatus === 'saved' && e('span', { style: { display: 'block', marginTop: 4, color: '#16803c', fontSize: 12, fontWeight: 700 } }, '已同步至雲端'),
+            saveStatus === 'error' && e('span', { style: { display: 'block', marginTop: 4, color: '#c62828', fontSize: 12, fontWeight: 700 } }, saveError)
+          ),
+          e('div', { style: { position: 'relative', width: 360, maxWidth: '100%' } },
+            e('input', {
+              type: 'search',
+              value: searchQuery,
+              onChange: ev => setSearchQuery(ev.target.value),
+              placeholder: '搜尋圖片名稱、產品或網址',
+              'aria-label': '搜尋圖片庫',
+              style: { ...S.input, height: 42, padding: searchQuery ? '9px 42px 9px 14px' : '9px 14px', background: '#f8fafc', borderColor: '#cbd5e1' }
+            }),
+            searchQuery && e('button', {
+              type: 'button',
+              onClick: () => setSearchQuery(''),
+              title: '清除搜尋',
+              'aria-label': '清除搜尋',
+              style: { position: 'absolute', right: 7, top: 6, width: 30, height: 30, border: 0, borderRadius: 6, background: '#e8eef5', color: '#475569', fontSize: 18, lineHeight: 1, cursor: 'pointer' }
+            }, '×')
+          )
         ),
         images.length === 0
           ? e('div', { style: { textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14 } }, '尚無圖片。請從上方上傳或貼上圖片 URL。')
-          : e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 14 } },
-              images.map(img => e('div', { key: img.id, style: { background: '#f8fafc', borderRadius: 10, overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,.06)' } },
-                e('div', { style: { height: 110, overflow: 'hidden', background: '#e2e8f0' } },
-                  e('img', { src: img.url, alt: img.alt, style: { width: '100%', height: '100%', objectFit: 'cover' }, onError: ev => { ev.target.style.display = 'none'; } })
+          : filteredImages.length === 0
+            ? e('div', { style: { textAlign: 'center', padding: '44px 16px', color: '#64748b', fontSize: 14, background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: 8 } }, '找不到符合搜尋條件的圖片。')
+            : e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(160px,1fr))', gap: 14 } },
+              filteredImages.map(img => {
+                const isReferenced = referencedUrls.has(img.url);
+                const displayName = img.alt || String(img.url || '').split('?')[0].split('/').pop() || '未命名圖片';
+                return e('div', { key: img.url || img.id, style: { minWidth: 0, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden', boxShadow: '0 5px 16px rgba(30,64,175,.07)' } },
+                e('div', { style: { height: 124, overflow: 'hidden', background: '#fff' } },
+                  e('img', { src: img.url, alt: displayName, loading: 'lazy', style: { width: '100%', height: '100%', objectFit: 'contain' }, onError: ev => { ev.target.style.display = 'none'; } })
                 ),
                 e('div', { style: { padding: '8px 10px' } },
-                  e('div', { style: { fontSize: 11, color: '#374151', fontWeight: 500, marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, img.alt),
+                  e('div', { title: displayName, style: { fontSize: 11, color: '#263247', fontWeight: 700, marginBottom: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, displayName),
+                  (img.productName || img.categoryName) && e('div', { title: [img.categoryName, img.productName].filter(Boolean).join(' / '), style: { fontSize: 10, color: '#64748b', marginBottom: 7, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, [img.categoryName, img.productName].filter(Boolean).join(' / ')),
                   e('div', { style: { display: 'flex', gap: 5 } },
-                    e('button', { onClick: () => copy(img), style: { ...S.btnSm, fontSize: 11, flex: 1, background: copied === img.id ? '#dcfce7' : undefined, color: copied === img.id ? '#16a34a' : undefined } }, copied === img.id ? '✓ 已複製' : '📋 URL'),
-                    e('button', { onClick: () => del(img.id), style: { ...S.btnDanger, fontSize: 11 } }, '🗑')
+                    e('button', { onClick: () => copy(img), style: { ...S.btnSm, fontSize: 11, flex: 1, background: copied === img.id ? '#dcfce7' : undefined, color: copied === img.id ? '#16803c' : undefined } }, copied === img.id ? '已複製' : '複製網址'),
+                    e('button', {
+                      onClick: () => del(img),
+                      disabled: isReferenced || saveStatus === 'saving',
+                      title: isReferenced ? '產品或 Hero 使用中，請先移除引用' : '從圖片庫刪除',
+                      style: { ...S.btnDanger, fontSize: 11, opacity: isReferenced || saveStatus === 'saving' ? 0.42 : 1, cursor: isReferenced || saveStatus === 'saving' ? 'not-allowed' : 'pointer' }
+                    }, '刪除')
                   )
                 )
-              ))
+              );
+            })
             )
       )
     );
@@ -2787,7 +2940,7 @@
       filters: e(FiltersManager, { data, setData }),
       products: e(ProductsManager, { data, setData, user }),
       badges: e(BadgesManager, { data, setData }),
-      images: e(ImageLibrary, { data, setData }),
+      images: e(ImageLibrary, { data, setData, user }),
       users: user.role === 'admin' ? e(UsersManager) : e('div', null, e('p', null, '沒有權限')),
       settings: e(SettingsManager, { data }),
     };
@@ -2796,28 +2949,29 @@
       e(Sidebar, { section, setSection, user, onLogout }),
       e('div', { style: { flex: 1, minWidth: 0, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' } },
         // topbar
-        e('div', { style: { background: '#2b40b5', borderBottom: '1px solid rgba(255,255,255,.18)', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 120 } },
-          e('span', { style: { fontSize: 13, color: 'rgba(255,255,255,.82)', fontWeight: 700 } }, 'ARMOR BIKE  ·  後台管理系統'),
-          e('div', { style: { display: 'flex', gap: 10, alignItems: 'center' } },
-            saved ? e('span', { style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
-            e('button', { onClick: () => setShowPublish(true), style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)' } }, '📦 發布'),
-            e('a', { href: 'index.html', target: '_blank', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)' } }, '👁 預覽前台'),
+        e('div', { className: 'admin-topbar', style: { background: '#2b40b5', borderBottom: '1px solid rgba(255,255,255,.18)', padding: '0 20px 0 28px', height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, position: 'sticky', top: 0, zIndex: 120 } },
+          e('span', { className: 'admin-topbar-title', style: { fontSize: 13, color: 'rgba(255,255,255,.82)', fontWeight: 700 } }, 'ARMOR BIKE  ·  後台管理系統'),
+          e('div', { className: 'admin-topbar-actions', style: { display: 'flex', gap: 10, alignItems: 'center' } },
+            saved ? e('span', { className: 'admin-save-indicator', style: { fontSize: 12, color: '#16a34a', fontWeight: 700 } }, saved) : null,
+            e('button', { className: 'admin-action-button', onClick: () => setShowPublish(true), title: '發布', 'aria-label': '發布', style: { ...S.btnGhost, fontSize: 12, padding: '6px 14px', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5 } }, e('span', { 'aria-hidden': true }, '📦'), e('span', { className: 'admin-action-label' }, '發布')),
+            e('a', { className: 'admin-action-button', href: 'index.html', target: '_blank', title: '預覽前台', 'aria-label': '預覽前台', style: { ...S.btnPrimary, fontSize: 12, padding: '6px 14px', textDecoration: 'none', background: '#fff', color: '#2b40b5', border: '1px solid rgba(255,255,255,.72)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5 } }, e('span', { 'aria-hidden': true }, '👁'), e('span', { className: 'admin-action-label' }, '預覽前台')),
             // ── user avatar button ──
             e('button', {
               onClick: () => setShowProfile(v => !v),
               title: user.name || user.username,
+              className: 'admin-user-button',
               style: { display: 'flex', alignItems: 'center', gap: 8, background: showProfile ? 'rgba(255,255,255,.18)' : 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 30, padding: '4px 10px 4px 4px', cursor: 'pointer', transition: 'background-color .12s, border-color .12s, color .12s, transform .12s, opacity .12s' }
             },
               e(UserAvatar, { user, size: 30, fontSize: 12 }),
-              e('span', { style: { fontSize: 13, fontWeight: 700, color: '#ffffff', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
-              e('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'rgba(255,255,255,.76)', strokeWidth: 2.5, strokeLinecap: 'round', style: { transition: 'transform .15s', transform: showProfile ? 'rotate(180deg)' : 'none', flexShrink: 0 } },
+              e('span', { className: 'admin-user-name', style: { fontSize: 13, fontWeight: 700, color: '#ffffff', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, user.name || user.username),
+              e('svg', { className: 'admin-user-chevron', width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'rgba(255,255,255,.76)', strokeWidth: 2.5, strokeLinecap: 'round', style: { transition: 'transform .15s', transform: showProfile ? 'rotate(180deg)' : 'none', flexShrink: 0 } },
                 e('polyline', { points: '6 9 12 15 18 9' })
               )
             )
           )
         ),
         // content
-        e('div', { style: { flex: 1, minHeight: 0, overflowY: 'auto', padding: '28px 32px' } }, sections[section] || sections.dashboard)
+        e('div', { className: 'admin-content', style: { flex: 1, minHeight: 0, overflowY: 'auto', padding: '28px 32px' } }, sections[section] || sections.dashboard)
       ),
       showPublish && e(PublishModal, { data, user, onClose: () => setShowPublish(false), goToSettings: () => { setShowPublish(false); setSection('settings'); } }),
       showProfile && e(UserProfilePanel, { user, onLogout, onClose: () => setShowProfile(false), onUpdateUser })

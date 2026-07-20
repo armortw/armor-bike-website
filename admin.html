@@ -9,6 +9,30 @@
 <style>
   html, body { margin: 0; padding: 0; background: #f0f4f8; }
   * { box-sizing: border-box; }
+  @media (max-width: 800px) {
+    .admin-sidebar { width: 68px !important; }
+    .admin-sidebar-brand { padding: 18px 8px 15px !important; text-align: center; }
+    .admin-sidebar-title { font-size: 0 !important; letter-spacing: 0 !important; }
+    .admin-sidebar-title::after { content: "AB"; font-size: 15px; letter-spacing: 0; }
+    .admin-sidebar-subtitle,
+    .admin-nav-label,
+    .admin-sidebar-user-info { display: none !important; }
+    .admin-sidebar nav { padding: 10px 7px !important; }
+    .admin-sidebar nav button { justify-content: center !important; gap: 0 !important; padding: 10px 6px !important; }
+    .admin-nav-icon { font-size: 17px !important; }
+    .admin-sidebar-user { padding: 10px 7px !important; }
+    .admin-sidebar-user button { margin-top: 0 !important; padding: 7px 2px !important; font-size: 10px !important; }
+    .admin-topbar { padding: 0 10px !important; }
+    .admin-topbar-title,
+    .admin-action-label,
+    .admin-user-name,
+    .admin-user-chevron,
+    .admin-save-indicator { display: none !important; }
+    .admin-topbar-actions { width: 100%; justify-content: flex-end; gap: 6px !important; }
+    .admin-action-button { width: 36px; height: 36px; padding: 0 !important; }
+    .admin-user-button { padding: 3px !important; gap: 0 !important; }
+    .admin-content { padding: 20px 14px !important; }
+  }
 </style>
 </head>
 <body>
