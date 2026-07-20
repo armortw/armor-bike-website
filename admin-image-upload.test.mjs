@@ -27,3 +27,11 @@ test("the admin upload button uses a local file picker instead of the widget siz
   assert.match(source, /accept: "image\/\*"/);
   assert.doesNotMatch(source, /maxFileSize:\s*10000000/);
 });
+test("the local uploader restores a drag-and-drop modal", () => {
+  assert.match(source, /拖放圖片到此處/);
+  assert.match(source, /onDragOver:/);
+  assert.match(source, /onDragLeave:/);
+  assert.match(source, /onDrop:/);
+  assert.match(source, /dataTransfer\.files/);
+  assert.match(source, /setShowUploader\(true\)/);
+});

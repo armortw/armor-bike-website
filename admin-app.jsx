@@ -967,46 +967,93 @@
   // ── Cloudinary Upload Button ───────────────────────────────────────────────
   function CloudinaryUploadButton({ multiple = true, onComplete, children, style }) {
     const [showSetup, setShowSetup] = useState(false);
+    const [showUploader, setShowUploader] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [dragging, setDragging] = useState(false);
     const [progress, setProgress] = useState('');
+    const [progressValue, setProgressValue] = useState(0);
     const [uploadError, setUploadError] = useState('');
     const inputRef = useRef(null);
 
-    const openPicker = () => {
+    const resetUploadState = () => {
+      setDragging(false);
+      setProgress('');
+      setProgressValue(0);
+      setUploadError('');
+    };
+
+    const closeUploader = () => {
+      if (uploading) return;
+      setShowUploader(false);
+      resetUploadState();
+    };
+
+    const openUploader = () => {
       const config = loadCldConfig();
       if (!config.cloudName || !config.uploadPreset) { setShowSetup(true); return; }
+      resetUploadState();
+      setShowUploader(true);
+    };
+
+    const chooseFiles = () => {
       if (!uploading && inputRef.current) inputRef.current.click();
     };
 
-    const uploadFiles = async (event) => {
-      const files = Array.from(event.target.files || []);
-      event.target.value = '';
-      if (!files.length) return;
+    const processFiles = async (fileList) => {
+      let files = Array.from(fileList || []).filter(file => String(file.type || '').startsWith('image/'));
+      if (!multiple) files = files.slice(0, 1);
+      if (!files.length) {
+        setUploadError('請拖放或選擇圖片檔案。');
+        return;
+      }
 
       const config = loadCldConfig();
-      if (!config.cloudName || !config.uploadPreset) { setShowSetup(true); return; }
+      if (!config.cloudName || !config.uploadPreset) {
+        setShowUploader(false);
+        setShowSetup(true);
+        return;
+      }
 
       setUploading(true);
+      setDragging(false);
       setUploadError('');
+      setProgressValue(0);
       const uploaded = [];
       const failed = [];
 
-      for (let index = 0; index < files.length; index += 1) {
-        setProgress('正在轉換並上傳 ' + (index + 1) + '/' + files.length);
-        try {
-          uploaded.push(await uploadLocalImageToCloudinary(files[index], config));
-        } catch (err) {
-          failed.push(err.message || '未知錯誤');
-          if (err.message === 'PRESET_NOT_UNSIGNED') break;
+      try {
+        for (let index = 0; index < files.length; index += 1) {
+          setProgress('正在轉換並上傳 ' + (index + 1) + '/' + files.length);
+          setProgressValue(Math.round(index / files.length * 100));
+          try {
+            uploaded.push(await uploadLocalImageToCloudinary(files[index], config));
+          } catch (err) {
+            failed.push(err.message || '未知錯誤');
+            if (err.message === 'PRESET_NOT_UNSIGNED') break;
+          }
+          setProgressValue(Math.round((index + 1) / files.length * 100));
         }
-      }
 
-      if (uploaded.length) onComplete(uploaded);
-      if (failed.length) {
-        setUploadError(failed[0] === 'PRESET_NOT_UNSIGNED' ? 'PRESET_NOT_UNSIGNED' : failed.length + ' 張圖片上傳失敗：' + failed[0]);
+        if (uploaded.length) onComplete(uploaded);
+        if (failed.length) {
+          setUploadError(failed[0] === 'PRESET_NOT_UNSIGNED' ? 'PRESET_NOT_UNSIGNED' : failed.length + ' 張圖片上傳失敗：' + failed[0]);
+        }
+        setProgress(uploaded.length ? '已完成 ' + uploaded.length + ' 張圖片' : '');
+      } finally {
+        setUploading(false);
       }
-      setProgress(uploaded.length ? '已完成 ' + uploaded.length + ' 張圖片' : '');
-      setUploading(false);
+    };
+
+    const handleInputChange = (event) => {
+      const files = Array.from(event.target.files || []);
+      event.target.value = '';
+      processFiles(files);
+    };
+
+    const handleDrop = (event) => {
+      event.preventDefault();
+      setDragging(false);
+      if (!uploading) processFiles(event.dataTransfer.files);
     };
 
     return e(React.Fragment, null,
@@ -1015,26 +1062,121 @@
         type: "file",
         accept: "image/*",
         multiple,
-        onChange: uploadFiles,
+        onChange: handleInputChange,
         style: { display: 'none' }
       }),
       e('button', {
         type: 'button',
-        onClick: openPicker,
+        onClick: openUploader,
         disabled: uploading,
         title: 'JPG、PNG 等靜態圖片會先轉成 WebP；GIF 動畫保留原格式',
         'aria-busy': uploading,
         style: { ...(style || S.btnGhost), opacity: uploading ? 0.62 : 1, cursor: uploading ? 'wait' : 'pointer' }
       }, uploading ? progress : (children || '透過 Cloudinary 上傳')),
-      !uploading && progress && e('span', { role: 'status', style: { display: 'block', marginTop: 6, color: '#15803d', fontSize: 12, fontWeight: 700 } }, progress),
-      uploadError && e('div', { role: 'alert', style: { marginTop: 8, maxWidth: 560, color: '#b91c1c', fontSize: 12, lineHeight: 1.55 } },
-        uploadError === 'PRESET_NOT_UNSIGNED' ? e(PresetErrorMsg) : uploadError
+      showUploader && e(Modal, { title: '本機上傳圖片', onClose: closeUploader, width: 620 },
+        e('div', {
+          role: 'button',
+          tabIndex: uploading ? -1 : 0,
+          'aria-disabled': uploading,
+          'aria-label': '拖放圖片到此處，或按一下選擇圖片',
+          onClick: chooseFiles,
+          onKeyDown: event => {
+            if (!uploading && (event.key === 'Enter' || event.key === ' ')) {
+              event.preventDefault();
+              chooseFiles();
+            }
+          },
+          onDragEnter: event => {
+            event.preventDefault();
+            if (!uploading) setDragging(true);
+          },
+          onDragOver: event => {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+            if (!uploading) setDragging(true);
+          },
+          onDragLeave: event => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setDragging(false);
+          },
+          onDrop: handleDrop,
+          style: {
+            minHeight: 238,
+            padding: '32px 22px',
+            boxSizing: 'border-box',
+            border: dragging ? '2px solid ' + BRAND : '2px dashed #7dd3fc',
+            borderRadius: 8,
+            background: dragging ? '#e0f2fe' : '#f8fbff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            cursor: uploading ? 'wait' : 'pointer'
+          }
+        },
+          e('div', {
+            'aria-hidden': true,
+            style: {
+              width: 58,
+              height: 58,
+              borderRadius: '50%',
+              display: 'grid',
+              placeItems: 'center',
+              background: dragging ? '#fff' : '#e0f2fe',
+              color: BRAND,
+              fontSize: 34,
+              fontWeight: 500,
+              lineHeight: 1,
+              marginBottom: 16
+            }
+          }, uploading ? '···' : '↑'),
+          e('div', { style: { color: '#0f172a', fontSize: 19, fontWeight: 800, marginBottom: 7 } },
+            uploading ? progress : '拖放圖片到此處'
+          ),
+          e('div', { style: { color: '#64748b', fontSize: 13, lineHeight: 1.65, marginBottom: 18 } },
+            uploading ? '圖片正在記憶體中轉成 WebP，請勿關閉視窗。' : '支援 JPG、PNG、WebP 與 GIF，也可以按一下選擇本機檔案。'
+          ),
+          !uploading && e('button', {
+            type: 'button',
+            onClick: event => {
+              event.stopPropagation();
+              chooseFiles();
+            },
+            style: { ...S.btnPrimary, minWidth: 138 }
+          }, '選擇圖片')
+        ),
+        (uploading || progressValue > 0) && e('div', { style: { marginTop: 18 } },
+          e('div', { style: { height: 8, borderRadius: 4, overflow: 'hidden', background: '#e2e8f0' } },
+            e('div', {
+              style: {
+                width: Math.max(uploading ? 6 : 0, progressValue) + '%',
+                height: '100%',
+                borderRadius: 4,
+                background: BRAND,
+                transformOrigin: 'left center'
+              }
+            })
+          ),
+          e('div', { role: 'status', style: { marginTop: 8, color: uploading ? '#334155' : '#15803d', fontSize: 12, fontWeight: 700 } }, progress)
+        ),
+        uploadError && e('div', { role: 'alert', style: { marginTop: 14, padding: '10px 12px', borderRadius: 8, background: '#fef2f2', color: '#b91c1c', fontSize: 12, lineHeight: 1.55 } },
+          uploadError === 'PRESET_NOT_UNSIGNED' ? e(PresetErrorMsg) : uploadError
+        ),
+        e('div', { style: { display: 'flex', justifyContent: 'flex-end', marginTop: 20 } },
+          e('button', {
+            type: 'button',
+            onClick: closeUploader,
+            disabled: uploading,
+            style: { ...S.btnGhost, opacity: uploading ? 0.55 : 1, cursor: uploading ? 'not-allowed' : 'pointer' }
+          }, progress && !uploading ? '完成' : '關閉')
+        )
       ),
       showSetup && e(CloudinarySetupModal, {
         onClose: () => setShowSetup(false),
         onSaved: () => {
           setShowSetup(false);
-          if (inputRef.current) inputRef.current.click();
+          resetUploadState();
+          setShowUploader(true);
         }
       })
     );
