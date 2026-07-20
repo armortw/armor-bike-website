@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:47 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsv3z24_15205r */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:54 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsvdgbg_pinpbo */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -651,6 +651,58 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:47:12.552Z",
         "updatedAt": "2026-07-20T06:47:12.552Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE GIRL",
+        "spec": "MODEL: GSA-1003\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#e3077e"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530400/gsvs52ul7vnwvaahrjte.webp",
+            "alt": "16” GSA-1003-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsvbu2v_74cfro",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:53:26.407Z",
+        "updatedAt": "2026-07-20T06:53:26.407Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\" PUSH BIKE GIRL",
+        "spec": "MODEL: GSA-1004\nSIZE: 12\"\nFRAME: ALLOY\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "Balance Bikes",
+        "colors": [
+          "#e3a7a7"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530468/z4gnjqvptfaoqxi55zqf.webp",
+            "alt": "12” GSA-1004-12",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsvddrw_lxaxwa",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:54:38.588Z",
+        "updatedAt": "2026-07-20T06:54:38.588Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4434,7 +4486,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsv3z24_15205r";
+  var publishId = "pub_mrsvdgbg_pinpbo";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
