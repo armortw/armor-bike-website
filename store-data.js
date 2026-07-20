@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:28 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsuflej_ol3viq */
+/* ARMOR BIKE Storefront — published 2026-07-20 06:30 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsui7n3_t55c7p */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -332,7 +332,7 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "16\" KID'S BIKE - BOY",
+        "name": "12\"/14\"/16\" KID'S BIKE - BOY",
         "spec": "MODEL: CB-1012\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
         "badge": "",
         "note": "",
@@ -358,7 +358,7 @@
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T04:26:07.488Z",
-        "updatedAt": "2026-07-20T05:54:14.097Z",
+        "updatedAt": "2026-07-20T06:29:40.539Z",
         "updatedBy": "tatiana"
       },
       {
@@ -473,7 +473,7 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "16\" KID'S BIKE-GIRL",
+        "name": "12\"/14\"/16\" KID'S BIKE-GIRL",
         "spec": "MODEL: CB-1027\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
         "badge": "",
         "note": "",
@@ -489,17 +489,17 @@
           }
         ],
         "productId": "prd_mrstxoej_3b5d9k",
-        "sourceKey": "",
+        "sourceKey": "prd_mrstxoej_3b5d9k",
         "ownerId": "1781828237962",
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:14:26.251Z",
-        "updatedAt": "2026-07-20T06:14:26.251Z",
+        "updatedAt": "2026-07-20T06:29:25.583Z",
         "updatedBy": "tatiana"
       },
       {
         "manufacturer": "ARMOR",
-        "name": "12/14/16\" KID'S BIKE - BOY",
+        "name": "12/14/16\" KID'S BIKE - GIRL",
         "spec": "MODEL: CB-1028\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
         "badge": "",
         "note": "",
@@ -515,12 +515,38 @@
           }
         ],
         "productId": "prd_mrsueuhk_lq7ec0",
-        "sourceKey": "",
+        "sourceKey": "prd_mrsueuhk_lq7ec0",
         "ownerId": "1781828237962",
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:27:47.288Z",
-        "updatedAt": "2026-07-20T06:27:47.288Z",
+        "updatedAt": "2026-07-20T06:29:02.245Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - GIRL",
+        "spec": "MODEL: CB-1029\nSIZE: 20\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS\n\n",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#fa9ec1"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528997/tqdy9lj5g91cabagmlcu.webp",
+            "alt": "20” CB-1029-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsui53h_2kf6na",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T06:30:21.005Z",
+        "updatedAt": "2026-07-20T06:30:21.005Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -4304,7 +4330,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsuflej_ol3viq";
+  var publishId = "pub_mrsui7n3_t55c7p";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
