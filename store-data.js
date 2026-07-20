@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 03:26 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsnxtd6_i5lmkd */
+/* ARMOR BIKE Storefront — published 2026-07-20 04:26 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrsq2ljs_4tubdd */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -329,6 +329,37 @@
         "createdAt": "2026-06-24T09:53:46.677Z",
         "updatedAt": "2026-07-03T01:47:49.755Z",
         "updatedBy": "admin"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "16\" KID'S BIKE - BOY",
+        "spec": "",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#5eccc9"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521542/zooehqei8yfy4nok1cj7.webp",
+            "alt": "16 BOY (2)",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521540/enhhb7mslh9q1ot4s2wf.webp",
+            "alt": "16 BOY (1)",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrsq2dxc_2ymozg",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-20T04:26:07.488Z",
+        "updatedAt": "2026-07-20T04:26:07.488Z",
+        "updatedBy": "tatiana"
       }
     ],
     "accent": false
@@ -4111,7 +4142,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsnxtd6_i5lmkd";
+  var publishId = "pub_mrsq2ljs_4tubdd";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
