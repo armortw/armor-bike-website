@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-20 06:54 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrsvdgbg_pinpbo */
+/* ARMOR BIKE Storefront — published 2026-07-21 06:08 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mru967fb_eqv6mc */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2159,7 +2159,7 @@
       {
         "manufacturer": "ARMOR",
         "name": "VK26-3501C-BLUE",
-        "spec": "ALLOY ANODIZED COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING\n",
+        "spec": "ALLOY ANODIZED BLUE COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING\n",
         "badge": "Bestseller",
         "note": "",
         "leaf": "Hubs",
@@ -2187,8 +2187,116 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-07-17T10:22:54.092Z",
-        "updatedAt": "2026-07-20T03:26:29.250Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-21T06:02:24.607Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3501C-GREEN",
+        "spec": "ALLOY ANODIZED GREEN COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Hubs",
+        "colors": [
+          "#18a34a"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613685/hlbrjldoliq6yg4zvnnv.webp",
+            "alt": "VK26-3501C_01_Angle_Green",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613689/ompiuvraq9iazwxkf4oh.webp",
+            "alt": "VK26-3501C_02_Front_Green",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613692/npuduyo61khnkn0rd9t0.webp",
+            "alt": "VK26-3501C_03_AngleAccessories_Green",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mru8x7w7_hz6t1o",
+        "sourceKey": "prd_mru8x7w7_hz6t1o",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-07-21T06:01:45.271Z",
+        "updatedAt": "2026-07-21T06:02:48.144Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3501C-PURPLE",
+        "spec": "ALLOY ANODIZED PURPLE COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Hubs",
+        "colors": [
+          "#7c3aed"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613842/kzifho23jyshdezgjthg.webp",
+            "alt": "VK26-3501C_01_Angle_Purple",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613845/nm1iubgzbsmyf6hd8nmd.webp",
+            "alt": "VK26-3501C_02_Front_Purple",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613848/po3loqgu2d1jntkackzd.webp",
+            "alt": "VK26-3501C_03_AngleAccessories_Purple",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mru91j9j_uet5ly",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-07-21T06:05:06.631Z",
+        "updatedAt": "2026-07-21T06:05:06.631Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3501C-RED",
+        "spec": "ALLOY ANODIZED RED COLOR HUB,\nF: ID 5.2*14G*36H*100*108MM, W/BLACK Q.R.\nR: ID 5.2*14G*36H*135*145MM, W/BLACK Q.R.\nCASSETTE BODY, TOWER BASE (120 CLICKS),\nFOR 8-SP USING",
+        "badge": "Bestseller",
+        "note": "",
+        "leaf": "Hubs",
+        "colors": [
+          "#e60012"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613996/eggy1axw49iz4fvovzmk.webp",
+            "alt": "VK26-3501C_01_Angle_Red",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784614000/swf39nropyu2g4w8zegx.webp",
+            "alt": "VK26-3501C_02_Front_Red",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784614002/voj2zpzkb37e5posc5r2.webp",
+            "alt": "VK26-3501C_03_AngleAccessories_Red",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mru93rcu_hz1fit",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-07-21T06:06:50.430Z",
+        "updatedAt": "2026-07-21T06:06:50.430Z",
+        "updatedBy": "alicia"
       }
     ]
   },
@@ -4395,52 +4503,1317 @@
 ];
   var images = [
   {
+    "id": 1781689838263.5366,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689835/n2ddykxfj0qcvpha3xmi.png",
     "alt": "Pedal_rainbow_EDM",
-    "id": 1781689838263.5366,
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
+    "id": 1781689867120.0613,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689864/lcucsvoho7hcufbqvsp7.png",
     "alt": "Dropper Seat Post EDM",
-    "id": 1781689867120.0613,
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
+    "id": 1781689876480.3552,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689874/i714pfle7gjl3e9mvat5.png",
     "alt": "LIGHT",
-    "id": 1781689876480.3552,
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
+    "id": 1781689886134.6062,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781689883/zqy1m58qoxjhwehrbswn.png",
     "alt": "HUB",
-    "id": 1781689886134.6062,
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
     "id": 1781692031296.2617,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781692029/fa3qwnjvepxqk4b4syte.png",
     "alt": "CO25-8148",
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
     "id": 1781780424350.3518,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780420/vqohexxku4odxj28vtv3.png",
     "alt": "Gemini_Generated_Image_ug12mug12mug12mu -0617",
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
     "id": 1782125184940.2637,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125183/yc5ldbceqxhmghlug0em.png",
     "alt": "CO25-81348 (3)",
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
   },
   {
     "id": 1782813801163.8,
     "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813796/kylv4pti1zlagushmkx3.png",
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67",
-    "source": "cloudinary"
+    "source": "cloudinary",
+    "categoryName": "Hero",
+    "productName": ""
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782199439/x6gb5xkmyhft5ibk73tu.png",
+    "alt": "29 MEN SKD 1",
+    "id": "ref-1or5cmj",
+    "source": "product-reference",
+    "productName": "29 MEN ",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782896987/tkkvakeuzimgwi7cdcsx.png",
+    "alt": "qed2rl78mcityikn5ywx-Photoroom",
+    "id": "ref-lr1w25",
+    "source": "product-reference",
+    "productName": "29 21-SPEED ",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782294819/qed2rl78mcityikn5ywx.jpg",
+    "alt": "MACH 1  29 CKD",
+    "id": "ref-wzn4rs",
+    "source": "product-reference",
+    "productName": "29 21-SPEED ",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521542/zooehqei8yfy4nok1cj7.webp",
+    "alt": "16 BOY (2)",
+    "format": "webp",
+    "id": "ref-13nmc9u",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521540/enhhb7mslh9q1ot4s2wf.webp",
+    "alt": "16 BOY (1)",
+    "format": "webp",
+    "id": "ref-1mxa8hb",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527078/wzgbylfzr8r8zb0iyujp.webp",
+    "alt": "16” CB-1023-16",
+    "format": "webp",
+    "id": "ref-ttsmvx",
+    "source": "product-reference",
+    "productName": "16\" KID'S BIKE - BOY ",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527231/crrgecqjfoqa0bwxtkrz.webp",
+    "alt": "12” CB-1024-12-1",
+    "format": "webp",
+    "id": "ref-cye46m",
+    "source": "product-reference",
+    "productName": "12\" KID'S BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527237/pmsfxsjncnzv1ojtr9nv.webp",
+    "alt": "12” CB-1024-12",
+    "format": "webp",
+    "id": "ref-ldh7a7",
+    "source": "product-reference",
+    "productName": "12\" KID'S BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527393/r2j1gfvbgjxalhen4ogy.webp",
+    "alt": "20” CB-1025-20",
+    "format": "webp",
+    "id": "ref-uuo6ah",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784527897/tr4rh7gclsrp9ds9rwlx.webp",
+    "alt": "20” CB-1026-20",
+    "format": "webp",
+    "id": "ref-1a0xyku",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528047/csyofxkg0pdy1jy9gf4b.webp",
+    "alt": "16” CB-1027-16",
+    "format": "webp",
+    "id": "ref-1hzjp1b",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE-GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528704/w968fj3llynfhwcazptj.webp",
+    "alt": "16” CB-1028-16",
+    "format": "webp",
+    "id": "ref-1qlbxb3",
+    "source": "product-reference",
+    "productName": "12/14/16\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784528997/tqdy9lj5g91cabagmlcu.webp",
+    "alt": "20” CB-1029-20",
+    "format": "webp",
+    "id": "ref-1or4gzi",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529731/luyjuoe5bnljdxhfg2w3.webp",
+    "alt": "FS-001-20",
+    "format": "webp",
+    "id": "ref-1xd9mno",
+    "source": "product-reference",
+    "productName": "20\" FOLDING BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529814/ozgee3fl8kayosbc7gvy.webp",
+    "alt": "FS-002-14",
+    "format": "webp",
+    "id": "ref-ttrgc1",
+    "source": "product-reference",
+    "productName": "14\" FOLDING BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784529979/hywkupahjh1b8lxxrgdo.webp",
+    "alt": "16” GS-1001-16",
+    "format": "webp",
+    "id": "ref-1kj9ryn",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530026/buudrrww7xf3jjsgmoty.webp",
+    "alt": "16” GS-1002-16",
+    "format": "webp",
+    "id": "ref-47iah9",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530400/gsvs52ul7vnwvaahrjte.webp",
+    "alt": "16” GSA-1003-16",
+    "format": "webp",
+    "id": "ref-tedk5y",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784530468/z4gnjqvptfaoqxi55zqf.webp",
+    "alt": "12” GSA-1004-12",
+    "format": "webp",
+    "id": "ref-14vs9x1",
+    "source": "product-reference",
+    "productName": "12\" PUSH BIKE GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782178751/at0w1exim3aopyax9wzr.png",
+    "alt": "PBRTIMUM5Z()V8%{K6S(]0C",
+    "id": "ref-ux18bd",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782178826/s7yfvstw42mfgl6hqpqd.png",
+    "alt": "6P6[ZS2%CGR`54$UTA2X8CP",
+    "id": "ref-n013po",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782178873/go0hcywwixdeybvadrh9.png",
+    "alt": "SQPKGG6_~F~L460431R8RMA",
+    "id": "ref-7lb5v0",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782178938/v6qbfqzmfnxcix3op1k0.png",
+    "alt": "5A_C@45QLWDEVB5Z{QJ$I)G",
+    "id": "ref-mkc5i6",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179287/wjmqnpgggll85wdwtboi.png",
+    "alt": "MEFW(OH]JT@%SP%F5{}S}ME",
+    "id": "ref-dq89xa",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179341/uat8tlwc07a562q4wykh.png",
+    "alt": "[K`M)%DF%U)OYLV$%GO%TV3",
+    "id": "ref-1cxzjmz",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179422/owgumy3u24fdswerjvmw.png",
+    "alt": "DR4W4O@A]}T]J$XLT(G{O(T",
+    "id": "ref-1wxho1",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179469/myxkczn1c2ew3xkxgpdr.png",
+    "alt": "V{YJD`{@WI40377C]M$NMA5",
+    "id": "ref-16l74wk",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179603/afhbtdnfubblfpux2fk1.png",
+    "alt": "QZCC)([(%1EC[V7AO$C3{`C",
+    "id": "ref-19x0mla",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179663/v3u2l0creymtogiqnmf9.png",
+    "alt": "_O$L4}[W4ASH][G2C@~8UKR",
+    "id": "ref-1txjqhh",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179715/szchf3tjcadflb9vtmen.png",
+    "alt": ")JO0U_%M7UU8@)8@T`AC@QM",
+    "id": "ref-d37v1t",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179786/aos7edafvdq6brswhrlz.png",
+    "alt": "E4(}](A~O@PE9MW5$H}]N$E",
+    "id": "ref-w7dumq",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179833/laisnhggp11vbczl5dm6.png",
+    "alt": "ET@U[Y5D$B54{2Y3[RW3J2R",
+    "id": "ref-7mc8wa",
+    "source": "product-reference",
+    "productName": "DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782179907/f6dugwif2kh5rsz6w1of.png",
+    "alt": "3O$N{96P8H3X%]URQVGA9NH",
+    "id": "ref-1jovsr2",
+    "source": "product-reference",
+    "productName": "ELECTRONIC DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782180012/cf90isygoypvf8hmbyao.png",
+    "alt": "V0MB}UB`C]YL`)`B}9@EYCO",
+    "id": "ref-1bub7n7",
+    "source": "product-reference",
+    "productName": "ELECTRONIC DROPPER SEAT POST",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782185807/fmjvcbp9kf6sr6q9xhpa.png",
+    "alt": "Gemini_Generated_Image_uul85wuul85wuul8",
+    "id": "ref-fhjqg",
+    "source": "product-reference",
+    "productName": "VK-SD-006",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782185804/dmynqh3iyl5xbphnqnjz.png",
+    "alt": "Gemini_Generated_Image_s9icums9icums9ic",
+    "id": "ref-1qoolkl",
+    "source": "product-reference",
+    "productName": "VK-SD-006",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187341/kjltapkyxj1shwdhtbyy.png",
+    "alt": "ChatGPT Image 2026年6月23日 下午12_00_39",
+    "id": "ref-j4l6i8",
+    "source": "product-reference",
+    "productName": "VK-SD-003",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187348/hju3pau2lmbzkm8anch2.png",
+    "alt": "Gemini_Generated_Image_eyzxo8eyzxo8eyzx",
+    "id": "ref-1kyxlf9",
+    "source": "product-reference",
+    "productName": "VK-SD-003",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187579/kkwxjmjfkrdpwqahqkmx.png",
+    "alt": "Gemini_Generated_Image_9gj0jx9gj0jx9gj0",
+    "id": "ref-hzw30t",
+    "source": "product-reference",
+    "productName": "VK-SD-007",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187579/vmtj32q7yemn3bwu9lqr.png",
+    "alt": "Gemini_Generated_Image_s9icums9icums9ic",
+    "id": "ref-wgp1lc",
+    "source": "product-reference",
+    "productName": "VK-SD-007",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187782/knczeeeakesy45hieq2o.jpg",
+    "alt": "VP-537",
+    "id": "ref-1dcz5gx",
+    "source": "product-reference",
+    "productName": "VK25-47135",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187885/tp1wwrkn06d6qu6koq6l.jpg",
+    "alt": "NW-315",
+    "id": "ref-lrentb",
+    "source": "product-reference",
+    "productName": "VK26-4701",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782187985/epcgkkwq4951udu9ksv0.png",
+    "alt": "KW-P276",
+    "id": "ref-hdwz42",
+    "source": "product-reference",
+    "productName": "VK25-4738",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188094/nnw7oqmho2htbgdjcxh1.png",
+    "alt": "HF-877",
+    "id": "ref-19shjbo",
+    "source": "product-reference",
+    "productName": "VK25-4717",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188166/wnyc6dacg8hcfsvhvdwm.png",
+    "alt": "HF-320",
+    "id": "ref-tjrsx7",
+    "source": "product-reference",
+    "productName": "VK25-4716",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188248/vmgec63jik0codlooj2k.png",
+    "alt": "KW-P265",
+    "id": "ref-1humhm6",
+    "source": "product-reference",
+    "productName": "VK25-4737",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188395/njk3pixaicmkwbfqmcbb.png",
+    "alt": "MX-P687",
+    "id": "ref-k7ipkv",
+    "source": "product-reference",
+    "productName": "VK25-4750",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188982/lcrsydriz30ldlwohwjy.jpg",
+    "alt": "KW-229-2",
+    "id": "ref-1sc7c0g",
+    "source": "product-reference",
+    "productName": "VK25-47111",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782189001/gucb6evno18wkqdhec5x.jpg",
+    "alt": "KW-229-1",
+    "id": "ref-v6iis6",
+    "source": "product-reference",
+    "productName": "VK25-47111",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782194825/kmganz8dpfumrpqmnv0q.png",
+    "alt": "YJ-019",
+    "id": "ref-1sa5twp",
+    "source": "product-reference",
+    "productName": "VK25-47124",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272196/vbgzfes2x1zya9yfyaw0.png",
+    "alt": "PRO-N351EP1 (VK26-3101)",
+    "id": "ref-1qpm7x3",
+    "source": "product-reference",
+    "productName": "VK26-3101",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272593/mtj63jd6yibk45yrmoxg.png",
+    "alt": "PRO-1678 (VK26-3102)",
+    "id": "ref-1jw8293",
+    "source": "product-reference",
+    "productName": "VK26-3102",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272770/ctsvc93rp5e0tudbpq7i.jpg",
+    "alt": "PRO-G688EP1 (VK26-3103)",
+    "id": "ref-16bk7gx",
+    "source": "product-reference",
+    "productName": "VK26-3103",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273719/mhperpoqirhd79qcqtva.jpg",
+    "alt": "D2104 (VK26-3104)",
+    "id": "ref-le44j5",
+    "source": "product-reference",
+    "productName": "VK26-3104",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273954/qcbult4ugweyip1dumey.jpg",
+    "alt": "D2400 (VK26-3105) ",
+    "id": "ref-ordsvr",
+    "source": "product-reference",
+    "productName": "VK26-3105",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283551/gqqbbk47zy1fvd1eqebf.jpg",
+    "alt": "VK26-0919R",
+    "id": "ref-7pogzi",
+    "source": "product-reference",
+    "productName": "VK26-0919",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283560/f9tmhhxb6rlqz1x46sby.jpg",
+    "alt": "VK26-0919B",
+    "id": "ref-tx8nvb",
+    "source": "product-reference",
+    "productName": "VK26-0919",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283784/joj1kcbcaj5hknzc0wkt.jpg",
+    "alt": "VK26-0216R",
+    "id": "ref-uwiv6q",
+    "source": "product-reference",
+    "productName": "VK26-0216",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283791/eljoz7llyjtm4bcvcje6.jpg",
+    "alt": "VK26-0216B",
+    "id": "ref-pz2ued",
+    "source": "product-reference",
+    "productName": "VK26-0216",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283961/v73yhkhtlpj0qeag4tfb.jpg",
+    "alt": "VK26-0218R",
+    "id": "ref-153qbwg",
+    "source": "product-reference",
+    "productName": "VK26-0218",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782283967/dsbcmmbsgxzmah2yixsk.png",
+    "alt": "VK26-0218B",
+    "id": "ref-1jkhcou",
+    "source": "product-reference",
+    "productName": "VK26-0218",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782284211/fhocswzru2o1svlrfmzs.jpg",
+    "alt": "VK26-0874",
+    "id": "ref-1i6e8w1",
+    "source": "product-reference",
+    "productName": "VK26-0874",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782300205/rvpqciy51z8yat17uapa.png",
+    "alt": "HUB (VK26-3501)(1)",
+    "id": "ref-zfnwrc",
+    "source": "product-reference",
+    "productName": "VK26-3501",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782300518/wjjmkvxousnad3cgncyd.jpg",
+    "alt": "HUB (VK26-3502)",
+    "id": "ref-1319fk0",
+    "source": "product-reference",
+    "productName": "VK26-3502",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360052/dlleoqnsdyry0jka25wh.jpg",
+    "alt": "D2801 (VK26-3106)",
+    "id": "ref-s12vjr",
+    "source": "product-reference",
+    "productName": "VK26-3106",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360321/gbwdavninrtkzmnmyunn.jpg",
+    "alt": "D2103 (VK26-3107)",
+    "id": "ref-w77mrz",
+    "source": "product-reference",
+    "productName": "VK26-3107",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360783/uwqkobqord097tj5vyrc.jpg",
+    "alt": "D2903 (VK26-3108)",
+    "id": "ref-1w79qwc",
+    "source": "product-reference",
+    "productName": "VK26-3108",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782299753/hedkbh7rgv7fcbmme34i.jpg",
+    "alt": "J-1622",
+    "id": "ref-pp7sxp",
+    "source": "product-reference",
+    "productName": "VK26-48001",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362270/agudhle76rlkye3ng7wq.png",
+    "alt": "HL-G132 (CO25-3118) 3-TONE",
+    "id": "ref-8i4l1s",
+    "source": "product-reference",
+    "productName": "CO25-3118",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362287/yaabnq9sxd7tbsdfm4yu.png",
+    "alt": "HL-G132 (CO25-3118) 2-TONE",
+    "id": "ref-z5z7ju",
+    "source": "product-reference",
+    "productName": "CO25-3118",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362299/dmfb7pslmc4ommybro9h.png",
+    "alt": "HL-G132 (CO25-3118) SINGLE COLOR",
+    "id": "ref-19okcc3",
+    "source": "product-reference",
+    "productName": "CO25-3118",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782362313/sn6hrjl0nlch0obnmdkn.png",
+    "alt": "HL-G132 (CO25-3118) BLACK",
+    "id": "ref-1tag4um",
+    "source": "product-reference",
+    "productName": "CO25-3118",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782361497/j09jp4csocpohaclkgmg.png",
+    "alt": "HC-2407 (CO25-3142)",
+    "id": "ref-1k7q5fd",
+    "source": "product-reference",
+    "productName": "CO25-3142",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/qjz8dbjzhyh6q7pztwkb.png",
+    "alt": "IMG_9231",
+    "id": "ref-rqof8t",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/i45ljag6pzzlfoj8jac9.png",
+    "alt": "IMG_9233",
+    "id": "ref-hq36ch",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/qaz3pqusi52wu7vwvgzw.png",
+    "alt": "IMG_9229",
+    "id": "ref-71dq35",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/aemlw6fmtq2wfg9x72uy.png",
+    "alt": "IMG_9227",
+    "id": "ref-23ftmn",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083405/zod9aeyzhuvsqcgldk7o.png",
+    "alt": "IMG_9239",
+    "id": "ref-95aubs",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083406/tdxmhhagugbxyiqmnp6h.png",
+    "alt": "IMG_9238",
+    "id": "ref-lc6m4b",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784083406/egtyxygwzehdyycaccwo.png",
+    "alt": "IMG_9236",
+    "id": "ref-18rr3lr",
+    "source": "product-reference",
+    "productName": "VK25-47136",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784283764/whv7eli2apehkzvccsyo.png",
+    "alt": "VK26-3501C_01_Angle_Blue",
+    "id": "ref-108fybd",
+    "source": "product-reference",
+    "productName": "VK26-3501C-BLUE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784283769/bqgwnjn6lwsnocdpwnvg.png",
+    "alt": "VK26-3501C_02_Front_Blue",
+    "id": "ref-g7lt1p",
+    "source": "product-reference",
+    "productName": "VK26-3501C-BLUE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784517986/mnwmbj6zlpmni8p4h5rs.webp",
+    "alt": "VK26-3501C_03_AngleAccessories_Blue",
+    "format": "webp",
+    "id": "ref-12cm0uj",
+    "source": "product-reference",
+    "productName": "VK26-3501C-BLUE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781757157/lhhrwcz7nyhq9hpdfcqp.jpg",
+    "alt": "EP 1",
+    "id": "ref-1hoqqka",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776419/c6glrwcou5ktgxy1gan7.jpg",
+    "alt": "VK 8149",
+    "id": "ref-19y0ns6",
+    "source": "product-reference",
+    "productName": "VK-8149 ",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780146/kb5dib4nlu9bcbb0yco5.jpg",
+    "alt": "VK-8302",
+    "id": "ref-1bd3c7k",
+    "source": "product-reference",
+    "productName": "VK-8302 ",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780637/gtzkzryhvnsam2pmvmee.jpg",
+    "alt": "EP 2",
+    "id": "ref-p9h4nr",
+    "source": "product-reference",
+    "productName": "VK-8150",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781780933/nituehudj7k7ntlygdph.jpg",
+    "alt": "VK-8152",
+    "id": "ref-xznnin",
+    "source": "product-reference",
+    "productName": "VK-8152",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/faoniry4vtq9vhlu1bfg.png",
+    "alt": "CO25-8164 PK",
+    "id": "ref-1hov910",
+    "source": "product-reference",
+    "productName": "CO25-8148",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125692/yxcgeevhayyqqv3m9qib.png",
+    "alt": "BLK COLOR",
+    "id": "ref-1mfukl7",
+    "source": "product-reference",
+    "productName": "CO25-8148",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125693/jmacagsdurenblrim1ll.png",
+    "alt": "CO25-8164BL",
+    "id": "ref-x2vemc",
+    "source": "product-reference",
+    "productName": "CO25-8148",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/agmzbzhs0d1r7wwjyrry.png",
+    "alt": "PC2124 BLUE-Photoroom",
+    "id": "ref-er3vh1",
+    "source": "product-reference",
+    "productName": "CO25-81348",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125934/rpb3xjjhiapxo1gmolbf.png",
+    "alt": "PC2124-Photoroom",
+    "id": "ref-ozx3q5",
+    "source": "product-reference",
+    "productName": "CO25-81348",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782125935/mavevycdws5zgytnya1z.png",
+    "alt": "PC2124 RED-Photoroom",
+    "id": "ref-c1rjb7",
+    "source": "product-reference",
+    "productName": "CO25-81348",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/xvuvvsmklwkn1ixadiwe.png",
+    "alt": "PC2133-Photoroom",
+    "id": "ref-c11tur",
+    "source": "product-reference",
+    "productName": "CO25-81351",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/aupwkdv6kllwemmpwjyt.png",
+    "alt": "PC2133-BLK-BLUE COLOR-Photoroom (1)",
+    "id": "ref-1mzb3ge",
+    "source": "product-reference",
+    "productName": "CO25-81351",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127013/vttk9gdnpg4buvrkufjm.jpg",
+    "alt": "PC2133-RED",
+    "id": "ref-1ljpjsv",
+    "source": "product-reference",
+    "productName": "CO25-81351",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/l6vpcta9rexi23hvxf9o.png",
+    "alt": "BLACK",
+    "id": "ref-6csait",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/n98pwyy3d1bxldjl0gm3.png",
+    "alt": "BLUE",
+    "id": "ref-1981fee",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127194/onkzqdcottt8z7kodlpi.png",
+    "alt": "GREEN",
+    "id": "ref-1lrff14",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/n4nuya5u9g2x2ixrjdkm.png",
+    "alt": "圖片1",
+    "id": "ref-1dg75xg",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/slp3moasz9kly22tgbxy.jpg",
+    "alt": "RED",
+    "id": "ref-10g45mr",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127195/b1nvl6stiqmoh0ocukci.png",
+    "alt": "PC2105",
+    "id": "ref-k0qsv4",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127196/f5xbzrschaqyoq2erets.png",
+    "alt": "PURPLE COLOR SAMPLE 8MMX1000MM-Photoroom (3)",
+    "id": "ref-herjfm",
+    "source": "product-reference",
+    "productName": "CO25-81369",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127373/ykj8jiulejscogshdqle.png",
+    "alt": "unnamed (1)-Photoroom",
+    "id": "ref-1pgbm8o",
+    "source": "product-reference",
+    "productName": "CO25-81379",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127373/qvdntzcelxyj3pnlajwc.png",
+    "alt": "PC2145(1)-Photoroom",
+    "id": "ref-16upiny",
+    "source": "product-reference",
+    "productName": "CO25-81379",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127373/gnoymcvkzu9usqxqmgzq.png",
+    "alt": "PURPLE",
+    "id": "ref-qdhaa9",
+    "source": "product-reference",
+    "productName": "CO25-81379",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127374/rugsxwurxh93yow1e3u3.png",
+    "alt": "279C BLUE-Photoroom",
+    "id": "ref-1au3f1w",
+    "source": "product-reference",
+    "productName": "CO25-81379",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127374/l98odrvoub9ebjolkwcg.png",
+    "alt": "185C RED-Photoroom",
+    "id": "ref-1j2j7qk",
+    "source": "product-reference",
+    "productName": "CO25-81379",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/kpourr1iypp1rqtzyjvo.png",
+    "alt": "CO25-8170",
+    "id": "ref-pdksr6",
+    "source": "product-reference",
+    "productName": "CO25-8170",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/xjylcrzzrgprsndfaypw.jpg",
+    "alt": "CO25-8170-2",
+    "id": "ref-1doot61",
+    "source": "product-reference",
+    "productName": "CO25-8170",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/lz5phpzwy2ndzw3n77pf.png",
+    "alt": "CO25-8170-4",
+    "id": "ref-2cwat5",
+    "source": "product-reference",
+    "productName": "CO25-8170",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127629/ecdfmays6a8p39zfwqof.png",
+    "alt": "CO25-8170-3",
+    "id": "ref-2n2l12",
+    "source": "product-reference",
+    "productName": "CO25-8170",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782127890/xpasaut2owckax3dnh28.png",
+    "alt": "CO25-81253",
+    "id": "ref-19dhut2",
+    "source": "product-reference",
+    "productName": "CO25-81253",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/woujqpixrqlqvfoh0ort.jpg",
+    "alt": "火箭",
+    "id": "ref-1otiipd",
+    "source": "product-reference",
+    "productName": "CO25-81450",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/qlqin6m2owfw0a6beezn.jpg",
+    "alt": "草莓",
+    "id": "ref-y5hfse",
+    "source": "product-reference",
+    "productName": "CO25-81450",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/ctyztf4gcggfo07icb28.jpg",
+    "alt": "飛機",
+    "id": "ref-jpi99a",
+    "source": "product-reference",
+    "productName": "CO25-81450",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782188561/fayoupyd7az50xfdta9l.jpg",
+    "alt": "音符",
+    "id": "ref-scfwei",
+    "source": "product-reference",
+    "productName": "CO25-81450",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/dejyycd4yj8xmfdfgm0b.jpg",
+    "alt": "WeChat 圖片_20260623113627",
+    "id": "ref-e1sgk8",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/vu7ol4zeeulhs0pvfjzl.jpg",
+    "alt": "WeChat 圖片_20260623113623",
+    "id": "ref-9nutr5",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/hknf2l4jn4wsgirhwo2t.jpg",
+    "alt": "WeChat 圖片_20260623113635",
+    "id": "ref-1r2eyyp",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263682/ld5rb9li1ile6cwjiwze.jpg",
+    "alt": "WeChat 圖片_20260623113641",
+    "id": "ref-1vcgpn5",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782263683/kiyjipgron6zcrfvxnqd.jpg",
+    "alt": "WeChat 圖片_20260623113631",
+    "id": "ref-oz1z3r",
+    "source": "product-reference",
+    "productName": "VK8145",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1781776844/sz8yngv1qrasbdhwum6e.jpg",
+    "alt": "VK-8146",
+    "id": "ref-j6b7sj",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274836/ylf0zijadfywsrrayxg0.jpg",
+    "alt": "VK-8146",
+    "id": "ref-1kx47r6",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274872/niqgnjhwimtnkyo1kfcq.png",
+    "alt": "去背",
+    "id": "ref-q75jmw",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274870/xtw3s4talla52kuc6reh.jpg",
+    "alt": "去3",
+    "id": "ref-rw1x4l",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274870/yvgqgxm9isandgkj0ltp.jpg",
+    "alt": "去背 2",
+    "id": "ref-wacj32",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274871/vszwvtdfpbbdb8kbrubm.jpg",
+    "alt": "去5",
+    "id": "ref-2cjkg9",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782274871/dqi4w3tpvuf6ghqig5pc.jpg",
+    "alt": "去4",
+    "id": "ref-iql4r",
+    "source": "product-reference",
+    "productName": "VK-8146",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782275360/z5w97zxwzgryxlgeq2be.png",
+    "alt": "2026-06-24-d4d62c33-a79b-45fa-90fb-06133dda25e8",
+    "id": "ref-ftggyx",
+    "source": "product-reference",
+    "productName": "LE26-001",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279489/i6j2xd28q0o0ptkxuiuf.png",
+    "alt": "2026-06-24-419dc7ea-d774-4b24-933c-685865e01f55",
+    "id": "ref-1brl715",
+    "source": "product-reference",
+    "productName": "LE26-002",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782279832/kgtzdy1l9bq8blqpj9n7.png",
+    "alt": "2026-06-24-24adcb3e-ac0f-43aa-aac7-2b1ede203bc9",
+    "id": "ref-ehqq1z",
+    "source": "product-reference",
+    "productName": "LE26-003",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782280142/laiu7wwbzhuo0kolhjcd.png",
+    "alt": "2026-06-24-5d40e693-17a5-41b5-a16b-448f42c04a0d",
+    "id": "ref-1cxqswp",
+    "source": "product-reference",
+    "productName": "LE26-004",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782280387/h2eeu80zfjfp0uinbasa.png",
+    "alt": "2026-06-24-82480656-1a8c-4fbe-b68b-d712ee823910",
+    "id": "ref-xw4a7x",
+    "source": "product-reference",
+    "productName": "LE26-005",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782281361/zquzlxe84rmwpyzm90sz.png",
+    "alt": "2026-06-24-c444d82a-a63c-4bb6-850d-b0b75959be63",
+    "id": "ref-1v0cm2p",
+    "source": "product-reference",
+    "productName": "LE26-006",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782295104/rscbvlvcbrlpsmi1d1yj.png",
+    "alt": "CO25-81148",
+    "id": "ref-1fmyknz",
+    "source": "product-reference",
+    "productName": "CO25-81148",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782295348/eytoar7lsupboiz5arad.png",
+    "alt": "2026-06-24-68f7d60e-a8bd-489b-b893-aad92690171d",
+    "id": "ref-1nbdtxu",
+    "source": "product-reference",
+    "productName": "LE26-007",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ivdggglypptqdhg6ouyz.png",
+    "alt": "CO25-81340BK",
+    "id": "ref-1pxaui5",
+    "source": "product-reference",
+    "productName": "CO25-81311",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ktcrx6vilthv66yakkkx.png",
+    "alt": "CO25-81340 ORANGE",
+    "id": "ref-1yz3kpn",
+    "source": "product-reference",
+    "productName": "CO25-81311",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297370/ehoqxjj1vez85d0kscly.png",
+    "alt": "CO25-81340GREEN",
+    "id": "ref-dos957",
+    "source": "product-reference",
+    "productName": "CO25-81311",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/i25v9laob4myljyl9rwz.png",
+    "alt": "CO25-81252BK",
+    "id": "ref-wz80qp",
+    "source": "product-reference",
+    "productName": "CO25-81252",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/p5cpwe6pdihfoowc81bi.png",
+    "alt": "CO25-81252BL",
+    "id": "ref-1ipdiwg",
+    "source": "product-reference",
+    "productName": "CO25-81252",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782297534/ef8ikbzlcwnbinyxzpyp.png",
+    "alt": "CO25-81252RD",
+    "id": "ref-130kwy5",
+    "source": "product-reference",
+    "productName": "CO25-81252",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782443243/kjprlvr9sdbizc6ot1bd.png",
+    "alt": "2026-06-26-3ee895e2-8427-40f4-aa56-5fa21c345e7f",
+    "id": "ref-n9qh6s",
+    "source": "product-reference",
+    "productName": "LE26-008",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782444554/okuxlh7wfvieyc8da2cp.png",
+    "alt": "2026-06-26-3f547d7f-1a73-46d0-b9d2-577167a8a624",
+    "id": "ref-1xslbva",
+    "source": "product-reference",
+    "productName": "LE26-009",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782447102/btwvicjrl9sksbauufsa.png",
+    "alt": "2026-06-26-e1d310be-80c4-4dad-a7db-8d23c3a44149",
+    "id": "ref-8xcjsj",
+    "source": "product-reference",
+    "productName": "LE26-010",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804032/bnj5gvhwo9t3izltfnuc.png",
+    "alt": "PC5001(1)",
+    "id": "ref-19k80z3",
+    "source": "product-reference",
+    "productName": "CO25-81108",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804055/dx9rc518edegys2t6fzs.png",
+    "alt": "PC5001(2)",
+    "id": "ref-19yay7",
+    "source": "product-reference",
+    "productName": "CO25-81108",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782804471/bz6jdsbgbshxe2m13yvl.png",
+    "alt": "PC7006",
+    "id": "ref-oboabt",
+    "source": "product-reference",
+    "productName": "CO25-81307",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813081/mq9lqcx4skvgtstknc0x.png",
+    "alt": "C810101",
+    "id": "ref-3ab1zj",
+    "source": "product-reference",
+    "productName": "AM26-C810101",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813207/a48jtv37shr1ieirp9vc.png",
+    "alt": "C810102",
+    "id": "ref-nalvqm",
+    "source": "product-reference",
+    "productName": "AM26-C810102",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782813658/escj8hwoqcktzgpflu3l.png",
+    "alt": "C810103",
+    "id": "ref-9yp72z",
+    "source": "product-reference",
+    "productName": "AM26-C81013",
+    "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782815340/qksnqr4wq84qi9peiz7b.png",
+    "alt": "CO25-8133",
+    "id": "ref-833pys",
+    "source": "product-reference",
+    "productName": "CO25-8133",
+    "categoryName": "Accessories"
   }
 ];
   var badges = [];
@@ -4486,7 +5859,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrsvdgbg_pinpbo";
+  var publishId = "pub_mru967fb_eqv6mc";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
