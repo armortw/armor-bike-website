@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 05:51 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvo0f1a_614woe */
+/* ARMOR BIKE Storefront — published 2026-07-22 06:22 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvp44oc_e64zup */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -886,6 +886,115 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-22T05:51:50.683Z",
         "updatedAt": "2026-07-22T05:51:50.683Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - GIRL",
+        "spec": "MODEL: AS-1013\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#ea91bf"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784700992/sq1allqwn0kc1zn1wxwh.webp",
+            "alt": "a7099b28499bb0e5e3226b6bb2dfc0b",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701039/g1xioecse6fkkv2zvjzq.webp",
+            "alt": "00cd917f9121ac9d92a83f66aa4c266",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvoxb24_4d98o4",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:17:29.404Z",
+        "updatedAt": "2026-07-22T06:17:29.404Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - GIRL",
+        "spec": "MODEL: AS-1014\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#ac8fd3"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701117/x2fsffuyur3k0bbied5h.webp",
+            "alt": "20” AS-1014-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvp01v4_i02s2o",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:19:37.456Z",
+        "updatedAt": "2026-07-22T06:19:37.456Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - BOY",
+        "spec": "MODEL: AS-1015\nSIZE: 20\"\nFRAME: STEEL SUSPENSION\nFORK: STEEL SUSPENSION\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 6X\nCRANSET: 2X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#ce0c0d"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701307/fgyhmlu9mxobrzawhdb4.webp",
+            "alt": "20” AS-1015-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvp2yvm_lzotrr",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:21:53.554Z",
+        "updatedAt": "2026-07-22T06:21:53.554Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - BOY",
+        "spec": "MODEL: AS-1016\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 6X\nCRANSET: 2X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#fc7c1b"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701320/juf6yg2paeuu3tqxjkis.webp",
+            "alt": "20” AS-1016-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvp40bo_m5rjqa",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:22:42.084Z",
+        "updatedAt": "2026-07-22T06:22:42.084Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -6123,7 +6232,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvo0f1a_614woe";
+  var publishId = "pub_mrvp44oc_e64zup";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
