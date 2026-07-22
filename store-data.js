@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 06:43 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpuphp_sgqy2l */
+/* ARMOR BIKE Storefront — published 2026-07-22 06:49 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvq20sl_tyh4t1 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1171,6 +1171,85 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-22T06:43:23.467Z",
         "updatedAt": "2026-07-22T06:43:23.467Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "24\" BIKE - BOY",
+        "spec": "MODEL: ES-001\nSIZE: 24\"\nFRAME: STEEL\nFORK: STEEL SUSPENSION\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 7X\nCRANSET: 3X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "24\" Wheels",
+        "colors": [
+          "#ec9834",
+          "#ff9e1a"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702742/fukuca1d6mylf7kp2pbt.webp",
+            "alt": "24” ES-001-24",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvq00j6_1kz81c",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:47:35.346Z",
+        "updatedAt": "2026-07-22T06:47:35.346Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "24\" BIKE - BOY",
+        "spec": "MODEL: ES-002\nSIZE: 24\"\nFRAME: STEEL\nFORK: STEEL SUSPENSION\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 7X\nCRANSET: 3X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "24\" Wheels",
+        "colors": [
+          "#e7ed2b"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702872/dq2ebsrub3yll9iusdgw.webp",
+            "alt": "24” ES-002-24",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvq0jr2_jwhc9a",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:48:00.254Z",
+        "updatedAt": "2026-07-22T06:48:00.254Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "24\" BIKE - BOY",
+        "spec": "MODEL: ES-002\nSIZE: 24\"\nFRAME: STEEL\nFORK: STEEL SUSPENSION\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 7X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "24\" Wheels",
+        "colors": [
+          "#e60012"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702937/ckfemgr7skulzrreryaq.webp",
+            "alt": "24” ES-003-24",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvq1xsu_zmgwdg",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:49:05.118Z",
+        "updatedAt": "2026-07-22T06:49:05.118Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -6506,7 +6585,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvpuphp_sgqy2l";
+  var publishId = "pub_mrvq20sl_tyh4t1";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
