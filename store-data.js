@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-21 06:08 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mru967fb_eqv6mc */
+/* ARMOR BIKE Storefront — published 2026-07-22 04:20 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvkrgpl_2uw3h3 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -342,13 +342,13 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521542/zooehqei8yfy4nok1cj7.webp",
-            "alt": "16 BOY (2)",
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784693752/htotccewulgpitcpa4gd.webp",
+            "alt": "e7e6c1f0a84d12eed0539393bc71d59",
             "format": "webp"
           },
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784521540/enhhb7mslh9q1ot4s2wf.webp",
-            "alt": "16 BOY (1)",
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784693746/bjeuxvuoud6egragcwqw.webp",
+            "alt": "dae9689c470675a342abd235e4bcd4a",
             "format": "webp"
           }
         ],
@@ -358,7 +358,7 @@
         "ownerUsername": "tatiana",
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T04:26:07.488Z",
-        "updatedAt": "2026-07-20T06:29:40.539Z",
+        "updatedAt": "2026-07-22T04:16:03.650Z",
         "updatedBy": "tatiana"
       },
       {
@@ -703,6 +703,32 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-20T06:54:38.588Z",
         "updatedAt": "2026-07-20T06:54:38.588Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - GIRL",
+        "spec": "MODEL: CS-1005\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#f92390"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694028/ov5do78renbhz01ywpif.webp",
+            "alt": "16” GS-1005-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvkr7rm_h291mc",
+        "sourceKey": "prd_mrvkr7rm_h291mc",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T04:20:46.738Z",
+        "updatedAt": "2026-07-22T04:20:54.451Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -5814,6 +5840,87 @@
     "source": "product-reference",
     "productName": "CO25-8133",
     "categoryName": "Accessories"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613685/hlbrjldoliq6yg4zvnnv.webp",
+    "alt": "VK26-3501C_01_Angle_Green",
+    "format": "webp",
+    "id": "ref-k8fyro",
+    "source": "product-reference",
+    "productName": "VK26-3501C-GREEN",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613689/ompiuvraq9iazwxkf4oh.webp",
+    "alt": "VK26-3501C_02_Front_Green",
+    "format": "webp",
+    "id": "ref-7ou5jl",
+    "source": "product-reference",
+    "productName": "VK26-3501C-GREEN",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613692/npuduyo61khnkn0rd9t0.webp",
+    "alt": "VK26-3501C_03_AngleAccessories_Green",
+    "format": "webp",
+    "id": "ref-1uzrqoh",
+    "source": "product-reference",
+    "productName": "VK26-3501C-GREEN",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613842/kzifho23jyshdezgjthg.webp",
+    "alt": "VK26-3501C_01_Angle_Purple",
+    "format": "webp",
+    "id": "ref-vnymhv",
+    "source": "product-reference",
+    "productName": "VK26-3501C-PURPLE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613845/nm1iubgzbsmyf6hd8nmd.webp",
+    "alt": "VK26-3501C_02_Front_Purple",
+    "format": "webp",
+    "id": "ref-jlepn4",
+    "source": "product-reference",
+    "productName": "VK26-3501C-PURPLE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613848/po3loqgu2d1jntkackzd.webp",
+    "alt": "VK26-3501C_03_AngleAccessories_Purple",
+    "format": "webp",
+    "id": "ref-9vokip",
+    "source": "product-reference",
+    "productName": "VK26-3501C-PURPLE",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784613996/eggy1axw49iz4fvovzmk.webp",
+    "alt": "VK26-3501C_01_Angle_Red",
+    "format": "webp",
+    "id": "ref-1kze4gw",
+    "source": "product-reference",
+    "productName": "VK26-3501C-RED",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784614000/swf39nropyu2g4w8zegx.webp",
+    "alt": "VK26-3501C_02_Front_Red",
+    "format": "webp",
+    "id": "ref-tgk5sk",
+    "source": "product-reference",
+    "productName": "VK26-3501C-RED",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784614002/voj2zpzkb37e5posc5r2.webp",
+    "alt": "VK26-3501C_03_AngleAccessories_Red",
+    "format": "webp",
+    "id": "ref-ap0d5p",
+    "source": "product-reference",
+    "productName": "VK26-3501C-RED",
+    "categoryName": "Parts"
   }
 ];
   var badges = [];
@@ -5859,7 +5966,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mru967fb_eqv6mc";
+  var publishId = "pub_mrvkrgpl_2uw3h3";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
