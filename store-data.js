@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 06:22 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvp44oc_e64zup */
+/* ARMOR BIKE Storefront — published 2026-07-22 06:32 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpgu5w_fcwhy2 */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -995,6 +995,111 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-22T06:22:42.084Z",
         "updatedAt": "2026-07-22T06:22:42.084Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - BOY",
+        "spec": "MODEL: AS-1017\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL SUSPENSION\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nDERAILLEUR: 7X\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#9b4ebe"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701467/jjemqxh2hshgjamqr2d1.webp",
+            "alt": "20” AS-1017-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvp6dkg_9ktrnj",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:24:32.560Z",
+        "updatedAt": "2026-07-22T06:24:32.560Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" FREESTYLE BIKE",
+        "spec": "MODEL: AS-1018\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#cb1012"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701486/dv3rydh52thu16kuobip.webp",
+            "alt": "20” AS-1018-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvp80nq_6iyk44",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:25:49.142Z",
+        "updatedAt": "2026-07-22T06:25:49.142Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" FREESTYLE BIKE",
+        "spec": "MODEL: AS-1019\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#f8fbff",
+          "#e60012"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701875/hy2v5wlqg8k9bhpnbvao.webp",
+            "alt": "20” AS-1019-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvpflpz_7qt2eq",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:31:43.031Z",
+        "updatedAt": "2026-07-22T06:31:43.031Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" FREESTYLE BIKE",
+        "spec": "MODEL: AS-1020\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#ffd105"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701919/bfj3deor3qmvqt6nudtt.webp",
+            "alt": "20” AS-1020-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvpgl53_q4166u",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:32:28.935Z",
+        "updatedAt": "2026-07-22T06:32:28.935Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -6232,7 +6337,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvp44oc_e64zup";
+  var publishId = "pub_mrvpgu5w_fcwhy2";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
