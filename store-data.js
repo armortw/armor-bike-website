@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 06:35 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpkf9d_wprvcm */
+/* ARMOR BIKE Storefront — published 2026-07-22 06:43 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpuphp_sgqy2l */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -1100,6 +1100,77 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-22T06:32:28.935Z",
         "updatedAt": "2026-07-22T06:32:28.935Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - BOY",
+        "spec": "MODEL: AS-1021\nSIZE: 20\"\nFRAME: ALLOY\nFORK: STEEL SUSPENSION\nBRAKE: DISC BRAKE\nRIM: ALLOY\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#006ee0",
+          "#6d04b5",
+          "#ca0857",
+          "#ffd105"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702491/k9qm89lfrqiazmxi4eel.webp",
+            "alt": "20” AS-A1021-20-1",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702497/m0f03rg7pme0kwxdvjjv.webp",
+            "alt": "20” AS-A1021-20-2",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702497/xkic23kkurdifvvwtbtv.webp",
+            "alt": "20” AS-A1021-20-3",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702498/elhpo8tbz8jq3hfwswc2.webp",
+            "alt": "20” AS-A1021-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvpsvsa_do4kgl",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:42:02.602Z",
+        "updatedAt": "2026-07-22T06:42:02.602Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "20\" KID'S BIKE - BOY",
+        "spec": "MODEL: AS-1022\nSIZE: 20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#630305",
+          "#9b1b1d"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702589/f1obbajtzeptqyuuinc3.webp",
+            "alt": "20” AS-1022-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvpum6j_t4h9b1",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T06:43:23.467Z",
+        "updatedAt": "2026-07-22T06:43:23.467Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -6435,7 +6506,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvpkf9d_wprvcm";
+  var publishId = "pub_mrvpuphp_sgqy2l";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
