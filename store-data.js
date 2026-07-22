@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 06:32 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpgu5w_fcwhy2 */
+/* ARMOR BIKE Storefront — published 2026-07-22 06:35 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvpkf9d_wprvcm */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -2045,31 +2045,6 @@
       },
       {
         "manufacturer": "ARMOR",
-        "name": "VK26-3101",
-        "spec": "MATERIAL: PP+STICKY RUBBER (NON-SLIDE) 126MM,\nBLACK GRIP, ONE INSIDE MATT BLACK LOCK RING,\nOPEN END W/BLACK PLUG  ",
-        "badge": "",
-        "note": "",
-        "leaf": "Grips",
-        "colors": [
-          "#111827"
-        ],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272196/vbgzfes2x1zya9yfyaw0.png",
-            "alt": "PRO-N351EP1 (VK26-3101)"
-          }
-        ],
-        "productId": "prd_mqriyomd_9cf7ly",
-        "sourceKey": "prd_mqriyomd_9cf7ly",
-        "ownerId": "1781828095910",
-        "ownerUsername": "alicia",
-        "ownerName": "alicia",
-        "createdAt": "2026-06-24T03:39:48.900Z",
-        "updatedAt": "2026-07-03T01:58:11.154Z",
-        "updatedBy": "admin"
-      },
-      {
-        "manufacturer": "ARMOR",
         "name": "VK26-3102",
         "spec": "MATERIAL: RUBBER, 120MM, BLACK GRIP\nMATT BLACK LOCK RING, CLOSE END\n",
         "badge": "",
@@ -2080,8 +2055,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272593/mtj63jd6yibk45yrmoxg.png",
-            "alt": "PRO-1678 (VK26-3102)"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701426/oesd5am7kys4uu38qwpc.webp",
+            "alt": "VK26-3102_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701429/ws3l3vmbltyqyvxf5tjg.webp",
+            "alt": "VK26-3102_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqrj3b6l_crxhj2",
@@ -2090,8 +2071,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:43:24.764Z",
-        "updatedAt": "2026-07-03T01:58:28.917Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:24:10.793Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2105,8 +2086,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782272770/ctsvc93rp5e0tudbpq7i.jpg",
-            "alt": "PRO-G688EP1 (VK26-3103)"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701505/zlvogl0e162dwxzadh6i.webp",
+            "alt": "VK26-3103_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701508/bpvcuwys956szb5nozob.webp",
+            "alt": "VK26-3103_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqrj740c_4d8etg",
@@ -2115,8 +2102,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T03:46:22.092Z",
-        "updatedAt": "2026-07-03T01:58:55.423Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:25:19.833Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2130,8 +2117,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273719/mhperpoqirhd79qcqtva.jpg",
-            "alt": "D2104 (VK26-3104)"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701578/xpar5pfcxkx2in8juugy.webp",
+            "alt": "VK26-3104_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701582/j1614vhlfqhpzwoywnx7.webp",
+            "alt": "VK26-3104_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqrjtala_gng540",
@@ -2140,8 +2133,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:03:37.054Z",
-        "updatedAt": "2026-07-03T01:58:16.042Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:26:30.360Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2155,8 +2148,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782273954/qcbult4ugweyip1dumey.jpg",
-            "alt": "D2400 (VK26-3105) "
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701647/caf5johkzyw7pbkalj9v.webp",
+            "alt": "VK26-3105_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701650/tbf9avshecft3j6xzmka.webp",
+            "alt": "VK26-3105_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqrjxe4t_djxx2s",
@@ -2165,8 +2164,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-24T04:06:48.269Z",
-        "updatedAt": "2026-07-03T01:58:21.656Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:27:44.064Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2346,8 +2345,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360052/dlleoqnsdyry0jka25wh.jpg",
-            "alt": "D2801 (VK26-3106)"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701752/gp99gytgmtaztcfg4ken.webp",
+            "alt": "VK26-3106_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701755/shy1lgtx4hsykm3h3sdw.webp",
+            "alt": "VK26-3106_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqsz9jhs_7qjje9",
@@ -2356,33 +2361,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:03:55.504Z",
-        "updatedAt": "2026-07-03T05:49:04.313Z",
-        "updatedBy": "admin"
-      },
-      {
-        "manufacturer": "ARMOR",
-        "name": "VK26-3107",
-        "spec": "PP/TPR, 135MM, BLACK GRIP,\nOPEN END, SINGLE ALLOY LOCKRING,\nW/PLUG",
-        "badge": "",
-        "note": "",
-        "leaf": "Grips",
-        "colors": [
-          "#111827"
-        ],
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360321/gbwdavninrtkzmnmyunn.jpg",
-            "alt": "D2103 (VK26-3107)"
-          }
-        ],
-        "productId": "prd_mqszbk1c_t3lxpc",
-        "sourceKey": "prd_mqszbk1c_t3lxpc",
-        "ownerId": "1781828095910",
-        "ownerUsername": "alicia",
-        "ownerName": "alicia",
-        "createdAt": "2026-06-25T04:05:29.520Z",
-        "updatedAt": "2026-07-03T05:49:21.374Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:29:26.440Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2396,8 +2376,14 @@
         ],
         "images": [
           {
-            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1782360783/uwqkobqord097tj5vyrc.jpg",
-            "alt": "D2903 (VK26-3108)"
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701837/lml829qwv9scksvkqout.webp",
+            "alt": "VK26-3108_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701842/vlncmajckt1vlbqajarx.webp",
+            "alt": "VK26-3108_02_Plain",
+            "format": "webp"
           }
         ],
         "productId": "prd_mqszlk3t_wv781m",
@@ -2406,8 +2392,8 @@
         "ownerUsername": "alicia",
         "ownerName": "alicia",
         "createdAt": "2026-06-25T04:13:16.168Z",
-        "updatedAt": "2026-07-03T05:49:25.164Z",
-        "updatedBy": "admin"
+        "updatedAt": "2026-07-22T06:30:50.080Z",
+        "updatedBy": "alicia"
       },
       {
         "manufacturer": "ARMOR",
@@ -2693,6 +2679,37 @@
         "ownerName": "alicia",
         "createdAt": "2026-07-21T06:06:50.430Z",
         "updatedAt": "2026-07-21T06:06:50.430Z",
+        "updatedBy": "alicia"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "VK26-3112",
+        "spec": "MTB GRIP, TPE + ALLOY 8MM LOCKING,\nBLACK COLOR,\nCLOSE END, 22.3 * 130MM, W/O LOGO",
+        "badge": "",
+        "note": "",
+        "leaf": "Grips",
+        "colors": [
+          "#111827"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702007/pvpgrshgkoqga6i8emye.webp",
+            "alt": "VK26-3112_01_Angle",
+            "format": "webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702010/uuutqiffy4fod6bz9flo.webp",
+            "alt": "VK26-3112_02_Plain",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvpi7e9_wokege",
+        "sourceKey": "",
+        "ownerId": "1781828095910",
+        "ownerUsername": "alicia",
+        "ownerName": "alicia",
+        "createdAt": "2026-07-22T06:33:44.433Z",
+        "updatedAt": "2026-07-22T06:33:44.433Z",
         "updatedBy": "alicia"
       }
     ]
@@ -6292,6 +6309,87 @@
     "source": "product-reference",
     "productName": "VK26-3501C-RED",
     "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784693752/htotccewulgpitcpa4gd.webp",
+    "alt": "e7e6c1f0a84d12eed0539393bc71d59",
+    "format": "webp",
+    "id": "ref-wzvkdl",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784693746/bjeuxvuoud6egragcwqw.webp",
+    "alt": "dae9689c470675a342abd235e4bcd4a",
+    "format": "webp",
+    "id": "ref-1tgxl5w",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694028/ov5do78renbhz01ywpif.webp",
+    "alt": "16” GS-1005-16",
+    "format": "webp",
+    "id": "ref-1dzgir8",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694382/jedu2vzjqmphmk3siorw.webp",
+    "alt": "16” GS-1006-16",
+    "format": "webp",
+    "id": "ref-xost4p",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694519/gecoqq23f3bhnxupfhwl.webp",
+    "alt": "16” GS-1008-16",
+    "format": "webp",
+    "id": "ref-dusmm8",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694570/tlxi8yzoobbkvejfuzdy.webp",
+    "alt": "16” GS-1007-16",
+    "format": "webp",
+    "id": "ref-gmq3s5",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699310/yvsdqgqxley7ciuqngoz.webp",
+    "alt": "16” GS-1009-16",
+    "format": "webp",
+    "id": "ref-7tx0e2",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699376/q9af8us0ibisqxmyahn9.webp",
+    "alt": "20” GS-1010-20",
+    "format": "webp",
+    "id": "ref-1fhrxjf",
+    "source": "product-reference",
+    "productName": "16\"/20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699498/xn8plvh7zyoi2zelxoel.webp",
+    "alt": "16” GS-1011-16",
+    "format": "webp",
+    "id": "ref-b1tdvq",
+    "source": "product-reference",
+    "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
   }
 ];
   var badges = [];
@@ -6337,7 +6435,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvpgu5w_fcwhy2";
+  var publishId = "pub_mrvpkf9d_wprvcm";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
