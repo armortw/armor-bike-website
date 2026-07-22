@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 04:20 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvkrgpl_2uw3h3 */
+/* ARMOR BIKE Storefront — published 2026-07-22 05:51 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrvo0f1a_614woe */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -729,6 +729,163 @@
         "ownerName": "tatiana",
         "createdAt": "2026-07-22T04:20:46.738Z",
         "updatedAt": "2026-07-22T04:20:54.451Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - GIRL",
+        "spec": "MODEL: CS-1006\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL \nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#f8b7d8"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694382/jedu2vzjqmphmk3siorw.webp",
+            "alt": "16” GS-1006-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvkyo54_z9okq4",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T04:26:34.552Z",
+        "updatedAt": "2026-07-22T04:26:34.552Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - BOY",
+        "spec": "MODEL: CS-1008\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL SUSPENSION\nFORK: STEEL SUSPENSION\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#a4ec00"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694519/gecoqq23f3bhnxupfhwl.webp",
+            "alt": "16” GS-1008-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvl1ik1_fm33py",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T04:28:47.281Z",
+        "updatedAt": "2026-07-22T04:28:47.281Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - BOY",
+        "spec": "MODEL: CS-1007\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL SUSPENSION\nFORK: STEEL SUSPENSION\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#fb2625",
+          "#575d63"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784694570/tlxi8yzoobbkvejfuzdy.webp",
+            "alt": "16” GS-1007-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvl2q16_pmtpcu",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T04:29:43.626Z",
+        "updatedAt": "2026-07-22T04:29:43.626Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - BOY",
+        "spec": "MODEL: CS-1009    \nSIZE: 12\"/14\"/16\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: DISC BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#4275b8"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699310/yvsdqgqxley7ciuqngoz.webp",
+            "alt": "16” GS-1009-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvnw9zr_qv0w7o",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T05:48:41.751Z",
+        "updatedAt": "2026-07-22T05:48:41.751Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "16\"/20\" KID'S BIKE - BOY",
+        "spec": "MODEL: CS-1010\nSIZE: 16\"/20\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "20\" Wheels",
+        "colors": [
+          "#b20102"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699376/q9af8us0ibisqxmyahn9.webp",
+            "alt": "20” GS-1010-20",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvny11t_qwb85s",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T05:50:03.473Z",
+        "updatedAt": "2026-07-22T05:50:03.473Z",
+        "updatedBy": "tatiana"
+      },
+      {
+        "manufacturer": "ARMOR",
+        "name": "12\"/14\"/16\" KID'S BIKE - BOY",
+        "spec": "MODEL: CS-1011\nSIZE: 12\"/14\"/16\"\nFRAME: STEEL\nFORK: STEEL\nBRAKE: V-BRAKE\nRIM: STEEL\nTIRE: AIR\nAVAILABLE IN MULTIPLE COLORS",
+        "badge": "",
+        "note": "",
+        "leaf": "16\" Wheels",
+        "colors": [
+          "#39dec8"
+        ],
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784699498/xn8plvh7zyoi2zelxoel.webp",
+            "alt": "16” GS-1011-16",
+            "format": "webp"
+          }
+        ],
+        "productId": "prd_mrvo0brv_b57zno",
+        "sourceKey": "",
+        "ownerId": "1781828237962",
+        "ownerUsername": "tatiana",
+        "ownerName": "tatiana",
+        "createdAt": "2026-07-22T05:51:50.683Z",
+        "updatedAt": "2026-07-22T05:51:50.683Z",
         "updatedBy": "tatiana"
       }
     ],
@@ -5966,7 +6123,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvkrgpl_2uw3h3";
+  var publishId = "pub_mrvo0f1a_614woe";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
