@@ -1,5 +1,5 @@
-/* ARMOR BIKE Storefront — published 2026-07-22 06:49 UTC */
-/* ARMOR_BIKE_PUBLISH_ID:pub_mrvq20sl_tyh4t1 */
+/* ARMOR BIKE Storefront — published 2026-07-23 08:29 UTC */
+/* ARMOR_BIKE_PUBLISH_ID:pub_mrx92ujx_ytev3k */
 (function () {
   var HEX = {
     grey: '#9aa6b4',
@@ -6540,6 +6540,285 @@
     "source": "product-reference",
     "productName": "12\"/14\"/16\" KID'S BIKE - BOY",
     "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784700992/sq1allqwn0kc1zn1wxwh.webp",
+    "alt": "a7099b28499bb0e5e3226b6bb2dfc0b",
+    "format": "webp",
+    "id": "ref-1w25ndb",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701039/g1xioecse6fkkv2zvjzq.webp",
+    "alt": "00cd917f9121ac9d92a83f66aa4c266",
+    "format": "webp",
+    "id": "ref-gjbffd",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701117/x2fsffuyur3k0bbied5h.webp",
+    "alt": "20” AS-1014-20",
+    "format": "webp",
+    "id": "ref-qqis32",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - GIRL",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701307/fgyhmlu9mxobrzawhdb4.webp",
+    "alt": "20” AS-1015-20",
+    "format": "webp",
+    "id": "ref-eaep93",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701320/juf6yg2paeuu3tqxjkis.webp",
+    "alt": "20” AS-1016-20",
+    "format": "webp",
+    "id": "ref-kvgiwr",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701467/jjemqxh2hshgjamqr2d1.webp",
+    "alt": "20” AS-1017-20",
+    "format": "webp",
+    "id": "ref-1wek0g2",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701486/dv3rydh52thu16kuobip.webp",
+    "alt": "20” AS-1018-20",
+    "format": "webp",
+    "id": "ref-xrw9zp",
+    "source": "product-reference",
+    "productName": "20\" FREESTYLE BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701875/hy2v5wlqg8k9bhpnbvao.webp",
+    "alt": "20” AS-1019-20",
+    "format": "webp",
+    "id": "ref-1kzop0n",
+    "source": "product-reference",
+    "productName": "20\" FREESTYLE BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701919/bfj3deor3qmvqt6nudtt.webp",
+    "alt": "20” AS-1020-20",
+    "format": "webp",
+    "id": "ref-10rzwzx",
+    "source": "product-reference",
+    "productName": "20\" FREESTYLE BIKE",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702491/k9qm89lfrqiazmxi4eel.webp",
+    "alt": "20” AS-A1021-20-1",
+    "format": "webp",
+    "id": "ref-y5qblv",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702497/m0f03rg7pme0kwxdvjjv.webp",
+    "alt": "20” AS-A1021-20-2",
+    "format": "webp",
+    "id": "ref-x1xowh",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702497/xkic23kkurdifvvwtbtv.webp",
+    "alt": "20” AS-A1021-20-3",
+    "format": "webp",
+    "id": "ref-1nkmcak",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702498/elhpo8tbz8jq3hfwswc2.webp",
+    "alt": "20” AS-A1021-20",
+    "format": "webp",
+    "id": "ref-rfgt7k",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702589/f1obbajtzeptqyuuinc3.webp",
+    "alt": "20” AS-1022-20",
+    "format": "webp",
+    "id": "ref-zctkcc",
+    "source": "product-reference",
+    "productName": "20\" KID'S BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702742/fukuca1d6mylf7kp2pbt.webp",
+    "alt": "24” ES-001-24",
+    "format": "webp",
+    "id": "ref-lah2m",
+    "source": "product-reference",
+    "productName": "24\" BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702872/dq2ebsrub3yll9iusdgw.webp",
+    "alt": "24” ES-002-24",
+    "format": "webp",
+    "id": "ref-b0p8um",
+    "source": "product-reference",
+    "productName": "24\" BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702937/ckfemgr7skulzrreryaq.webp",
+    "alt": "24” ES-003-24",
+    "format": "webp",
+    "id": "ref-6m8zkz",
+    "source": "product-reference",
+    "productName": "24\" BIKE - BOY",
+    "categoryName": "Bikes"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701426/oesd5am7kys4uu38qwpc.webp",
+    "alt": "VK26-3102_01_Angle",
+    "format": "webp",
+    "id": "ref-qq9nf8",
+    "source": "product-reference",
+    "productName": "VK26-3102",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701429/ws3l3vmbltyqyvxf5tjg.webp",
+    "alt": "VK26-3102_02_Plain",
+    "format": "webp",
+    "id": "ref-1k0j7r5",
+    "source": "product-reference",
+    "productName": "VK26-3102",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701505/zlvogl0e162dwxzadh6i.webp",
+    "alt": "VK26-3103_01_Angle",
+    "format": "webp",
+    "id": "ref-ilr8wn",
+    "source": "product-reference",
+    "productName": "VK26-3103",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701508/bpvcuwys956szb5nozob.webp",
+    "alt": "VK26-3103_02_Plain",
+    "format": "webp",
+    "id": "ref-1yk01fs",
+    "source": "product-reference",
+    "productName": "VK26-3103",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701578/xpar5pfcxkx2in8juugy.webp",
+    "alt": "VK26-3104_01_Angle",
+    "format": "webp",
+    "id": "ref-1fjvt5l",
+    "source": "product-reference",
+    "productName": "VK26-3104",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701582/j1614vhlfqhpzwoywnx7.webp",
+    "alt": "VK26-3104_02_Plain",
+    "format": "webp",
+    "id": "ref-1hutr67",
+    "source": "product-reference",
+    "productName": "VK26-3104",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701647/caf5johkzyw7pbkalj9v.webp",
+    "alt": "VK26-3105_01_Angle",
+    "format": "webp",
+    "id": "ref-1vpqs1g",
+    "source": "product-reference",
+    "productName": "VK26-3105",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701650/tbf9avshecft3j6xzmka.webp",
+    "alt": "VK26-3105_02_Plain",
+    "format": "webp",
+    "id": "ref-rt7j4k",
+    "source": "product-reference",
+    "productName": "VK26-3105",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701752/gp99gytgmtaztcfg4ken.webp",
+    "alt": "VK26-3106_01_Angle",
+    "format": "webp",
+    "id": "ref-1g35b2y",
+    "source": "product-reference",
+    "productName": "VK26-3106",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701755/shy1lgtx4hsykm3h3sdw.webp",
+    "alt": "VK26-3106_02_Plain",
+    "format": "webp",
+    "id": "ref-13xus4x",
+    "source": "product-reference",
+    "productName": "VK26-3106",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701837/lml829qwv9scksvkqout.webp",
+    "alt": "VK26-3108_01_Angle",
+    "format": "webp",
+    "id": "ref-1g2jq5n",
+    "source": "product-reference",
+    "productName": "VK26-3108",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784701842/vlncmajckt1vlbqajarx.webp",
+    "alt": "VK26-3108_02_Plain",
+    "format": "webp",
+    "id": "ref-1726uwx",
+    "source": "product-reference",
+    "productName": "VK26-3108",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702007/pvpgrshgkoqga6i8emye.webp",
+    "alt": "VK26-3112_01_Angle",
+    "format": "webp",
+    "id": "ref-ko8wyf",
+    "source": "product-reference",
+    "productName": "VK26-3112",
+    "categoryName": "Parts"
+  },
+  {
+    "url": "https://res.cloudinary.com/dvzdptb3i/image/upload/v1784702010/uuutqiffy4fod6bz9flo.webp",
+    "alt": "VK26-3112_02_Plain",
+    "format": "webp",
+    "id": "ref-phox2x",
+    "source": "product-reference",
+    "productName": "VK26-3112",
+    "categoryName": "Parts"
   }
 ];
   var badges = [];
@@ -6585,7 +6864,7 @@
     "alt": "c582e4b4-3f2f-41c7-a1a4-445e8a87fa67"
   }
 ];
-  var publishId = "pub_mrvq20sl_tyh4t1";
+  var publishId = "pub_mrx92ujx_ytev3k";
   var map = {};
   categories.forEach(function (c) { map[c.id] = c; });
   window.STORE = { categories: categories, map: map, HEX: HEX, images: images, badges: badges, hero: hero, publishId: publishId };
